@@ -1,6 +1,6 @@
-﻿using StatePattern.Contexts;
+﻿using Contexts;
 
-namespace StatePattern.States
+namespace States
 {
     public interface IState
     {

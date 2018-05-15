@@ -1,6 +1,6 @@
-﻿using StatePattern.States;
+﻿using States;
 
-namespace StatePattern.Contexts
+namespace Contexts
 {
     public abstract class Context : IContext
     {
