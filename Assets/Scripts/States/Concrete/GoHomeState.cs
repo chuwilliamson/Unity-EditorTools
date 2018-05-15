@@ -5,14 +5,16 @@ namespace States.Concrete
 {
     public class GoHomeState : State
     {
-        float home_distance;
         private AntData Data => UnityEngine.Resources.Load<AntData>("AntData");
+
         public override void Update(IContext context)
         {
-            home_distance = Data.HomeDistance;
+            Data.Velocity = (Data.HomePosition - Data.AntPosition).normalized;
 
-            if(home_distance <= 10)
-                context.ChangeState(new FindLeafState {Context = context});
+            if (Data.HomeDistance <= 1)
+                context.ChangeState(new FindLeafState { Context = context });
+            if (Data.CursorDistance <= 2)
+                context.ChangeState(new RunAwayState { Context = context });
         }
     }
 }

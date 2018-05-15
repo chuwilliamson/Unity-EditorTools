@@ -5,12 +5,16 @@ namespace Data
     [CreateAssetMenu(menuName = "Data/AntData")]
     public class AntData : ScriptableObject
     {
-        public Vector2 AntPosition;
-        public Vector2 HomePosition;
-        public Vector2 LeafPosition;
+        //updated from FSMBehaviour
+        public Vector3 AntPosition;
+        public Vector3 HomePosition;
+        public Vector3 LeafPosition;
+        public Vector3 Velocity;
+        public Vector3 CursorPosition;
 
-        public float CursorDistance => Vector2.Distance(a: Input.mousePosition, b: AntPosition);
-        public float HomeDistance => Vector2.Distance(a: HomePosition, b: AntPosition);
-        public float LeafDistance => Vector2.Distance(a: LeafPosition, b: AntPosition);
+        //only readable info
+        public float CursorDistance => Vector3.Distance(a: CursorPosition, b: AntPosition);
+        public float HomeDistance => Vector3.Distance(a: HomePosition, b: AntPosition);
+        public float LeafDistance => Vector3.Distance(a: LeafPosition, b: AntPosition);
     }
 }
