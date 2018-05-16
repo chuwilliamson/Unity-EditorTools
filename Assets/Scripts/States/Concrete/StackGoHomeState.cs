@@ -10,13 +10,13 @@ namespace States.Concrete
 
             if (Data.HomeDistance <= 1)
             {
-                context.Pop();
-                context.Push(new StackFindLeafState { Context = context });
+                context.PopState();
+                context.PushState(new StackFindLeafState { Context = context });
             }
 
             if (Data.CursorDistance <= 2)
             {
-                context.Push(new StackRunAwayState { Context = context });
+                context.PushState(new StackRunAwayState { Context = context });
             }
                 
 

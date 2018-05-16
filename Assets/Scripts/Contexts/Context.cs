@@ -13,7 +13,7 @@ namespace Contexts
             CurrentState.OnExit(this);
         }
 
-        public abstract void Push(IState state);
-        public abstract void Pop();
+        public abstract void PushState(IState state);
+        public abstract void PopState();
     }
 }

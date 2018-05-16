@@ -8,7 +8,7 @@ namespace States.Concrete
         {
             Data.Velocity = (Data.AntPosition - Data.CursorPosition).normalized;
             if (Data.CursorDistance > 2)
-                context.Pop();
+                context.PopState();
         }
     }
 }

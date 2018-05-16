@@ -9,11 +9,11 @@ namespace States.Concrete
             Data.Velocity = (Data.LeafPosition - Data.AntPosition).normalized;
 
             if (Data.CursorDistance <= 2)
-                context.Push(new StackRunAwayState { Context = context });
+                context.PushState(new StackRunAwayState { Context = context });
             if (Data.LeafDistance <= 1)
             {
-                context.Pop();
-                context.Push(new StackGoHomeState { Context = context });
+                context.PopState();
+                context.PushState(new StackGoHomeState { Context = context });
             }
                 
         }

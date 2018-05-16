@@ -21,7 +21,7 @@ namespace Contexts.Concrete
             Stack.Push(CurrentState);
 
         }
-        public override void Push(IState state)
+        public override void PushState(IState state)
         {
             //push the incoming state onto the stack only if it is not what the current state is
             if (state == CurrentState)
@@ -30,7 +30,7 @@ namespace Contexts.Concrete
             Stack.Push(item: state);
         }
 
-        public override void Pop()
+        public override void PopState()
         {
             CurrentState.OnExit(this);
             LastState = Stack.Pop();

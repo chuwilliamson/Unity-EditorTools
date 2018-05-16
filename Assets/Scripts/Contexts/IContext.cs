@@ -10,7 +10,7 @@ namespace Contexts
 
     public interface IStackContext
     {
-        void Push(IState state);
-        void Pop();
+        void PushState(IState state);
+        void PopState();
     }
 }
