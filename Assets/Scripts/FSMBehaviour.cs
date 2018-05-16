@@ -1,4 +1,5 @@
-﻿using Contexts.Concrete;
+﻿using Contexts;
+using Contexts.Concrete;
 using Data;
 using States.Concrete;
 using UnityEngine;
@@ -12,14 +13,10 @@ public class FSMBehaviour : MonoBehaviour
     public Transform HomeTransform;
     public string CurrentStateName;
 
-    private readonly AntContext AntContext = new AntContext
-    {
-        CurrentState = new GoHomeState()
-    };
+    public AntContext AntContext => new AntContext {CurrentState = new GoHomeState()};
+        
 
-    
-
-    private void Update()
+    public virtual void Update()
     {
         Debug.DrawLine(transform.position, transform.position + _antData.Velocity);
 
@@ -31,12 +28,12 @@ public class FSMBehaviour : MonoBehaviour
         _antData.AntPosition = transform.position;
         _antData.HomePosition = HomeTransform.position;
         _antData.LeafPosition = LeafTransform.position;
-        
-        
+
+
         transform.position += _antData.Velocity * Time.deltaTime;
 
         AntContext.Update(this);
 
         CurrentStateName = AntContext.CurrentState.ToString();
-    } 
+    }
 }

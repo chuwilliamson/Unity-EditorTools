@@ -5,14 +5,11 @@ namespace States.Concrete
 {
     public class FindLeafState : State
     {
-        private AntData Data => UnityEngine.Resources.Load<AntData>("AntData");
-        public float cursor_distance;
+        protected AntData Data => UnityEngine.Resources.Load<AntData>("AntData");
 
         public override void Update(IContext context)
         {
-            Data.Velocity = (Data.LeafPosition - Data.AntPosition).normalized;
-
-            cursor_distance = Data.CursorDistance;
+            Data.Velocity = (Data.LeafPosition - Data.AntPosition).normalized; 
 
             if (Data.CursorDistance <= 2)
                 context.ChangeState(new RunAwayState { Context = context });

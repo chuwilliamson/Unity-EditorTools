@@ -2,7 +2,7 @@
 
 namespace Contexts
 {
-    public abstract class Context : IContext
+    public abstract class Context : IContext, IStackContext
     {
         public IState CurrentState { get; set; }
 
@@ -12,5 +12,8 @@ namespace Contexts
             CurrentState = state;
             CurrentState.OnExit(this);
         }
+
+        public abstract void Push(IState state);
+        public abstract void Pop();
     }
 }
