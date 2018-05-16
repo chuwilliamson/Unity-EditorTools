@@ -13,7 +13,8 @@ public class FSMBehaviour : MonoBehaviour
     public Transform HomeTransform;
     public string CurrentStateName;
 
-    public AntContext AntContext => new AntContext {CurrentState = new GoHomeState()};
+    public AntContext AntContext => 
+        new AntContext(new GoHomeState());
         
 
     public virtual void Update()

@@ -492,8 +492,8 @@ GameObject:
   serializedVersion: 5
   m_Component:
   - component: {fileID: 1656151855}
-  - component: {fileID: 1656151853}
   - component: {fileID: 1656151854}
+  - component: {fileID: 1656151853}
   m_Layer: 0
   m_Name: ant
   m_TagString: Untagged
@@ -509,15 +509,13 @@ MonoBehaviour:
   m_GameObject: {fileID: 1656151852}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 67aa70ffea4c9c948ac8405ce1169f94, type: 3}
+  m_Script: {fileID: 11500000, guid: f415ecf3c7174cb7ad5109002d20f439, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
   _antData: {fileID: 11400000, guid: 9280b09975082184a80278f5963e3652, type: 2}
   LeafTransform: {fileID: 235632317}
   HomeTransform: {fileID: 638648356}
   CurrentStateName: 
-  mousepos: {x: 0, y: 0}
-  cursordistance: 0
 --- !u!212 &1656151854
 SpriteRenderer:
   m_ObjectHideFlags: 0

@@ -13,17 +13,29 @@ namespace Contexts.Concrete
         {
             CurrentState.Update(this);
         }
+        public IState LastState { get; set; }
+        public AntContext(IState initial)
+        {
+            CurrentState = initial;
+            CurrentState.Context = this;
+            Stack.Push(CurrentState);
 
+        }
         public override void Push(IState state)
         {
-            if (state == CurrentState || state == Stack.Peek())
+            //push the incoming state onto the stack only if it is not what the current state is
+            if (state == CurrentState)
                 return;
+
             Stack.Push(item: state);
         }
 
         public override void Pop()
         {
-            CurrentState = Stack.Pop();
+            CurrentState.OnExit(this);
+            LastState = Stack.Pop();
+            CurrentState = Stack.Peek();
+            CurrentState.OnEnter(this);
         }
     }
 }
