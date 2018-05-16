@@ -1,8 +1,10 @@
-﻿using Contexts;
+﻿using System.Collections.Generic;
+using Contexts;
 using Contexts.Concrete;
 using Data;
 using States.Concrete;
 using UnityEngine;
+using UnityEngine.UI;
 
 public class StackFSMBehaviour : MonoBehaviour
 {
@@ -13,10 +15,19 @@ public class StackFSMBehaviour : MonoBehaviour
     public Transform HomeTransform;
     public string CurrentStateName;
 
-    public AntContext AntContext => new AntContext(new StackGoHomeState());
+
+    public AntContext AntContext;
    
+    private void OnEnable()
+    {
+        _antData = Instantiate(_antData);
+        _antData.Inventory = new List<string>();
+        AntContext = new AntContext(new StackFindLeafState(), _antData);
+        
+    }
 
-
+    [Range(1,3)]
+    public float speed = 3;
     public virtual void Update()
     {
         Debug.DrawLine(transform.position, transform.position + _antData.Velocity);
@@ -31,7 +42,7 @@ public class StackFSMBehaviour : MonoBehaviour
         _antData.LeafPosition = LeafTransform.position;
 
 
-        transform.position += _antData.Velocity * Time.deltaTime;
+        transform.position += _antData.Velocity * Time.deltaTime * speed;
 
         AntContext.Update(this);
 
