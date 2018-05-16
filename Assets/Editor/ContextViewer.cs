@@ -4,20 +4,26 @@ namespace Editor
 {
     public class ContextViewer : EditorWindow
     {
-    
+        Object obj;
         [MenuItem("Tools/StackViewer")]
         static void Init()
         {
             var w = CreateInstance<ContextViewer>();
             w.Show();
         }
-        
+
         void OnGUI()
         {
-            var rect1 = new UnityEngine.Rect();
-            var activeObject = Selection.activeObject;
-            var so = new SerializedObject(activeObject);
-            //EditorGUI.ObjectField(position: rect1, );
+            var fsm = Selection.activeGameObject.GetComponent<StackFSMBehaviour>();
+            if (fsm == null) return;
+            var states = fsm.AntContext.Stack.ToArray();
+            int i = 0;
+            foreach (var s in states)
+            {
+                //GUI.Box()
+                i++;
+            }
+
         }
     }
 }
