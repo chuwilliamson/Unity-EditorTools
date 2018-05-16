@@ -1,13 +1,15 @@
-﻿using Data;
-using Contexts;
+﻿using Contexts;
 using Contexts.Concrete;
+using Data;
 using UnityEngine;
 
 namespace States.Concrete
 {
-    public class StackCollectLeafState : State
+    public class StackDropOffState : State
     {
         protected AntData Data;
+        protected BankData BankData => Resources.Load<BankData>("BankData");
+
         public override void OnEnter(IContext context)
         {
             Data = ((AntContext)context).Data;
@@ -15,20 +17,23 @@ namespace States.Concrete
         }
 
         private float timer = 0f;
+
         public override void Update(IContext context)
         {
             Data.Velocity = Vector3.zero;
             timer += Time.deltaTime;
-            if (Data.Inventory.Count <= 4)
+            foreach (var item in Data.Inventory)
             {
-                Data.Inventory.Add("Leaf");
+                BankData.Bank.Add(item);
             }
+
+            Data.Inventory.Clear();
 
             if (timer >= 3f)
             {
-                Debug.Log("Inventory: " + Data.Inventory.Count);
+                Debug.Log("Bank: " + BankData.Bank.Count + " / Inventory: " + Data.Inventory.Count);
                 context.PopState();
-                context.PushState(new StackGoHomeState { Context = context });
+                context.PushState(new StackFindLeafState { Context = context });
             }
         }
     }

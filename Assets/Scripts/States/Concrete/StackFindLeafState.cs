@@ -12,6 +12,7 @@ namespace States.Concrete
             Data = ((AntContext)context).Data;
             base.OnEnter(context);
         }
+
         public override void Update(IContext context)
         {
             Data.Velocity = (Data.LeafPosition - Data.AntPosition).normalized;

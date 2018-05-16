@@ -18,14 +18,12 @@ namespace Contexts.Concrete
 
         public AntContext(IState initial, AntData data) : this(initial)
         {
-            UnityEngine.Debug.Log("ant constructor");
             Data = data;
             CurrentState.OnEnter(this);
         }
 
         public AntContext(IState initial)
         {
-            UnityEngine.Debug.Log("ant constructor");
             Stack = new Stack<IState>();
             CurrentState = initial;
             CurrentState.Context = this;
