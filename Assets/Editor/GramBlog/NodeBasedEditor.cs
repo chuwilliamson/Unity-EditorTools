@@ -12,7 +12,7 @@ namespace Editor.GramBlog
         GUIStyle inPointStyle;
         Rect menuBar;
 
-        readonly float menuBarHeight = 20f;
+        const float menuBarHeight = 20f;
         List<Node> nodes;
 
         GUIStyle nodeStyle;
@@ -33,28 +33,46 @@ namespace Editor.GramBlog
 
         void OnEnable()
         {
-            nodeStyle = new GUIStyle();
-            nodeStyle.normal.background = EditorGUIUtility.Load("builtin skins/darkskin/images/node1.png") as Texture2D;
-            nodeStyle.border = new RectOffset(12, 12, 12, 12);
+            nodeStyle = new GUIStyle
+            {
+                normal = {background = EditorGUIUtility.Load("builtin skins/darkskin/images/node1.png") as Texture2D},
+                border = new RectOffset(12, 12, 12, 12)
+            };
 
-            selectedNodeStyle = new GUIStyle();
-            selectedNodeStyle.normal.background =
-                EditorGUIUtility.Load("builtin skins/darkskin/images/node1 on.png") as Texture2D;
-            selectedNodeStyle.border = new RectOffset(12, 12, 12, 12);
+            selectedNodeStyle = new GUIStyle
+            {
+                normal =
+                {
+                    background = EditorGUIUtility.Load("builtin skins/darkskin/images/node1 on.png") as Texture2D
+                },
+                border = new RectOffset(12, 12, 12, 12)
+            };
 
-            inPointStyle = new GUIStyle();
-            inPointStyle.normal.background =
-                EditorGUIUtility.Load("builtin skins/darkskin/images/btn left.png") as Texture2D;
-            inPointStyle.active.background =
-                EditorGUIUtility.Load("builtin skins/darkskin/images/btn left on.png") as Texture2D;
-            inPointStyle.border = new RectOffset(4, 4, 12, 12);
+            inPointStyle = new GUIStyle
+            {
+                normal =
+                {
+                    background = EditorGUIUtility.Load("builtin skins/darkskin/images/btn left.png") as Texture2D
+                },
+                active =
+                {
+                    background = EditorGUIUtility.Load("builtin skins/darkskin/images/btn left on.png") as Texture2D
+                },
+                border = new RectOffset(4, 4, 12, 12)
+            };
 
-            outPointStyle = new GUIStyle();
-            outPointStyle.normal.background =
-                EditorGUIUtility.Load("builtin skins/darkskin/images/btn right.png") as Texture2D;
-            outPointStyle.active.background =
-                EditorGUIUtility.Load("builtin skins/darkskin/images/btn right on.png") as Texture2D;
-            outPointStyle.border = new RectOffset(4, 4, 12, 12);
+            outPointStyle = new GUIStyle
+            {
+                normal =
+                {
+                    background = EditorGUIUtility.Load("builtin skins/darkskin/images/btn right.png") as Texture2D
+                },
+                active =
+                {
+                    background = EditorGUIUtility.Load("builtin skins/darkskin/images/btn right on.png") as Texture2D
+                },
+                border = new RectOffset(4, 4, 12, 12)
+            };
         }
 
         void OnGUI()
@@ -118,16 +136,16 @@ namespace Editor.GramBlog
 
         void DrawNodes()
         {
-            if (nodes != null)
-                for (var i = 0; i < nodes.Count; i++)
-                    nodes[index: i].Draw();
+            if (nodes == null) return;
+            foreach (var t in nodes)
+                t.Draw();
         }
 
         void DrawConnections()
         {
-            if (connections != null)
-                for (var i = 0; i < connections.Count; i++)
-                    connections[index: i].Draw();
+            if (connections == null) return;
+            foreach (var t in connections)
+                t.Draw();
         }
 
         void ProcessEvents(Event e)
@@ -148,19 +166,25 @@ namespace Editor.GramBlog
                     if (e.button == 0)
                         OnDrag(delta: e.delta);
                     break;
+                case EventType.DragExited:
+                    if (e.button == 0)
+                    {
+                        
+                    }
+                    break;
             }
         }
 
         void ProcessNodeEvents(Event e)
         {
-            if (nodes != null)
-                for (var i = nodes.Count - 1; i >= 0; i--)
-                {
-                    var guiChanged = nodes[index: i].ProcessEvents(e: e);
+            if (nodes == null) return;
+            for (var i = nodes.Count - 1; i >= 0; i--)
+            {
+                var guiChanged = nodes[index: i].ProcessEvents(e: e);
 
-                    if (guiChanged)
-                        GUI.changed = true;
-                }
+                if (guiChanged)
+                    GUI.changed = true;
+            }
         }
 
         void DrawConnectionLine(Event e)
@@ -180,20 +204,18 @@ namespace Editor.GramBlog
                 GUI.changed = true;
             }
 
-            if (selectedOutPoint != null && selectedInPoint == null)
-            {
-                Handles.DrawBezier(
-                    startPosition: selectedOutPoint.rect.center,
-                    endPosition: e.mousePosition,
-                    startTangent: selectedOutPoint.rect.center - Vector2.left * 50f,
-                    endTangent: e.mousePosition + Vector2.left * 50f,
-                    color: Color.white,
-                    texture: null,
-                    width: 2f
-                );
+            if (selectedOutPoint == null || selectedInPoint != null) return;
+            Handles.DrawBezier(
+                startPosition: selectedOutPoint.rect.center,
+                endPosition: e.mousePosition,
+                startTangent: selectedOutPoint.rect.center - Vector2.left * 50f,
+                endTangent: e.mousePosition + Vector2.left * 50f,
+                color: Color.white,
+                texture: null,
+                width: 2f
+            );
 
-                GUI.changed = true;
-            }
+            GUI.changed = true;
         }
 
         void ProcessContextMenu(Vector2 mousePosition)
@@ -208,8 +230,8 @@ namespace Editor.GramBlog
             drag = delta;
 
             if (nodes != null)
-                for (var i = 0; i < nodes.Count; i++)
-                    nodes[index: i].Drag(delta: delta);
+                foreach (var t in nodes)
+                    t.Drag(delta: delta);
 
             GUI.changed = true;
         }
@@ -221,39 +243,40 @@ namespace Editor.GramBlog
 
             nodes.Add(new Node(position: mousePosition, width: 200, height: 50, nodeStyle: nodeStyle,
                 selectedStyle: selectedNodeStyle, inPointStyle: inPointStyle, outPointStyle: outPointStyle,
-                OnClickInPoint: OnClickInPoint, OnClickOutPoint: OnClickOutPoint, OnClickRemoveNode: OnClickRemoveNode));
+                OnClickInPoint: OnClickInPoint, OnClickOutPoint: OnClickOutPoint,
+                OnClickRemoveNode: OnClickRemoveNode));
         }
 
         void OnClickInPoint(ConnectionPoint inPoint)
         {
             selectedInPoint = inPoint;
 
-            if (selectedOutPoint != null)
-                if (selectedOutPoint.node != selectedInPoint.node)
-                {
-                    CreateConnection();
-                    ClearConnectionSelection();
-                }
-                else
-                {
-                    ClearConnectionSelection();
-                }
+            if (selectedOutPoint == null) return;
+            if (selectedOutPoint.node != selectedInPoint.node)
+            {
+                CreateConnection();
+                ClearConnectionSelection();
+            }
+            else
+            {
+                ClearConnectionSelection();
+            }
         }
 
         void OnClickOutPoint(ConnectionPoint outPoint)
         {
             selectedOutPoint = outPoint;
 
-            if (selectedInPoint != null)
-                if (selectedOutPoint.node != selectedInPoint.node)
-                {
-                    CreateConnection();
-                    ClearConnectionSelection();
-                }
-                else
-                {
-                    ClearConnectionSelection();
-                }
+            if (selectedInPoint == null) return;
+            if (selectedOutPoint.node != selectedInPoint.node)
+            {
+                CreateConnection();
+                ClearConnectionSelection();
+            }
+            else
+            {
+                ClearConnectionSelection();
+            }
         }
 
         void OnClickRemoveNode(Node node)
@@ -262,14 +285,13 @@ namespace Editor.GramBlog
             {
                 var connectionsToRemove = new List<Connection>();
 
-                for (var i = 0; i < connections.Count; i++)
-                    if (connections[index: i].inPoint == node.inPoint || connections[index: i].outPoint == node.outPoint)
-                        connectionsToRemove.Add(connections[index: i]);
+                foreach (Connection t in connections)
+                    if (t.inPoint == node.inPoint ||
+                        t.outPoint == node.outPoint)
+                        connectionsToRemove.Add(t);
 
-                for (var i = 0; i < connectionsToRemove.Count; i++)
-                    connections.Remove(connectionsToRemove[index: i]);
-
-                connectionsToRemove = null;
+                foreach (Connection t in connectionsToRemove)
+                    connections.Remove(t);
             }
 
             nodes.Remove(item: node);

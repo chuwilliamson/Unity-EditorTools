@@ -1,5 +1,5 @@
 ﻿using UnityEditor;
-
+using UnityEngine;
 namespace Editor
 {
     public class ContextViewer : EditorWindow
@@ -14,7 +14,10 @@ namespace Editor
         
         void OnGUI()
         {
-
+            var rect1 = new UnityEngine.Rect();
+            var activeObject = Selection.activeObject;
+            var so = new SerializedObject(activeObject);
+            //EditorGUI.ObjectField(position: rect1, );
         }
     }
 }
