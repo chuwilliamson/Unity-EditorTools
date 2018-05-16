@@ -15,11 +15,15 @@ public class StackFSMBehaviour : MonoBehaviour
     public Transform HomeTransform;
     public string CurrentStateName;
 
-    public AntContext AntContext => new AntContext(new StackFindLeafState(), _antData);
+
+    public AntContext AntContext;
    
-    private void Start()
+    private void OnEnable()
     {
+        _antData = Instantiate(_antData);
         _antData.Inventory = new List<string>();
+        AntContext = new AntContext(new StackFindLeafState(), _antData);
+        
     }
 
     [Range(1,3)]

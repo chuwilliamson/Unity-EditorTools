@@ -17,7 +17,7 @@ namespace States.Concrete
         private float timer = 0f;
         public override void Update(IContext context)
         {
-            Data.Velocity = (Data.LeafPosition - Data.AntPosition).normalized;
+            Data.Velocity = Vector3.zero;
             timer += Time.deltaTime;
             if (Data.Inventory.Count <= 4)
             {
