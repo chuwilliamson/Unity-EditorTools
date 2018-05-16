@@ -1,5 +1,6 @@
 ﻿
 using System.Collections.Generic;
+using Data;
 using States;
 using UnityEngine;
 
@@ -9,10 +10,16 @@ namespace Contexts.Concrete
     public class AntContext : Context
     {
         public Stack<IState> Stack;
-
+        public AntData Data { get; set; }
         public void Update(object sender)
         {
             CurrentState.Update(this);
+        }
+
+        public AntContext(IState initial, AntData data) : this(initial)
+        {
+            Data = data;
+            CurrentState.OnEnter(this);
         }
 
         public AntContext(IState initial)
@@ -37,10 +44,10 @@ namespace Contexts.Concrete
         {
             if (Stack.Count <= 1)
                 return;
-
+            CurrentState.OnExit(this);
             Stack.Pop();
             CurrentState = Stack.Peek();
-            CurrentState.OnExit(this);
+            CurrentState.OnEnter(this);
         }
     }
 }

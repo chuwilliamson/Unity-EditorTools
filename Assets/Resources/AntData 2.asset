@@ -9,11 +9,11 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 18773930821f4bc39e4abe62388490d4, type: 3}
-  m_Name: AntData
+  m_Name: AntData 2
   m_EditorClassIdentifier: 
-  AntPosition: {x: -4.8361692, y: 2.0151567, z: 0}
-  HomePosition: {x: 6, y: -4, z: 0}
-  LeafPosition: {x: -9.63, y: 6.03, z: 0}
-  Velocity: {x: -0.7666472, y: 0.6420686, z: 0}
-  CursorPosition: {x: 2.225911, y: 17.262396, z: 0}
+  AntPosition: {x: 0, y: 0, z: 0}
+  HomePosition: {x: 0, y: 0, z: 0}
+  LeafPosition: {x: 0, y: 0, z: 0}
+  Velocity: {x: 0, y: 0, z: 0}
+  CursorPosition: {x: 0, y: 0, z: 0}
   Inventory: []

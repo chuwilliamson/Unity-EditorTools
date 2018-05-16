@@ -15,7 +15,8 @@ public class StackFSMBehaviour : MonoBehaviour
     public Transform HomeTransform;
     public string CurrentStateName;
 
-    public AntContext AntContext = new AntContext(new StackFindLeafState());
+    public AntContext AntContext => new AntContext(new StackFindLeafState(), _antData);
+   
     private void Start()
     {
         _antData.Inventory = new List<string>();
