@@ -25,12 +25,10 @@ namespace Contexts.Concrete
 
         public override void PushState(IState state)
         {
-            //push the incoming state onto the stack only if it is not what the current state is
             if (state == CurrentState)
                 return;
 
-            Stack.Push(item: state);
-
+            Stack.Push(state);
             CurrentState = Stack.Peek();
             CurrentState.OnEnter(this);
         }
@@ -39,8 +37,10 @@ namespace Contexts.Concrete
         {
             if (Stack.Count <= 1)
                 return;
-            CurrentState.OnExit(this);
+
+            Stack.Pop();
             CurrentState = Stack.Peek();
+            CurrentState.OnExit(this);
         }
     }
 }
