@@ -1,5 +1,8 @@
 ﻿using UnityEditor;
 using UnityEngine;
+using System.Linq;
+using States;
+
 namespace Editor
 {
     public class ContextViewer : EditorWindow
@@ -16,14 +19,23 @@ namespace Editor
         {
             var fsm = Selection.activeGameObject.GetComponent<StackFSMBehaviour>();
             if (fsm == null) return;
-            var states = fsm.AntContext.Stack.ToArray();
-            int i = 0;
-            foreach (var s in states)
+            var states = fsm.AntContext?.Stack?.ToList();
+
+            if (states?.Count <= 0)
+                return;
+
+            EditorGUILayout.LabelField(fsm.name);
+            
+            for (int i = 0; i < states?.Count; i++)
             {
-                //GUI.Box()
-                i++;
+                var rect = new Rect(new Vector2(10, Screen.height), new Vector2(150, 50));
+                rect.y = rect.y + (i * rect.height);
+                rect.y += i * 25;
+                var state = states[i].GetType().Name;
+                GUI.Box(position: rect, content: new GUIContent(text: state));
             }
 
+            Repaint();
         }
     }
 }
