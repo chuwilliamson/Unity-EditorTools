@@ -13,10 +13,10 @@ public class StackFSMBehaviour : MonoBehaviour
     public Transform HomeTransform;
     public string CurrentStateName;
 
-    public AntContext AntContext => new AntContext(new StackGoHomeState());
-   
+    public AntContext AntContext = new AntContext(new StackFindLeafState());
 
-
+    [Range(1,2)]
+    public float speed = 2;
     public virtual void Update()
     {
         Debug.DrawLine(transform.position, transform.position + _antData.Velocity);
@@ -31,7 +31,7 @@ public class StackFSMBehaviour : MonoBehaviour
         _antData.LeafPosition = LeafTransform.position;
 
 
-        transform.position += _antData.Velocity * Time.deltaTime;
+        transform.position += _antData.Velocity * Time.deltaTime * speed;
 
         AntContext.Update(this);
 

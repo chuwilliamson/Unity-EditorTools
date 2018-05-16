@@ -7,8 +7,10 @@ namespace States.Concrete
         public override void Update(IContext context)
         {
             Data.Velocity = (Data.AntPosition - Data.CursorPosition).normalized;
-            if (Data.CursorDistance > 2)
+            if (Data.CursorDistance > 5)
+            {
                 context.PopState();
+            }
         }
     }
 }

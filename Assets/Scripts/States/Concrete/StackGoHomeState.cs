@@ -18,7 +18,7 @@ namespace States.Concrete
             {
                 context.PushState(new StackRunAwayState { Context = context });
             }
-                
+
 
         }
     }
