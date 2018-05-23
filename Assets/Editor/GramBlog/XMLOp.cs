@@ -1,7 +1,7 @@
 ﻿using System.IO;
 using System.Xml.Serialization;
 
-namespace Editor.GramBlog
+namespace _Editor.GramBlog
 {
     public class XMLOp
     {

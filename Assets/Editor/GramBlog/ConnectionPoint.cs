@@ -2,7 +2,7 @@
 using System.Xml.Serialization;
 using UnityEngine;
 
-namespace Editor.GramBlog
+namespace _Editor.GramBlog
 {
     public class ConnectionPoint
     {

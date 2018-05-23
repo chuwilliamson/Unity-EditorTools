@@ -1,15 +1,17 @@
+using ChuTools;
 using System;
 using System.Xml.Serialization;
 using UnityEditor;
 using UnityEngine;
 
-namespace Editor.GramBlog
+namespace _Editor.GramBlog
 {
     public class Connection
     {
         public ConnectionPoint inPoint;
 
-        [XmlIgnore] public Action<Connection> OnClickRemoveConnection;
+        [XmlIgnore]
+        public Action<Connection> OnClickRemoveConnection;
 
         public ConnectionPoint outPoint;
 
@@ -36,7 +38,8 @@ namespace Editor.GramBlog
                 width: 2f
             );
 
-            if (Handles.Button((inPoint.rect.center + outPoint.rect.center) * 0.5f, direction: Quaternion.identity, size: 4,
+            if (Handles.Button((inPoint.rect.center + outPoint.rect.center) * 0.5f,
+                direction: Quaternion.identity, size: 4,
                 pickSize: 8, capFunc: Handles.RectangleCap))
                 if (OnClickRemoveConnection != null)
                     OnClickRemoveConnection(this);

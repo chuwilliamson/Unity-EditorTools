@@ -3,7 +3,7 @@ using UnityEngine;
 using System.Linq;
 using States;
 
-namespace Editor
+namespace _Editor
 {
     public class ContextViewer : EditorWindow
     {

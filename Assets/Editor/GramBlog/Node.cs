@@ -3,7 +3,7 @@ using System.Xml.Serialization;
 using UnityEditor;
 using UnityEngine;
 
-namespace Editor.GramBlog
+namespace _Editor.GramBlog
 {
     public class Node
     {

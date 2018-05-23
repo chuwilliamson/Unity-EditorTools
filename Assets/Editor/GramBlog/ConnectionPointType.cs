@@ -1,4 +1,4 @@
-﻿namespace Editor.GramBlog
+﻿namespace _Editor.GramBlog
 {
     public enum ConnectionPointType
     {

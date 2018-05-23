@@ -3,7 +3,7 @@ using System.Linq;
 using UnityEditor;
 using UnityEngine;
 
-namespace Editor.GramBlog
+namespace _Editor.GramBlog
 {
     public class NodeBasedEditor : EditorWindow
     {
