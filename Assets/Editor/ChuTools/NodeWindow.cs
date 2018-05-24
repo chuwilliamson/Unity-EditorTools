@@ -4,10 +4,14 @@ using UnityEngine;
 
 namespace ChuTools
 {
+    public interface IDrawable
+    {
+        void Draw(Event e);
+    }
+
     public class NodeWindow : CustomEditorWindow
     {
-        private List<Node> _nodes;
-
+        public static List<IDrawable> Drawables = new List<IDrawable>();
         [MenuItem("Tools/NodeWindow")]
         private static void Init()
         {
@@ -16,10 +20,9 @@ namespace ChuTools
         }
 
         private void OnEnable()
-        {
-            _nodes = new List<Node>();
-            MyEventSystem.OnContextClick += CreateContextMenu;
-            
+        { 
+            Drawables = new List<IDrawable>();
+            MyEventSystem.OnContextClick += CreateContextMenu; 
         }
 
         private void OnGUI()
@@ -32,7 +35,7 @@ namespace ChuTools
                 value = MyEventSystem.Selected.ToString();
             EditorGUILayout.LabelField("EventSystem Selected", label2: value);
             
-
+            Drawables.ForEach(n=>n.Draw(Event.current)); 
             Repaint();
         }
 
@@ -46,9 +49,9 @@ namespace ChuTools
             e.Use();
         }
 
-        private void CreateNode(Vector2 pos) => _nodes.Add(item: new Node(pos, _nodes.Count) { NodeEventSystem = MyEventSystem });
+        private void CreateNode(Vector2 pos) => Drawables.Add(item: new Node(pos, Drawables.Count) { NodeEventSystem = MyEventSystem });
 
-        private void ClearNodes() => _nodes = new List<Node>();
+        private void ClearNodes() => Drawables = new List<IDrawable>();
 
        
     }
