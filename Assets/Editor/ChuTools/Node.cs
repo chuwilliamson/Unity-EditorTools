@@ -1,71 +1,106 @@
-﻿
+﻿using System;
+using NUnit.Framework.Internal.Commands;
 using UnityEngine;
-using Object = UnityEngine.Object;
+
 namespace ChuTools
 {
     public class Node
     {
-        private bool active;
-        public Rect rect;
-        
-        GUIStyle normal = new GUIStyle("flow node 0");
-        GUIStyle selected = new GUIStyle("flow node 0 on");
-        GUIStyle currentStyle;
-        public Object[] Data;
+
+        public int Id;
+        private IEventSystem _nodeEventSystem;
+        public IEventSystem NodeEventSystem
+        {
+            get { return _nodeEventSystem; }
+            set
+            {
+                _nodeEventSystem = value;
+                _nodeEventSystem.OnMouseUp += OnMouseUp;
+                _nodeEventSystem.OnMouseDown += OnMouseDown;
+              //  _nodeEventSystem.OnMouseDrag += OnMouseDrag;
+                _nodeEventSystem.OnRepaint += Draw;
+            }
+        }
+
+        public Rect Rect;
+
+        private readonly GUIStyle _normal = new GUIStyle("flow node 0");
+        private readonly GUIStyle _selected = new GUIStyle("flow node 0 on");
+        private GUIStyle _currentStyle;
 
         public Node()
-        {         
-            currentStyle = normal;            
+        {
+            _currentStyle = _normal;
         }
 
-        public Node(Vector2 position) : this()
-        { 
-            rect = new Rect(position, new Vector2(150, 50));                        
+        public Node(Vector2 position, int id) : this()
+        {
+            Rect = new Rect(position, size: new Vector2(150, 50));
+            Id = id;
         }
- 
+
         public void Draw(Event e)
         {
-            var botrect = rect;
-            botrect.position = new Vector2(rect.position.x, rect.position.y + rect.height);
+            var botrect = Rect;
+            botrect.position = new Vector2(Rect.position.x, y: Rect.position.y + Rect.height);
 
-            GUI.Box(rect, new GUIContent { text = rect.position.ToString() }, currentStyle);
-            var guistyle = new GUIStyle();
-            guistyle.normal.textColor = Color.white;
-            GUI.Box(botrect, rect.position.ToString(), guistyle);
+            GUI.Box(Rect, content: new GUIContent { text = Rect.position.ToString() }, style: _currentStyle);
+            var guistyle = new GUIStyle { normal = { textColor = Color.white } };
+            GUI.Box(botrect, text: Rect.position.ToString(), style: guistyle);
         }
+
 
         public void OnMouseDrag(Event e)
         {
-            if (!active) return;
+            var newposition = Rect.position + e.delta;
 
-            var newposition = rect.position + e.delta;
-
-            if (newposition.x < 0)//left
+            if (newposition.x < 0) //left
                 return;
-            if (newposition.y < 0)//top
+            if (newposition.y < 0) //top
                 return;
-
-            if (newposition.x > Screen.width - rect.width)//right
+            if (newposition.x > Screen.width - Rect.width) //right
                 return;
-            if (newposition.y > Screen.height - rect.height)//bottom
+            if (newposition.y > Screen.height - Rect.height) //bottom
                 return;
 
+            if (NodeEventSystem.Selected == this)
+            {
+                Rect.position = newposition;
+                e.Use();
+            }
 
-            rect.position = newposition;
         }
 
         public void OnMouseDown(Event e)
         {
-            if (!rect.Contains(e.mousePosition))
-                return;
-            active = true;
-            currentStyle = selected;
+            if (Rect.Contains(e.mousePosition))
+            {
+                if (NodeEventSystem.Selected == null)
+                {
+                    NodeEventSystem.Selected = this;
+                    e.Use();
+                }
+                else if (NodeEventSystem.Selected == this)
+                {
+
+                }
+            }
+            if (!Rect.Contains(e.mousePosition) && NodeEventSystem.Selected == this)
+            {
+                NodeEventSystem.Selected = null;
+            }
+
+            _currentStyle = NodeEventSystem.Selected == this ? _selected : _normal;
         }
 
         public void OnMouseUp(Event e)
         {
-            active = false;
-            currentStyle = normal; 
+
+        }
+
+        public override string ToString()
+        {
+            return string.Format("Node {0}", Id);
         }
     }
 }

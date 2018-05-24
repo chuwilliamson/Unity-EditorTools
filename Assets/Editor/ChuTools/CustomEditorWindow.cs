@@ -1,45 +1,57 @@
-﻿using UnityEngine;
+﻿using System;
+using UnityEngine;
 using UnityEditor;
 namespace ChuTools
 {
-    public delegate void EditorEvent(Event e);
+    public interface IEventSystem
+    {
+        object Selected { get; set; }
+        EditorEvent OnMouseDown { get; set; }
+        EditorEvent OnMouseUp { get; set; }
+        EditorEvent OnRepaint { get; set; }
+        EditorEvent OnMouseDrag { get; set; }
+        EditorEvent OnContextClick { get; set; }
+        void PollEvents(Event e);
+    }
 
-    public abstract class CustomEditorWindow :EditorWindow
-    { 
-        public EditorEvent onMouseDown;
-        public EditorEvent onMouseUp;
-        public EditorEvent onRepaint;
-        public EditorEvent onMouseDrag;
-        public EditorEvent onContextClick;
-         
+    public class MyEventSystem : IEventSystem
+    {
+        public object Current { get; set; }
+        public object Selected { get; set; }
 
-        private void ProcessDelegate(EditorEvent editorEvent)
-        {
-            if (editorEvent == null) return;            
-                editorEvent.Invoke(Event.current);
-        }
+        public EditorEvent OnMouseDown { get; set; }
+        public EditorEvent OnMouseUp { get; set; }
+        public EditorEvent OnRepaint { get; set; }
+        public EditorEvent OnMouseDrag { get; set; }
+        public EditorEvent OnContextClick { get; set; }
 
         public void PollEvents(Event e)
-        {   
+        {
             switch (e.type)
             {
                 case EventType.MouseDrag:
-                    onMouseDrag?.Invoke(e);
-                    ProcessDelegate(onMouseDrag);
+                    OnMouseDrag?.Invoke(e);
                     break;
                 case EventType.MouseUp:
-                    ProcessDelegate(onMouseUp);
+                    OnMouseUp?.Invoke(e);
                     break;
                 case EventType.MouseDown:
-                    ProcessDelegate(onMouseDown);
+                    OnMouseDown?.Invoke(e);
                     break;
                 case EventType.Repaint:
-                    ProcessDelegate(onRepaint);
+                    OnRepaint?.Invoke(e);
                     break;
                 case EventType.ContextClick:
-                    ProcessDelegate(onContextClick);
+                    OnContextClick?.Invoke(e);
                     break;
-            }       
+                default:
+                    break;
+            }
         }
+    }
+
+    public abstract class CustomEditorWindow : EditorWindow
+    {
+        public readonly IEventSystem MyEventSystem = new MyEventSystem();
     }
 }

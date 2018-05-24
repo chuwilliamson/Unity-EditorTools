@@ -1,11 +1,12 @@
-﻿using UnityEditor;
+﻿using System.Collections.Generic;
+using UnityEditor;
 using UnityEngine;
-using System.Collections.Generic;
+
 namespace ChuTools
 {
     public class NodeWindow : CustomEditorWindow
-    {        
-        private List<Node> nodes;
+    {
+        private List<Node> _nodes;
 
         [MenuItem("Tools/NodeWindow")]
         private static void Init()
@@ -13,38 +14,42 @@ namespace ChuTools
             var window = GetWindow<NodeWindow>();
             window.Show();
         }
-        void OnEnable()
+
+        private void OnEnable()
         {
-            nodes = new List<Node>();
-            onContextClick += CreateContextMenu;
+            _nodes = new List<Node>();
+            MyEventSystem.OnContextClick += CreateContextMenu;
+            
         }
 
-        void OnGUI()
-        {
-            EditorGUILayout.LabelField("width", Screen.width.ToString());
-            EditorGUILayout.LabelField("height", Screen.height.ToString());
-            base.PollEvents(Event.current);
-            Repaint(); 
+        private void OnGUI()
+        { 
+            MyEventSystem.PollEvents(Event.current);
+            EditorGUILayout.LabelField("width", label2: Screen.width.ToString());
+            EditorGUILayout.LabelField("height", label2: Screen.height.ToString());
+            var value = "null";
+            if (MyEventSystem.Selected != null)
+                value = MyEventSystem.Selected.ToString();
+            EditorGUILayout.LabelField("EventSystem Selected", label2: value);
+            
+
+            Repaint();
         }
 
-        void CreateContextMenu(Event e)
+        private void CreateContextMenu(Event e)
         {
-            var position = e.mousePosition;
+            var pos = e.mousePosition;
             var gm = new GenericMenu();
-            gm.AddItem(new GUIContent("Create Node"), false, () => { CreateNode(position); });
-            gm.AddItem(new GUIContent("Clear Nodes"), false, ClearNodes);
+            gm.AddItem(content: new GUIContent("Create Node"), on: false, func: () => { CreateNode(pos); });
+            gm.AddItem(content: new GUIContent("Clear Nodes"), on: false, func: ClearNodes);
             gm.ShowAsContext();
+            e.Use();
         }
 
-        void CreateNode(Vector2 position)
-        {
-            nodes.Add(new Node(position));
-        }
+        private void CreateNode(Vector2 pos) => _nodes.Add(item: new Node(pos, _nodes.Count) { NodeEventSystem = MyEventSystem });
 
-        void ClearNodes()
-        {
-            nodes = new List<Node>();
-        }
+        private void ClearNodes() => _nodes = new List<Node>();
+
+       
     }
-
 }

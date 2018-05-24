@@ -286,8 +286,8 @@ namespace _Editor.GramBlog
                 var connectionsToRemove = new List<Connection>();
 
                 foreach (Connection t in connections)
-                    if (t.inPoint == node.inPoint ||
-                        t.outPoint == node.outPoint)
+                    if (t.InPoint == node.inPoint ||
+                        t.OutPoint == node.outPoint)
                         connectionsToRemove.Add(t);
 
                 foreach (Connection t in connectionsToRemove)
@@ -308,7 +308,7 @@ namespace _Editor.GramBlog
                 connections = new List<Connection>();
 
             connections.Add(new Connection(inPoint: selectedInPoint, outPoint: selectedOutPoint,
-                OnClickRemoveConnection: OnClickRemoveConnection));
+                onClickRemoveConnection: OnClickRemoveConnection));
         }
 
         void ClearConnectionSelection()
@@ -350,10 +350,10 @@ namespace _Editor.GramBlog
 
             foreach (var connectionDeserialized in connectionsDeserialized)
             {
-                var inPoint = nodes.First(n => n.inPoint.id == connectionDeserialized.inPoint.id).inPoint;
-                var outPoint = nodes.First(n => n.outPoint.id == connectionDeserialized.outPoint.id).outPoint;
+                var inPoint = nodes.First(n => n.inPoint.id == connectionDeserialized.InPoint.id).inPoint;
+                var outPoint = nodes.First(n => n.outPoint.id == connectionDeserialized.OutPoint.id).outPoint;
                 connections.Add(new Connection(inPoint: inPoint, outPoint: outPoint,
-                    OnClickRemoveConnection: OnClickRemoveConnection));
+                    onClickRemoveConnection: OnClickRemoveConnection));
             }
         }
     }
