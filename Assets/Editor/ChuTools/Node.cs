@@ -3,146 +3,144 @@ using UnityEngine;
 
 namespace ChuTools
 {
+    public class ConnectionRect : IDrawable
+    {
+        public GUIStyle Style { get; set; }
+        public string Name { get; set; }
+        public Rect Rect { get; set; }
+
+        public void Draw(Event e)
+        {
+            GUI.Box(position: Rect, text: Name, style: Style);
+        }
+    }
+
     public class Node : IDrawable
     {
-        private readonly GUIStyle _normal = new GUIStyle("flow node 0");
-        private readonly GUIStyle _selected = new GUIStyle("flow node 0 on");
+        private readonly GUIStyle _normal = new GUIStyle("flow node 0") { normal = { textColor = Color.white } };
+        private readonly GUIStyle _selectedStyle = new GUIStyle("flow node 0 on") { normal = { textColor = Color.green } };
         private GUIStyle _currentStyle;
-        private IEventSystem _nodeEventSystem;
+        private readonly IEventSystem _nodeEventSystem;
 
         public int Id;
-        public Connection left;
-        public Rect LeftRect;
-        public int mousedowns = 0;
 
-        public Rect Rect;
-        public Connection right;
+        public Rect NodeRect;
+        public Rect LeftRect;
         public Rect RightRect;
+
+        public Connection left;
+        public Connection right;
 
         public Node()
         {
-            LeftRect = new Rect(Rect.position, size: new Vector2(25, 25))
+            LeftRect = new Rect(position: NodeRect.position, size: new Vector2(25, 25))
             {
-                center = new Vector2(Rect.xMin, y: Rect.yMax / 2)
+                center = new Vector2(x: NodeRect.xMin, y: NodeRect.yMax / 2)
             };
-            RightRect = new Rect(Rect.position, size: new Vector2(25, 25))
+            RightRect = new Rect(position: NodeRect.position, size: new Vector2(25, 25))
             {
-                center = new Vector2(Rect.xMax, y: Rect.yMax / 2)
+                center = new Vector2(x: NodeRect.xMax, y: NodeRect.yMax / 2)
             };
-        
+
             _currentStyle = _normal;
         }
 
-        public Node(Vector2 position, int id) : this()
+        public Node(Vector2 position, int id, IEventSystem eventSystem) : this()
         {
-            Rect = new Rect(position, size: new Vector2(150, 50));
+            NodeRect = new Rect(position: position, size: new Vector2(150, 50));
             Id = id;
+
+            _nodeEventSystem = eventSystem;
+            _nodeEventSystem.OnMouseUp += OnMouseUp;
+            _nodeEventSystem.OnMouseDown += OnMouseDown;
+            _nodeEventSystem.OnMouseDrag += OnMouseDrag;
+            _nodeEventSystem.OnContextClick += OnContextClick;
+            _nodeEventSystem.OnMouseMove += OnMouseMove;
+            _nodeEventSystem.OnUsed += OnUsed;
         }
 
-        public IEventSystem NodeEventSystem
+        public void OnMouseMove(Event e)
         {
-            get { return _nodeEventSystem; }
-            set
-            {
-                _nodeEventSystem = value;
-                _nodeEventSystem.OnMouseUp += OnMouseUp;
-                _nodeEventSystem.OnMouseDown += OnMouseDown;
-                _nodeEventSystem.OnMouseDrag += OnMouseDrag;
-                _nodeEventSystem.OnContextClick += OnContextClick;
-            }
         }
 
         public void Draw(Event e)
         {
-            var guistyle = new GUIStyle { normal = { textColor = Color.white } };
-            var botrect = Rect;
-            botrect.position = new Vector2(Rect.position.x, y: Rect.position.y + Rect.height);
-            GUI.Box(botrect, text: Rect.position.ToString(), style: guistyle);
-
-            LeftRect = new Rect(Rect.position, size: new Vector2(25, 25))
+            LeftRect = new Rect(position: NodeRect.position, size: new Vector2(25, 25))
             {
-                center = new Vector2(Rect.xMin, y: Rect.yMax - Rect.height / 2)
+                center = new Vector2(x: NodeRect.xMin, y: NodeRect.yMax - NodeRect.height / 2)
             };
+            
 
-            RightRect = new Rect(Rect.position, size: new Vector2(25, 25))
+            RightRect = new Rect(position: NodeRect.position, size: new Vector2(25, 25))
             {
-                center = new Vector2(Rect.xMax, y: Rect.yMax - Rect.height / 2)
+                center = new Vector2(x: NodeRect.xMax, y: NodeRect.yMax - NodeRect.height / 2)
             };
+            GUI.Box(position: NodeRect, content: new GUIContent { text = NodeRect.position.ToString() }, style: _currentStyle);
 
-            GUI.Box(Rect, content: new GUIContent { text = Rect.position.ToString() }, style: _currentStyle);
-            GUI.Box(LeftRect, "l", _currentStyle);
-            GUI.Box(RightRect, "r", _currentStyle);
-            right?.Draw(Event.current);
+            GUI.Box(LeftRect, new GUIContent { text = "l" }, style: _currentStyle);
+            GUI.Box(RightRect, new GUIContent { text = "r" }, style: _currentStyle);
+
+            left?.Draw(e: Event.current);
+            right?.Draw(e: Event.current);
         }
-
 
         public void OnMouseDrag(Event e)
         {
-            var newposition = Rect.position + e.delta;
-
-            if (newposition.x < 0) //left
+            if (_nodeEventSystem.Selected != this) return;
+            var newposition = NodeRect.position + e.delta;
+            if (newposition.x < 0 && newposition.y < 0) //left && top
                 return;
-            if (newposition.y < 0) //top
+            if (newposition.x > Screen.width - NodeRect.width) //right
                 return;
-            if (newposition.x > Screen.width - Rect.width) //right
-                return;
-            if (newposition.y > Screen.height - Rect.height) //bottom
+            if (newposition.y > Screen.height - NodeRect.height) //bottom
                 return;
 
-            if (NodeEventSystem.Selected == this)
-            {
-                Rect.position = newposition;
-                e.Use();
-            }
+            NodeRect.position = newposition;
+
+            e.Use();
         }
 
         public void OnMouseDown(Event e)
         {
-            if (e.button == 0)
+            if (!NodeRect.Contains(point: e.mousePosition) && _nodeEventSystem.Selected == this)
+                _nodeEventSystem.Selected = null;
+
+            if (NodeRect.Contains(point: e.mousePosition))
             {
-                if (Rect.Contains(e.mousePosition))
-                    if (NodeEventSystem.Selected == null)
-                    {
-                        NodeEventSystem.Selected = this;
-                        e.Use();
-                    }
-                    else if (NodeEventSystem.Selected == this)
-                    {
-                    }
-                if (!Rect.Contains(e.mousePosition) && NodeEventSystem.Selected == this)
-                    NodeEventSystem.Selected = null;
+                _nodeEventSystem.Selected = this;
+                _currentStyle = _selectedStyle; 
+                e.Use(); 
             }
-            if (e.button == 1)
-            {
-            }
-            _currentStyle = NodeEventSystem.Selected == this ? _selected : _normal;
+         }
+
+        public void OnUsed(Event e)
+        {
         }
 
         public void OnMouseUp(Event e)
         {
         }
 
-        private void OnContextClick(Event e)
+        void OnContextClick(Event e)
         {
-            if (!Rect.Contains(e.mousePosition))
+            if (!NodeRect.Contains(point: e.mousePosition))
                 return;
 
             var pos = e.mousePosition;
             var gm = new GenericMenu();
-            gm.AddItem(content: new GUIContent("Create Connection"), on: false, func: () => { CreateConnection(pos); });
-            gm.AddItem(content: new GUIContent("Clear Connections"), on: false, func: ClearConnection);
+            gm.AddItem(new GUIContent("Create Connection"), false, () => { CreateConnection(pos: pos); });
+            gm.AddItem(new GUIContent("Clear Connections"), false, func: ClearConnection);
             gm.ShowAsContext();
             e.Use();
         }
 
-        private void CreateConnection(Vector2 pos)
+        void CreateConnection(Vector2 pos)
         {
-            right = new Connection(ref RightRect, NodeEventSystem);
-            ClearConnection();
-
+            left = new Connection(rect: ref LeftRect, eventSystem: _nodeEventSystem);
+            right = new Connection(rect: ref RightRect, eventSystem: _nodeEventSystem);
         }
 
-        private void ClearConnection()
+        void ClearConnection()
         {
             left = null;
             right = null;
@@ -150,7 +148,7 @@ namespace ChuTools
 
         public override string ToString()
         {
-            return string.Format("Node {0}", Id);
+            return string.Format("Node {0}", arg0: Id);
         }
     }
 }

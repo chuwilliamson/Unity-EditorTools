@@ -11,20 +11,21 @@ namespace ChuTools
         EditorEvent OnRepaint { get; set; }
         EditorEvent OnMouseDrag { get; set; }
         EditorEvent OnContextClick { get; set; }
+        EditorEvent OnMouseMove { get; set; }
+        EditorEvent OnUsed { get; set; }
         void PollEvents(Event e);
     }
 
     public class MyEventSystem : IEventSystem
-    {
-        public object Current { get; set; }
+    { 
         public object Selected { get; set; }
-
         public EditorEvent OnMouseDown { get; set; }
         public EditorEvent OnMouseUp { get; set; }
         public EditorEvent OnRepaint { get; set; }
         public EditorEvent OnMouseDrag { get; set; }
         public EditorEvent OnContextClick { get; set; }
-
+        public EditorEvent OnMouseMove { get; set; }
+        public EditorEvent OnUsed { get; set; }
         public void PollEvents(Event e)
         {
             switch (e.type)
@@ -44,8 +45,13 @@ namespace ChuTools
                 case EventType.ContextClick:
                     OnContextClick?.Invoke(e);
                     break;
-                default:
+                case EventType.MouseMove:
+                    OnMouseMove?.Invoke(e);
                     break;
+                case EventType.Used:
+                    OnUsed?.Invoke(e);
+                    break;
+        
             }
         }
     }
