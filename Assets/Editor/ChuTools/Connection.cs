@@ -5,20 +5,24 @@ namespace ChuTools
 {
     public class Connection : IDrawable
     {
-        bool _active;
-        Vector3 _end;
-        IEventSystem _eventSystem;
-        Node _inNode;
-        Node _outNode;
-        Rect _rect;
-        Vector3 _start;
+        private bool _active;
+        
+        private readonly IEventSystem _eventSystem;
 
-        public Connection(Node node, Rect rect, IEventSystem eventSystem)
+        private Node _in;
+        private Node _out;
+        
+        private Vector3 _start;
+        private Vector3 _end;
+
+        public Connection(Node node, IEventSystem eventSystem)
         {
-            _inNode = node;
-            _rect = rect;
-            _start = _rect.center;
-            _end = _rect.center;
+            _in = node;
+            _out = null;
+
+            _start = node.RightRect.position;
+            _end = _start;
+
             _active = true;
             _eventSystem = eventSystem;
             _eventSystem.OnMouseDown += OnMouseDown;
@@ -26,25 +30,17 @@ namespace ChuTools
 
         public void Draw(Event e)
         {
-            if (_active)
-                _end = e.mousePosition;
-            if (_outNode != null)
-                _end = _outNode.NodeRect.position;
-            
-            Handles.DrawLine(p1: _inNode.RightRect.center, p2: _end);
+            Handles.DrawLine(_in.RightRect.center, _end);
         }
 
-        void OnMouseDown(Event e)
+        private void OnMouseDown(Event e)
         {
             _active = false;
-            if (_eventSystem.WillSelect != null)
+            if (_eventSystem.Selected != null && _eventSystem.Selected != _in)
             {
-                if (_eventSystem.WillSelect == typeof(Node))
-                {
-                    _outNode = _eventSystem.WillSelect as Node;
-
-                }
-            }
+                _out = _eventSystem.Selected as Node;
+                _end = _out.CenterRect.position;
+            } 
         }
     }
 }

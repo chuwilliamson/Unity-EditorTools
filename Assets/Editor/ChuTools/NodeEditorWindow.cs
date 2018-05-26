@@ -9,40 +9,38 @@ namespace ChuTools
         void Draw(Event e);
     }
 
-    public class NodeWindow : CustomEditorWindow
+    public class NodeEditorWindow : CustomEditorWindow
     {
         public static List<IDrawable> Drawables = new List<IDrawable>();
 
         [MenuItem("Tools/NodeWindow")]
         static void Init()
         {
-            var window = GetWindow<NodeWindow>();
+            var window = GetWindow<NodeEditorWindow>();
+            window.wantsMouseMove = true;
             window.Show();
         }
 
         void OnEnable()
-        { 
+        {
             Drawables = new List<IDrawable>();
-            MyEventSystem.OnContextClick += CreateContextMenu; 
+            MyEventSystem.OnContextClick += CreateContextMenu;
         }
 
         void OnGUI()
-        { 
+        {
             MyEventSystem.PollEvents(e: Event.current);
             EditorGUILayout.LabelField("width", Screen.width.ToString());
             EditorGUILayout.LabelField("height", Screen.height.ToString());
             var value = "null";
             var value2 = "null";
-            if (MyEventSystem.Selected != null)
-            {
-                value = MyEventSystem.Selected.ToString();
-                value2 = MyEventSystem.WillSelect.ToString();
-            }
-                
+            value = MyEventSystem?.Selected?.ToString();
+            value2 = MyEventSystem?.WillSelect?.ToString();
             EditorGUILayout.LabelField("EventSystem Selected", label2: value);
             EditorGUILayout.LabelField("EventSystem Will Selected   ", label2: value2);
-
-            Drawables.ForEach(n=>n.Draw(e: Event.current)); 
+            BeginWindows();
+            Drawables.ForEach(n => n.Draw(e: Event.current));
+            EndWindows();
             Repaint();
         }
 
