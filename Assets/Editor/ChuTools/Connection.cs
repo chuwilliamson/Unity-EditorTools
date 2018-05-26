@@ -7,16 +7,15 @@ namespace ChuTools
     {
         bool _active;
         Vector3 _end;
-
         IEventSystem _eventSystem;
         Node _inNode;
         Node _outNode;
-        public Rect _rect;
-
+        Rect _rect;
         Vector3 _start;
 
-        public Connection(ref Rect rect, IEventSystem eventSystem)
+        public Connection(Node node, Rect rect, IEventSystem eventSystem)
         {
+            _inNode = node;
             _rect = rect;
             _start = _rect.center;
             _end = _rect.center;
@@ -29,12 +28,23 @@ namespace ChuTools
         {
             if (_active)
                 _end = e.mousePosition;
-            Handles.DrawLine(p1: _rect.center, p2: _end);
+            if (_outNode != null)
+                _end = _outNode.NodeRect.position;
+            
+            Handles.DrawLine(p1: _inNode.RightRect.center, p2: _end);
         }
 
         void OnMouseDown(Event e)
         {
             _active = false;
+            if (_eventSystem.WillSelect != null)
+            {
+                if (_eventSystem.WillSelect == typeof(Node))
+                {
+                    _outNode = _eventSystem.WillSelect as Node;
+
+                }
+            }
         }
     }
 }

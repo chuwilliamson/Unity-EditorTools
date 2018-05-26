@@ -6,6 +6,7 @@ namespace ChuTools
     public interface IEventSystem
     {
         object Selected { get; set; }
+        object WillSelect { get; set; }
         EditorEvent OnMouseDown { get; set; }
         EditorEvent OnMouseUp { get; set; }
         EditorEvent OnRepaint { get; set; }
@@ -19,6 +20,7 @@ namespace ChuTools
     public class MyEventSystem : IEventSystem
     { 
         public object Selected { get; set; }
+        public object WillSelect { get; set; }
         public EditorEvent OnMouseDown { get; set; }
         public EditorEvent OnMouseUp { get; set; }
         public EditorEvent OnRepaint { get; set; }

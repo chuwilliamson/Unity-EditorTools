@@ -32,10 +32,16 @@ namespace ChuTools
             EditorGUILayout.LabelField("width", Screen.width.ToString());
             EditorGUILayout.LabelField("height", Screen.height.ToString());
             var value = "null";
+            var value2 = "null";
             if (MyEventSystem.Selected != null)
+            {
                 value = MyEventSystem.Selected.ToString();
+                value2 = MyEventSystem.WillSelect.ToString();
+            }
+                
             EditorGUILayout.LabelField("EventSystem Selected", label2: value);
-            
+            EditorGUILayout.LabelField("EventSystem Will Selected   ", label2: value2);
+
             Drawables.ForEach(n=>n.Draw(e: Event.current)); 
             Repaint();
         }

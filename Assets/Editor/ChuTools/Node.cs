@@ -3,18 +3,6 @@ using UnityEngine;
 
 namespace ChuTools
 {
-    public class ConnectionRect : IDrawable
-    {
-        public GUIStyle Style { get; set; }
-        public string Name { get; set; }
-        public Rect Rect { get; set; }
-
-        public void Draw(Event e)
-        {
-            GUI.Box(position: Rect, text: Name, style: Style);
-        }
-    }
-
     public class Node : IDrawable
     {
         private readonly GUIStyle _normal = new GUIStyle("flow node 0") { normal = { textColor = Color.white } };
@@ -24,19 +12,14 @@ namespace ChuTools
 
         public int Id;
 
-        public Rect NodeRect;
-        public Rect LeftRect;
+        public Rect NodeRect; 
         public Rect RightRect;
 
-        public Connection left;
-        public Connection right;
+        public Connection RightConnection; 
 
         public Node()
         {
-            LeftRect = new Rect(position: NodeRect.position, size: new Vector2(25, 25))
-            {
-                center = new Vector2(x: NodeRect.xMin, y: NodeRect.yMax / 2)
-            };
+ 
             RightRect = new Rect(position: NodeRect.position, size: new Vector2(25, 25))
             {
                 center = new Vector2(x: NodeRect.xMax, y: NodeRect.yMax / 2)
@@ -61,27 +44,22 @@ namespace ChuTools
 
         public void OnMouseMove(Event e)
         {
+            UnityEngine.Debug.Log("movve");
+            if (NodeRect.Contains(point: e.mousePosition))
+            {
+                _nodeEventSystem.WillSelect = this;
+            }
         }
 
         public void Draw(Event e)
         {
-            LeftRect = new Rect(position: NodeRect.position, size: new Vector2(25, 25))
-            {
-                center = new Vector2(x: NodeRect.xMin, y: NodeRect.yMax - NodeRect.height / 2)
-            };
-            
+            RightRect.center = new Vector2(x: NodeRect.xMax, y: NodeRect.yMax - NodeRect.height / 2);
 
-            RightRect = new Rect(position: NodeRect.position, size: new Vector2(25, 25))
-            {
-                center = new Vector2(x: NodeRect.xMax, y: NodeRect.yMax - NodeRect.height / 2)
-            };
-            GUI.Box(position: NodeRect, content: new GUIContent { text = NodeRect.position.ToString() }, style: _currentStyle);
-
-            GUI.Box(LeftRect, new GUIContent { text = "l" }, style: _currentStyle);
+            GUI.Box(NodeRect, new GUIContent { text = NodeRect.position.ToString() }, style: _currentStyle);
             GUI.Box(RightRect, new GUIContent { text = "r" }, style: _currentStyle);
 
-            left?.Draw(e: Event.current);
-            right?.Draw(e: Event.current);
+            
+            RightConnection?.Draw(e: Event.current);
         }
 
         public void OnMouseDrag(Event e)
@@ -96,7 +74,6 @@ namespace ChuTools
                 return;
 
             NodeRect.position = newposition;
-
             e.Use();
         }
 
@@ -108,10 +85,10 @@ namespace ChuTools
             if (NodeRect.Contains(point: e.mousePosition))
             {
                 _nodeEventSystem.Selected = this;
-                _currentStyle = _selectedStyle; 
-                e.Use(); 
+                _currentStyle = _selectedStyle;
+                e.Use();
             }
-         }
+        }
 
         public void OnUsed(Event e)
         {
@@ -136,14 +113,12 @@ namespace ChuTools
 
         void CreateConnection(Vector2 pos)
         {
-            left = new Connection(rect: ref LeftRect, eventSystem: _nodeEventSystem);
-            right = new Connection(rect: ref RightRect, eventSystem: _nodeEventSystem);
+            RightConnection = new Connection(this, rect: RightRect, eventSystem: _nodeEventSystem);
         }
 
         void ClearConnection()
         {
-            left = null;
-            right = null;
+            RightConnection = null;
         }
 
         public override string ToString()
