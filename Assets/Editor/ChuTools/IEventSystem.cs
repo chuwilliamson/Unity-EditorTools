@@ -4,6 +4,8 @@ namespace ChuTools
 {
     public interface IEventSystem
     {
+        void SetSelected(object obj);
+        void Release(object obj);
         object Selected { get; set; }
         object WillSelect { get; set; }
         EditorEvent OnMouseDown { get; set; }

@@ -28,7 +28,7 @@ namespace ChuTools
         {
             if (!_active && _out == null) return;
             var rect = new Rect(Event.current.mousePosition, Vector3.one);
-            DrawNodeCurve(_in.RightRect, end: _out == null ? rect : _out.RightRect);
+            DrawNodeCurve(_in.CenterRect, end: _out == null ? rect : _out.CenterRect);
         }
 
         private static void DrawNodeCurve(Rect start, Rect end)
@@ -41,15 +41,20 @@ namespace ChuTools
             for (var i = 0; i < 3; i++) // Draw a shadow
                 Handles.DrawBezier(startPos, endPos, startTan, endTan, shadowCol, null, width: (i + 1) * 5);
             Handles.DrawBezier(startPos, endPos, startTan, endTan, Color.black, null, 1);
+            GUI.changed = true;
+
         }
 
         private void OnMouseDown(Event e)
         {
             _active = false;
-            if (_eventSystem.WillSelect != null && _eventSystem.WillSelect != _in)
+            if (_eventSystem.WillSelect == null)
+                return;
+
+            if (_eventSystem.WillSelect != _in)
             {
                 _out = _eventSystem.WillSelect as Node;
-                _onConnectionMade(_out);
+                _onConnectionMade(_out); 
             }
                 
         }

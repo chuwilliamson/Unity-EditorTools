@@ -14,6 +14,19 @@ namespace ChuTools
         public EditorEvent OnMouseMove { get; set; }
         public EditorEvent OnUsed { get; set; }
 
+        public void SetSelected(object obj)
+        {
+            if (WillSelect == obj)
+                Selected = WillSelect;
+        }
+
+        public void Release(object obj)
+        {
+            if (Selected == null)
+                return;
+
+            SetSelected(obj);
+        }
         public void Invoke(EditorEvent editorEvent, Event e)
         {
             if (editorEvent == null)
@@ -26,18 +39,21 @@ namespace ChuTools
             {
                 case EventType.MouseDrag:
                     Invoke(OnMouseDrag, e);
+                    GUI.changed = true;
                     break;
                 case EventType.MouseUp:
                     Invoke(OnMouseUp,e);
+                    GUI.changed = true;
                     break;
                 case EventType.MouseDown:
-                    Invoke(OnMouseDown, e);
+                    Invoke(OnMouseDown, e); 
                     break;
                 case EventType.Repaint:
                     Invoke(OnRepaint, e);
                     break;
                 case EventType.ContextClick:
                     Invoke(OnContextClick, e);
+                    GUI.changed = true;
                     break;
                 case EventType.MouseMove:
                     Invoke(OnMouseMove, e);

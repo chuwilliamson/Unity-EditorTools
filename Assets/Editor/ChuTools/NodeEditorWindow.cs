@@ -12,13 +12,14 @@ namespace ChuTools
         private static void Init()
         {
             var window = GetWindow<NodeEditorWindow>();
-            window.wantsMouseMove = true;
+         
             window.Show();
         }
 
         void OnEnable()
         {
             _drawables = new List<IDrawable>();
+            wantsMouseMove = true;
             NodeEventSystem.Selected = this;
             NodeEventSystem.WillSelect = this;
             NodeEventSystem.OnContextClick += CreateContextMenu;
@@ -42,7 +43,6 @@ namespace ChuTools
             _drawables.ForEach(n => n.Draw(Event.current));
             NodeEventSystem.PollEvents(e: Event.current);
             Repaint();
-            
         }
 
         private void CreateContextMenu(Event e)
