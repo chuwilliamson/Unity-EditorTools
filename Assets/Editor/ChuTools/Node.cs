@@ -5,13 +5,13 @@ namespace ChuTools
 {
     public class Node : IDrawable
     {
-        private readonly GUIStyle _normal = new GUIStyle("flow node 0") {normal = {textColor = Color.white}};
-        private readonly GUIStyle _selectedStyle = new GUIStyle("flow node 0 on") {normal = {textColor = Color.green}};
+        private readonly GUIStyle _normal = new GUIStyle("flow node 0") { normal = { textColor = Color.white } };
+        private readonly GUIStyle _selectedStyle = new GUIStyle("flow node 0 on") { normal = { textColor = Color.green } };
         private GUIStyle _currentStyle;
         private readonly IEventSystem _nodeEventSystem;
 
         public int Id;
-
+        private Node RightNode;
         public Rect CenterRect;
         public Rect RightRect;
         public Connection RightConnection;
@@ -28,49 +28,44 @@ namespace ChuTools
 
         public Node(Vector2 position, int id, IEventSystem eventSystem) : this()
         {
-            CenterRect = new Rect(position, size: new Vector2(150, 50));
+            CenterRect = new Rect(position, size: new Vector2(150, 150));
             Id = id;
-
             _nodeEventSystem = eventSystem;
             _nodeEventSystem.OnMouseDown += OnMouseDown;
-            _nodeEventSystem.OnMouseDrag += OnMouseDrag;
             _nodeEventSystem.OnContextClick += OnContextClick;
             _nodeEventSystem.OnMouseMove += OnMouseMove;
-        }
-
-        private void DrawNodeCurve(Rect start, Rect end)
-        {
-            var startPos = new Vector3(x: start.x + start.width, y: start.y + start.height / 2, z: 0);
-            var endPos = new Vector3(end.x, y: end.y + end.height / 2, z: 0);
-            var startTan = startPos + Vector3.right * 50;
-            var endTan = endPos + Vector3.left * 50;
-            var shadowCol = new Color(0, 0, 0, 0.06f);
-            for (var i = 0; i < 3; i++) // Draw a shadow
-                Handles.DrawBezier(startPos, endPos, startTan, endTan, shadowCol, null, width: (i + 1) * 5);
-            Handles.DrawBezier(startPos, endPos, startTan, endTan, Color.black, null, 1);
-        }
-
-        public void OnMouseMove(Event e)
-        {
-            if (InsideRect)
-                _nodeEventSystem.WillSelect = this;
+            _nodeEventSystem.OnMouseDrag += OnMouseDrag;
         }
 
         public void Draw(Event e)
         {
             RightRect.center = new Vector2(CenterRect.xMax, y: CenterRect.yMax - CenterRect.height / 2);
-            CenterRect=GUI.Window(Id, CenterRect, OnNodeGUI, title: new GUIContent(text: "Node " + Id), style: _currentStyle);
+            GUI.Box(CenterRect, content: new GUIContent { text = CenterRect.position.ToString() }, style: _currentStyle);
+            GUI.Box(RightRect, content: new GUIContent { text = "r" }, style: _currentStyle);
+            if (RightConnection != null)
+                RightConnection.Draw(Event.current);
         }
 
-        public void OnNodeGUI(int id)
+        private void OnMouseMove(Event e)
         {
-            GUI.DragWindow();
-            GUI.Box(CenterRect, content: new GUIContent {text = CenterRect.position.ToString()}, style: _currentStyle);
-            GUI.Box(RightRect, content: new GUIContent {text = "r"}, style: _currentStyle);
-            RightConnection?.Draw(Event.current);
+            if (OutsideRect) return;
+            _nodeEventSystem.WillSelect = this;
+            GUI.changed = true;
         }
 
-        public void OnMouseDrag(Event e)
+
+        private void OnMouseDown(Event e)
+        {
+            if (InsideRect && _nodeEventSystem.WillSelect == this)
+            {
+                _nodeEventSystem.Selected = this;
+                _currentStyle = _selectedStyle;
+                GUI.changed = true;
+                e.Use();
+            }
+        }
+
+        private void OnMouseDrag(Event e)
         {
             if (_nodeEventSystem.Selected != this) return;
             var newposition = CenterRect.position + e.delta;
@@ -85,44 +80,38 @@ namespace ChuTools
             e.Use();
         }
 
-        public void OnMouseDown(Event e)
+        private bool InsideRect
         {
-            if (InsideRect && _nodeEventSystem.WillSelect == this)
-            {
-                _nodeEventSystem.Selected = this;
-                _currentStyle = _selectedStyle;
-                e.Use();
-            }
-
-            if (OutsideRect && _nodeEventSystem.Selected == this)
-            {
-                _nodeEventSystem.Selected = null;
-                _currentStyle = _normal;
-            }
+            get { return CenterRect.Contains(Event.current.mousePosition); }
         }
 
-        private bool InsideRect => CenterRect.Contains(Event.current.mousePosition);
-
-        private bool OutsideRect => !InsideRect;
+        private bool OutsideRect
+        {
+            get { return !InsideRect; }
+        }
 
         private void OnContextClick(Event e)
         {
             if (OutsideRect)
                 return;
 
-            var pos = e.mousePosition;
+            var pos = Event.current.mousePosition;
             var gm = new GenericMenu();
             gm.AddItem(content: new GUIContent("Create Connection"), on: false, func: CreateConnection);
             gm.AddItem(content: new GUIContent("Clear Connections"), on: false, func: ClearConnection);
             gm.ShowAsContext();
-            e.Use();
         }
 
         private void CreateConnection()
         {
-            RightConnection = new Connection(node: this, eventSystem: _nodeEventSystem);
+            //delegate (Node node) { RightNode = node; }
+            RightConnection = new Connection(node: this, eventSystem: _nodeEventSystem, onConnectionMade: SetConnection);
         }
 
+        private void SetConnection(Node node)
+        {
+            RightNode = node;
+        }
         private void ClearConnection()
         {
             RightConnection = null;

@@ -4,17 +4,12 @@ using UnityEngine;
 
 namespace ChuTools
 {
-    public interface IDrawable
-    {
-        void Draw(Event e);
-    }
-
     public class NodeEditorWindow : CustomEditorWindow
     {
-        public static List<IDrawable> Drawables = new List<IDrawable>();
+        private List<IDrawable> _drawables = new List<IDrawable>();
 
-        [MenuItem("Tools/NodeWindow")]
-        static void Init()
+        [MenuItem("Tools/ChuTools/NodeWindow")]
+        private static void Init()
         {
             var window = GetWindow<NodeEditorWindow>();
             window.wantsMouseMove = true;
@@ -23,45 +18,51 @@ namespace ChuTools
 
         void OnEnable()
         {
-            Drawables = new List<IDrawable>();
-            MyEventSystem.OnContextClick += CreateContextMenu;
+            _drawables = new List<IDrawable>();
+            NodeEventSystem.Selected = this;
+            NodeEventSystem.WillSelect = this;
+            NodeEventSystem.OnContextClick += CreateContextMenu;
         }
 
         void OnGUI()
         {
-            MyEventSystem.PollEvents(e: Event.current);
+            EditorGUILayout.BeginVertical();
+            wantsMouseMove = EditorGUILayout.Toggle(wantsMouseMove);
+            
             EditorGUILayout.LabelField("width", Screen.width.ToString());
             EditorGUILayout.LabelField("height", Screen.height.ToString());
-            var value = "null";
-            var value2 = "null";
-            value = MyEventSystem?.Selected?.ToString();
-            value2 = MyEventSystem?.WillSelect?.ToString();
-            EditorGUILayout.LabelField("EventSystem Selected", label2: value);
-            EditorGUILayout.LabelField("EventSystem Will Selected   ", label2: value2);
-            BeginWindows();
-            Drawables.ForEach(n => n.Draw(e: Event.current));
-            EndWindows();
+
+            var value1 = NodeEventSystem.Selected == null ? "null" : NodeEventSystem.Selected.ToString();
+            var value2 = NodeEventSystem.WillSelect == null? "null" : NodeEventSystem.WillSelect.ToString();
+ 
+            EditorGUILayout.LabelField("EventSystem Selected", value1);
+            EditorGUILayout.LabelField("EventSystem Will Selected   ", value2); 
+            EditorGUILayout.EndVertical();
+
+            _drawables.ForEach(n => n.Draw(Event.current));
+            NodeEventSystem.PollEvents(e: Event.current);
             Repaint();
+            
         }
 
-        void CreateContextMenu(Event e)
+        private void CreateContextMenu(Event e)
         {
             var pos = e.mousePosition;
             var gm = new GenericMenu();
-            gm.AddItem(new GUIContent("Create Node"), false, () => { CreateNode(pos: pos); });
-            gm.AddItem(new GUIContent("Clear Nodes"), false, func: ClearNodes);
+            gm.AddItem(content: new GUIContent("Create Node"), on: false, func: () => { CreateNode(pos); });
+            gm.AddItem(content: new GUIContent("Clear Nodes"), on: false, func: ClearNodes);
             gm.ShowAsContext();
             e.Use();
         }
 
-        void CreateNode(Vector2 pos)
+        private void CreateNode(Vector2 pos)
         {
-            Drawables.Add(new Node(position: pos, id: Drawables.Count, eventSystem: MyEventSystem));
+            _drawables.Add(item: new Node(position: pos, id: _drawables.Count, eventSystem: NodeEventSystem));
         }
 
-        void ClearNodes()
+        private void ClearNodes()
         {
-            Drawables = new List<IDrawable>();
+            _drawables = new List<IDrawable>();
         }
     }
 }
