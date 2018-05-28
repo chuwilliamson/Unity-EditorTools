@@ -21,4 +21,14 @@ public static class Extensions
     {
         v3 = new Vector3(v3.x, v3.y, value);
     }
+
+    public static void SetX(this Vector2 v2, int value)
+    {
+        v2 = new Vector3(value, v2.y);
+    }
+
+    public static void SetY(this Vector2 v2, int value)
+    {
+        v2 = new Vector3(v2.x, value);
+    }
 }
