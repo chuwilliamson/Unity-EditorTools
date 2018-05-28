@@ -7,7 +7,9 @@ namespace ChuTools
     public class Connection : IDrawable
     {
         private readonly IEventSystem _eventSystem;
+        [NonSerialized]
         private readonly Node _in;
+        [NonSerialized]
         private Node _out;
         private readonly Action<Node> _onConnectionComplete;
         private bool _connecting;
