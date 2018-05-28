@@ -1,47 +1,100 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using UnityEditor;
 using UnityEngine;
 
 namespace ChuTools
 {
-    public class NodeEditorWindow : CustomEditorWindow
+    public partial class NodeEditorWindow : CustomEditorWindow
     {
-        private List<IDrawable> _drawables = new List<IDrawable>();
+        [Serializable]
+        public class NodeList
+        {
+            public List<Node> Nodes;
+        }
 
+        public List<Node> _nodes = new List<Node>();
+        private List<Connection> _connections;
+        private NodeInfoMenu _infoMenu;
+
+        private string _path
+        {
+            get { return Application.dataPath + "/Dialogue/nodes.json"; }
+        }
+
+ 
+        private void Save()
+        {
+            var n = new NodeList();
+            _nodes.ForEach(node => n.Nodes.Add(node));
+
+            var json = JsonUtility.ToJson(n ,true);
+            
+            System.IO.File.WriteAllText(_path, json);
+            Debug.Log("save");
+        }
+
+        private void Load()
+        {
+            var json = System.IO.File.ReadAllText(_path);
+            var n = new NodeList();
+            JsonUtility.FromJsonOverwrite(json, n);
+            _nodes = n.Nodes;
+        }
         [MenuItem("Tools/ChuTools/NodeWindow")]
         private static void Init()
         {
             var window = GetWindow<NodeEditorWindow>();
-         
+
             window.Show();
         }
 
         void OnEnable()
         {
-            _drawables = new List<IDrawable>();
+            _infoMenu =
+                 new NodeInfoMenu
+                 {
+                     DrawElements = () =>
+                     {
+                         EditorGUILayout.BeginVertical();
+                         wantsMouseMove = EditorGUILayout.Toggle(wantsMouseMove);
+
+                         EditorGUILayout.LabelField("width", Screen.width.ToString());
+                         EditorGUILayout.LabelField("height", Screen.height.ToString());
+                         EditorGUILayout.LabelField("HotControl", GUIUtility.hotControl.ToString());
+                         EditorGUILayout.LabelField("Path", _path);
+
+                         var value1 = _nodeEventSystem.Selected?.ToString() ?? "null";
+                         var value2 = _nodeEventSystem.WillSelect?.ToString() ?? "null";
+
+                         EditorGUILayout.LabelField("EventSystem Selected", value1);
+                         EditorGUILayout.LabelField("EventSystem Will Selected   ", value2);
+                         EditorGUILayout.EndVertical();
+                     }
+                 };
+
+            _nodes = new List<Node>();
             wantsMouseMove = true;
-            NodeEventSystem.Selected = this;
-            NodeEventSystem.WillSelect = this;
-            NodeEventSystem.OnContextClick += CreateContextMenu;
+            _nodeEventSystem.Selected = this;
+            _nodeEventSystem.WillSelect = this;
+            _nodeEventSystem.OnContextClick += CreateContextMenu;
         }
 
         void OnGUI()
         {
-            EditorGUILayout.BeginVertical();
-            wantsMouseMove = EditorGUILayout.Toggle(wantsMouseMove);
-            
-            EditorGUILayout.LabelField("width", Screen.width.ToString());
-            EditorGUILayout.LabelField("height", Screen.height.ToString());
+            if (GUILayout.Button(new GUIContent("Save"), EditorStyles.toolbarButton, GUILayout.Width(35)))
+                Save();
 
-            var value1 = NodeEventSystem.Selected == null ? "null" : NodeEventSystem.Selected.ToString();
-            var value2 = NodeEventSystem.WillSelect == null? "null" : NodeEventSystem.WillSelect.ToString();
- 
-            EditorGUILayout.LabelField("EventSystem Selected", value1);
-            EditorGUILayout.LabelField("EventSystem Will Selected   ", value2); 
-            EditorGUILayout.EndVertical();
+            GUILayout.Space(5);
 
-            _drawables.ForEach(n => n.Draw(Event.current));
-            NodeEventSystem.PollEvents(e: Event.current);
+            if (GUILayout.Button(new GUIContent("Load"), EditorStyles.toolbarButton, GUILayout.Width(35)))
+                Load();
+
+            _nodeEventSystem.PollEvents(e: Event.current);
+            _infoMenu.Draw();
+            _nodes.ForEach(n => n.PollEvents(Event.current));
+            _nodes.ForEach(n => n.Draw());
+
             Repaint();
         }
 
@@ -55,14 +108,25 @@ namespace ChuTools
             e.Use();
         }
 
+        private void OnConnectionCreated(Connection connection)
+        {
+
+        }
+
         private void CreateNode(Vector2 pos)
         {
-            _drawables.Add(item: new Node(position: pos, id: _drawables.Count, eventSystem: NodeEventSystem));
+            _nodes.Add(new Node(pos, new Vector2(250, 200), _nodes.Count, RemoveNode));
+
+        }
+
+        private void RemoveNode(Node n)
+        {
+            _nodes.Remove(n);
         }
 
         private void ClearNodes()
         {
-            _drawables = new List<IDrawable>();
+            _nodes = new List<Node>();
         }
     }
 }

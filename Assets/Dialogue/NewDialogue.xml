@@ -1,0 +1,2790 @@
+<?xml version="1.0" encoding="utf-8"?>
+<DialogueTree xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema">
+  <DialogueRoot>
+    <DialogueNode>
+      <ConversationID>CON01-001A</ConversationID>
+      <ParticipantName>Enpi Seeki</ParticipantName>
+      <EmoteType>Reg</EmoteType>
+      <Side>Right</Side>
+      <Line>Welcome to Wiki Tiki Woods, home of mighty Nantooki Tribe. Who you?</Line>
+      <SpecialityAnimation>None</SpecialityAnimation>
+      <SpecialtyCamera>None</SpecialtyCamera>
+      <Participants>3</Participants>
+      <ConversationSummary>This is the initial conversation Mutt gets into when first entering WikiTiki Woods. Serves the purpose to estalish the Nantooki Tribe and the issue with the water being blocked. Sets up Mission 1.1 Destroy the Dam</ConversationSummary>
+    </DialogueNode>
+    <DialogueNode>
+      <ConversationID>CON01-001A</ConversationID>
+      <ParticipantName>Mutt</ParticipantName>
+      <EmoteType>Nervous</EmoteType>
+      <Side>Left</Side>
+      <Line>Well, I’m Mutt...err the Lobodestroyo. You’ve never heard of me? Hero of the people? Defender of justice?</Line>
+      <SpecialityAnimation>None</SpecialityAnimation>
+      <SpecialtyCamera>None</SpecialtyCamera>
+      <Participants />
+      <ConversationSummary />
+    </DialogueNode>
+    <DialogueNode>
+      <ConversationID>CON01-001A</ConversationID>
+      <ParticipantName>Enpi Seeki</ParticipantName>
+      <EmoteType>Reg</EmoteType>
+      <Side>Right</Side>
+      <Line>Just ice? No need ice, only water. Flat-tail rat cut trees. Stop flow. Mighty river empty now.</Line>
+      <SpecialityAnimation>None</SpecialityAnimation>
+      <SpecialtyCamera>None</SpecialtyCamera>
+      <Participants />
+      <ConversationSummary />
+    </DialogueNode>
+    <DialogueNode>
+      <ConversationID>CON01-001A</ConversationID>
+      <ParticipantName>Dorado</ParticipantName>
+      <EmoteType>Reg</EmoteType>
+      <Side>Left</Side>
+      <Line>These natives are short on both water and conjunctions, I see.</Line>
+      <SpecialityAnimation>None</SpecialityAnimation>
+      <SpecialtyCamera>Reveal Tween: Focuses on TNT Plunger</SpecialtyCamera>
+      <Participants />
+      <ConversationSummary />
+    </DialogueNode>
+    <DialogueNode>
+      <ConversationID>CON01-001A</ConversationID>
+      <ParticipantName>Mutt</ParticipantName>
+      <EmoteType>Happy</EmoteType>
+      <Side>Left</Side>
+      <Line>Well, I think I see what you need. One order of wanton destruction, coming right up!</Line>
+      <SpecialityAnimation>Hero Pose</SpecialityAnimation>
+      <SpecialtyCamera>None</SpecialtyCamera>
+      <Participants />
+      <ConversationSummary />
+    </DialogueNode>
+    <DialogueNode>
+      <ConversationID>CON01-001A</ConversationID>
+      <ParticipantName>Enpi Seeki</ParticipantName>
+      <EmoteType>Reg</EmoteType>
+      <Side>Right</Side>
+      <Line>Wonton? No water for soup. Pay attention, Soft-Mask!</Line>
+      <SpecialityAnimation>None</SpecialityAnimation>
+      <SpecialtyCamera>None</SpecialtyCamera>
+      <Participants />
+      <ConversationSummary />
+    </DialogueNode>
+  </DialogueRoot>
+  <DialogueRoot>
+    <DialogueNode>
+      <ConversationID>CON01-002A</ConversationID>
+      <ParticipantName>Enpi Seeki</ParticipantName>
+      <EmoteType>Reg</EmoteType>
+      <Side>Left</Side>
+      <Line>Soft-Mask need instruction? Blow up face. Help tribe. Any more spoon-feed?</Line>
+      <SpecialityAnimation>None</SpecialityAnimation>
+      <SpecialtyCamera>Reveal Tween: Focuses on TNT Plunger</SpecialtyCamera>
+      <Participants>1</Participants>
+      <ConversationSummary>After initial conversation with Enpi Seeki (CON01-001A) if he is interacted with again BEFORE the player completes Mission 1.1 he will deliver this new line.</ConversationSummary>
+    </DialogueNode>
+  </DialogueRoot>
+  <DialogueRoot>
+    <DialogueNode>
+      <ConversationID>CON01-002B</ConversationID>
+      <ParticipantName>Enpi Seeki</ParticipantName>
+      <EmoteType>Reg</EmoteType>
+      <Side>Left</Side>
+      <Line>Soft-Mask do menial task. Then get reward. This too complicated for you?</Line>
+      <SpecialityAnimation>None</SpecialityAnimation>
+      <SpecialtyCamera>None</SpecialtyCamera>
+      <Participants>1</Participants>
+      <ConversationSummary>If player interacts with Enpi Seeki BEFORE the player completes Mission 1.1 but AFTER already triggering CON01-002A, he will deliver this alternative line.</ConversationSummary>
+    </DialogueNode>
+  </DialogueRoot>
+  <DialogueRoot>
+    <DialogueNode>
+      <ConversationID>CON01-002C</ConversationID>
+      <ParticipantName>Enpi Seeki</ParticipantName>
+      <EmoteType>Reg</EmoteType>
+      <Side>Left</Side>
+      <Line>Nantooki bring in day laborer if Soft-Mask can’t do job. Get going!</Line>
+      <SpecialityAnimation>None</SpecialityAnimation>
+      <SpecialtyCamera>None</SpecialtyCamera>
+      <Participants>1</Participants>
+      <ConversationSummary>If player interacts with Enpi Seeki BEFORE the player completes Mission 1.1 but AFTER already triggering CON01-002B, he will deliver this alternative line.</ConversationSummary>
+    </DialogueNode>
+  </DialogueRoot>
+  <DialogueRoot>
+    <DialogueNode>
+      <ConversationID>CON01-002D</ConversationID>
+      <ParticipantName>Enpi Seeki</ParticipantName>
+      <EmoteType>Reg</EmoteType>
+      <Side>Left</Side>
+      <Line>If Soft-Mask keep repeating self, tribe repeat selves too.</Line>
+      <SpecialityAnimation>None</SpecialityAnimation>
+      <SpecialtyCamera>None</SpecialtyCamera>
+      <Participants>1</Participants>
+      <ConversationSummary>If player interacts with Enpi Seeki BEFORE the player completes Mission 1.1 but AFTER already triggering CON01-002C, he will deliver this alternative line. This line will be repeated should he be approached agian before completing Mission 1.1.</ConversationSummary>
+    </DialogueNode>
+  </DialogueRoot>
+  <DialogueRoot>
+    <DialogueNode>
+      <ConversationID>CON01-003A</ConversationID>
+      <ParticipantName>Mutt</ParticipantName>
+      <EmoteType>Hurt</EmoteType>
+      <Side>Left</Side>
+      <Line>Agh, that smarts... but we did it, Dorado! And there’s a shiny coin for us to collect!</Line>
+      <SpecialityAnimation>None</SpecialityAnimation>
+      <SpecialtyCamera>Fixed Location: Jump cut to floating Toll Token 1.1</SpecialtyCamera>
+      <Participants />
+      <ConversationSummary>Triggered after the dam destruction cutscene (CUT01-001) during the end of Mission 1.1</ConversationSummary>
+    </DialogueNode>
+    <DialogueNode>
+      <ConversationID>CON01-003A</ConversationID>
+      <ParticipantName>Mutt</ParticipantName>
+      <EmoteType>Happy</EmoteType>
+      <Side>Left</Side>
+      <Line>I don’t know what it’s for, but I feel compelled to collect as many as possible!</Line>
+      <SpecialityAnimation>None</SpecialityAnimation>
+      <SpecialtyCamera>None</SpecialtyCamera>
+      <Participants>3</Participants>
+      <ConversationSummary />
+    </DialogueNode>
+    <DialogueNode>
+      <ConversationID>CON01-003A</ConversationID>
+      <ParticipantName>Dorado</ParticipantName>
+      <EmoteType>Skeptical</EmoteType>
+      <Side>Left</Side>
+      <Line>This is almost too convenient.</Line>
+      <SpecialityAnimation>None</SpecialityAnimation>
+      <SpecialtyCamera>None</SpecialtyCamera>
+      <Participants />
+      <ConversationSummary />
+    </DialogueNode>
+    <DialogueNode>
+      <ConversationID>CON01-003A</ConversationID>
+      <ParticipantName>Enpi Seeki</ParticipantName>
+      <EmoteType>Excited</EmoteType>
+      <Side>Right</Side>
+      <Line>Soft-Mask actually complete task. This unprecedented day in Nantooki history.</Line>
+      <SpecialityAnimation>Nantooki Celebration</SpecialityAnimation>
+      <SpecialtyCamera>None</SpecialtyCamera>
+      <Participants />
+      <ConversationSummary />
+    </DialogueNode>
+    <DialogueNode>
+      <ConversationID>CON01-003A</ConversationID>
+      <ParticipantName>Mutt</ParticipantName>
+      <EmoteType>Confused</EmoteType>
+      <Side>Left</Side>
+      <Line>You mean nobody’s ever helped your people?</Line>
+      <SpecialityAnimation>None</SpecialityAnimation>
+      <SpecialtyCamera>None</SpecialtyCamera>
+      <Participants />
+      <ConversationSummary />
+    </DialogueNode>
+    <DialogueNode>
+      <ConversationID>CON01-003A</ConversationID>
+      <ParticipantName>Enpi Seeki</ParticipantName>
+      <EmoteType>Reg</EmoteType>
+      <Side>Right</Side>
+      <Line>Nantooki tribe founded on rugged individualism and strong objectivist viewpoint. Need all help we can get.</Line>
+      <SpecialityAnimation>None</SpecialityAnimation>
+      <SpecialtyCamera>None</SpecialtyCamera>
+      <Participants />
+      <ConversationSummary />
+    </DialogueNode>
+  </DialogueRoot>
+  <DialogueRoot>
+    <DialogueNode>
+      <ConversationID>CON01-004A</ConversationID>
+      <ParticipantName>Enpi Seeki</ParticipantName>
+      <EmoteType>Excited</EmoteType>
+      <Side>Right</Side>
+      <Line>Wow! Soft-Mask token get!</Line>
+      <SpecialityAnimation>None</SpecialityAnimation>
+      <SpecialtyCamera>None</SpecialtyCamera>
+      <Participants>3</Participants>
+      <ConversationSummary>Triggered immediatly after player collects Toll Token 1.1</ConversationSummary>
+    </DialogueNode>
+    <DialogueNode>
+      <ConversationID>CON01-004A</ConversationID>
+      <ParticipantName>Dorado</ParticipantName>
+      <EmoteType>Skeptical</EmoteType>
+      <Side>Left</Side>
+      <Line>Token Get?? Wouldn’t it be “get token”?</Line>
+      <SpecialityAnimation>None</SpecialityAnimation>
+      <SpecialtyCamera>None</SpecialtyCamera>
+      <Participants />
+      <ConversationSummary />
+    </DialogueNode>
+    <DialogueNode>
+      <ConversationID>CON01-004A</ConversationID>
+      <ParticipantName>Mutt</ParticipantName>
+      <EmoteType>Reg</EmoteType>
+      <Side>Left</Side>
+      <Line>“Token Get” sounds perfectly fine to me. The way someone talks is up to him and his tribe.</Line>
+      <SpecialityAnimation>None</SpecialityAnimation>
+      <SpecialtyCamera>None</SpecialtyCamera>
+      <Participants />
+      <ConversationSummary />
+    </DialogueNode>
+    <DialogueNode>
+      <ConversationID>CON01-004A</ConversationID>
+      <ParticipantName>Enpi Seeki</ParticipantName>
+      <EmoteType>Reg</EmoteType>
+      <Side>Right</Side>
+      <Line>This true. Syntactic structure important aspect of indigenous culture.</Line>
+      <SpecialityAnimation>None</SpecialityAnimation>
+      <SpecialtyCamera>None</SpecialtyCamera>
+      <Participants />
+      <ConversationSummary />
+    </DialogueNode>
+    <DialogueNode>
+      <ConversationID>CON01-004A</ConversationID>
+      <ParticipantName>Dorado</ParticipantName>
+      <EmoteType>Happy</EmoteType>
+      <Side>Left</Side>
+      <Line>A single gold coin! A full day’s work for an adventurer of your caliber. Ready to head home?</Line>
+      <SpecialityAnimation>None</SpecialityAnimation>
+      <SpecialtyCamera>None</SpecialtyCamera>
+      <Participants />
+      <ConversationSummary />
+    </DialogueNode>
+    <DialogueNode>
+      <ConversationID>CON01-004A</ConversationID>
+      <ParticipantName>Mutt</ParticipantName>
+      <EmoteType>Reg</EmoteType>
+      <Side>Left</Side>
+      <Line>Oh come on Dorado! Look at all this deforestation. We have to help!</Line>
+      <SpecialityAnimation>None</SpecialityAnimation>
+      <SpecialtyCamera>None</SpecialtyCamera>
+      <Participants />
+      <ConversationSummary />
+    </DialogueNode>
+  </DialogueRoot>
+  <DialogueRoot>
+    <DialogueNode>
+      <ConversationID>CON01-005A</ConversationID>
+      <ParticipantName>Enpi Seeki</ParticipantName>
+      <EmoteType>Reg</EmoteType>
+      <Side>Left</Side>
+      <Line>Find use for shiny circle yet? Enpi Seeki have exciting investment opportunities…</Line>
+      <SpecialityAnimation>None</SpecialityAnimation>
+      <SpecialtyCamera>None</SpecialtyCamera>
+      <Participants>1</Participants>
+      <ConversationSummary>If player interacts with Enpi Seeki AFTER already triggering CON01-004A, he will deliver this alternative line.</ConversationSummary>
+    </DialogueNode>
+  </DialogueRoot>
+  <DialogueRoot>
+    <DialogueNode>
+      <ConversationID>CON01-005B</ConversationID>
+      <ParticipantName>Enpi Seeki</ParticipantName>
+      <EmoteType>Excited</EmoteType>
+      <Side>Left</Side>
+      <Line>Wolf-man bring water back! Me so excited, me forget basic conjugation!</Line>
+      <SpecialityAnimation>Nantooki Celebration</SpecialityAnimation>
+      <SpecialtyCamera>None</SpecialtyCamera>
+      <Participants>1</Participants>
+      <ConversationSummary>If player interacts with Enpi Seeki AFTER already triggering CON01-005A, he will deliver this alternative line.</ConversationSummary>
+    </DialogueNode>
+  </DialogueRoot>
+  <DialogueRoot>
+    <DialogueNode>
+      <ConversationID>CON01-005C</ConversationID>
+      <ParticipantName>Enpi Seeki</ParticipantName>
+      <EmoteType>Reg</EmoteType>
+      <Side>Left</Side>
+      <Line>You bring water back to village! Now bring premium pay cable?</Line>
+      <SpecialityAnimation>None</SpecialityAnimation>
+      <SpecialtyCamera>None</SpecialtyCamera>
+      <Participants>1</Participants>
+      <ConversationSummary>If player interacts with Enpi Seeki AFTER already triggering CON01-005B, he will deliver this alternative line. If interacted with again he will repeat CON01-005A.</ConversationSummary>
+    </DialogueNode>
+  </DialogueRoot>
+  <DialogueRoot>
+    <DialogueNode>
+      <ConversationID>CON01-006A</ConversationID>
+      <ParticipantName>Soothsayer</ParticipantName>
+      <EmoteType>Reg</EmoteType>
+      <Side>Right</Side>
+      <Line>‘Tis I, the Soothsayer! You’ve been busy, haven’t you child?</Line>
+      <SpecialityAnimation>None</SpecialityAnimation>
+      <SpecialtyCamera>None</SpecialtyCamera>
+      <Participants>3</Participants>
+      <ConversationSummary>This conversation is triggered if the player completes mission 1.2 WITHOUT interacting with the Soothsayer a the entrance to World1. It serves as an alternative award conversation when earning the Toll Token for collecting 100 Dandelion Souls in WikiTiki Woods.</ConversationSummary>
+    </DialogueNode>
+    <DialogueNode>
+      <ConversationID>CON01-006A</ConversationID>
+      <ParticipantName>Mutt</ParticipantName>
+      <EmoteType>Confused</EmoteType>
+      <Side>Left</Side>
+      <Line>Are you my conscience?  In... old lady... turtle... form?</Line>
+      <SpecialityAnimation>None</SpecialityAnimation>
+      <SpecialtyCamera>None</SpecialtyCamera>
+      <Participants />
+      <ConversationSummary />
+    </DialogueNode>
+    <DialogueNode>
+      <ConversationID>CON01-006A</ConversationID>
+      <ParticipantName>Soothsayer</ParticipantName>
+      <EmoteType>Reg</EmoteType>
+      <Side>Right</Side>
+      <Line>Hush child. You’ve managed to collect all 100 of my precious dandelion souls… and without even coming to see me first.</Line>
+      <SpecialityAnimation>None</SpecialityAnimation>
+      <SpecialtyCamera>None</SpecialtyCamera>
+      <Participants />
+      <ConversationSummary />
+    </DialogueNode>
+    <DialogueNode>
+      <ConversationID>CON01-006A</ConversationID>
+      <ParticipantName>Mutt</ParticipantName>
+      <EmoteType>Confused</EmoteType>
+      <Side>Left</Side>
+      <Line>Um… you’re welcome?  Wait, WHAT did we do?</Line>
+      <SpecialityAnimation>None</SpecialityAnimation>
+      <SpecialtyCamera>None</SpecialtyCamera>
+      <Participants />
+      <ConversationSummary />
+    </DialogueNode>
+    <DialogueNode>
+      <ConversationID>CON01-006A</ConversationID>
+      <ParticipantName>Soothsayer</ParticipantName>
+      <EmoteType>Reg</EmoteType>
+      <Side>Right</Side>
+      <Line>Come by my tent some time and I’ll give you all the details.</Line>
+      <SpecialityAnimation>None</SpecialityAnimation>
+      <SpecialtyCamera>None</SpecialtyCamera>
+      <Participants />
+      <ConversationSummary />
+    </DialogueNode>
+    <DialogueNode>
+      <ConversationID>CON01-006A</ConversationID>
+      <ParticipantName>Mutt</ParticipantName>
+      <EmoteType>Happy</EmoteType>
+      <Side>Left</Side>
+      <Line>Will do, Ma’am!  Did you see that, Dorado?  And without even being here! She’s amazing!</Line>
+      <SpecialityAnimation>None</SpecialityAnimation>
+      <SpecialtyCamera>None</SpecialtyCamera>
+      <Participants />
+      <ConversationSummary />
+    </DialogueNode>
+    <DialogueNode>
+      <ConversationID>CON01-006A</ConversationID>
+      <ParticipantName>Dorado</ParticipantName>
+      <EmoteType>Skeptical</EmoteType>
+      <Side>Left</Side>
+      <Line>Disembodied voice?  Eh, big deal.</Line>
+      <SpecialityAnimation>None</SpecialityAnimation>
+      <SpecialtyCamera>None</SpecialtyCamera>
+      <Participants />
+      <ConversationSummary />
+    </DialogueNode>
+    <DialogueNode>
+      <ConversationID>CON01-006A</ConversationID>
+      <ParticipantName>Soothsayer</ParticipantName>
+      <EmoteType>Reg</EmoteType>
+      <Side>Right</Side>
+      <Line>Make sure to drop by soon. Until then, here’s a little something for your troubles.</Line>
+      <SpecialityAnimation>None</SpecialityAnimation>
+      <SpecialtyCamera>None</SpecialtyCamera>
+      <Participants />
+      <ConversationSummary />
+    </DialogueNode>
+  </DialogueRoot>
+  <DialogueRoot>
+    <DialogueNode>
+      <ConversationID>CON01-006B</ConversationID>
+      <ParticipantName>Soothsayer</ParticipantName>
+      <EmoteType>Reg</EmoteType>
+      <Side>Right</Side>
+      <Line>The souls of Wiki Tiki Woods now number 100! Have a toll token, darling!</Line>
+      <SpecialityAnimation>None</SpecialityAnimation>
+      <SpecialtyCamera>None</SpecialtyCamera>
+      <Participants>3</Participants>
+      <ConversationSummary>This conversation is triggered if the player completes mission 1.2 AFTER interacting with the Soothsayer a the entrance to World1. It serves as the primary award conversation when earning the Toll Token for collecting 100 Dandelion Souls in WikiTiki Woods.</ConversationSummary>
+    </DialogueNode>
+    <DialogueNode>
+      <ConversationID>CON01-006B</ConversationID>
+      <ParticipantName>Mutt</ParticipantName>
+      <EmoteType>Happy</EmoteType>
+      <Side>Left</Side>
+      <Line>Wow, thanks!  See, Dorado? That wasn’t so bad…</Line>
+      <SpecialityAnimation>None</SpecialityAnimation>
+      <SpecialtyCamera>None</SpecialtyCamera>
+      <Participants />
+      <ConversationSummary />
+    </DialogueNode>
+    <DialogueNode>
+      <ConversationID>CON01-006B</ConversationID>
+      <ParticipantName>Dorado</ParticipantName>
+      <EmoteType>Skeptical</EmoteType>
+      <Side>Left</Side>
+      <Line>I still say collecting souls is a bunch of hocus pocus.</Line>
+      <SpecialityAnimation>None</SpecialityAnimation>
+      <SpecialtyCamera>None</SpecialtyCamera>
+      <Participants />
+      <ConversationSummary />
+    </DialogueNode>
+    <DialogueNode>
+      <ConversationID>CON01-006B</ConversationID>
+      <ParticipantName>Mutt</ParticipantName>
+      <EmoteType>Reg</EmoteType>
+      <Side>Left</Side>
+      <Line>Says the haunted belt-buckle.</Line>
+      <SpecialityAnimation>None</SpecialityAnimation>
+      <SpecialtyCamera>None</SpecialtyCamera>
+      <Participants />
+      <ConversationSummary />
+    </DialogueNode>
+    <DialogueNode>
+      <ConversationID>CON01-006B</ConversationID>
+      <ParticipantName>Dorado</ParticipantName>
+      <EmoteType>Reg</EmoteType>
+      <Side>Left</Side>
+      <Line>Touche, mi amigo.</Line>
+      <SpecialityAnimation>None</SpecialityAnimation>
+      <SpecialtyCamera>None</SpecialtyCamera>
+      <Participants />
+      <ConversationSummary />
+    </DialogueNode>
+  </DialogueRoot>
+  <DialogueRoot>
+    <DialogueNode>
+      <ConversationID>CON01-007A</ConversationID>
+      <ParticipantName>Soothsayer</ParticipantName>
+      <EmoteType>Reg</EmoteType>
+      <Side>Right</Side>
+      <Line>Hello child!  I am the Soothsayer, reader of fortunes and collector of spirits.</Line>
+      <SpecialityAnimation>None</SpecialityAnimation>
+      <SpecialtyCamera>None</SpecialtyCamera>
+      <Participants>3</Participants>
+      <ConversationSummary>This conversation is triggered when the player approaches and interacts with The Soothsayer BEFORE collecting all the Dandelion Souls in World 1.</ConversationSummary>
+    </DialogueNode>
+    <DialogueNode>
+      <ConversationID>CON01-007A</ConversationID>
+      <ParticipantName>Mutt</ParticipantName>
+      <EmoteType>Startled</EmoteType>
+      <Side>Left</Side>
+      <Line>Spirits? YOU MEAN G-G-G-GHOSTS!?!</Line>
+      <SpecialityAnimation>None</SpecialityAnimation>
+      <SpecialtyCamera>None</SpecialtyCamera>
+      <Participants />
+      <ConversationSummary />
+    </DialogueNode>
+    <DialogueNode>
+      <ConversationID>CON01-007A</ConversationID>
+      <ParticipantName>Soothsayer</ParticipantName>
+      <EmoteType>Reg</EmoteType>
+      <Side>Right</Side>
+      <Line>Well, souls. Dandelion souls. We all need a hobby, don’t you know.</Line>
+      <SpecialityAnimation>None</SpecialityAnimation>
+      <SpecialtyCamera>None</SpecialtyCamera>
+      <Participants />
+      <ConversationSummary />
+    </DialogueNode>
+    <DialogueNode>
+      <ConversationID>CON01-007A</ConversationID>
+      <ParticipantName>Dorado</ParticipantName>
+      <EmoteType>Reg</EmoteType>
+      <Side>Left</Side>
+      <Line>If I had eyes I would be rolling them right now.</Line>
+      <SpecialityAnimation>None</SpecialityAnimation>
+      <SpecialtyCamera>None</SpecialtyCamera>
+      <Participants />
+      <ConversationSummary />
+    </DialogueNode>
+    <DialogueNode>
+      <ConversationID>CON01-007A</ConversationID>
+      <ParticipantName>Mutt</ParticipantName>
+      <EmoteType>Confused</EmoteType>
+      <Side>Left</Side>
+      <Line>What?  You mean those little puff ball flowers have souls?  No way!  Then again, I’m not a botanist, so...</Line>
+      <SpecialityAnimation>None</SpecialityAnimation>
+      <SpecialtyCamera>None</SpecialtyCamera>
+      <Participants />
+      <ConversationSummary />
+    </DialogueNode>
+    <DialogueNode>
+      <ConversationID>CON01-007A</ConversationID>
+      <ParticipantName>Soothsayer</ParticipantName>
+      <EmoteType>Angry</EmoteType>
+      <Side>Right</Side>
+      <Line>I AM THE SAYER OF SOOTHS, CHILD! YOU DARE DOUBT ME?</Line>
+      <SpecialityAnimation>Fortune Telling</SpecialityAnimation>
+      <SpecialtyCamera>Reveal Tween: Focuses on Soothsayer's Face</SpecialtyCamera>
+      <Participants />
+      <ConversationSummary />
+    </DialogueNode>
+    <DialogueNode>
+      <ConversationID>CON01-007A</ConversationID>
+      <ParticipantName>Mutt</ParticipantName>
+      <EmoteType>Scared</EmoteType>
+      <Side>Left</Side>
+      <Line>No, no, never!  Please don’t curse me!</Line>
+      <SpecialityAnimation>None</SpecialityAnimation>
+      <SpecialtyCamera>None</SpecialtyCamera>
+      <Participants />
+      <ConversationSummary />
+    </DialogueNode>
+    <DialogueNode>
+      <ConversationID>CON01-007A</ConversationID>
+      <ParticipantName>Soothsayer</ParticipantName>
+      <EmoteType>Reg</EmoteType>
+      <Side>Right</Side>
+      <Line>Yah, yah, simmer down honey-child. Soothsayer won’t hurt you none.</Line>
+      <SpecialityAnimation>None</SpecialityAnimation>
+      <SpecialtyCamera>None</SpecialtyCamera>
+      <Participants />
+      <ConversationSummary />
+    </DialogueNode>
+    <DialogueNode>
+      <ConversationID>CON01-007A</ConversationID>
+      <ParticipantName>Soothsayer</ParticipantName>
+      <EmoteType>Reg</EmoteType>
+      <Side>Right</Side>
+      <Line>You can make it up to me by collecting all the dandelion souls scattered throughout this area.</Line>
+      <SpecialityAnimation>None</SpecialityAnimation>
+      <SpecialtyCamera>Fixed Location: Jump cut to floating Dandelion Souls</SpecialtyCamera>
+      <Participants />
+      <ConversationSummary />
+    </DialogueNode>
+    <DialogueNode>
+      <ConversationID>CON01-007A</ConversationID>
+      <ParticipantName>Soothsayer</ParticipantName>
+      <EmoteType>Reg</EmoteType>
+      <Side>Right</Side>
+      <Line>I’d do it myself, but I’ve gone blind in my old age. Collect all 100 in each world, and you will be rewarded handsomely!</Line>
+      <SpecialityAnimation>None</SpecialityAnimation>
+      <SpecialtyCamera>None</SpecialtyCamera>
+      <Participants />
+      <ConversationSummary />
+    </DialogueNode>
+    <DialogueNode>
+      <ConversationID>CON01-007A</ConversationID>
+      <ParticipantName>Dorado</ParticipantName>
+      <EmoteType>Happy</EmoteType>
+      <Side>Left</Side>
+      <Line>I’m already as handsome as I’ll get. Devastatingly so.</Line>
+      <SpecialityAnimation>None</SpecialityAnimation>
+      <SpecialtyCamera>None</SpecialtyCamera>
+      <Participants />
+      <ConversationSummary />
+    </DialogueNode>
+    <DialogueNode>
+      <ConversationID>CON01-007A</ConversationID>
+      <ParticipantName>Mutt</ParticipantName>
+      <EmoteType>Reg</EmoteType>
+      <Side>Left</Side>
+      <Line>Sounds good - we’ll keep an eye out!</Line>
+      <SpecialityAnimation>None</SpecialityAnimation>
+      <SpecialtyCamera>None</SpecialtyCamera>
+      <Participants />
+      <ConversationSummary />
+    </DialogueNode>
+  </DialogueRoot>
+  <DialogueRoot>
+    <DialogueNode>
+      <ConversationID>CON01-008A</ConversationID>
+      <ParticipantName>Mutt</ParticipantName>
+      <EmoteType>Confused</EmoteType>
+      <Side>Left</Side>
+      <Line>Oh… err… What’s wrong sir? Why are you crying?</Line>
+      <SpecialityAnimation>None</SpecialityAnimation>
+      <SpecialtyCamera>None</SpecialtyCamera>
+      <Participants>3</Participants>
+      <ConversationSummary>If player interacts with Cheeki Tieftan BEFORE rescuing his son this conversation occurs.</ConversationSummary>
+    </DialogueNode>
+    <DialogueNode>
+      <ConversationID>CON01-008A</ConversationID>
+      <ParticipantName>Cheeki Tieftan</ParticipantName>
+      <EmoteType>Sad</EmoteType>
+      <Side>Right</Side>
+      <Line>Sniff… er… no crying! Cheeki Tieftan is Tiki chieftan! Leaky Cheeki Tieftan just have grief, son. </Line>
+      <SpecialityAnimation>Crying</SpecialityAnimation>
+      <SpecialtyCamera>None</SpecialtyCamera>
+      <Participants />
+      <ConversationSummary />
+    </DialogueNode>
+    <DialogueNode>
+      <ConversationID>CON01-008A</ConversationID>
+      <ParticipantName>Dorado</ParticipantName>
+      <EmoteType>Happy</EmoteType>
+      <Side>Left</Side>
+      <Line>Do you think he sells sea shells too?</Line>
+      <SpecialityAnimation>None</SpecialityAnimation>
+      <SpecialtyCamera>None</SpecialtyCamera>
+      <Participants />
+      <ConversationSummary />
+    </DialogueNode>
+    <DialogueNode>
+      <ConversationID>CON01-008A</ConversationID>
+      <ParticipantName>Mutt</ParticipantName>
+      <EmoteType>Confused</EmoteType>
+      <Side>Left</Side>
+      <Line>Well why are you so leaky, Cheeki?</Line>
+      <SpecialityAnimation>None</SpecialityAnimation>
+      <SpecialtyCamera>None</SpecialtyCamera>
+      <Participants />
+      <ConversationSummary />
+    </DialogueNode>
+    <DialogueNode>
+      <ConversationID>CON01-008A</ConversationID>
+      <ParticipantName>Cheeki Tieftan</ParticipantName>
+      <EmoteType>Sad</EmoteType>
+      <Side>Right</Side>
+      <Line>Cheeki Tieftan’s son Teeni Chiefsun gone!  Beaver make Cheeki a weepy chieftain.</Line>
+      <SpecialityAnimation>Crying</SpecialityAnimation>
+      <SpecialtyCamera>None</SpecialtyCamera>
+      <Participants />
+      <ConversationSummary />
+    </DialogueNode>
+    <DialogueNode>
+      <ConversationID>CON01-008A</ConversationID>
+      <ParticipantName>Dorado</ParticipantName>
+      <EmoteType>Sassy</EmoteType>
+      <Side>Left</Side>
+      <Line>This beaver… how much wood could he chuck, would you say?</Line>
+      <SpecialityAnimation>None</SpecialityAnimation>
+      <SpecialtyCamera>None</SpecialtyCamera>
+      <Participants />
+      <ConversationSummary />
+    </DialogueNode>
+    <DialogueNode>
+      <ConversationID>CON01-008A</ConversationID>
+      <ParticipantName>Mutt</ParticipantName>
+      <EmoteType>Reg</EmoteType>
+      <Side>Left</Side>
+      <Line>Calm down, just tell us what’s the matter.</Line>
+      <SpecialityAnimation>None</SpecialityAnimation>
+      <SpecialtyCamera>None</SpecialtyCamera>
+      <Participants />
+      <ConversationSummary />
+    </DialogueNode>
+    <DialogueNode>
+      <ConversationID>CON01-008A</ConversationID>
+      <ParticipantName>Cheeki Tieftan</ParticipantName>
+      <EmoteType>Reg</EmoteType>
+      <Side>Right</Side>
+      <Line>Sorry about that. Cheeki not even using correct pentameter.</Line>
+      <SpecialityAnimation>None</SpecialityAnimation>
+      <SpecialtyCamera>None</SpecialtyCamera>
+      <Participants />
+      <ConversationSummary />
+    </DialogueNode>
+    <DialogueNode>
+      <ConversationID>CON01-008A</ConversationID>
+      <ParticipantName>Cheeki Tieftan</ParticipantName>
+      <EmoteType>Reg</EmoteType>
+      <Side>Right</Side>
+      <Line>Rich flat-tail take Teeni Chiefsun because Nantooki tribe not leave. But Wiki Tiki Woods is Nantooki home!</Line>
+      <SpecialityAnimation>None</SpecialityAnimation>
+      <SpecialtyCamera>None</SpecialtyCamera>
+      <Participants />
+      <ConversationSummary />
+    </DialogueNode>
+    <DialogueNode>
+      <ConversationID>CON01-008A</ConversationID>
+      <ParticipantName>Mutt</ParticipantName>
+      <EmoteType>Happy</EmoteType>
+      <Side>Left</Side>
+      <Line>Don’t worry! We’ll get your son back from those buck-toothed goons!</Line>
+      <SpecialityAnimation>Hero Pose</SpecialityAnimation>
+      <SpecialtyCamera>None</SpecialtyCamera>
+      <Participants />
+      <ConversationSummary />
+    </DialogueNode>
+    <DialogueNode>
+      <ConversationID>CON01-008A</ConversationID>
+      <ParticipantName>Dorado</ParticipantName>
+      <EmoteType>Sassy</EmoteType>
+      <Side>Left</Side>
+      <Line>Anything to keep him from rhyming again. That was painful.</Line>
+      <SpecialityAnimation>None</SpecialityAnimation>
+      <SpecialtyCamera>None</SpecialtyCamera>
+      <Participants />
+      <ConversationSummary />
+    </DialogueNode>
+  </DialogueRoot>
+  <DialogueRoot>
+    <DialogueNode>
+      <ConversationID>CON01-009A</ConversationID>
+      <ParticipantName>Cheeki Tieftan</ParticipantName>
+      <EmoteType>Sad</EmoteType>
+      <Side>Left</Side>
+      <Line>Soft-Mask not find Teeni Chiefsun yet? What take so long?</Line>
+      <SpecialityAnimation>Crying</SpecialityAnimation>
+      <SpecialtyCamera>None</SpecialtyCamera>
+      <Participants>1</Participants>
+      <ConversationSummary>If player interacts with Cheeki Tieftan AFTER already triggering CON01-008A, he will deliver this alternative line.</ConversationSummary>
+    </DialogueNode>
+  </DialogueRoot>
+  <DialogueRoot>
+    <DialogueNode>
+      <ConversationID>CON01-009B</ConversationID>
+      <ParticipantName>Cheeki Tieftan</ParticipantName>
+      <EmoteType>Sad</EmoteType>
+      <Side>Left</Side>
+      <Line>Cheeki would go find son by self, but having bad rabies flare-up. That real medical issue. Definitely not excuse.</Line>
+      <SpecialityAnimation>Crying</SpecialityAnimation>
+      <SpecialtyCamera>None</SpecialtyCamera>
+      <Participants>1</Participants>
+      <ConversationSummary>If player interacts with Cheeki Tieftan AFTER already triggering CON01-009A, he will deliver this alternative line.</ConversationSummary>
+    </DialogueNode>
+  </DialogueRoot>
+  <DialogueRoot>
+    <DialogueNode>
+      <ConversationID>CON01-009C</ConversationID>
+      <ParticipantName>Cheeki Tieftan</ParticipantName>
+      <EmoteType>Sad</EmoteType>
+      <Side>Left</Side>
+      <Line>If can’t find Cheeki’s son, maybe try exploring? This advice even free!</Line>
+      <SpecialityAnimation>Crying</SpecialityAnimation>
+      <SpecialtyCamera>None</SpecialtyCamera>
+      <Participants>1</Participants>
+      <ConversationSummary>If player interacts with Cheeki Tieftan AFTER already triggering CON01-009B, he will deliver this alternative line. If interacted with again he will repeat CON01-009A</ConversationSummary>
+    </DialogueNode>
+  </DialogueRoot>
+  <DialogueRoot>
+    <DialogueNode>
+      <ConversationID>CON01-010A</ConversationID>
+      <ParticipantName>Teeni Chiefsun</ParticipantName>
+      <EmoteType>Happy</EmoteType>
+      <Side>Right</Side>
+      <Line>Weee!  Weenie Teeni free from meanie schemer fleabag leader!</Line>
+      <SpecialityAnimation>Nantooki Celebration</SpecialityAnimation>
+      <SpecialtyCamera>None</SpecialtyCamera>
+      <Participants>3</Participants>
+      <ConversationSummary>Auto-triggered after CUT01-002 during mission 1.3. Mutt relocated to the front of Teeni's (now open) cage.</ConversationSummary>
+    </DialogueNode>
+    <DialogueNode>
+      <ConversationID>CON01-010A</ConversationID>
+      <ParticipantName>Dorado</ParticipantName>
+      <EmoteType>Angry</EmoteType>
+      <Side>Left</Side>
+      <Line>Great... more tongue twisters?  The apple falls obnoxiously close to the tree. A pity the beavers couldn’t cut THAT one down...</Line>
+      <SpecialityAnimation>None</SpecialityAnimation>
+      <SpecialtyCamera>None</SpecialtyCamera>
+      <Participants />
+      <ConversationSummary />
+    </DialogueNode>
+    <DialogueNode>
+      <ConversationID>CON01-010A</ConversationID>
+      <ParticipantName>Teeni Chiefsun</ParticipantName>
+      <EmoteType>Reg</EmoteType>
+      <Side>Right</Side>
+      <Line>Friendly Soft-Mask free Teeni from meanies!</Line>
+      <SpecialityAnimation>None</SpecialityAnimation>
+      <SpecialtyCamera>None</SpecialtyCamera>
+      <Participants />
+      <ConversationSummary />
+    </DialogueNode>
+    <DialogueNode>
+      <ConversationID>CON01-010A</ConversationID>
+      <ParticipantName>Mutt</ParticipantName>
+      <EmoteType>Reg</EmoteType>
+      <Side>Left</Side>
+      <Line>Your father is worried sick about you, Teeni! He’ll be so pleased to see you safe and sound. It’s time for you to head back home.</Line>
+      <SpecialityAnimation>None</SpecialityAnimation>
+      <SpecialtyCamera>None</SpecialtyCamera>
+      <Participants />
+      <ConversationSummary />
+    </DialogueNode>
+    <DialogueNode>
+      <ConversationID>CON01-010A</ConversationID>
+      <ParticipantName>Teeni Chiefsun</ParticipantName>
+      <EmoteType>Reg</EmoteType>
+      <Side>Right</Side>
+      <Line>Soft-Mask carry tiny tiki Teeni?</Line>
+      <SpecialityAnimation>None</SpecialityAnimation>
+      <SpecialtyCamera>None</SpecialtyCamera>
+      <Participants />
+      <ConversationSummary />
+    </DialogueNode>
+    <DialogueNode>
+      <ConversationID>CON01-010A</ConversationID>
+      <ParticipantName>Dorado</ParticipantName>
+      <EmoteType>Sassy</EmoteType>
+      <Side>Left</Side>
+      <Line>Sorry kid. We don’t do escort missions.</Line>
+      <SpecialityAnimation>None</SpecialityAnimation>
+      <SpecialtyCamera>None</SpecialtyCamera>
+      <Participants />
+      <ConversationSummary />
+    </DialogueNode>
+    <DialogueNode>
+      <ConversationID>CON01-010A</ConversationID>
+      <ParticipantName>Mutt</ParticipantName>
+      <EmoteType>Happy</EmoteType>
+      <Side>Left</Side>
+      <Line>Um… how about we race you down there instead? Ready? 3… 2…</Line>
+      <SpecialityAnimation>None</SpecialityAnimation>
+      <SpecialtyCamera>None</SpecialtyCamera>
+      <Participants />
+      <ConversationSummary />
+    </DialogueNode>
+  </DialogueRoot>
+  <DialogueRoot>
+    <DialogueNode>
+      <ConversationID>CON01-011A</ConversationID>
+      <ParticipantName>Cheeki Tieftan</ParticipantName>
+      <EmoteType>Happy</EmoteType>
+      <Side>Right</Side>
+      <Line>Teeni Chiefsun safe and sound! Cheeki Tieftan never smile so big in all life. See?</Line>
+      <SpecialityAnimation>Nantooki Celebration</SpecialityAnimation>
+      <SpecialtyCamera>None</SpecialtyCamera>
+      <Participants>4</Participants>
+      <ConversationSummary>If player interacts with Cheeki Tieftan AFTER Teeni has returned home he will deliver this new conversation to end mission 1.3</ConversationSummary>
+    </DialogueNode>
+    <DialogueNode>
+      <ConversationID>CON01-011A</ConversationID>
+      <ParticipantName>Dorado</ParticipantName>
+      <EmoteType>Confused</EmoteType>
+      <Side>Left</Side>
+      <Line>I thought that was a mask.</Line>
+      <SpecialityAnimation>None</SpecialityAnimation>
+      <SpecialtyCamera>None</SpecialtyCamera>
+      <Participants />
+      <ConversationSummary />
+    </DialogueNode>
+    <DialogueNode>
+      <ConversationID>CON01-011A</ConversationID>
+      <ParticipantName>Mutt</ParticipantName>
+      <EmoteType>Nervous</EmoteType>
+      <Side>Left</Side>
+      <Line>Er… yes, you look very happy.</Line>
+      <SpecialityAnimation>None</SpecialityAnimation>
+      <SpecialtyCamera>None</SpecialtyCamera>
+      <Participants />
+      <ConversationSummary />
+    </DialogueNode>
+    <DialogueNode>
+      <ConversationID>CON01-011A</ConversationID>
+      <ParticipantName>Teeni Chiefsun</ParticipantName>
+      <EmoteType>Happy</EmoteType>
+      <Side>Right</Side>
+      <Line>Nantooki tribe just glad Soft-Mask can solve all problems for us!</Line>
+      <SpecialityAnimation>None</SpecialityAnimation>
+      <SpecialtyCamera>None</SpecialtyCamera>
+      <Participants />
+      <ConversationSummary />
+    </DialogueNode>
+    <DialogueNode>
+      <ConversationID>CON01-011A</ConversationID>
+      <ParticipantName>Cheeki Tieftan</ParticipantName>
+      <EmoteType>Happy</EmoteType>
+      <Side>Right</Side>
+      <Line>That right, son! Soft-Mask gladly solve every last problem facing entire Nantooki tribe.</Line>
+      <SpecialityAnimation>None</SpecialityAnimation>
+      <SpecialtyCamera>None</SpecialtyCamera>
+      <Participants />
+      <ConversationSummary />
+    </DialogueNode>
+    <DialogueNode>
+      <ConversationID>CON01-011A</ConversationID>
+      <ParticipantName>Mutt</ParticipantName>
+      <EmoteType>Reg</EmoteType>
+      <Side>Left</Side>
+      <Line>Um… right you are! The Lobodestroyo is here to serve!</Line>
+      <SpecialityAnimation>Hero Pose</SpecialityAnimation>
+      <SpecialtyCamera>None</SpecialtyCamera>
+      <Participants />
+      <ConversationSummary />
+    </DialogueNode>
+    <DialogueNode>
+      <ConversationID>CON01-011A</ConversationID>
+      <ParticipantName>Dorado</ParticipantName>
+      <EmoteType>Sassy</EmoteType>
+      <Side>Left</Side>
+      <Line>Anything for such a proud, self-reliant leader as yourself.</Line>
+      <SpecialityAnimation>None</SpecialityAnimation>
+      <SpecialtyCamera>None</SpecialtyCamera>
+      <Participants />
+      <ConversationSummary />
+    </DialogueNode>
+  </DialogueRoot>
+  <DialogueRoot>
+    <DialogueNode>
+      <ConversationID>CON01-012A</ConversationID>
+      <ParticipantName>Espee Seeay</ParticipantName>
+      <EmoteType>Sad</EmoteType>
+      <Side>Right</Side>
+      <Line>Boo hoo hoo!  Little buddies gone!</Line>
+      <SpecialityAnimation>Crying</SpecialityAnimation>
+      <SpecialtyCamera>None</SpecialtyCamera>
+      <Participants>3</Participants>
+      <ConversationSummary>Auto triggered when Mutt gets in close proximity to Espee Seeay on the way up to the top of the dam. Starts mission 1.4</ConversationSummary>
+    </DialogueNode>
+    <DialogueNode>
+      <ConversationID>CON01-012A</ConversationID>
+      <ParticipantName>Dorado</ParticipantName>
+      <EmoteType>Reg</EmoteType>
+      <Side>Left</Side>
+      <Line>The Lobodestroyo only helps those who help themselves. Let’s go, Mutt...</Line>
+      <SpecialityAnimation>None</SpecialityAnimation>
+      <SpecialtyCamera>None</SpecialtyCamera>
+      <Participants />
+      <ConversationSummary />
+    </DialogueNode>
+    <DialogueNode>
+      <ConversationID>CON01-012A</ConversationID>
+      <ParticipantName>Mutt</ParticipantName>
+      <EmoteType>Reg</EmoteType>
+      <Side>Left</Side>
+      <Line>No, no, we’ll figure this out.  Please stop crying, sir.</Line>
+      <SpecialityAnimation>None</SpecialityAnimation>
+      <SpecialtyCamera>None</SpecialtyCamera>
+      <Participants />
+      <ConversationSummary />
+    </DialogueNode>
+    <DialogueNode>
+      <ConversationID>CON01-012A</ConversationID>
+      <ParticipantName>Espee Seeay</ParticipantName>
+      <EmoteType>Sad</EmoteType>
+      <Side>Right</Side>
+      <Line>Can’t stop crying… three pets lost!  Took them for walk, but Nantooki have very loose leash laws.  Run away almost immediately.</Line>
+      <SpecialityAnimation>Crying</SpecialityAnimation>
+      <SpecialtyCamera>None</SpecialtyCamera>
+      <Participants />
+      <ConversationSummary />
+    </DialogueNode>
+    <DialogueNode>
+      <ConversationID>CON01-012A</ConversationID>
+      <ParticipantName>Dorado</ParticipantName>
+      <EmoteType>Angry</EmoteType>
+      <Side>Left</Side>
+      <Line>You’re a terrible pet owner, and you should be ashamed.</Line>
+      <SpecialityAnimation>None</SpecialityAnimation>
+      <SpecialtyCamera>None</SpecialtyCamera>
+      <Participants />
+      <ConversationSummary />
+    </DialogueNode>
+    <DialogueNode>
+      <ConversationID>CON01-012A</ConversationID>
+      <ParticipantName>Mutt</ParticipantName>
+      <EmoteType>Happy</EmoteType>
+      <Side>Left</Side>
+      <Line>We’d be glad to do a search around the perimeter for them. We were planning on exploring aimlessly anyway!</Line>
+      <SpecialityAnimation>None</SpecialityAnimation>
+      <SpecialtyCamera>None</SpecialtyCamera>
+      <Participants />
+      <ConversationSummary />
+    </DialogueNode>
+  </DialogueRoot>
+  <DialogueRoot>
+    <DialogueNode>
+      <ConversationID>CON01-013A</ConversationID>
+      <ParticipantName>Espee Seeay</ParticipantName>
+      <EmoteType>Reg</EmoteType>
+      <Side>Left</Side>
+      <Line>Soft-Mask still looking for lost pups? If they not make it, please save meat for tribal ceremony.  Yum!</Line>
+      <SpecialityAnimation>None</SpecialityAnimation>
+      <SpecialtyCamera>None</SpecialtyCamera>
+      <Participants>1</Participants>
+      <ConversationSummary>If player interacts with Espee Seeay before completing Mission 1.4</ConversationSummary>
+    </DialogueNode>
+  </DialogueRoot>
+  <DialogueRoot>
+    <DialogueNode>
+      <ConversationID>CON01-014A</ConversationID>
+      <ParticipantName>Espee Seeay</ParticipantName>
+      <EmoteType>Happy</EmoteType>
+      <Side>Right</Side>
+      <Line>Soft-Mask bring back barely bearable Bar’klee!</Line>
+      <SpecialityAnimation>None</SpecialityAnimation>
+      <SpecialtyCamera>Fixed Location: Jump cut to returned Pup near Espee Seeay's hut</SpecialtyCamera>
+      <Participants>2</Participants>
+      <ConversationSummary>Auto triggered on the spot when player collects the missing tiki pup 1.1 in Mission 1.4.</ConversationSummary>
+    </DialogueNode>
+    <DialogueNode>
+      <ConversationID>CON01-014A</ConversationID>
+      <ParticipantName>Dorado</ParticipantName>
+      <EmoteType>Skeptical</EmoteType>
+      <Side>Left</Side>
+      <Line>Does everyone here have an inconsistent speech impediment?</Line>
+      <SpecialityAnimation>None</SpecialityAnimation>
+      <SpecialtyCamera>cont.</SpecialtyCamera>
+      <Participants />
+      <ConversationSummary />
+    </DialogueNode>
+  </DialogueRoot>
+  <DialogueRoot>
+    <DialogueNode>
+      <ConversationID>CON01-015A</ConversationID>
+      <ParticipantName>Espee Seeay</ParticipantName>
+      <EmoteType>Happy</EmoteType>
+      <Side>Right</Side>
+      <Line>It least-favorite wooden friend Twi’gee! Soft-Mask have thanks of Espee Seeay.</Line>
+      <SpecialityAnimation>None</SpecialityAnimation>
+      <SpecialtyCamera>Fixed Location: Jump cut to returned Pup near Espee Seeay's hut</SpecialtyCamera>
+      <Participants>3</Participants>
+      <ConversationSummary>Auto triggered on the spot when player collects the missing tiki pup 1.2 in Mission 1.4. </ConversationSummary>
+    </DialogueNode>
+    <DialogueNode>
+      <ConversationID>CON01-015A</ConversationID>
+      <ParticipantName>Mutt</ParticipantName>
+      <EmoteType>Reg</EmoteType>
+      <Side>Left</Side>
+      <Line>Just doing my job! Me, being the Lobodestroyo, not this “Soft-Mask”.</Line>
+      <SpecialityAnimation>None</SpecialityAnimation>
+      <SpecialtyCamera>cont.</SpecialtyCamera>
+      <Participants />
+      <ConversationSummary />
+    </DialogueNode>
+    <DialogueNode>
+      <ConversationID>CON01-015A</ConversationID>
+      <ParticipantName>Dorado</ParticipantName>
+      <EmoteType>Sassy</EmoteType>
+      <Side>Left</Side>
+      <Line>Don’t be so concerned with branding.</Line>
+      <SpecialityAnimation>None</SpecialityAnimation>
+      <SpecialtyCamera>cont.</SpecialtyCamera>
+      <Participants />
+      <ConversationSummary />
+    </DialogueNode>
+  </DialogueRoot>
+  <DialogueRoot>
+    <DialogueNode>
+      <ConversationID>CON01-016A</ConversationID>
+      <ParticipantName>Espee Seeay</ParticipantName>
+      <EmoteType>Happy</EmoteType>
+      <Side>Right</Side>
+      <Line>It favorite pup Car’vurr!  Soft-Mask quite good at finding friends.</Line>
+      <SpecialityAnimation>None</SpecialityAnimation>
+      <SpecialtyCamera>Fixed Location: Jump cut to returned Pup near Espee Seeay's hut</SpecialtyCamera>
+      <Participants>2</Participants>
+      <ConversationSummary>Auto triggered on the spot when player collects the missing tiki pup 1.3 in Mission 1.4.</ConversationSummary>
+    </DialogueNode>
+    <DialogueNode>
+      <ConversationID>CON01-016A</ConversationID>
+      <ParticipantName>Dorado</ParticipantName>
+      <EmoteType>Reg</EmoteType>
+      <Side>Left</Side>
+      <Line>Yes, you’ve finally fulfilled the destiny the legends spoke of: Animal control!</Line>
+      <SpecialityAnimation>None</SpecialityAnimation>
+      <SpecialtyCamera>cont.</SpecialtyCamera>
+      <Participants />
+      <ConversationSummary />
+    </DialogueNode>
+  </DialogueRoot>
+  <DialogueRoot>
+    <DialogueNode>
+      <ConversationID>CON01-017A</ConversationID>
+      <ParticipantName>Espee Seeay</ParticipantName>
+      <EmoteType>Happy</EmoteType>
+      <Side>Right</Side>
+      <Line>Soft-Mask rescue all three friends!  Thank you!  Now Espee Seeay sure to win back-alley pup fight!</Line>
+      <SpecialityAnimation>Nantooki Celebration</SpecialityAnimation>
+      <SpecialtyCamera>Reveal Tween: Sgowcases all three Pups by Espee Seeay's hut</SpecialtyCamera>
+      <Participants>2</Participants>
+      <ConversationSummary>Auto triggered as a suplimnetal conversation added immiedatly after the last of the three tiki pups are returned (in any order)</ConversationSummary>
+    </DialogueNode>
+    <DialogueNode>
+      <ConversationID>CON01-017A</ConversationID>
+      <ParticipantName>Mutt</ParticipantName>
+      <EmoteType>Startled</EmoteType>
+      <Side>Left</Side>
+      <Line>Ah, you’re welcome.  ...wait, WHAT?!?</Line>
+      <SpecialityAnimation>None</SpecialityAnimation>
+      <SpecialtyCamera>cont.</SpecialtyCamera>
+      <Participants />
+      <ConversationSummary />
+    </DialogueNode>
+  </DialogueRoot>
+  <DialogueRoot>
+    <DialogueNode>
+      <ConversationID>CON01-018A</ConversationID>
+      <ParticipantName>Espee Seeay</ParticipantName>
+      <EmoteType>Reg</EmoteType>
+      <Side>Right</Side>
+      <Line>Soft-Mask big hero of pup-fighting ring! Has eternal thanks.</Line>
+      <SpecialityAnimation>None</SpecialityAnimation>
+      <SpecialtyCamera>None</SpecialtyCamera>
+      <Participants>1</Participants>
+      <ConversationSummary>If player interacts with Espee Seeay AFTER completing mission 1.4 he will deliver this alternate line.</ConversationSummary>
+    </DialogueNode>
+  </DialogueRoot>
+  <DialogueRoot>
+    <DialogueNode>
+      <ConversationID>CON01-018B</ConversationID>
+      <ParticipantName>Espee Seeay</ParticipantName>
+      <EmoteType>Reg</EmoteType>
+      <Side>Right</Side>
+      <Line>Chief bitten by Car’vurr, foamed at mouth for week!  He not bite Soft-Mask, right?</Line>
+      <SpecialityAnimation>None</SpecialityAnimation>
+      <SpecialtyCamera>None</SpecialtyCamera>
+      <Participants>1</Participants>
+      <ConversationSummary>If player interacts with Espee Seeay AFTER triggering CON01-018A he will deliver this alternate line.</ConversationSummary>
+    </DialogueNode>
+  </DialogueRoot>
+  <DialogueRoot>
+    <DialogueNode>
+      <ConversationID>CON01-018C</ConversationID>
+      <ParticipantName>Espee Seeay</ParticipantName>
+      <EmoteType>Reg</EmoteType>
+      <Side>Right</Side>
+      <Line>Twi’gee and Bar’klee named after Nantooki philosophers.  Or trees.  Can’t remember.</Line>
+      <SpecialityAnimation>None</SpecialityAnimation>
+      <SpecialtyCamera>None</SpecialtyCamera>
+      <Participants>1</Participants>
+      <ConversationSummary>If player interacts with Espee Seeay AFTER triggering CON01-018B he will deliver this alternate line. If interacted with again he will repeat CON01-018A</ConversationSummary>
+    </DialogueNode>
+  </DialogueRoot>
+  <DialogueRoot>
+    <DialogueNode>
+      <ConversationID>CON01-019A</ConversationID>
+      <ParticipantName>T.I.M.B.U.R.</ParticipantName>
+      <EmoteType>Reg</EmoteType>
+      <Side>Right</Side>
+      <Line>Battery depleted. Activate recharging cells.</Line>
+      <SpecialityAnimation>Solar Panel Reacharge</SpecialityAnimation>
+      <SpecialtyCamera>Fixed Location: Jump Cut to T.I.M.B.U.R.</SpecialtyCamera>
+      <Participants>3</Participants>
+      <ConversationSummary>Auto-triggerd directly after survivng the first round of battle with T.I.M.B.U.R.</ConversationSummary>
+    </DialogueNode>
+    <DialogueNode>
+      <ConversationID>CON01-019A</ConversationID>
+      <ParticipantName>Mutt</ParticipantName>
+      <EmoteType>Reg</EmoteType>
+      <Side>Left</Side>
+      <Line>It’s solar powered?</Line>
+      <SpecialityAnimation>None</SpecialityAnimation>
+      <SpecialtyCamera>cont.</SpecialtyCamera>
+      <Participants />
+      <ConversationSummary />
+    </DialogueNode>
+    <DialogueNode>
+      <ConversationID>CON01-019A</ConversationID>
+      <ParticipantName>Dorado</ParticipantName>
+      <EmoteType>Sassy</EmoteType>
+      <Side>Left</Side>
+      <Line>That seems a bit odd for a band of environment-hating tree exterminators.</Line>
+      <SpecialityAnimation>None</SpecialityAnimation>
+      <SpecialtyCamera>cont.</SpecialtyCamera>
+      <Participants />
+      <ConversationSummary />
+    </DialogueNode>
+    <DialogueNode>
+      <ConversationID>CON01-019A</ConversationID>
+      <ParticipantName>Mutt</ParticipantName>
+      <EmoteType>Reg</EmoteType>
+      <Side>Left</Side>
+      <Line>Well, at least they’re not complete monsters!</Line>
+      <SpecialityAnimation>None</SpecialityAnimation>
+      <SpecialtyCamera>cont.</SpecialtyCamera>
+      <Participants />
+      <ConversationSummary />
+    </DialogueNode>
+    <DialogueNode>
+      <ConversationID>CON01-019A</ConversationID>
+      <ParticipantName>Dorado</ParticipantName>
+      <EmoteType>Reg</EmoteType>
+      <Side>Left</Side>
+      <Line>No, they are.  That machine is only made from 11% recycled materials.</Line>
+      <SpecialityAnimation>None</SpecialityAnimation>
+      <SpecialtyCamera>cont.</SpecialtyCamera>
+      <Participants />
+      <ConversationSummary />
+    </DialogueNode>
+    <DialogueNode>
+      <ConversationID>CON01-019A</ConversationID>
+      <ParticipantName>T.I.M.B.U.R.</ParticipantName>
+      <EmoteType>Reg</EmoteType>
+      <Side>Right</Side>
+      <Line>Pilot in mortal danger. Blast doors deployed for maximum security of biological necessity.</Line>
+      <SpecialityAnimation>Solar Panel Reacharge</SpecialityAnimation>
+      <SpecialtyCamera>Reveal Tween: Focus on cockpit and T.I.M.B.U.R pilot</SpecialtyCamera>
+      <Participants />
+      <ConversationSummary />
+    </DialogueNode>
+    <DialogueNode>
+      <ConversationID>CON01-019A</ConversationID>
+      <ParticipantName>Mutt</ParticipantName>
+      <EmoteType>Reg</EmoteType>
+      <Side>Left</Side>
+      <Line>It’s very well-spoken for a mindless killing machine.</Line>
+      <SpecialityAnimation>None</SpecialityAnimation>
+      <SpecialtyCamera>cont.</SpecialtyCamera>
+      <Participants />
+      <ConversationSummary />
+    </DialogueNode>
+    <DialogueNode>
+      <ConversationID>CON01-019A</ConversationID>
+      <ParticipantName>T.I.M.B.U.R.</ParticipantName>
+      <EmoteType>Reg</EmoteType>
+      <Side>Right</Side>
+      <Line>KILL NOW.  KILL NOW.  KILL NOW.</Line>
+      <SpecialityAnimation>None</SpecialityAnimation>
+      <SpecialtyCamera>cont.</SpecialtyCamera>
+      <Participants />
+      <ConversationSummary />
+    </DialogueNode>
+  </DialogueRoot>
+  <DialogueRoot>
+    <DialogueNode>
+      <ConversationID>CON01-020A</ConversationID>
+      <ParticipantName>T.I.M.B.U.R.</ParticipantName>
+      <EmoteType>Reg</EmoteType>
+      <Side>Left</Side>
+      <Line>Dam-age taken to hull and biological necessity. Escalate offensive protocol to level indexed “Chasey-cutty.”</Line>
+      <SpecialityAnimation>None</SpecialityAnimation>
+      <SpecialtyCamera>None</SpecialtyCamera>
+      <Participants>1</Participants>
+      <ConversationSummary>Auto-triggered once player lands an attack on the T.I.M.B.U.R. pilot ending the first round of the battle.</ConversationSummary>
+    </DialogueNode>
+  </DialogueRoot>
+  <DialogueRoot>
+    <DialogueNode>
+      <ConversationID>CON01-021A</ConversationID>
+      <ParticipantName>T.I.M.B.U.R.</ParticipantName>
+      <EmoteType>Reg</EmoteType>
+      <Side>Left</Side>
+      <Line>Hull and biological necessity sustained additional dam-age. Fidelity at 33.3333333 (repeating) percent.</Line>
+      <SpecialityAnimation>None</SpecialityAnimation>
+      <SpecialtyCamera>None</SpecialtyCamera>
+      <Participants>1</Participants>
+      <ConversationSummary>Auto-triggered once player lands an attack on the T.I.M.B.U.R. pilot ending the second round of the battle.</ConversationSummary>
+    </DialogueNode>
+  </DialogueRoot>
+  <DialogueRoot>
+    <DialogueNode>
+      <ConversationID>CON01-022A</ConversationID>
+      <ParticipantName>Mutt</ParticipantName>
+      <EmoteType>Reg</EmoteType>
+      <Side>Left</Side>
+      <Line>That was kind of brutal.  But at least it died doing what it loved!</Line>
+      <SpecialityAnimation>None</SpecialityAnimation>
+      <SpecialtyCamera>None</SpecialtyCamera>
+      <Participants>2</Participants>
+      <ConversationSummary>Auto-triggered after CUT01-005 in which T.I.M.B.U.R. makes a comment then self destructs.</ConversationSummary>
+    </DialogueNode>
+    <DialogueNode>
+      <ConversationID>CON01-022A</ConversationID>
+      <ParticipantName>Dorado</ParticipantName>
+      <EmoteType>Curious</EmoteType>
+      <Side>Right</Side>
+      <Line>Attacking masked vigilantes?</Line>
+      <SpecialityAnimation>None</SpecialityAnimation>
+      <SpecialtyCamera>None</SpecialtyCamera>
+      <Participants />
+      <ConversationSummary />
+    </DialogueNode>
+    <DialogueNode>
+      <ConversationID>CON01-022A</ConversationID>
+      <ParticipantName>Mutt</ParticipantName>
+      <EmoteType>Reg</EmoteType>
+      <Side>Left</Side>
+      <Line>Well yes, that… but I meant destroying trees.  At least the pilot wasn’t hurt!</Line>
+      <SpecialityAnimation>None</SpecialityAnimation>
+      <SpecialtyCamera>Fixed Location: Focus on roaming Lumberchuck enemy</SpecialtyCamera>
+      <Participants />
+      <ConversationSummary />
+    </DialogueNode>
+    <DialogueNode>
+      <ConversationID>CON01-022A</ConversationID>
+      <ParticipantName>Dorado</ParticipantName>
+      <EmoteType>Angry</EmoteType>
+      <Side>Right</Side>
+      <Line>Let’s go fix that. I bet he has something valuable on him!</Line>
+      <SpecialityAnimation>None</SpecialityAnimation>
+      <SpecialtyCamera>None</SpecialtyCamera>
+      <Participants />
+      <ConversationSummary />
+    </DialogueNode>
+  </DialogueRoot>
+  <DialogueRoot>
+    <DialogueNode>
+      <ConversationID>CON01-023A</ConversationID>
+      <ParticipantName>T.I.M.B.U.R.</ParticipantName>
+      <EmoteType>Reg</EmoteType>
+      <Side>Left</Side>
+      <Line>... ...</Line>
+      <SpecialityAnimation>None</SpecialityAnimation>
+      <SpecialtyCamera>None</SpecialtyCamera>
+      <Participants>1</Participants>
+      <ConversationSummary>If player interacts with T.I.M.B.U.R. after completing mission 1.5</ConversationSummary>
+    </DialogueNode>
+  </DialogueRoot>
+  <DialogueRoot>
+    <DialogueNode>
+      <ConversationID>CON01-023B</ConversationID>
+      <ParticipantName>T.I.M.B.U.R.</ParticipantName>
+      <EmoteType>Reg</EmoteType>
+      <Side>Left</Side>
+      <Line>... ... ...</Line>
+      <SpecialityAnimation>None</SpecialityAnimation>
+      <SpecialtyCamera>None</SpecialtyCamera>
+      <Participants>1</Participants>
+      <ConversationSummary>If player interacts with T.I.M.B.U.R. after triggering CON01-023A he will deliver this alternative line.</ConversationSummary>
+    </DialogueNode>
+  </DialogueRoot>
+  <DialogueRoot>
+    <DialogueNode>
+      <ConversationID>CON01-023C</ConversationID>
+      <ParticipantName>T.I.M.B.U.R.</ParticipantName>
+      <EmoteType>Reg</EmoteType>
+      <Side>Left</Side>
+      <Line>... ... ... ...</Line>
+      <SpecialityAnimation>None</SpecialityAnimation>
+      <SpecialtyCamera>None</SpecialtyCamera>
+      <Participants>1</Participants>
+      <ConversationSummary>If player interacts with T.I.M.B.U.R. after triggering CON01-023B he will deliver this alternative line.</ConversationSummary>
+    </DialogueNode>
+  </DialogueRoot>
+  <DialogueRoot>
+    <DialogueNode>
+      <ConversationID>CON01-023D</ConversationID>
+      <ParticipantName>T.I.M.B.U.R.</ParticipantName>
+      <EmoteType>Reg</EmoteType>
+      <Side>Left</Side>
+      <Line>... ... ... ... ... </Line>
+      <SpecialityAnimation>None</SpecialityAnimation>
+      <SpecialtyCamera>None</SpecialtyCamera>
+      <Participants>1</Participants>
+      <ConversationSummary>If player interacts with T.I.M.B.U.R. after triggering CON01-023C he will deliver this alternative line.</ConversationSummary>
+    </DialogueNode>
+  </DialogueRoot>
+  <DialogueRoot>
+    <DialogueNode>
+      <ConversationID>CON01-023E</ConversationID>
+      <ParticipantName>T.I.M.B.U.R.</ParticipantName>
+      <EmoteType>Reg</EmoteType>
+      <Side>Left</Side>
+      <Line>... still deactivated. Idle observation of metallic carcass categorized as redundant.</Line>
+      <SpecialityAnimation>None</SpecialityAnimation>
+      <SpecialtyCamera>None</SpecialtyCamera>
+      <Participants>1</Participants>
+      <ConversationSummary>If player interacts with T.I.M.B.U.R. after triggering CON01-023D he will deliver this alternative line.</ConversationSummary>
+    </DialogueNode>
+  </DialogueRoot>
+  <DialogueRoot>
+    <DialogueNode>
+      <ConversationID>CON01-023F</ConversationID>
+      <ParticipantName>T.I.M.B.U.R.</ParticipantName>
+      <EmoteType>Reg</EmoteType>
+      <Side>Left</Side>
+      <Line>... residual electric signal redirected to verbal criticism subroutines. Nice mask… fatty.</Line>
+      <SpecialityAnimation>None</SpecialityAnimation>
+      <SpecialtyCamera>None</SpecialtyCamera>
+      <Participants>1</Participants>
+      <ConversationSummary>If player interacts with T.I.M.B.U.R. after triggering CON01-023E he will deliver this alternative line. If interacted with again he will repeat CON01-023A</ConversationSummary>
+    </DialogueNode>
+  </DialogueRoot>
+  <DialogueRoot>
+    <DialogueNode>
+      <ConversationID>CON01-024A</ConversationID>
+      <ParticipantName>Loomi Natti</ParticipantName>
+      <EmoteType>Reg</EmoteType>
+      <Side>Right</Side>
+      <Line>End is nigh!  End is nigh!</Line>
+      <SpecialityAnimation>None</SpecialityAnimation>
+      <SpecialtyCamera>None</SpecialtyCamera>
+      <Participants>3</Participants>
+      <ConversationSummary>Triggered when player interacts with Loomi Natti</ConversationSummary>
+    </DialogueNode>
+    <DialogueNode>
+      <ConversationID>CON01-024A</ConversationID>
+      <ParticipantName>Mutt</ParticipantName>
+      <EmoteType>Confused</EmoteType>
+      <Side>Left</Side>
+      <Line>Excuse me sir, are you all right?</Line>
+      <SpecialityAnimation>None</SpecialityAnimation>
+      <SpecialtyCamera>None</SpecialtyCamera>
+      <Participants />
+      <ConversationSummary />
+    </DialogueNode>
+    <DialogueNode>
+      <ConversationID>CON01-024A</ConversationID>
+      <ParticipantName>Loomi Natti</ParticipantName>
+      <EmoteType>Reg</EmoteType>
+      <Side>Right</Side>
+      <Line>Soft-Mask hiding head in sand.  Nantooki sheeple not understand end of world coming!</Line>
+      <SpecialityAnimation>None</SpecialityAnimation>
+      <SpecialtyCamera>None</SpecialtyCamera>
+      <Participants />
+      <ConversationSummary />
+    </DialogueNode>
+    <DialogueNode>
+      <ConversationID>CON01-024A</ConversationID>
+      <ParticipantName>Dorado</ParticipantName>
+      <EmoteType>Curious</EmoteType>
+      <Side>Left</Side>
+      <Line>Sheeple? Do you think he means the sheep people from a few towns over?</Line>
+      <SpecialityAnimation>None</SpecialityAnimation>
+      <SpecialtyCamera>None</SpecialtyCamera>
+      <Participants />
+      <ConversationSummary />
+    </DialogueNode>
+    <DialogueNode>
+      <ConversationID>CON01-024A</ConversationID>
+      <ParticipantName>Loomi Natti</ParticipantName>
+      <EmoteType>Reg</EmoteType>
+      <Side>Right</Side>
+      <Line>Loomi Natti former village shaman. Resign in disgust after realize medicine inflict permanently twisted tongue. Endorsed by Chieftain with no regard for children.</Line>
+      <SpecialityAnimation>None</SpecialityAnimation>
+      <SpecialtyCamera>None</SpecialtyCamera>
+      <Participants />
+      <ConversationSummary />
+    </DialogueNode>
+    <DialogueNode>
+      <ConversationID>CON01-024A</ConversationID>
+      <ParticipantName>Loomi Natti</ParticipantName>
+      <EmoteType>Reg</EmoteType>
+      <Side>Right</Side>
+      <Line>Now Loomi Natti village conspiracy theorist.</Line>
+      <SpecialityAnimation>None</SpecialityAnimation>
+      <SpecialtyCamera>None</SpecialtyCamera>
+      <Participants />
+      <ConversationSummary />
+    </DialogueNode>
+    <DialogueNode>
+      <ConversationID>CON01-024A</ConversationID>
+      <ParticipantName>Mutt</ParticipantName>
+      <EmoteType>Confused</EmoteType>
+      <Side>Left</Side>
+      <Line>You said the world is going to end.  Is it a meteor?  Global warming?  Economic collapse?</Line>
+      <SpecialityAnimation>None</SpecialityAnimation>
+      <SpecialtyCamera>None</SpecialtyCamera>
+      <Participants />
+      <ConversationSummary />
+    </DialogueNode>
+    <DialogueNode>
+      <ConversationID>CON01-024A</ConversationID>
+      <ParticipantName>Loomi Natti</ParticipantName>
+      <EmoteType>Reg</EmoteType>
+      <Side>Right</Side>
+      <Line>Flames from four Tokum-Totems stolen!</Line>
+      <SpecialityAnimation>None</SpecialityAnimation>
+      <SpecialtyCamera>None</SpecialtyCamera>
+      <Participants />
+      <ConversationSummary />
+    </DialogueNode>
+    <DialogueNode>
+      <ConversationID>CON01-024A</ConversationID>
+      <ParticipantName>Dorado</ParticipantName>
+      <EmoteType>Sassy</EmoteType>
+      <Side>Left</Side>
+      <Line>Yes, that was our next guess.</Line>
+      <SpecialityAnimation>None</SpecialityAnimation>
+      <SpecialtyCamera>None</SpecialtyCamera>
+      <Participants />
+      <ConversationSummary />
+    </DialogueNode>
+    <DialogueNode>
+      <ConversationID>CON01-024A</ConversationID>
+      <ParticipantName>Mutt</ParticipantName>
+      <EmoteType>Reg</EmoteType>
+      <Side>Left</Side>
+      <Line>I’m not sure I follow, sir.  Can’t you just re-light your torches? Make a fire by rubbing two sticks together?</Line>
+      <SpecialityAnimation>None</SpecialityAnimation>
+      <SpecialtyCamera>None</SpecialtyCamera>
+      <Participants />
+      <ConversationSummary />
+    </DialogueNode>
+    <DialogueNode>
+      <ConversationID>CON01-024A</ConversationID>
+      <ParticipantName>Loomi Natti</ParticipantName>
+      <EmoteType>Reg</EmoteType>
+      <Side>Right</Side>
+      <Line>Soft-Mask not understand complex Nantooki science! Eternal flames lit by gods and goddesses who founded village.</Line>
+      <SpecialityAnimation>None</SpecialityAnimation>
+      <SpecialtyCamera>Fixed Location: Jump Cut to each of the four Tokum Totems</SpecialtyCamera>
+      <Participants />
+      <ConversationSummary />
+    </DialogueNode>
+    <DialogueNode>
+      <ConversationID>CON01-024A</ConversationID>
+      <ParticipantName>Loomi Natti</ParticipantName>
+      <EmoteType>Reg</EmoteType>
+      <Side>Right</Side>
+      <Line>Without fire, Tokum Totems can’t bring four seasons of year to Wiki Tiki Woods.  No harvest in autumn!  No swimsuit season in summer!  LOOMI NATTI work on bikini body for nothing!</Line>
+      <SpecialityAnimation>None</SpecialityAnimation>
+      <SpecialtyCamera>None</SpecialtyCamera>
+      <Participants />
+      <ConversationSummary />
+    </DialogueNode>
+    <DialogueNode>
+      <ConversationID>CON01-024A</ConversationID>
+      <ParticipantName>Mutt</ParticipantName>
+      <EmoteType>Curious</EmoteType>
+      <Side>Left</Side>
+      <Line>Well, any idea where your flames were taken?</Line>
+      <SpecialityAnimation>None</SpecialityAnimation>
+      <SpecialtyCamera>None</SpecialtyCamera>
+      <Participants />
+      <ConversationSummary />
+    </DialogueNode>
+    <DialogueNode>
+      <ConversationID>CON01-024A</ConversationID>
+      <ParticipantName>Dorado</ParticipantName>
+      <EmoteType>Reg</EmoteType>
+      <Side>Left</Side>
+      <Line>I’m sure he’s got a few dozen theories.</Line>
+      <SpecialityAnimation>None</SpecialityAnimation>
+      <SpecialtyCamera>None</SpecialtyCamera>
+      <Participants />
+      <ConversationSummary />
+    </DialogueNode>
+    <DialogueNode>
+      <ConversationID>CON01-024A</ConversationID>
+      <ParticipantName>Loomi Natti</ParticipantName>
+      <EmoteType>Reg</EmoteType>
+      <Side>Right</Side>
+      <Line>Don’t want to sound crazy…</Line>
+      <SpecialityAnimation>None</SpecialityAnimation>
+      <SpecialtyCamera>None</SpecialtyCamera>
+      <Participants />
+      <ConversationSummary />
+    </DialogueNode>
+    <DialogueNode>
+      <ConversationID>CON01-024A</ConversationID>
+      <ParticipantName>Dorado</ParticipantName>
+      <EmoteType>Sassy</EmoteType>
+      <Side>Left</Side>
+      <Line>Here we go…</Line>
+      <SpecialityAnimation>None</SpecialityAnimation>
+      <SpecialtyCamera>None</SpecialtyCamera>
+      <Participants />
+      <ConversationSummary />
+    </DialogueNode>
+    <DialogueNode>
+      <ConversationID>CON01-024A</ConversationID>
+      <ParticipantName>Loomi Natti</ParticipantName>
+      <EmoteType>Reg</EmoteType>
+      <Side>Right</Side>
+      <Line>...but flames not been seen since rich flat-tail rat show up. Maybe taken up to giant brick hut?</Line>
+      <SpecialityAnimation>None</SpecialityAnimation>
+      <SpecialtyCamera>Reveal Tween: Focus on Gnawton's driveway area</SpecialtyCamera>
+      <Participants />
+      <ConversationSummary />
+    </DialogueNode>
+    <DialogueNode>
+      <ConversationID>CON01-024A</ConversationID>
+      <ParticipantName>Dorado</ParticipantName>
+      <EmoteType>Reg</EmoteType>
+      <Side>Left</Side>
+      <Line>That was... alarmingly reasonable.</Line>
+      <SpecialityAnimation>None</SpecialityAnimation>
+      <SpecialtyCamera>None</SpecialtyCamera>
+      <Participants />
+      <ConversationSummary />
+    </DialogueNode>
+    <DialogueNode>
+      <ConversationID>CON01-024A</ConversationID>
+      <ParticipantName>Mutt</ParticipantName>
+      <EmoteType>Happy</EmoteType>
+      <Side>Left</Side>
+      <Line>Don’t worry - the Lobodestroyo will check it out, or his name isn’t… er… the Lobodestroyo!</Line>
+      <SpecialityAnimation>Hero Pose</SpecialityAnimation>
+      <SpecialtyCamera>None</SpecialtyCamera>
+      <Participants />
+      <ConversationSummary />
+    </DialogueNode>
+    <DialogueNode>
+      <ConversationID>CON01-024A</ConversationID>
+      <ParticipantName>Loomi Natti</ParticipantName>
+      <EmoteType>Reg</EmoteType>
+      <Side>Right</Side>
+      <Line>Soft-Mask refer to self in third-person! LOOMI NATTI think he total nutter.</Line>
+      <SpecialityAnimation>None</SpecialityAnimation>
+      <SpecialtyCamera>None</SpecialtyCamera>
+      <Participants />
+      <ConversationSummary />
+    </DialogueNode>
+  </DialogueRoot>
+  <DialogueRoot>
+    <DialogueNode>
+      <ConversationID>CON01-025A</ConversationID>
+      <ParticipantName>Loomi Natti</ParticipantName>
+      <EmoteType>Reg</EmoteType>
+      <Side>Left</Side>
+      <Line>Still looking for lost flames? Maybe being used to power flat-tail’s Electric Windmill Cars.</Line>
+      <SpecialityAnimation>None</SpecialityAnimation>
+      <SpecialtyCamera>Reveal Tween: Focus on Gnawton's driveway area</SpecialtyCamera>
+      <Participants>1</Participants>
+      <ConversationSummary>If player interacts with Loomi Natti after triggering CON01-024A he will deliver this alternative line.</ConversationSummary>
+    </DialogueNode>
+  </DialogueRoot>
+  <DialogueRoot>
+    <DialogueNode>
+      <ConversationID>CON01-025B</ConversationID>
+      <ParticipantName>Loomi Natti</ParticipantName>
+      <EmoteType>Reg</EmoteType>
+      <Side>Left</Side>
+      <Line>Just called in to favorite talk radio show. They not know where Tokum-Totem flames are either.</Line>
+      <SpecialityAnimation>None</SpecialityAnimation>
+      <SpecialtyCamera>None</SpecialtyCamera>
+      <Participants>1</Participants>
+      <ConversationSummary>If player interacts with Loomi Natti after triggering CON01-025A he will deliver this alternative line.</ConversationSummary>
+    </DialogueNode>
+  </DialogueRoot>
+  <DialogueRoot>
+    <DialogueNode>
+      <ConversationID>CON01-025C</ConversationID>
+      <ParticipantName>Loomi Natti</ParticipantName>
+      <EmoteType>Reg</EmoteType>
+      <Side>Left</Side>
+      <Line>What if whole world actually complicated simulation created for entertainment of covert watchers? Soft-Mask being controlled by unseen Observers!</Line>
+      <SpecialityAnimation>None</SpecialityAnimation>
+      <SpecialtyCamera>None</SpecialtyCamera>
+      <Participants>1</Participants>
+      <ConversationSummary>If player interacts with Loomi Natti after triggering CON01-025B he will deliver this alternative line.</ConversationSummary>
+    </DialogueNode>
+    <DialogueNode>
+      <ConversationID>CON01-025C</ConversationID>
+      <ParticipantName>Loomi Natti</ParticipantName>
+      <EmoteType>Reg</EmoteType>
+      <Side>Left</Side>
+      <Line>... Nah, that crazy talk.</Line>
+      <SpecialityAnimation>None</SpecialityAnimation>
+      <SpecialtyCamera>None</SpecialtyCamera>
+      <Participants />
+      <ConversationSummary />
+    </DialogueNode>
+  </DialogueRoot>
+  <DialogueRoot>
+    <DialogueNode>
+      <ConversationID>CON01-025D</ConversationID>
+      <ParticipantName>Loomi Natti</ParticipantName>
+      <EmoteType>Reg</EmoteType>
+      <Side>Left</Side>
+      <Line>Soft-Mask find missing flames if only he open third eye. Or close third eye and open normal eyes. Anyway, not looking hard enough.</Line>
+      <SpecialityAnimation>None</SpecialityAnimation>
+      <SpecialtyCamera>None</SpecialtyCamera>
+      <Participants>1</Participants>
+      <ConversationSummary>If player interacts with Loomi Natti after triggering CON01-025C he will deliver this alternative line.</ConversationSummary>
+    </DialogueNode>
+  </DialogueRoot>
+  <DialogueRoot>
+    <DialogueNode>
+      <ConversationID>CON01-025E</ConversationID>
+      <ParticipantName>Loomi Natti</ParticipantName>
+      <EmoteType>Reg</EmoteType>
+      <Side>Right</Side>
+      <Line>Better hurry. World end after Nantooki calendar stops.</Line>
+      <SpecialityAnimation>None</SpecialityAnimation>
+      <SpecialtyCamera>None</SpecialtyCamera>
+      <Participants>2</Participants>
+      <ConversationSummary>If player interacts with Loomi Natti after triggering CON01-025D he will deliver this alternative line. If interacted with again he will repeat CON01-025A</ConversationSummary>
+    </DialogueNode>
+    <DialogueNode>
+      <ConversationID>CON01-025E</ConversationID>
+      <ParticipantName>Mutt</ParticipantName>
+      <EmoteType>Curious</EmoteType>
+      <Side>Left</Side>
+      <Line>When did your calendar stop?</Line>
+      <SpecialityAnimation>None</SpecialityAnimation>
+      <SpecialtyCamera>None</SpecialtyCamera>
+      <Participants />
+      <ConversationSummary />
+    </DialogueNode>
+    <DialogueNode>
+      <ConversationID>CON01-025E</ConversationID>
+      <ParticipantName>Loomi Natti</ParticipantName>
+      <EmoteType>Reg</EmoteType>
+      <Side>Right</Side>
+      <Line>December 31. We too cheap to buy new one.</Line>
+      <SpecialityAnimation>None</SpecialityAnimation>
+      <SpecialtyCamera>None</SpecialtyCamera>
+      <Participants />
+      <ConversationSummary />
+    </DialogueNode>
+  </DialogueRoot>
+  <DialogueRoot>
+    <DialogueNode>
+      <ConversationID>CON01-026A</ConversationID>
+      <ParticipantName>Loomi Natti</ParticipantName>
+      <EmoteType>Happy</EmoteType>
+      <Side>Left</Side>
+      <Line>Flame of New Growth returned to Tokum-Totem. This make reptoids at center of planet very happy!</Line>
+      <SpecialityAnimation>Nantooki Celebration</SpecialityAnimation>
+      <SpecialtyCamera>Reveal Tween: Focus on first Tokum Totem as flame is lit</SpecialtyCamera>
+      <Participants>1</Participants>
+      <ConversationSummary>Triggered when player destroys the first Lambotiki Diablo vehicle (agnostic of which car is destroyed first)</ConversationSummary>
+    </DialogueNode>
+  </DialogueRoot>
+  <DialogueRoot>
+    <DialogueNode>
+      <ConversationID>CON01-026B</ConversationID>
+      <ParticipantName>Loomi Natti</ParticipantName>
+      <EmoteType>Happy</EmoteType>
+      <Side>Left</Side>
+      <Line>Soft-Mask return Flame of Burning Sun! Unless this just hologram of flame. And hologram of Tokum-Totem. WHAT IF LOOMI NATTI HOLOGRAM TOO?</Line>
+      <SpecialityAnimation>Nantooki Celebration</SpecialityAnimation>
+      <SpecialtyCamera>Reveal Tween: Focus on second Tokum Totem as flame is lit</SpecialtyCamera>
+      <Participants>1</Participants>
+      <ConversationSummary>Triggered when player destroys the second Lambotiki Diablo vehicle (agnostic of which car is destroyed)</ConversationSummary>
+    </DialogueNode>
+  </DialogueRoot>
+  <DialogueRoot>
+    <DialogueNode>
+      <ConversationID>CON01-026C</ConversationID>
+      <ParticipantName>Loomi Natti</ParticipantName>
+      <EmoteType>Happy</EmoteType>
+      <Side>Left</Side>
+      <Line>Flame of Falling Leaf back, just like flame of falling spaceships covered up by government.</Line>
+      <SpecialityAnimation>Nantooki Celebration</SpecialityAnimation>
+      <SpecialtyCamera>Reveal Tween: Focus on third Tokum Totem as flame is lit</SpecialtyCamera>
+      <Participants>1</Participants>
+      <ConversationSummary>Triggered when player destroys the third Lambotiki Diablo vehicle (agnostic of which car is destroyed)</ConversationSummary>
+    </DialogueNode>
+  </DialogueRoot>
+  <DialogueRoot>
+    <DialogueNode>
+      <ConversationID>CON01-026D</ConversationID>
+      <ParticipantName>Loomi Natti</ParticipantName>
+      <EmoteType>Happy</EmoteType>
+      <Side>Left</Side>
+      <Line>Wow, Tokum-Totem alighted with Flame of Crystal Rain! Of course, Nantooki leadership keep crystal rain away with secret weather machine.</Line>
+      <SpecialityAnimation>Nantooki Celebration</SpecialityAnimation>
+      <SpecialtyCamera>Reveal Tween: Focus on forth Tokum Totem as flame is lit</SpecialtyCamera>
+      <Participants>1</Participants>
+      <ConversationSummary>Triggered when player destroys the forth Lambotiki Diablo vehicle (agnostic of which car is destroyed last)</ConversationSummary>
+    </DialogueNode>
+    <DialogueNode>
+      <ConversationID>CON01-026D</ConversationID>
+      <ParticipantName>Loomi Natti</ParticipantName>
+      <EmoteType>Reg</EmoteType>
+      <Side>Left</Side>
+      <Line>Stop, no more flames left to collect! Soft-Mask only make more work for self, like mindless proletariat. Come see lit Tokum-Totems for nice surprise!</Line>
+      <SpecialityAnimation>None</SpecialityAnimation>
+      <SpecialtyCamera>cont.</SpecialtyCamera>
+      <Participants />
+      <ConversationSummary />
+    </DialogueNode>
+  </DialogueRoot>
+  <DialogueRoot>
+    <DialogueNode>
+      <ConversationID>CON01-027A</ConversationID>
+      <ParticipantName>Gnawton Sawtooth III</ParticipantName>
+      <EmoteType>Angry</EmoteType>
+      <Side>Left</Side>
+      <Line>YOU FILTHY PEASANT!  That was a Lambortiki Diablo!  Only four of those were ever made, all custom ordered by ME!</Line>
+      <SpecialityAnimation>None</SpecialityAnimation>
+      <SpecialtyCamera>None</SpecialtyCamera>
+      <Participants>1</Participants>
+      <ConversationSummary>Played immediatly after CON01-26A IF Gnawton has not been defeated by the player. Text floats over gameplay.</ConversationSummary>
+    </DialogueNode>
+  </DialogueRoot>
+  <DialogueRoot>
+    <DialogueNode>
+      <ConversationID>CON01-027B</ConversationID>
+      <ParticipantName>Gnawton Sawtooth III</ParticipantName>
+      <EmoteType>Angry</EmoteType>
+      <Side>Left</Side>
+      <Line>NO!  Now I only have TWO incredibly expensive sports cars fueled by magic fire!  LIKE A COMMONER!</Line>
+      <SpecialityAnimation>None</SpecialityAnimation>
+      <SpecialtyCamera>None</SpecialtyCamera>
+      <Participants>1</Participants>
+      <ConversationSummary>Played immediatly after CON01-26A IF Gnawton has not been defeated by the player. Text floats over gameplay.</ConversationSummary>
+    </DialogueNode>
+  </DialogueRoot>
+  <DialogueRoot>
+    <DialogueNode>
+      <ConversationID>CON01-027C</ConversationID>
+      <ParticipantName>Gnawton Sawtooth III</ParticipantName>
+      <EmoteType>Angry</EmoteType>
+      <Side>Left</Side>
+      <Line>NO!  STOP IT!  I worked hard to steal those flames, just like I’ve worked hard for everything in my life!</Line>
+      <SpecialityAnimation>None</SpecialityAnimation>
+      <SpecialtyCamera>None</SpecialtyCamera>
+      <Participants>1</Participants>
+      <ConversationSummary>Played immediatly after CON01-26A IF Gnawton has not been defeated by the player. Text floats over gameplay.</ConversationSummary>
+    </DialogueNode>
+  </DialogueRoot>
+  <DialogueRoot>
+    <DialogueNode>
+      <ConversationID>CON01-027D</ConversationID>
+      <ParticipantName>Gnawton Sawtooth III</ParticipantName>
+      <EmoteType>Angry</EmoteType>
+      <Side>Left</Side>
+      <Line>I can’t believe my loud complaining didn’t get you to stop.  DO YOU KNOW WHO I AM?!?</Line>
+      <SpecialityAnimation>None</SpecialityAnimation>
+      <SpecialtyCamera>None</SpecialtyCamera>
+      <Participants>1</Participants>
+      <ConversationSummary>Played immediatly after CON01-26A IF Gnawton has not been defeated by the player. Text floats over gameplay.</ConversationSummary>
+    </DialogueNode>
+  </DialogueRoot>
+  <DialogueRoot>
+    <DialogueNode>
+      <ConversationID>CON01-028A</ConversationID>
+      <ParticipantName>Loomi Natti</ParticipantName>
+      <EmoteType>Happy</EmoteType>
+      <Side>Right</Side>
+      <Line>Soft-Mask done it! Seasons probably come again this year! </Line>
+      <SpecialityAnimation>Nantooki Celebration</SpecialityAnimation>
+      <SpecialtyCamera>None</SpecialtyCamera>
+      <Participants>3</Participants>
+      <ConversationSummary>Triggered when player interacts with Loomi Natti AFTER destroying all 4 Lambotiki Diablos</ConversationSummary>
+    </DialogueNode>
+    <DialogueNode>
+      <ConversationID>CON01-028A</ConversationID>
+      <ParticipantName>Mutt</ParticipantName>
+      <EmoteType>Confused</EmoteType>
+      <Side>Left</Side>
+      <Line>Probably?</Line>
+      <SpecialityAnimation>None</SpecialityAnimation>
+      <SpecialtyCamera>None</SpecialtyCamera>
+      <Participants />
+      <ConversationSummary />
+    </DialogueNode>
+    <DialogueNode>
+      <ConversationID>CON01-028A</ConversationID>
+      <ParticipantName>Loomi Natti</ParticipantName>
+      <EmoteType>Reg</EmoteType>
+      <Side>Right</Side>
+      <Line>Won’t know until all seasons arrive. Unless Soft-Mask has covert time-displacement field, of course.</Line>
+      <SpecialityAnimation>None</SpecialityAnimation>
+      <SpecialtyCamera>None</SpecialtyCamera>
+      <Participants />
+      <ConversationSummary />
+    </DialogueNode>
+    <DialogueNode>
+      <ConversationID>CON01-028A</ConversationID>
+      <ParticipantName>Dorado</ParticipantName>
+      <EmoteType>Sassy</EmoteType>
+      <Side>Left</Side>
+      <Line>Oh, please tell him we do!</Line>
+      <SpecialityAnimation>None</SpecialityAnimation>
+      <SpecialtyCamera>None</SpecialtyCamera>
+      <Participants />
+      <ConversationSummary />
+    </DialogueNode>
+    <DialogueNode>
+      <ConversationID>CON01-028A</ConversationID>
+      <ParticipantName>Mutt</ParticipantName>
+      <EmoteType>Reg</EmoteType>
+      <Side>Right</Side>
+      <Line>I’m afraid not.</Line>
+      <SpecialityAnimation>None</SpecialityAnimation>
+      <SpecialtyCamera>None</SpecialtyCamera>
+      <Participants />
+      <ConversationSummary />
+    </DialogueNode>
+    <DialogueNode>
+      <ConversationID>CON01-028A</ConversationID>
+      <ParticipantName>Loomi Natti</ParticipantName>
+      <EmoteType>Reg</EmoteType>
+      <Side>Right</Side>
+      <Line>That OK. In meantime, Loomi Natti use flames to boil fluoride out of personal water supply. That worth a little something...</Line>
+      <SpecialityAnimation>None</SpecialityAnimation>
+      <SpecialtyCamera>None</SpecialtyCamera>
+      <Participants />
+      <ConversationSummary />
+    </DialogueNode>
+  </DialogueRoot>
+  <DialogueRoot>
+    <DialogueNode>
+      <ConversationID>CON01-029A</ConversationID>
+      <ParticipantName>Loomi Natti</ParticipantName>
+      <EmoteType>Reg</EmoteType>
+      <Side>Left</Side>
+      <Line>That shiny token only viable form of currency in New World Order. Loomi Natti doing YOU favor.</Line>
+      <SpecialityAnimation>None</SpecialityAnimation>
+      <SpecialtyCamera>None</SpecialtyCamera>
+      <Participants>1</Participants>
+      <ConversationSummary>Triggered when player interacts with Loomi Natti AFTER completing Mission 1.6</ConversationSummary>
+    </DialogueNode>
+  </DialogueRoot>
+  <DialogueRoot>
+    <DialogueNode>
+      <ConversationID>CON01-030A</ConversationID>
+      <ParticipantName>Dorado</ParticipantName>
+      <EmoteType>Reg</EmoteType>
+      <Side>Right</Side>
+      <Line>Look at this monument to excess. Let's show it some excess violence and knock it down.</Line>
+      <SpecialityAnimation>None</SpecialityAnimation>
+      <SpecialtyCamera>Reveal Tween: Focus in Gnawton's Statue</SpecialtyCamera>
+      <Participants>2</Participants>
+      <ConversationSummary>Auto-Triggered when player apprpaches the vicinity of Gnawton's waterfountain for the first time.</ConversationSummary>
+    </DialogueNode>
+    <DialogueNode>
+      <ConversationID>CON01-030A</ConversationID>
+      <ParticipantName>Mutt</ParticipantName>
+      <EmoteType>Confused</EmoteType>
+      <Side>Left</Side>
+      <Line>But that’s vandalism! That doesn’t seem to be keeping with the Lobodestroyo’s mission statement. Aren’t I supposed to be a force for good?</Line>
+      <SpecialityAnimation>None</SpecialityAnimation>
+      <SpecialtyCamera>cont.</SpecialtyCamera>
+      <Participants />
+      <ConversationSummary />
+    </DialogueNode>
+    <DialogueNode>
+      <ConversationID>CON01-030A</ConversationID>
+      <ParticipantName>Dorado</ParticipantName>
+      <EmoteType>Reg</EmoteType>
+      <Side>Right</Side>
+      <Line>Yes, but you can also be a force for good taste! AIM FOR THE GOLD PIPES!</Line>
+      <SpecialityAnimation>None</SpecialityAnimation>
+      <SpecialtyCamera>cont.</SpecialtyCamera>
+      <Participants />
+      <ConversationSummary />
+    </DialogueNode>
+  </DialogueRoot>
+  <DialogueRoot>
+    <DialogueNode>
+      <ConversationID>CON01-031A</ConversationID>
+      <ParticipantName>Gnawton Sawtooth III</ParticipantName>
+      <EmoteType>Angry</EmoteType>
+      <Side>Right</Side>
+      <Line>MY FOUNTAIN! Everyone’s a critic these days!</Line>
+      <SpecialityAnimation>None</SpecialityAnimation>
+      <SpecialtyCamera>Fixed Location: Jumpcut to broken head laying next to fountain</SpecialtyCamera>
+      <Participants>1</Participants>
+      <ConversationSummary>Auto triggered immiedatly following CUT01-006 IF Gnawton has not yet been defeated by the player. Precedes CON01-031B</ConversationSummary>
+    </DialogueNode>
+    <DialogueNode>
+      <ConversationID>CON01-031A</ConversationID>
+      <ParticipantName>Gnawton Sawtooth III</ParticipantName>
+      <EmoteType>Reg</EmoteType>
+      <Side>Right</Side>
+      <Line>True masterpieces aren’t appreciated until long after the artist is dead.  Step into my mansion and I’ll make sure your childhood finger paintings TRIPLE in value!</Line>
+      <SpecialityAnimation>None</SpecialityAnimation>
+      <SpecialtyCamera>cont.</SpecialtyCamera>
+      <Participants />
+      <ConversationSummary />
+    </DialogueNode>
+  </DialogueRoot>
+  <DialogueRoot>
+    <DialogueNode>
+      <ConversationID>CON01-031B</ConversationID>
+      <ParticipantName>Mutt</ParticipantName>
+      <EmoteType>Excited</EmoteType>
+      <Side>Left</Side>
+      <Line>There was a Token lodged inside!  Some poor contractor probably lost it during construction!</Line>
+      <SpecialityAnimation>None</SpecialityAnimation>
+      <SpecialtyCamera>Reveal Tween: Focus on hovering Toll Token over broken fountain</SpecialtyCamera>
+      <Participants>2</Participants>
+      <ConversationSummary>Auto triggered immediatly following CON01-031A unless Gnawton is defeated and he doesnt speak. In which case it is triggered immediatly following CUT01-006 and Gnawton's comment is not displayed.</ConversationSummary>
+    </DialogueNode>
+    <DialogueNode>
+      <ConversationID>CON01-031B</ConversationID>
+      <ParticipantName>Dorado</ParticipantName>
+      <EmoteType>Reg</EmoteType>
+      <Side>Right</Side>
+      <Line>There’s an ancient proverb that comes to mind at times like these. “Finders keepers, losers weepers”</Line>
+      <SpecialityAnimation>None</SpecialityAnimation>
+      <SpecialtyCamera>cont.</SpecialtyCamera>
+      <Participants />
+      <ConversationSummary />
+    </DialogueNode>
+    <DialogueNode>
+      <ConversationID>CON01-031B</ConversationID>
+      <ParticipantName>Mutt</ParticipantName>
+      <EmoteType>Confused</EmoteType>
+      <Side>Left</Side>
+      <Line>Now I just have to figure out how to get up there...</Line>
+      <SpecialityAnimation>None</SpecialityAnimation>
+      <SpecialtyCamera>cont.</SpecialtyCamera>
+      <Participants />
+      <ConversationSummary />
+    </DialogueNode>
+  </DialogueRoot>
+  <DialogueRoot>
+    <DialogueNode>
+      <ConversationID>CON01-032A</ConversationID>
+      <ParticipantName>Gnawton Sawtooth III</ParticipantName>
+      <EmoteType>Reg</EmoteType>
+      <Side>Left</Side>
+      <Line>Oh, so you’ve come to marvel at the splendor of my wealth!  Yes, it really is quite fantastic.  Doesn’t it make me so much better than you?</Line>
+      <SpecialityAnimation>None</SpecialityAnimation>
+      <SpecialtyCamera>None</SpecialtyCamera>
+      <Participants>1</Participants>
+      <ConversationSummary>IF Gnawton has not been defeated this is triggered ontop of gameplay when player is in the pool area behind Gnawton's Mansion. Frequency TBD.</ConversationSummary>
+    </DialogueNode>
+  </DialogueRoot>
+  <DialogueRoot>
+    <DialogueNode>
+      <ConversationID>CON01-032B</ConversationID>
+      <ParticipantName>Gnawton Sawtooth III</ParticipantName>
+      <EmoteType>Reg</EmoteType>
+      <Side>Left</Side>
+      <Line>If you need a job, I could hire you to be my pool cleaner!  You’d have to work for tips though.  Here’s one: Get off my property.</Line>
+      <SpecialityAnimation>None</SpecialityAnimation>
+      <SpecialtyCamera>None</SpecialtyCamera>
+      <Participants>1</Participants>
+      <ConversationSummary>IF Gnawton has not been defeated this is triggered ontop of gameplay when player is in the pool area behind Gnawton's Mansion. Frequency TBD. Only plays after CON01-032A has already occured.</ConversationSummary>
+    </DialogueNode>
+  </DialogueRoot>
+  <DialogueRoot>
+    <DialogueNode>
+      <ConversationID>CON01-032C</ConversationID>
+      <ParticipantName>Gnawton Sawtooth III</ParticipantName>
+      <EmoteType>Reg</EmoteType>
+      <Side>Left</Side>
+      <Line>Hey, you were the ones who destroyed my beaver dam! My beaver pool is much more exclusive though. Only the top one percent of semi-aquatic rodents can afford this!</Line>
+      <SpecialityAnimation>None</SpecialityAnimation>
+      <SpecialtyCamera>None</SpecialtyCamera>
+      <Participants>1</Participants>
+      <ConversationSummary>IF Gnawton has not been defeated this is triggered ontop of gameplay when player is in the pool area behind Gnawton's Mansion. Frequency TBD. Only plays after CON01-032B has already occured.</ConversationSummary>
+    </DialogueNode>
+  </DialogueRoot>
+  <DialogueRoot>
+    <DialogueNode>
+      <ConversationID>CON01-032D</ConversationID>
+      <ParticipantName>Gnawton Sawtooth III</ParticipantName>
+      <EmoteType>Reg</EmoteType>
+      <Side>Left</Side>
+      <Line>I asked for my pool to resemble those indoor cleaning stations that the poor use to wash themselves.  I think they’re called bidets.</Line>
+      <SpecialityAnimation>None</SpecialityAnimation>
+      <SpecialtyCamera>None</SpecialtyCamera>
+      <Participants>1</Participants>
+      <ConversationSummary>IF Gnawton has not been defeated this is triggered ontop of gameplay when player is in the pool area behind Gnawton's Mansion. Frequency TBD. Only plays after CON01-032D has already occured. Will repeat CON01-032A next after line has been delivered.</ConversationSummary>
+    </DialogueNode>
+  </DialogueRoot>
+  <DialogueRoot>
+    <DialogueNode>
+      <ConversationID>CON01-033A</ConversationID>
+      <ParticipantName>Gnawton Sawtooth III</ParticipantName>
+      <EmoteType>Angry</EmoteType>
+      <Side>Left</Side>
+      <Line>I can’t believe that middling attack stopped my spigot.  And we even violated a Nantooki burial ground to install it!</Line>
+      <SpecialityAnimation>None</SpecialityAnimation>
+      <SpecialtyCamera>None</SpecialtyCamera>
+      <Participants>1</Participants>
+      <ConversationSummary>Triggered ontop of gameplay IF Gnawton has not been defeated after CUT01-007 plays showing the pool tap being turned off by the player.</ConversationSummary>
+    </DialogueNode>
+  </DialogueRoot>
+  <DialogueRoot>
+    <DialogueNode>
+      <ConversationID>CON01-034A</ConversationID>
+      <ParticipantName>Gnawton Sawtooth III</ParticipantName>
+      <EmoteType>Angry</EmoteType>
+      <Side>Left</Side>
+      <Line>The water’s draining out! NOW what’s my solid gold floatie going to sink in?</Line>
+      <SpecialityAnimation>None</SpecialityAnimation>
+      <SpecialtyCamera>None</SpecialtyCamera>
+      <Participants>1</Participants>
+      <ConversationSummary>Triggered ontop of gameplay IF Gnawton has not been defeated after CUT01-007 plays showing the pool tap being turned off by the player.</ConversationSummary>
+    </DialogueNode>
+  </DialogueRoot>
+  <DialogueRoot>
+    <DialogueNode>
+      <ConversationID>CON01-035A</ConversationID>
+      <ParticipantName>Gnawton Sawtooth III</ParticipantName>
+      <EmoteType>Angry</EmoteType>
+      <Side>Left</Side>
+      <Line>That’s intentional property damage you’re inflicting!</Line>
+      <SpecialityAnimation>None</SpecialityAnimation>
+      <SpecialtyCamera>None</SpecialtyCamera>
+      <Participants>1</Participants>
+      <ConversationSummary>Triggered ontop of gameplay IF Gnawton has not been defeated after player Ground-Pounds the crack in the pool bottom to reveal a Toll Token.</ConversationSummary>
+    </DialogueNode>
+    <DialogueNode>
+      <ConversationID>CON01-035A</ConversationID>
+      <ParticipantName>Gnawton Sawtooth III</ParticipantName>
+      <EmoteType>Reg</EmoteType>
+      <Side>Left</Side>
+      <Line>If it’s an unnecessarily long, drawn-out legal proceeding you’re after, you messed with the right rodent! Now what can I use to get Pigman and Whaleman on retainer?</Line>
+      <SpecialityAnimation>None</SpecialityAnimation>
+      <SpecialtyCamera>None</SpecialtyCamera>
+      <Participants />
+      <ConversationSummary />
+    </DialogueNode>
+  </DialogueRoot>
+  <DialogueRoot>
+    <DialogueNode>
+      <ConversationID>CON01-036A</ConversationID>
+      <ParticipantName>Dorado</ParticipantName>
+      <EmoteType>Confused</EmoteType>
+      <Side>Left</Side>
+      <Line>How do you suppose we get up there?</Line>
+      <SpecialityAnimation>None</SpecialityAnimation>
+      <SpecialtyCamera>None</SpecialtyCamera>
+      <Participants>3</Participants>
+      <ConversationSummary>Auto triggered when player approaches the area near the entrance to the Cave of Ascension for the first time.</ConversationSummary>
+    </DialogueNode>
+    <DialogueNode>
+      <ConversationID>CON01-036A</ConversationID>
+      <ParticipantName>Mutt</ParticipantName>
+      <EmoteType>Reg</EmoteType>
+      <Side>Left</Side>
+      <Line>Excuse me, sir?</Line>
+      <SpecialityAnimation>None</SpecialityAnimation>
+      <SpecialtyCamera>None</SpecialtyCamera>
+      <Participants />
+      <ConversationSummary />
+    </DialogueNode>
+    <DialogueNode>
+      <ConversationID>CON01-036A</ConversationID>
+      <ParticipantName>Dorado</ParticipantName>
+      <EmoteType>Reg</EmoteType>
+      <Side>Left</Side>
+      <Line>You don’t have to be so formal. I’m right here.</Line>
+      <SpecialityAnimation>None</SpecialityAnimation>
+      <SpecialtyCamera>None</SpecialtyCamera>
+      <Participants />
+      <ConversationSummary />
+    </DialogueNode>
+    <DialogueNode>
+      <ConversationID>CON01-036A</ConversationID>
+      <ParticipantName>Mutt</ParticipantName>
+      <EmoteType>Reg</EmoteType>
+      <Side>Left</Side>
+      <Line>Not you. Sir! What are you doing up there?</Line>
+      <SpecialityAnimation>None</SpecialityAnimation>
+      <SpecialtyCamera>Reveal Tween: Camera moves up to ledge to focus on Beefi Tiki</SpecialtyCamera>
+      <Participants />
+      <ConversationSummary />
+    </DialogueNode>
+    <DialogueNode>
+      <ConversationID>CON01-036A</ConversationID>
+      <ParticipantName>Beefi Tiki</ParticipantName>
+      <EmoteType>Reg</EmoteType>
+      <Side>Right</Side>
+      <Line>Hur hur hur… wouldn’t weakling Soft-Mask like to know.</Line>
+      <SpecialityAnimation>None</SpecialityAnimation>
+      <SpecialtyCamera>cont.</SpecialtyCamera>
+      <Participants />
+      <ConversationSummary />
+    </DialogueNode>
+    <DialogueNode>
+      <ConversationID>CON01-036A</ConversationID>
+      <ParticipantName>Dorado</ParticipantName>
+      <EmoteType>Happy</EmoteType>
+      <Side>Left</Side>
+      <Line>His muscles are impressive! That’s what a hero should look like!</Line>
+      <SpecialityAnimation>None</SpecialityAnimation>
+      <SpecialtyCamera>cont.</SpecialtyCamera>
+      <Participants />
+      <ConversationSummary />
+    </DialogueNode>
+    <DialogueNode>
+      <ConversationID>CON01-036A</ConversationID>
+      <ParticipantName>Mutt</ParticipantName>
+      <EmoteType>Curious</EmoteType>
+      <Side>Left</Side>
+      <Line>What are you guarding up there? Another challenge? Perhaps some treasure?</Line>
+      <SpecialityAnimation>None</SpecialityAnimation>
+      <SpecialtyCamera>cont.</SpecialtyCamera>
+      <Participants />
+      <ConversationSummary />
+    </DialogueNode>
+    <DialogueNode>
+      <ConversationID>CON01-036A</ConversationID>
+      <ParticipantName>Dorado</ParticipantName>
+      <EmoteType>Sassy</EmoteType>
+      <Side>Left</Side>
+      <Line>Dubious performance enhancers?</Line>
+      <SpecialityAnimation>None</SpecialityAnimation>
+      <SpecialtyCamera>cont.</SpecialtyCamera>
+      <Participants />
+      <ConversationSummary />
+    </DialogueNode>
+    <DialogueNode>
+      <ConversationID>CON01-036A</ConversationID>
+      <ParticipantName>Beefi Tiki</ParticipantName>
+      <EmoteType>Reg</EmoteType>
+      <Side>Right</Side>
+      <Line>All of above. This famous Nantooki Cave of Ascension. It only place in village untouched by puny flat-tail rats. Jump up here to see… if Soft-Mask has nerve.</Line>
+      <SpecialityAnimation>None</SpecialityAnimation>
+      <SpecialtyCamera>Fixed Location: Jumpcut to show entrance to cave</SpecialtyCamera>
+      <Participants />
+      <ConversationSummary />
+    </DialogueNode>
+  </DialogueRoot>
+  <DialogueRoot>
+    <DialogueNode>
+      <ConversationID>CON01-037A</ConversationID>
+      <ParticipantName>Beefi Tiki</ParticipantName>
+      <EmoteType>Reg</EmoteType>
+      <Side>Left</Side>
+      <Line>Better hit gym, weakling! If Beefi Teeki sign three friends up, he get free tote bag!</Line>
+      <SpecialityAnimation>Flex Pose</SpecialityAnimation>
+      <SpecialtyCamera>None</SpecialtyCamera>
+      <Participants>1</Participants>
+      <ConversationSummary>Triggered ontop of gameplay after CON01-036A when player is in the area by Beefi Tiki. Frequency TBD. Will not play if CON01-037A has already been triggered by the player jumping up to the ledge.</ConversationSummary>
+    </DialogueNode>
+  </DialogueRoot>
+  <DialogueRoot>
+    <DialogueNode>
+      <ConversationID>CON01-037B</ConversationID>
+      <ParticipantName>Beefi Tiki</ParticipantName>
+      <EmoteType>Reg</EmoteType>
+      <Side>Left</Side>
+      <Line>Hur hur hur! The old saying still true - Soft-Masks can’t jump!</Line>
+      <SpecialityAnimation>Flex Pose</SpecialityAnimation>
+      <SpecialtyCamera>None</SpecialtyCamera>
+      <Participants>1</Participants>
+      <ConversationSummary>Triggered ontop of gameplay after CON01-036A when player is in the area by Beefi Tiki. Frequency TBD. Will not play if CON01-037A has already been triggered by the player jumping up to the ledge. Only plays after CON01-037A has already occured</ConversationSummary>
+    </DialogueNode>
+  </DialogueRoot>
+  <DialogueRoot>
+    <DialogueNode>
+      <ConversationID>CON01-037C</ConversationID>
+      <ParticipantName>Beefi Tiki</ParticipantName>
+      <EmoteType>Reg</EmoteType>
+      <Side>Left</Side>
+      <Line>This beratement not enough motivation? What if Beefi Teeki kick sand in face instead?</Line>
+      <SpecialityAnimation>Flex Pose</SpecialityAnimation>
+      <SpecialtyCamera>None</SpecialtyCamera>
+      <Participants>1</Participants>
+      <ConversationSummary>Triggered ontop of gameplay after CON01-036A when player is in the area by Beefi Tiki. Frequency TBD. Will not play if CON01-037A has already been triggered by the player jumping up to the ledge. Only plays after CON01-037B has already occured. Will repeat CON01-037A if triggered again.</ConversationSummary>
+    </DialogueNode>
+  </DialogueRoot>
+  <DialogueRoot>
+    <DialogueNode>
+      <ConversationID>CON01-038A</ConversationID>
+      <ParticipantName>Beefi Tiki</ParticipantName>
+      <EmoteType>Reg</EmoteType>
+      <Side>Right</Side>
+      <Line>Hur hur… that jump ALMOST Beefi Teeki caliber. Footing was off on dismount, but that technicality. Soft-Mask ready for trials of cave?</Line>
+      <SpecialityAnimation>None</SpecialityAnimation>
+      <SpecialtyCamera>None</SpecialtyCamera>
+      <Participants>3</Participants>
+      <ConversationSummary>Auto triggered when player double-jumps up onto Beefi Teeki's ledge near the entrance to the Cave of Ascension.</ConversationSummary>
+    </DialogueNode>
+    <DialogueNode>
+      <ConversationID>CON01-038A</ConversationID>
+      <ParticipantName>Dorado</ParticipantName>
+      <EmoteType>Happy</EmoteType>
+      <Side>Left</Side>
+      <Line>I certainly am! That double-jump was only thanks to my constant encouragement.</Line>
+      <SpecialityAnimation>None</SpecialityAnimation>
+      <SpecialtyCamera>None</SpecialtyCamera>
+      <Participants />
+      <ConversationSummary />
+    </DialogueNode>
+    <DialogueNode>
+      <ConversationID>CON01-038A</ConversationID>
+      <ParticipantName>Mutt</ParticipantName>
+      <EmoteType>Nervous</EmoteType>
+      <Side>Left</Side>
+      <Line>I… don’t know.  Er… what’s in there, anyway?</Line>
+      <SpecialityAnimation>None</SpecialityAnimation>
+      <SpecialtyCamera>Reveal Tween: Camera looks at carved cave entrance</SpecialtyCamera>
+      <Participants />
+      <ConversationSummary />
+    </DialogueNode>
+    <DialogueNode>
+      <ConversationID>CON01-038A</ConversationID>
+      <ParticipantName>Beefi Tiki</ParticipantName>
+      <EmoteType>Reg</EmoteType>
+      <Side>Right</Side>
+      <Line>It most difficult challenge in all Wiki Tiki Woods. But if complete, Soft-Mask win legendary one-of-kind reward unlike anything seen before.</Line>
+      <SpecialityAnimation>None</SpecialityAnimation>
+      <SpecialtyCamera>None</SpecialtyCamera>
+      <Participants />
+      <ConversationSummary />
+    </DialogueNode>
+    <DialogueNode>
+      <ConversationID>CON01-038A</ConversationID>
+      <ParticipantName>Dorado</ParticipantName>
+      <EmoteType>Sassy</EmoteType>
+      <Side>Left</Side>
+      <Line>It’s another toll token, isn’t it?</Line>
+      <SpecialityAnimation>None</SpecialityAnimation>
+      <SpecialtyCamera>None</SpecialtyCamera>
+      <Participants />
+      <ConversationSummary />
+    </DialogueNode>
+    <DialogueNode>
+      <ConversationID>CON01-038A</ConversationID>
+      <ParticipantName>Beefi Tiki</ParticipantName>
+      <EmoteType>Reg</EmoteType>
+      <Side>Right</Side>
+      <Line>Beefi Teeki most popular Nantooki in middle school. That why given important job guarding hole in wall.</Line>
+      <SpecialityAnimation>Flex Pose</SpecialityAnimation>
+      <SpecialtyCamera>None</SpecialtyCamera>
+      <Participants />
+      <ConversationSummary />
+    </DialogueNode>
+    <DialogueNode>
+      <ConversationID>CON01-038A</ConversationID>
+      <ParticipantName>Dorado</ParticipantName>
+      <EmoteType>Sassy</EmoteType>
+      <Side>Left</Side>
+      <Line>The flame that burns brightest…</Line>
+      <SpecialityAnimation>None</SpecialityAnimation>
+      <SpecialtyCamera>None</SpecialtyCamera>
+      <Participants />
+      <ConversationSummary />
+    </DialogueNode>
+    <DialogueNode>
+      <ConversationID>CON01-038A</ConversationID>
+      <ParticipantName>Mutt</ParticipantName>
+      <EmoteType>Happy</EmoteType>
+      <Side>Left</Side>
+      <Line>And it’s a VERY important-looking hole. Yep, I think we’re ready for this...</Line>
+      <SpecialityAnimation>None</SpecialityAnimation>
+      <SpecialtyCamera>None</SpecialtyCamera>
+      <Participants />
+      <ConversationSummary />
+    </DialogueNode>
+  </DialogueRoot>
+  <DialogueRoot>
+    <DialogueNode>
+      <ConversationID>CON01-039A</ConversationID>
+      <ParticipantName>Beefi Tiki</ParticipantName>
+      <EmoteType>Reg</EmoteType>
+      <Side>Right</Side>
+      <Line>Can’t believe it!  Beefi Teeki only one to complete trial until now. Soft-Mask may lack muscle… and charisma… and good looks...</Line>
+      <SpecialityAnimation>None</SpecialityAnimation>
+      <SpecialtyCamera>Fixed Location: Focuses on Mutt atop ledge. Beefi's voice omnipotent.</SpecialtyCamera>
+      <Participants>3</Participants>
+      <ConversationSummary>Auto triggered after player collects Toll Token 1.9 and ends Mission 1.9  near the exit to the Cave of Ascension. Beefi is down below still so the camera will lock on Mutt during this exchange. Beef's voice is omnipotent as a result.</ConversationSummary>
+    </DialogueNode>
+    <DialogueNode>
+      <ConversationID>CON01-039A</ConversationID>
+      <ParticipantName>Mutt</ParticipantName>
+      <EmoteType>Sad</EmoteType>
+      <Side>Left</Side>
+      <Line>Hey...</Line>
+      <SpecialityAnimation>None</SpecialityAnimation>
+      <SpecialtyCamera>cont.</SpecialtyCamera>
+      <Participants />
+      <ConversationSummary />
+    </DialogueNode>
+    <DialogueNode>
+      <ConversationID>CON01-039A</ConversationID>
+      <ParticipantName>Dorado</ParticipantName>
+      <EmoteType>Sassy</EmoteType>
+      <Side>Left</Side>
+      <Line>He’s got you pegged!</Line>
+      <SpecialityAnimation>None</SpecialityAnimation>
+      <SpecialtyCamera>cont.</SpecialtyCamera>
+      <Participants />
+      <ConversationSummary />
+    </DialogueNode>
+    <DialogueNode>
+      <ConversationID>CON01-039A</ConversationID>
+      <ParticipantName>Beefi Tiki</ParticipantName>
+      <EmoteType>Reg</EmoteType>
+      <Side>Right</Side>
+      <Line>...but Soft-Mask may have heart of champion after all.</Line>
+      <SpecialityAnimation>None</SpecialityAnimation>
+      <SpecialtyCamera>cont.</SpecialtyCamera>
+      <Participants />
+      <ConversationSummary />
+    </DialogueNode>
+    <DialogueNode>
+      <ConversationID>CON01-039A</ConversationID>
+      <ParticipantName>Mutt</ParticipantName>
+      <EmoteType>Happy</EmoteType>
+      <Side>Left</Side>
+      <Line>Do I get a trophy too?</Line>
+      <SpecialityAnimation>None</SpecialityAnimation>
+      <SpecialtyCamera>cont.</SpecialtyCamera>
+      <Participants />
+      <ConversationSummary />
+    </DialogueNode>
+    <DialogueNode>
+      <ConversationID>CON01-039A</ConversationID>
+      <ParticipantName>Beefi Tiki</ParticipantName>
+      <EmoteType>Reg</EmoteType>
+      <Side>Right</Side>
+      <Line>...no.  Now just getting greedy.</Line>
+      <SpecialityAnimation>None</SpecialityAnimation>
+      <SpecialtyCamera>cont.</SpecialtyCamera>
+      <Participants />
+      <ConversationSummary />
+    </DialogueNode>
+  </DialogueRoot>
+  <DialogueRoot>
+    <DialogueNode>
+      <ConversationID>CON01-040A</ConversationID>
+      <ParticipantName>Beefi Tiki</ParticipantName>
+      <EmoteType>Reg</EmoteType>
+      <Side>Left</Side>
+      <Line>Soft-Mask may have completed challenge, but Beefi Teeki still champion in sports trivia. That true test of manliness!</Line>
+      <SpecialityAnimation>Flex Pose</SpecialityAnimation>
+      <SpecialtyCamera>None</SpecialtyCamera>
+      <Participants>1</Participants>
+      <ConversationSummary>Triggered when player interacts with Beefi Tiki AFTER collecting Toll Token 1.9.</ConversationSummary>
+    </DialogueNode>
+    <DialogueNode>
+      <ConversationID>CON01-040A</ConversationID>
+      <ParticipantName>Beefi Tiki</ParticipantName>
+      <EmoteType>Reg</EmoteType>
+      <Side>Left</Side>
+      <Line>Hey, that impressive workout! Looking for new gym spotter. Want in?</Line>
+      <SpecialityAnimation>Flex Pose</SpecialityAnimation>
+      <SpecialtyCamera>None</SpecialtyCamera>
+      <Participants>1</Participants>
+      <ConversationSummary>Triggered when player interacts with Beefi Tiki AFTER collecting Toll Token 1.9. Played after CON01-040A has been triggered.</ConversationSummary>
+    </DialogueNode>
+    <DialogueNode>
+      <ConversationID>CON01-040A</ConversationID>
+      <ParticipantName>Beefi Tiki</ParticipantName>
+      <EmoteType>Reg</EmoteType>
+      <Side>Left</Side>
+      <Line>Wow, Soft-Mask demonstrate that true strength is in fortification of personality and character traits. Hur hur hur.</Line>
+      <SpecialityAnimation>Flex Pose</SpecialityAnimation>
+      <SpecialtyCamera>None</SpecialtyCamera>
+      <Participants>1</Participants>
+      <ConversationSummary>Triggered when player interacts with Beefi Tiki AFTER collecting Toll Token 1.9. Played after CON01-040B has been triggered. If interacted with again he will repeat CON01-040A.</ConversationSummary>
+    </DialogueNode>
+  </DialogueRoot>
+  <DialogueRoot>
+    <DialogueNode>
+      <ConversationID>CON01-041A</ConversationID>
+      <ParticipantName>Gnawton Sawtooth III</ParticipantName>
+      <EmoteType>Angry</EmoteType>
+      <Side>Left</Side>
+      <Line>Don’t you DARE walk through my state-of-the-art laser security system! Cinge these floors and I’ll have to actually PAY my cleaners!</Line>
+      <SpecialityAnimation>None</SpecialityAnimation>
+      <SpecialtyCamera>Fixed Location: Focuses on Security Door. Gnawton's voice omnipotent.</SpecialtyCamera>
+      <Participants>1</Participants>
+      <ConversationSummary>Auto triggered when Mutt enters the interior scene of Gnawton's Mansion for the first time.</ConversationSummary>
+    </DialogueNode>
+  </DialogueRoot>
+  <DialogueRoot>
+    <DialogueNode>
+      <ConversationID>CON01-042A</ConversationID>
+      <ParticipantName>Dorado</ParticipantName>
+      <EmoteType>Reg</EmoteType>
+      <Side>Left</Side>
+      <Line>That was painfull! Sometimes a hero needs the right equipment to exact his justice.</Line>
+      <SpecialityAnimation>None</SpecialityAnimation>
+      <SpecialtyCamera>Fixed Location: Focuses on Security Door. Gnawton's voice omnipotent.</SpecialtyCamera>
+      <Participants>3</Participants>
+      <ConversationSummary>Auto triggered when player takes damage attmepting to pass through the Security Door in Gnawton's Mansion.</ConversationSummary>
+    </DialogueNode>
+    <DialogueNode>
+      <ConversationID>CON01-042A</ConversationID>
+      <ParticipantName>Mutt</ParticipantName>
+      <EmoteType>Confused</EmoteType>
+      <Side>Left</Side>
+      <Line>The right equipment?</Line>
+      <SpecialityAnimation>None</SpecialityAnimation>
+      <SpecialtyCamera>cont.</SpecialtyCamera>
+      <Participants />
+      <ConversationSummary />
+    </DialogueNode>
+    <DialogueNode>
+      <ConversationID>CON01-042A</ConversationID>
+      <ParticipantName>Dorado</ParticipantName>
+      <EmoteType>Reg</EmoteType>
+      <Side>Left</Side>
+      <Line>Yes. Perhaps we should try find something to help us get past this door.</Line>
+      <SpecialityAnimation>None</SpecialityAnimation>
+      <SpecialtyCamera>cont.</SpecialtyCamera>
+      <Participants />
+      <ConversationSummary />
+    </DialogueNode>
+    <DialogueNode>
+      <ConversationID>CON01-042A</ConversationID>
+      <ParticipantName>Gnawton Sawtooth III</ParticipantName>
+      <EmoteType>Reg</EmoteType>
+      <Side>Right</Side>
+      <Line>Leave it to the poor to be talking to themselves like madmen.</Line>
+      <SpecialityAnimation>None</SpecialityAnimation>
+      <SpecialtyCamera>cont.</SpecialtyCamera>
+      <Participants />
+      <ConversationSummary />
+    </DialogueNode>
+    <DialogueNode>
+      <ConversationID>CON01-042A</ConversationID>
+      <ParticipantName>Dorado</ParticipantName>
+      <EmoteType>Sassy</EmoteType>
+      <Side>Left</Side>
+      <Line>Who’s HE talking to?</Line>
+      <SpecialityAnimation>None</SpecialityAnimation>
+      <SpecialtyCamera>cont.</SpecialtyCamera>
+      <Participants />
+      <ConversationSummary />
+    </DialogueNode>
+  </DialogueRoot>
+  <DialogueRoot>
+    <DialogueNode>
+      <ConversationID>CON01-043A</ConversationID>
+      <ParticipantName>Gnawton Sawtooth III</ParticipantName>
+      <EmoteType>Angry</EmoteType>
+      <Side>Left</Side>
+      <Line>AGH! Clearly you’re not giving up. Won’t you admire my tastefully decorated hallway? It’ll be the last thing you ever see...</Line>
+      <SpecialityAnimation>None</SpecialityAnimation>
+      <SpecialtyCamera>None</SpecialtyCamera>
+      <Participants>1</Participants>
+      <ConversationSummary>Triggered when player enters area beyond the security door in Gnawton's Mansion hallway. Voice floats over gameplay.</ConversationSummary>
+    </DialogueNode>
+  </DialogueRoot>
+  <DialogueRoot>
+    <DialogueNode>
+      <ConversationID>CON01-044A</ConversationID>
+      <ParticipantName>Gnawton Sawtooth III</ParticipantName>
+      <EmoteType>Startled</EmoteType>
+      <Side>Left</Side>
+      <Line>Oh no, now people will think I stand with a limp!</Line>
+      <SpecialityAnimation>None</SpecialityAnimation>
+      <SpecialtyCamera>None</SpecialtyCamera>
+      <Participants>1</Participants>
+      <ConversationSummary>Triggereed when Gnawton stops to straighten his crooked portrait during his boss battle encounter. One of many randomized lines delivered each time this occurs. Text floats over gameplay.</ConversationSummary>
+    </DialogueNode>
+  </DialogueRoot>
+  <DialogueRoot>
+    <DialogueNode>
+      <ConversationID>CON01-044B</ConversationID>
+      <ParticipantName>Gnawton Sawtooth III</ParticipantName>
+      <EmoteType>Angry</EmoteType>
+      <Side>Left</Side>
+      <Line>You fiend! That’s a triple-gold-plated frame, AND YOU SCUFFED IT!</Line>
+      <SpecialityAnimation>None</SpecialityAnimation>
+      <SpecialtyCamera>None</SpecialtyCamera>
+      <Participants>1</Participants>
+      <ConversationSummary>Triggereed when Gnawton stops to straighten his crooked portrait during his boss battle encounter. One of many randomized lines delivered each time this occurs. Text floats over gameplay.</ConversationSummary>
+    </DialogueNode>
+  </DialogueRoot>
+  <DialogueRoot>
+    <DialogueNode>
+      <ConversationID>CON01-044C</ConversationID>
+      <ParticipantName>Gnawton Sawtooth III</ParticipantName>
+      <EmoteType>Angry</EmoteType>
+      <Side>Left</Side>
+      <Line>Come now, do I go into your home and slightly shift YOUR priceless self-portraits?</Line>
+      <SpecialityAnimation>None</SpecialityAnimation>
+      <SpecialtyCamera>None</SpecialtyCamera>
+      <Participants>1</Participants>
+      <ConversationSummary>Triggereed when Gnawton stops to straighten his crooked portrait during his boss battle encounter. One of many randomized lines delivered each time this occurs. Text floats over gameplay.</ConversationSummary>
+    </DialogueNode>
+  </DialogueRoot>
+  <DialogueRoot>
+    <DialogueNode>
+      <ConversationID>CON01-044D</ConversationID>
+      <ParticipantName>Gnawton Sawtooth III</ParticipantName>
+      <EmoteType>Startled</EmoteType>
+      <Side>Left</Side>
+      <Line>My home will never make the cover of Snooty Beaver Quarterly with a crooked portrait!</Line>
+      <SpecialityAnimation>None</SpecialityAnimation>
+      <SpecialtyCamera>None</SpecialtyCamera>
+      <Participants>1</Participants>
+      <ConversationSummary>Triggereed when Gnawton stops to straighten his crooked portrait during his boss battle encounter. One of many randomized lines delivered each time this occurs. Text floats over gameplay.</ConversationSummary>
+    </DialogueNode>
+  </DialogueRoot>
+  <DialogueRoot>
+    <DialogueNode>
+      <ConversationID>CON01-044E</ConversationID>
+      <ParticipantName>Gnawton Sawtooth III</ParticipantName>
+      <EmoteType>Reg</EmoteType>
+      <Side>Left</Side>
+      <Line>I’ll fix this painting, then inflict upon you a PAIN-ing! Wealthy AND witty? I’m the total package!</Line>
+      <SpecialityAnimation>None</SpecialityAnimation>
+      <SpecialtyCamera>None</SpecialtyCamera>
+      <Participants>1</Participants>
+      <ConversationSummary>Triggereed when Gnawton stops to straighten his crooked portrait during his boss battle encounter. One of many randomized lines delivered each time this occurs. Text floats over gameplay.</ConversationSummary>
+    </DialogueNode>
+  </DialogueRoot>
+  <DialogueRoot>
+    <DialogueNode>
+      <ConversationID>CON01-045A</ConversationID>
+      <ParticipantName>Gnawton Sawtooth III</ParticipantName>
+      <EmoteType>Reg</EmoteType>
+      <Side>Left</Side>
+      <Line>Fixed it! I should have known you’d be ineffectual... lazy lower-classman that you are.</Line>
+      <SpecialityAnimation>None</SpecialityAnimation>
+      <SpecialtyCamera>None</SpecialtyCamera>
+      <Participants>1</Participants>
+      <ConversationSummary>Triggereed when the time runs out and the player has not hurt Gnawton while straightening his crooked portrait during his boss battle encounter. One of many randomized lines delivered each time this occurs. Text floats over gameplay.</ConversationSummary>
+    </DialogueNode>
+  </DialogueRoot>
+  <DialogueRoot>
+    <DialogueNode>
+      <ConversationID>CON01-045B</ConversationID>
+      <ParticipantName>Gnawton Sawtooth III</ParticipantName>
+      <EmoteType>Reg</EmoteType>
+      <Side>Left</Side>
+      <Line>The painting’s fixed!  Ahh, feels good to do a hard day’s work.</Line>
+      <SpecialityAnimation>None</SpecialityAnimation>
+      <SpecialtyCamera>None</SpecialtyCamera>
+      <Participants>1</Participants>
+      <ConversationSummary>Triggereed when the time runs out and the player has not hurt Gnawton while straightening his crooked portrait during his boss battle encounter. One of many randomized lines delivered each time this occurs. Text floats over gameplay.</ConversationSummary>
+    </DialogueNode>
+  </DialogueRoot>
+  <DialogueRoot>
+    <DialogueNode>
+      <ConversationID>CON01-045C</ConversationID>
+      <ParticipantName>Gnawton Sawtooth III</ParticipantName>
+      <EmoteType>Reg</EmoteType>
+      <Side>Left</Side>
+      <Line>Righted again. And this painting isn’t even hiding one of my secret safes!</Line>
+      <SpecialityAnimation>None</SpecialityAnimation>
+      <SpecialtyCamera>None</SpecialtyCamera>
+      <Participants>1</Participants>
+      <ConversationSummary>Triggereed when the time runs out and the player has not hurt Gnawton while straightening his crooked portrait during his boss battle encounter. One of many randomized lines delivered each time this occurs. Text floats over gameplay.</ConversationSummary>
+    </DialogueNode>
+  </DialogueRoot>
+  <DialogueRoot>
+    <DialogueNode>
+      <ConversationID>CON01-046A</ConversationID>
+      <ParticipantName>Mutt</ParticipantName>
+      <EmoteType>Happy</EmoteType>
+      <Side>Left</Side>
+      <Line>I feel so distinguished with this cape upgrade!</Line>
+      <SpecialityAnimation>Hero Pose</SpecialityAnimation>
+      <SpecialtyCamera>Fixed Location: Focuses on Mutt in center of Gnawton's Battle Area</SpecialtyCamera>
+      <Participants>2</Participants>
+      <ConversationSummary>Triggered immediatly following CUT01-012 once Gnawton has been taken to jail and Mutt has obtained his double jump cape's abilities.</ConversationSummary>
+    </DialogueNode>
+    <DialogueNode>
+      <ConversationID>CON01-046A</ConversationID>
+      <ParticipantName>Dorado</ParticipantName>
+      <EmoteType>Curious</EmoteType>
+      <Side>Right</Side>
+      <Line>Looking at it closer, it might help you reach great heights.</Line>
+      <SpecialityAnimation>None</SpecialityAnimation>
+      <SpecialtyCamera>None</SpecialtyCamera>
+      <Participants />
+      <ConversationSummary />
+    </DialogueNode>
+    <DialogueNode>
+      <ConversationID>CON01-046A</ConversationID>
+      <ParticipantName>Mutt</ParticipantName>
+      <EmoteType>Curious</EmoteType>
+      <Side>Left</Side>
+      <Line>Do you think so?</Line>
+      <SpecialityAnimation>None</SpecialityAnimation>
+      <SpecialtyCamera>None</SpecialtyCamera>
+      <Participants />
+      <ConversationSummary />
+    </DialogueNode>
+    <DialogueNode>
+      <ConversationID>CON01-046A</ConversationID>
+      <ParticipantName>Dorado</ParticipantName>
+      <EmoteType>Awkward</EmoteType>
+      <Side>Right</Side>
+      <Line>Sure... Through air resistance, and physics and... whatnot...</Line>
+      <SpecialityAnimation>None</SpecialityAnimation>
+      <SpecialtyCamera>None</SpecialtyCamera>
+      <Participants />
+      <ConversationSummary />
+    </DialogueNode>
+    <DialogueNode>
+      <ConversationID>CON01-046A</ConversationID>
+      <ParticipantName>Mutt</ParticipantName>
+      <EmoteType>Reg</EmoteType>
+      <Side>Left</Side>
+      <Line>Sounds convenient...</Line>
+      <SpecialityAnimation>None</SpecialityAnimation>
+      <SpecialtyCamera>None</SpecialtyCamera>
+      <Participants />
+      <ConversationSummary />
+    </DialogueNode>
+    <DialogueNode>
+      <ConversationID>CON01-046A</ConversationID>
+      <ParticipantName>Dorado</ParticipantName>
+      <EmoteType>Happy</EmoteType>
+      <Side>Right</Side>
+      <Line>I'm sure the science holds up. Let’s try it out! Press JUMP in the air after jumping to perform a DOUBLE-JUMP.</Line>
+      <SpecialityAnimation>None</SpecialityAnimation>
+      <SpecialtyCamera>None</SpecialtyCamera>
+      <Participants />
+      <ConversationSummary />
+    </DialogueNode>
+  </DialogueRoot>
+  <DialogueRoot>
+    <DialogueNode>
+      <ConversationID>CON01-047A</ConversationID>
+      <ParticipantName>Nantooki Tribe NPC A</ParticipantName>
+      <EmoteType>Reg</EmoteType>
+      <Side>Left</Side>
+      <Line>So hungry!  Rich flat-tail tore down organic farmer’s market. He putting in a Gnaw-Mart instead!</Line>
+      <SpecialityAnimation>None</SpecialityAnimation>
+      <SpecialtyCamera>None</SpecialtyCamera>
+      <Participants>1</Participants>
+      <ConversationSummary>Triggered when player interacts with a set Nantooki NPC. Location of Nantooki TBD. Character repeats comment if interacted with multiple times.</ConversationSummary>
+    </DialogueNode>
+  </DialogueRoot>
+  <DialogueRoot>
+    <DialogueNode>
+      <ConversationID>CON01-048A</ConversationID>
+      <ParticipantName>Nantooki Tribe NPC B</ParticipantName>
+      <EmoteType>Reg</EmoteType>
+      <Side>Left</Side>
+      <Line>Big brick hut put Nantooki architecture to shame. Maybe Soft-Mask help ego with some light vandalism?</Line>
+      <SpecialityAnimation>None</SpecialityAnimation>
+      <SpecialtyCamera>None</SpecialtyCamera>
+      <Participants>1</Participants>
+      <ConversationSummary>Triggered when player interacts with a set Nantooki NPC. Location of Nantooki TBD. Character repeats comment if interacted with multiple times.</ConversationSummary>
+    </DialogueNode>
+  </DialogueRoot>
+  <DialogueRoot>
+    <DialogueNode>
+      <ConversationID>CON01-049A</ConversationID>
+      <ParticipantName>Nantooki Tribe NPC C</ParticipantName>
+      <EmoteType>Reg</EmoteType>
+      <Side>Left</Side>
+      <Line>Stop drooling over girlish figure, Soft-Mask. This proud Nantooki woman already taken!</Line>
+      <SpecialityAnimation>None</SpecialityAnimation>
+      <SpecialtyCamera>None</SpecialtyCamera>
+      <Participants>1</Participants>
+      <ConversationSummary>Triggered when player interacts with a set Nantooki NPC. Location of Nantooki TBD. Character repeats comment if interacted with multiple times.</ConversationSummary>
+    </DialogueNode>
+  </DialogueRoot>
+  <DialogueRoot>
+    <DialogueNode>
+      <ConversationID>CON01-050A</ConversationID>
+      <ParticipantName>Nantooki Tribe NPC D</ParticipantName>
+      <EmoteType>Reg</EmoteType>
+      <Side>Left</Side>
+      <Line>Lately, all other Nantooki so needy and rude. Maybe something in water supply like Loomi Natti say…</Line>
+      <SpecialityAnimation>None</SpecialityAnimation>
+      <SpecialtyCamera>None</SpecialtyCamera>
+      <Participants>1</Participants>
+      <ConversationSummary>Triggered when player interacts with a set Nantooki NPC. Location of Nantooki TBD. Character repeats comment if interacted with multiple times.</ConversationSummary>
+    </DialogueNode>
+  </DialogueRoot>
+  <DialogueRoot>
+    <DialogueNode>
+      <ConversationID>CON01-051A</ConversationID>
+      <ParticipantName>Nantooki Tribe NPC E</ParticipantName>
+      <EmoteType>Reg</EmoteType>
+      <Side>Left</Side>
+      <Line>I really do wish it wasn’t against Nantooki traditions to speak in an intelligent manner. Don’t we all sound like such dreadful luddites?</Line>
+      <SpecialityAnimation>None</SpecialityAnimation>
+      <SpecialtyCamera>None</SpecialtyCamera>
+      <Participants>1</Participants>
+      <ConversationSummary>Triggered when player interacts with a set Nantooki NPC. Location of Nantooki TBD. Character repeats comment if interacted with multiple times.</ConversationSummary>
+    </DialogueNode>
+    <DialogueNode>
+      <ConversationID>CON01-051A</ConversationID>
+      <ParticipantName>Nantooki Tribe NPC E</ParticipantName>
+      <EmoteType>Reg</EmoteType>
+      <Side>Left</Side>
+      <Line>er… I mean… Nantooki village love big hero Soft-Mask!</Line>
+      <SpecialityAnimation>Nantooki Celebration</SpecialityAnimation>
+      <SpecialtyCamera>None</SpecialtyCamera>
+      <Participants />
+      <ConversationSummary />
+    </DialogueNode>
+  </DialogueRoot>
+  <DialogueRoot>
+    <DialogueNode>
+      <ConversationID>CON01-052A</ConversationID>
+      <ParticipantName>Nantooki Tribe NPC F</ParticipantName>
+      <EmoteType>Reg</EmoteType>
+      <Side>Left</Side>
+      <Line>Soft-Mask like new outfit? Nantooki seamstress carve. Very fashionable.</Line>
+      <SpecialityAnimation>None</SpecialityAnimation>
+      <SpecialtyCamera>None</SpecialtyCamera>
+      <Participants>1</Participants>
+      <ConversationSummary>Triggered when player interacts with a set Nantooki NPC. Location of Nantooki TBD. Character repeats comment if interacted with multiple times.</ConversationSummary>
+    </DialogueNode>
+  </DialogueRoot>
+  <DialogueRoot>
+    <DialogueNode>
+      <ConversationID>CON01-053A</ConversationID>
+      <ParticipantName>Nantooki Tribe NPC G</ParticipantName>
+      <EmoteType>Reg</EmoteType>
+      <Side>Right</Side>
+      <Line>Teeni Chiefsun always getting in trouble.  Always embarrass Nantooki tribe with inappropriate tweets.</Line>
+      <SpecialityAnimation>None</SpecialityAnimation>
+      <SpecialtyCamera>None</SpecialtyCamera>
+      <Participants>2</Participants>
+      <ConversationSummary>Triggered when player interacts with a set Nantooki NPC. Location of Nantooki TBD. Character repeats comment if interacted with multiple times.</ConversationSummary>
+    </DialogueNode>
+    <DialogueNode>
+      <ConversationID>CON01-053A</ConversationID>
+      <ParticipantName>Mutt</ParticipantName>
+      <EmoteType>Confused</EmoteType>
+      <Side>Left</Side>
+      <Line>Tweets?</Line>
+      <SpecialityAnimation>None</SpecialityAnimation>
+      <SpecialtyCamera>None</SpecialtyCamera>
+      <Participants />
+      <ConversationSummary />
+    </DialogueNode>
+    <DialogueNode>
+      <ConversationID>CON01-053A</ConversationID>
+      <ParticipantName>Nantooki Tribe NPC G</ParticipantName>
+      <EmoteType>Reg</EmoteType>
+      <Side>Right</Side>
+      <Line>Yes. Needs to learn how to keep pet bird quiet!</Line>
+      <SpecialityAnimation>None</SpecialityAnimation>
+      <SpecialtyCamera>None</SpecialtyCamera>
+      <Participants />
+      <ConversationSummary />
+    </DialogueNode>
+  </DialogueRoot>
+</DialogueTree>

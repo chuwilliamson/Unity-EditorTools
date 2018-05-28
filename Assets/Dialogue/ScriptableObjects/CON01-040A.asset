@@ -1,0 +1,48 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 90bce1edec2dd8d4d87f2ef685c81a13, type: 3}
+  m_Name: CON01-040A
+  m_EditorClassIdentifier: 
+  Conversation:
+    DialogueNodes:
+    - ConversationID: CON01-040A
+      ParticipantName: Beefi Tiki
+      EmoteType: Reg
+      Side: Left
+      Line: Soft-Mask may have completed challenge, but Beefi Teeki still champion
+        in sports trivia. That true test of manliness!
+      SpecialityAnimation: Flex Pose
+      SpecialtyCamera: None
+      Participants: 1
+      ConversationSummary: Triggered when player interacts with Beefi Tiki AFTER collecting
+        Toll Token 1.9.
+    - ConversationID: CON01-040A
+      ParticipantName: Beefi Tiki
+      EmoteType: Reg
+      Side: Left
+      Line: Hey, that impressive workout! Looking for new gym spotter. Want in?
+      SpecialityAnimation: Flex Pose
+      SpecialtyCamera: None
+      Participants: 1
+      ConversationSummary: Triggered when player interacts with Beefi Tiki AFTER collecting
+        Toll Token 1.9. Played after CON01-040A has been triggered.
+    - ConversationID: CON01-040A
+      ParticipantName: Beefi Tiki
+      EmoteType: Reg
+      Side: Left
+      Line: Wow, Soft-Mask demonstrate that true strength is in fortification of personality
+        and character traits. Hur hur hur.
+      SpecialityAnimation: Flex Pose
+      SpecialtyCamera: None
+      Participants: 1
+      ConversationSummary: Triggered when player interacts with Beefi Tiki AFTER collecting
+        Toll Token 1.9. Played after CON01-040B has been triggered. If interacted
+        with again he will repeat CON01-040A.

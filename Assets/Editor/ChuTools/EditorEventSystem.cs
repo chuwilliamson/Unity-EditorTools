@@ -3,7 +3,7 @@
 namespace ChuTools
 {
     public class EditorEventSystem : IEventSystem
-    { 
+    {
         public object Selected { get; set; }
         public object WillSelect { get; set; }
         public EditorEvent OnMouseDown { get; set; }
@@ -16,8 +16,7 @@ namespace ChuTools
 
         public void SetSelected(object obj)
         {
-            if (WillSelect == obj)
-                Selected = WillSelect;
+            Selected = WillSelect;
         }
 
         public void Release(object obj)
@@ -42,11 +41,11 @@ namespace ChuTools
                     GUI.changed = true;
                     break;
                 case EventType.MouseUp:
-                    Invoke(OnMouseUp,e);
+                    Invoke(OnMouseUp, e);
                     GUI.changed = true;
                     break;
                 case EventType.MouseDown:
-                    Invoke(OnMouseDown, e); 
+                    Invoke(OnMouseDown, e);
                     break;
                 case EventType.Repaint:
                     Invoke(OnRepaint, e);
@@ -61,7 +60,7 @@ namespace ChuTools
                 case EventType.Used:
                     Invoke(OnUsed, e);
                     break;
-        
+
             }
         }
     }

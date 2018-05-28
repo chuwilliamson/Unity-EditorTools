@@ -3,6 +3,6 @@ namespace ChuTools
 {
     public abstract class CustomEditorWindow : EditorWindow
     {
-        public readonly IEventSystem NodeEventSystem = new EditorEventSystem();
+        public readonly IEventSystem _nodeEventSystem = new EditorEventSystem();
     }
 }

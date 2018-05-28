@@ -1,0 +1,26 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 90bce1edec2dd8d4d87f2ef685c81a13, type: 3}
+  m_Name: CON01-021A
+  m_EditorClassIdentifier: 
+  Conversation:
+    DialogueNodes:
+    - ConversationID: CON01-021A
+      ParticipantName: T.I.M.B.U.R.
+      EmoteType: Reg
+      Side: Left
+      Line: Hull and biological necessity sustained additional dam-age. Fidelity at
+        33.3333333 (repeating) percent.
+      SpecialityAnimation: None
+      SpecialtyCamera: None
+      Participants: 1
+      ConversationSummary: Auto-triggered once player lands an attack on the T.I.M.B.U.R.
+        pilot ending the second round of the battle.

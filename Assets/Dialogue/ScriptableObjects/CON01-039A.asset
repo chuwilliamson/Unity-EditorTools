@@ -1,0 +1,74 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 90bce1edec2dd8d4d87f2ef685c81a13, type: 3}
+  m_Name: CON01-039A
+  m_EditorClassIdentifier: 
+  Conversation:
+    DialogueNodes:
+    - ConversationID: CON01-039A
+      ParticipantName: Beefi Tiki
+      EmoteType: Reg
+      Side: Right
+      Line: "Can\u2019t believe it!  Beefi Teeki only one to complete trial until
+        now. Soft-Mask may lack muscle\u2026 and charisma\u2026 and good looks..."
+      SpecialityAnimation: None
+      SpecialtyCamera: 'Fixed Location: Focuses on Mutt atop ledge. Beefi''s voice
+        omnipotent.'
+      Participants: 3
+      ConversationSummary: Auto triggered after player collects Toll Token 1.9 and
+        ends Mission 1.9  near the exit to the Cave of Ascension. Beefi is down below
+        still so the camera will lock on Mutt during this exchange. Beef's voice is
+        omnipotent as a result.
+    - ConversationID: CON01-039A
+      ParticipantName: Mutt
+      EmoteType: Sad
+      Side: Left
+      Line: Hey...
+      SpecialityAnimation: None
+      SpecialtyCamera: cont.
+      Participants: 
+      ConversationSummary: 
+    - ConversationID: CON01-039A
+      ParticipantName: Dorado
+      EmoteType: Sassy
+      Side: Left
+      Line: "He\u2019s got you pegged!"
+      SpecialityAnimation: None
+      SpecialtyCamera: cont.
+      Participants: 
+      ConversationSummary: 
+    - ConversationID: CON01-039A
+      ParticipantName: Beefi Tiki
+      EmoteType: Reg
+      Side: Right
+      Line: '...but Soft-Mask may have heart of champion after all.'
+      SpecialityAnimation: None
+      SpecialtyCamera: cont.
+      Participants: 
+      ConversationSummary: 
+    - ConversationID: CON01-039A
+      ParticipantName: Mutt
+      EmoteType: Happy
+      Side: Left
+      Line: Do I get a trophy too?
+      SpecialityAnimation: None
+      SpecialtyCamera: cont.
+      Participants: 
+      ConversationSummary: 
+    - ConversationID: CON01-039A
+      ParticipantName: Beefi Tiki
+      EmoteType: Reg
+      Side: Right
+      Line: '...no.  Now just getting greedy.'
+      SpecialityAnimation: None
+      SpecialtyCamera: cont.
+      Participants: 
+      ConversationSummary: 

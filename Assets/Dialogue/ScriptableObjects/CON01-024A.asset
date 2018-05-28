@@ -1,0 +1,205 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 90bce1edec2dd8d4d87f2ef685c81a13, type: 3}
+  m_Name: CON01-024A
+  m_EditorClassIdentifier: 
+  Conversation:
+    DialogueNodes:
+    - ConversationID: CON01-024A
+      ParticipantName: Loomi Natti
+      EmoteType: Reg
+      Side: Right
+      Line: End is nigh!  End is nigh!
+      SpecialityAnimation: None
+      SpecialtyCamera: None
+      Participants: 3
+      ConversationSummary: Triggered when player interacts with Loomi Natti
+    - ConversationID: CON01-024A
+      ParticipantName: Mutt
+      EmoteType: Confused
+      Side: Left
+      Line: Excuse me sir, are you all right?
+      SpecialityAnimation: None
+      SpecialtyCamera: None
+      Participants: 
+      ConversationSummary: 
+    - ConversationID: CON01-024A
+      ParticipantName: Loomi Natti
+      EmoteType: Reg
+      Side: Right
+      Line: Soft-Mask hiding head in sand.  Nantooki sheeple not understand end of
+        world coming!
+      SpecialityAnimation: None
+      SpecialtyCamera: None
+      Participants: 
+      ConversationSummary: 
+    - ConversationID: CON01-024A
+      ParticipantName: Dorado
+      EmoteType: Curious
+      Side: Left
+      Line: Sheeple? Do you think he means the sheep people from a few towns over?
+      SpecialityAnimation: None
+      SpecialtyCamera: None
+      Participants: 
+      ConversationSummary: 
+    - ConversationID: CON01-024A
+      ParticipantName: Loomi Natti
+      EmoteType: Reg
+      Side: Right
+      Line: Loomi Natti former village shaman. Resign in disgust after realize medicine
+        inflict permanently twisted tongue. Endorsed by Chieftain with no regard for
+        children.
+      SpecialityAnimation: None
+      SpecialtyCamera: None
+      Participants: 
+      ConversationSummary: 
+    - ConversationID: CON01-024A
+      ParticipantName: Loomi Natti
+      EmoteType: Reg
+      Side: Right
+      Line: Now Loomi Natti village conspiracy theorist.
+      SpecialityAnimation: None
+      SpecialtyCamera: None
+      Participants: 
+      ConversationSummary: 
+    - ConversationID: CON01-024A
+      ParticipantName: Mutt
+      EmoteType: Confused
+      Side: Left
+      Line: You said the world is going to end.  Is it a meteor?  Global warming?  Economic
+        collapse?
+      SpecialityAnimation: None
+      SpecialtyCamera: None
+      Participants: 
+      ConversationSummary: 
+    - ConversationID: CON01-024A
+      ParticipantName: Loomi Natti
+      EmoteType: Reg
+      Side: Right
+      Line: Flames from four Tokum-Totems stolen!
+      SpecialityAnimation: None
+      SpecialtyCamera: None
+      Participants: 
+      ConversationSummary: 
+    - ConversationID: CON01-024A
+      ParticipantName: Dorado
+      EmoteType: Sassy
+      Side: Left
+      Line: Yes, that was our next guess.
+      SpecialityAnimation: None
+      SpecialtyCamera: None
+      Participants: 
+      ConversationSummary: 
+    - ConversationID: CON01-024A
+      ParticipantName: Mutt
+      EmoteType: Reg
+      Side: Left
+      Line: "I\u2019m not sure I follow, sir.  Can\u2019t you just re-light your torches?
+        Make a fire by rubbing two sticks together?"
+      SpecialityAnimation: None
+      SpecialtyCamera: None
+      Participants: 
+      ConversationSummary: 
+    - ConversationID: CON01-024A
+      ParticipantName: Loomi Natti
+      EmoteType: Reg
+      Side: Right
+      Line: Soft-Mask not understand complex Nantooki science! Eternal flames lit
+        by gods and goddesses who founded village.
+      SpecialityAnimation: None
+      SpecialtyCamera: 'Fixed Location: Jump Cut to each of the four Tokum Totems'
+      Participants: 
+      ConversationSummary: 
+    - ConversationID: CON01-024A
+      ParticipantName: Loomi Natti
+      EmoteType: Reg
+      Side: Right
+      Line: "Without fire, Tokum Totems can\u2019t bring four seasons of year to Wiki
+        Tiki Woods.  No harvest in autumn!  No swimsuit season in summer!  LOOMI NATTI
+        work on bikini body for nothing!"
+      SpecialityAnimation: None
+      SpecialtyCamera: None
+      Participants: 
+      ConversationSummary: 
+    - ConversationID: CON01-024A
+      ParticipantName: Mutt
+      EmoteType: Curious
+      Side: Left
+      Line: Well, any idea where your flames were taken?
+      SpecialityAnimation: None
+      SpecialtyCamera: None
+      Participants: 
+      ConversationSummary: 
+    - ConversationID: CON01-024A
+      ParticipantName: Dorado
+      EmoteType: Reg
+      Side: Left
+      Line: "I\u2019m sure he\u2019s got a few dozen theories."
+      SpecialityAnimation: None
+      SpecialtyCamera: None
+      Participants: 
+      ConversationSummary: 
+    - ConversationID: CON01-024A
+      ParticipantName: Loomi Natti
+      EmoteType: Reg
+      Side: Right
+      Line: "Don\u2019t want to sound crazy\u2026"
+      SpecialityAnimation: None
+      SpecialtyCamera: None
+      Participants: 
+      ConversationSummary: 
+    - ConversationID: CON01-024A
+      ParticipantName: Dorado
+      EmoteType: Sassy
+      Side: Left
+      Line: "Here we go\u2026"
+      SpecialityAnimation: None
+      SpecialtyCamera: None
+      Participants: 
+      ConversationSummary: 
+    - ConversationID: CON01-024A
+      ParticipantName: Loomi Natti
+      EmoteType: Reg
+      Side: Right
+      Line: '...but flames not been seen since rich flat-tail rat show up. Maybe taken
+        up to giant brick hut?'
+      SpecialityAnimation: None
+      SpecialtyCamera: 'Reveal Tween: Focus on Gnawton''s driveway area'
+      Participants: 
+      ConversationSummary: 
+    - ConversationID: CON01-024A
+      ParticipantName: Dorado
+      EmoteType: Reg
+      Side: Left
+      Line: That was... alarmingly reasonable.
+      SpecialityAnimation: None
+      SpecialtyCamera: None
+      Participants: 
+      ConversationSummary: 
+    - ConversationID: CON01-024A
+      ParticipantName: Mutt
+      EmoteType: Happy
+      Side: Left
+      Line: "Don\u2019t worry - the Lobodestroyo will check it out, or his name isn\u2019t\u2026
+        er\u2026 the Lobodestroyo!"
+      SpecialityAnimation: Hero Pose
+      SpecialtyCamera: None
+      Participants: 
+      ConversationSummary: 
+    - ConversationID: CON01-024A
+      ParticipantName: Loomi Natti
+      EmoteType: Reg
+      Side: Right
+      Line: Soft-Mask refer to self in third-person! LOOMI NATTI think he total nutter.
+      SpecialityAnimation: None
+      SpecialtyCamera: None
+      Participants: 
+      ConversationSummary: 

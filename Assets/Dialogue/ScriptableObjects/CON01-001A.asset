@@ -1,0 +1,56 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 90bce1edec2dd8d4d87f2ef685c81a13, type: 3}
+  m_Name: CON01-001A
+  m_EditorClassIdentifier: 
+  Conversation:
+    DialogueNodes:
+    - ConversationID: CON01-001A
+      ParticipantName: Enpi Seeki
+      EmoteType: Reg
+      Side: Right
+      Line: Welcome to Wiki Tiki Woods, home of mighty Nantooki Tribe. Who you?
+      SpecialityAnimation: None
+      SpecialtyCamera: None
+      Participants: 3
+      ConversationSummary: This is the initial conversation Mutt gets into when first
+        entering WikiTiki Woods. Serves the purpose to estalish the Nantooki Tribe
+        and the issue with the water being blocked. Sets up Mission 1.1 Destroy the
+        Dam
+    - ConversationID: CON01-001A
+      ParticipantName: Mutt
+      EmoteType: Nervous
+      Side: Left
+      Line: "Well, I\u2019m Mutt...err the Lobodestroyo. You\u2019ve never heard of
+        me? Hero of the people? Defender of justice?"
+      SpecialityAnimation: None
+      SpecialtyCamera: None
+      Participants: 
+      ConversationSummary: 
+    - ConversationID: CON01-001A
+      ParticipantName: Enpi Seeki
+      EmoteType: Reg
+      Side: Right
+      Line: Just ice? No need ice, only water. Flat-tail rat cut trees. Stop flow.
+        Mighty river empty now.
+      SpecialityAnimation: None
+      SpecialtyCamera: None
+      Participants: 
+      ConversationSummary: 
+    - ConversationID: CON01-001A
+      ParticipantName: Enpi Seeki
+      EmoteType: Reg
+      Side: Right
+      Line: Wonton? No water for soup. Pay attention, Soft-Mask!
+      SpecialityAnimation: None
+      SpecialtyCamera: None
+      Participants: 
+      ConversationSummary: 

@@ -1,0 +1,27 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 90bce1edec2dd8d4d87f2ef685c81a13, type: 3}
+  m_Name: CON01-032B
+  m_EditorClassIdentifier: 
+  Conversation:
+    DialogueNodes:
+    - ConversationID: CON01-032B
+      ParticipantName: Gnawton Sawtooth III
+      EmoteType: Reg
+      Side: Left
+      Line: "If you need a job, I could hire you to be my pool cleaner!  You\u2019d
+        have to work for tips though.  Here\u2019s one: Get off my property."
+      SpecialityAnimation: None
+      SpecialtyCamera: None
+      Participants: 1
+      ConversationSummary: IF Gnawton has not been defeated this is triggered ontop
+        of gameplay when player is in the pool area behind Gnawton's Mansion. Frequency
+        TBD. Only plays after CON01-032A has already occured.

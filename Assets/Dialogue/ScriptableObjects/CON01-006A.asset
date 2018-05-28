@@ -1,0 +1,94 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 90bce1edec2dd8d4d87f2ef685c81a13, type: 3}
+  m_Name: CON01-006A
+  m_EditorClassIdentifier: 
+  Conversation:
+    DialogueNodes:
+    - ConversationID: CON01-006A
+      ParticipantName: Soothsayer
+      EmoteType: Reg
+      Side: Right
+      Line: "\u2018Tis I, the Soothsayer! You\u2019ve been busy, haven\u2019t you
+        child?"
+      SpecialityAnimation: None
+      SpecialtyCamera: None
+      Participants: 3
+      ConversationSummary: This conversation is triggered if the player completes
+        mission 1.2 WITHOUT interacting with the Soothsayer a the entrance to World1.
+        It serves as an alternative award conversation when earning the Toll Token
+        for collecting 100 Dandelion Souls in WikiTiki Woods.
+    - ConversationID: CON01-006A
+      ParticipantName: Mutt
+      EmoteType: Confused
+      Side: Left
+      Line: Are you my conscience?  In... old lady... turtle... form?
+      SpecialityAnimation: None
+      SpecialtyCamera: None
+      Participants: 
+      ConversationSummary: 
+    - ConversationID: CON01-006A
+      ParticipantName: Soothsayer
+      EmoteType: Reg
+      Side: Right
+      Line: "Hush child. You\u2019ve managed to collect all 100 of my precious dandelion
+        souls\u2026 and without even coming to see me first."
+      SpecialityAnimation: None
+      SpecialtyCamera: None
+      Participants: 
+      ConversationSummary: 
+    - ConversationID: CON01-006A
+      ParticipantName: Mutt
+      EmoteType: Confused
+      Side: Left
+      Line: "Um\u2026 you\u2019re welcome?  Wait, WHAT did we do?"
+      SpecialityAnimation: None
+      SpecialtyCamera: None
+      Participants: 
+      ConversationSummary: 
+    - ConversationID: CON01-006A
+      ParticipantName: Soothsayer
+      EmoteType: Reg
+      Side: Right
+      Line: "Come by my tent some time and I\u2019ll give you all the details."
+      SpecialityAnimation: None
+      SpecialtyCamera: None
+      Participants: 
+      ConversationSummary: 
+    - ConversationID: CON01-006A
+      ParticipantName: Mutt
+      EmoteType: Happy
+      Side: Left
+      Line: "Will do, Ma\u2019am!  Did you see that, Dorado?  And without even being
+        here! She\u2019s amazing!"
+      SpecialityAnimation: None
+      SpecialtyCamera: None
+      Participants: 
+      ConversationSummary: 
+    - ConversationID: CON01-006A
+      ParticipantName: Dorado
+      EmoteType: Skeptical
+      Side: Left
+      Line: Disembodied voice?  Eh, big deal.
+      SpecialityAnimation: None
+      SpecialtyCamera: None
+      Participants: 
+      ConversationSummary: 
+    - ConversationID: CON01-006A
+      ParticipantName: Soothsayer
+      EmoteType: Reg
+      Side: Right
+      Line: "Make sure to drop by soon. Until then, here\u2019s a little something
+        for your troubles."
+      SpecialityAnimation: None
+      SpecialtyCamera: None
+      Participants: 
+      ConversationSummary: 
