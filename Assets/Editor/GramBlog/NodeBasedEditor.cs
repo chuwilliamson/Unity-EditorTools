@@ -7,31 +7,27 @@ namespace _Editor.GramBlog
 {
     public class NodeBasedEditor : EditorWindow
     {
-        List<Connection> connections;
-        Vector2 drag;
-        GUIStyle inPointStyle;
-        Rect menuBar;
-
-        const float menuBarHeight = 20f;
-        List<Node> nodes;
-
-        GUIStyle nodeStyle;
-
-        Vector2 offset;
-        GUIStyle outPointStyle;
-
-        ConnectionPoint selectedInPoint;
-        GUIStyle selectedNodeStyle;
-        ConnectionPoint selectedOutPoint;
+        private List<Connection> connections;
+        private Vector2 drag;
+        private GUIStyle inPointStyle;
+        private Rect menuBar;
+        private const float menuBarHeight = 20f;
+        private List<Node> nodes;
+        private GUIStyle nodeStyle;
+        private Vector2 offset;
+        private GUIStyle outPointStyle;
+        private ConnectionPoint selectedInPoint;
+        private GUIStyle selectedNodeStyle;
+        private ConnectionPoint selectedOutPoint;
 
         [MenuItem("Window/Node Based Editor")]
-        static void OpenWindow()
+        private static void OpenWindow()
         {
             var window = GetWindow<NodeBasedEditor>();
             window.titleContent = new GUIContent("Node Based Editor");
         }
 
-        void OnEnable()
+        private void OnEnable()
         {
             nodeStyle = new GUIStyle
             {
@@ -75,7 +71,7 @@ namespace _Editor.GramBlog
             };
         }
 
-        void OnGUI()
+        private void OnGUI()
         {
             DrawGrid(20, 0.2f, gridColor: Color.gray);
             DrawGrid(100, 0.4f, gridColor: Color.gray);
@@ -92,7 +88,7 @@ namespace _Editor.GramBlog
             if (GUI.changed) Repaint();
         }
 
-        void DrawMenuBar()
+        private void DrawMenuBar()
         {
             menuBar = new Rect(0, 0, width: position.width, height: menuBarHeight);
 
@@ -111,7 +107,7 @@ namespace _Editor.GramBlog
             GUILayout.EndArea();
         }
 
-        void DrawGrid(float gridSpacing, float gridOpacity, Color gridColor)
+        private void DrawGrid(float gridSpacing, float gridOpacity, Color gridColor)
         {
             var widthDivs = Mathf.CeilToInt(position.width / gridSpacing);
             var heightDivs = Mathf.CeilToInt(position.height / gridSpacing);
@@ -134,21 +130,21 @@ namespace _Editor.GramBlog
             Handles.EndGUI();
         }
 
-        void DrawNodes()
+        private void DrawNodes()
         {
             if (nodes == null) return;
             foreach (var t in nodes)
                 t.Draw();
         }
 
-        void DrawConnections()
+        private void DrawConnections()
         {
             if (connections == null) return;
             foreach (var t in connections)
                 t.Draw();
         }
 
-        void ProcessEvents(Event e)
+        private void ProcessEvents(Event e)
         {
             drag = Vector2.zero;
 
@@ -175,7 +171,7 @@ namespace _Editor.GramBlog
             }
         }
 
-        void ProcessNodeEvents(Event e)
+        private void ProcessNodeEvents(Event e)
         {
             if (nodes == null) return;
             for (var i = nodes.Count - 1; i >= 0; i--)
@@ -187,7 +183,7 @@ namespace _Editor.GramBlog
             }
         }
 
-        void DrawConnectionLine(Event e)
+        private void DrawConnectionLine(Event e)
         {
             if (selectedInPoint != null && selectedOutPoint == null)
             {
@@ -218,14 +214,14 @@ namespace _Editor.GramBlog
             GUI.changed = true;
         }
 
-        void ProcessContextMenu(Vector2 mousePosition)
+        private void ProcessContextMenu(Vector2 mousePosition)
         {
             var genericMenu = new GenericMenu();
             genericMenu.AddItem(new GUIContent("Add node"), false, () => OnClickAddNode(mousePosition: mousePosition));
             genericMenu.ShowAsContext();
         }
 
-        void OnDrag(Vector2 delta)
+        private void OnDrag(Vector2 delta)
         {
             drag = delta;
 
@@ -236,18 +232,18 @@ namespace _Editor.GramBlog
             GUI.changed = true;
         }
 
-        void OnClickAddNode(Vector2 mousePosition)
+        private void OnClickAddNode(Vector2 mousePosition)
         {
             if (nodes == null)
                 nodes = new List<Node>();
 
             nodes.Add(new Node(position: mousePosition, width: 200, height: 50, nodeStyle: nodeStyle,
                 selectedStyle: selectedNodeStyle, inPointStyle: inPointStyle, outPointStyle: outPointStyle,
-                OnClickInPoint: OnClickInPoint, OnClickOutPoint: OnClickOutPoint,
-                OnClickRemoveNode: OnClickRemoveNode));
+                onClickInPoint: OnClickInPoint, onClickOutPoint: OnClickOutPoint,
+                onClickRemoveNode: OnClickRemoveNode));
         }
 
-        void OnClickInPoint(ConnectionPoint inPoint)
+        private void OnClickInPoint(ConnectionPoint inPoint)
         {
             selectedInPoint = inPoint;
 
@@ -263,7 +259,7 @@ namespace _Editor.GramBlog
             }
         }
 
-        void OnClickOutPoint(ConnectionPoint outPoint)
+        private void OnClickOutPoint(ConnectionPoint outPoint)
         {
             selectedOutPoint = outPoint;
 
@@ -279,15 +275,15 @@ namespace _Editor.GramBlog
             }
         }
 
-        void OnClickRemoveNode(Node node)
+        private void OnClickRemoveNode(Node node)
         {
             if (connections != null)
             {
                 var connectionsToRemove = new List<Connection>();
 
                 foreach (Connection t in connections)
-                    if (t.InPoint == node.inPoint ||
-                        t.OutPoint == node.outPoint)
+                    if (t.inPoint == node.inPoint ||
+                        t.outPoint == node.outPoint)
                         connectionsToRemove.Add(t);
 
                 foreach (Connection t in connectionsToRemove)
@@ -297,12 +293,12 @@ namespace _Editor.GramBlog
             nodes.Remove(item: node);
         }
 
-        void OnClickRemoveConnection(Connection connection)
+        private void OnClickRemoveConnection(Connection connection)
         {
             connections.Remove(item: connection);
         }
 
-        void CreateConnection()
+        private void CreateConnection()
         {
             if (connections == null)
                 connections = new List<Connection>();
@@ -311,19 +307,19 @@ namespace _Editor.GramBlog
                 onClickRemoveConnection: OnClickRemoveConnection));
         }
 
-        void ClearConnectionSelection()
+        private void ClearConnectionSelection()
         {
             selectedInPoint = null;
             selectedOutPoint = null;
         }
 
-        void Save()
+        private void Save()
         {
             XMLOp.Serialize(item: nodes, path: "Assets/Resources/nodes.xml");
             XMLOp.Serialize(item: connections, path: "Assets/Resources/connections.xml");
         }
 
-        void Load()
+        private void Load()
         {
             var nodesDeserialized = XMLOp.Deserialize<List<Node>>("Assets/Resources/nodes.xml");
             var connectionsDeserialized = XMLOp.Deserialize<List<Connection>>("Assets/Resources/connections.xml");
@@ -340,18 +336,18 @@ namespace _Editor.GramBlog
                         selectedStyle: selectedNodeStyle,
                         inPointStyle: inPointStyle,
                         outPointStyle: outPointStyle,
-                        OnClickInPoint: OnClickInPoint,
-                        OnClickOutPoint: OnClickOutPoint,
-                        OnClickRemoveNode: OnClickRemoveNode,
-                        inPointID: nodeDeserialized.inPoint.id,
-                        outPointID: nodeDeserialized.outPoint.id
+                        onClickInPoint: OnClickInPoint,
+                        onClickOutPoint: OnClickOutPoint,
+                        onClickRemoveNode: OnClickRemoveNode,
+                        inPointId: nodeDeserialized.inPoint.id,
+                        outPointId: nodeDeserialized.outPoint.id
                     )
                 );
 
             foreach (var connectionDeserialized in connectionsDeserialized)
             {
-                var inPoint = nodes.First(n => n.inPoint.id == connectionDeserialized.InPoint.id).inPoint;
-                var outPoint = nodes.First(n => n.outPoint.id == connectionDeserialized.OutPoint.id).outPoint;
+                var inPoint = nodes.First(n => n.inPoint.id == connectionDeserialized.inPoint.id).inPoint;
+                var outPoint = nodes.First(n => n.outPoint.id == connectionDeserialized.outPoint.id).outPoint;
                 connections.Add(new Connection(inPoint: inPoint, outPoint: outPoint,
                     onClickRemoveConnection: OnClickRemoveConnection));
             }

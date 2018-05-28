@@ -2,7 +2,7 @@
 
 namespace ChuTools
 {
-    public class EditorEventSystem : IEventSystem
+    public class NodeWindowEventSystem : IEventSystem
     {
         public object Selected { get; set; }
         public object WillSelect { get; set; }
@@ -28,9 +28,7 @@ namespace ChuTools
         }
         public void Invoke(EditorEvent editorEvent, Event e)
         {
-            if (editorEvent == null)
-                return;
-            editorEvent.Invoke(e);
+            editorEvent?.Invoke(e);
         }
         public void PollEvents(Event e)
         {
@@ -38,11 +36,9 @@ namespace ChuTools
             {
                 case EventType.MouseDrag:
                     Invoke(OnMouseDrag, e);
-                    GUI.changed = true;
                     break;
                 case EventType.MouseUp:
                     Invoke(OnMouseUp, e);
-                    GUI.changed = true;
                     break;
                 case EventType.MouseDown:
                     Invoke(OnMouseDown, e);
@@ -52,7 +48,6 @@ namespace ChuTools
                     break;
                 case EventType.ContextClick:
                     Invoke(OnContextClick, e);
-                    GUI.changed = true;
                     break;
                 case EventType.MouseMove:
                     Invoke(OnMouseMove, e);

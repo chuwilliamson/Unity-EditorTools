@@ -3,6 +3,7 @@ using UnityEngine;
 
 namespace ChuTools
 {
+    [Serializable]
     public class Connection : IDrawable
     {
         private readonly IEventSystem _eventSystem;
@@ -12,21 +13,23 @@ namespace ChuTools
         private bool _connecting;
         private bool _complete;
 
-        public Connection(Node node, IEventSystem eventSystem, Action<Node> onConnectionComplete)
+        public Connection(Node node, Action<Node> onConnectionComplete, IEventSystem eventSystem)
         {
             _in = node;
             _out = null;
             _connecting = true;
             _complete = false;
+            
+            _onConnectionComplete = onConnectionComplete;
             _eventSystem = eventSystem;
             _eventSystem.OnMouseDown += OnMouseDown;
-            _onConnectionComplete = onConnectionComplete;
         }
 
         public void Draw(Event e)
         {
+            if (!_connecting && !_complete)return;
             var rect = new Rect(e.mousePosition, Vector3.one);
-            Chutilities.DrawNodeCurve(_in.CenterRect, end: _connecting ? rect:_out.CenterRect);
+            Chutilities.DrawNodeCurve(_in.BackgroundRect, end: _connecting ? rect:_out.BackgroundRect);
         }
 
         private void OnMouseDown(Event e)

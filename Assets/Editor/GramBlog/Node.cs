@@ -30,34 +30,41 @@ namespace _Editor.GramBlog
         {
         }
 
-        public Node(Vector2 position, float width, float height, GUIStyle nodeStyle, GUIStyle selectedStyle,
-            GUIStyle inPointStyle, GUIStyle outPointStyle, Action<ConnectionPoint> OnClickInPoint,
-            Action<ConnectionPoint> OnClickOutPoint, Action<Node> OnClickRemoveNode)
+        public Node(Vector2 position, float width, float height,
+            GUIStyle nodeStyle,
+            GUIStyle selectedStyle,
+            GUIStyle inPointStyle,
+            GUIStyle outPointStyle,
+            Action<ConnectionPoint> onClickInPoint,
+            Action<ConnectionPoint> onClickOutPoint,
+            Action<Node> onClickRemoveNode)
         {
-            rect = new Rect(x: position.x, y: position.y, width: width, height: height);
+            rect = new Rect(position.x, position.y, width, height);
             style = nodeStyle;
-            inPoint = new ConnectionPoint(this, type: ConnectionPointType.In, style: inPointStyle,
-                OnClickConnectionPoint: OnClickInPoint);
-            outPoint = new ConnectionPoint(this, type: ConnectionPointType.Out, style: outPointStyle,
-                OnClickConnectionPoint: OnClickOutPoint);
+            inPoint = new ConnectionPoint(this, ConnectionPointType.In, inPointStyle, onClickInPoint);
+            outPoint = new ConnectionPoint(this, ConnectionPointType.Out, outPointStyle, onClickOutPoint);
             defaultNodeStyle = nodeStyle;
             selectedNodeStyle = selectedStyle;
-            OnRemoveNode = OnClickRemoveNode;
+            OnRemoveNode = onClickRemoveNode;
         }
 
-        public Node(Vector2 position, float width, float height, GUIStyle nodeStyle, GUIStyle selectedStyle,
-            GUIStyle inPointStyle, GUIStyle outPointStyle, Action<ConnectionPoint> OnClickInPoint,
-            Action<ConnectionPoint> OnClickOutPoint, Action<Node> OnClickRemoveNode, string inPointID, string outPointID)
+        public Node(Vector2 position, float width, float height,
+            GUIStyle nodeStyle, GUIStyle selectedStyle, GUIStyle inPointStyle, GUIStyle outPointStyle,
+            Action<ConnectionPoint> onClickInPoint,
+            Action<ConnectionPoint> onClickOutPoint,
+            Action<Node> onClickRemoveNode,
+            string inPointId,
+            string outPointId)
         {
-            rect = new Rect(x: position.x, y: position.y, width: width, height: height);
+            rect = new Rect(position.x, position.y, width, height);
             style = nodeStyle;
-            inPoint = new ConnectionPoint(this, type: ConnectionPointType.In, style: inPointStyle,
-                OnClickConnectionPoint: OnClickInPoint, id: inPointID);
-            outPoint = new ConnectionPoint(this, type: ConnectionPointType.Out, style: outPointStyle,
-                OnClickConnectionPoint: OnClickOutPoint, id: outPointID);
+            inPoint = new ConnectionPoint(node: this, type: ConnectionPointType.In, style: inPointStyle,
+                OnClickConnectionPoint: onClickInPoint, id: inPointId);
+            outPoint = new ConnectionPoint(node: this, type: ConnectionPointType.Out, style: outPointStyle,
+                OnClickConnectionPoint: onClickOutPoint, id: outPointId);
             defaultNodeStyle = nodeStyle;
             selectedNodeStyle = selectedStyle;
-            OnRemoveNode = OnClickRemoveNode;
+            OnRemoveNode = onClickRemoveNode;
         }
 
         public void Drag(Vector2 delta)
@@ -69,7 +76,7 @@ namespace _Editor.GramBlog
         {
             inPoint.Draw();
             outPoint.Draw();
-            GUI.Box(position: rect, text: title, style: style);
+            GUI.Box(rect, title, style);
         }
 
         public bool ProcessEvents(Event e)
@@ -77,26 +84,32 @@ namespace _Editor.GramBlog
             switch (e.type)
             {
                 case EventType.MouseDown:
-                    if (e.button == 0)
-                        if (rect.Contains(point: e.mousePosition))
-                        {
-                            isDragged = true;
-                            GUI.changed = true;
-                            isSelected = true;
-                            style = selectedNodeStyle;
-                        }
-                        else
-                        {
-                            GUI.changed = true;
-                            isSelected = false;
-                            style = defaultNodeStyle;
-                        }
-
-                    if (e.button == 1 && isSelected && rect.Contains(point: e.mousePosition))
+                    switch (e.button)
                     {
-                        ProcessContextMenu();
-                        e.Use();
+                        case 0:
+                            if (rect.Contains(e.mousePosition))
+                            {
+                                isDragged = true;
+                                GUI.changed = true;
+                                isSelected = true;
+                                style = selectedNodeStyle;
+                            }
+                            else
+                            {
+                                GUI.changed = true;
+                                isSelected = false;
+                                style = defaultNodeStyle;
+                            }
+                            break;
+                        case 1:
+                            if (isSelected && rect.Contains(e.mousePosition))
+                            {
+                                ProcessContextMenu();
+                                e.Use();
+                            }
+                            break;
                     }
+
                     break;
 
                 case EventType.MouseUp:
@@ -106,7 +119,7 @@ namespace _Editor.GramBlog
                 case EventType.MouseDrag:
                     if (e.button == 0 && isDragged)
                     {
-                        Drag(delta: e.delta);
+                        Drag(e.delta);
                         e.Use();
                         return true;
                     }
@@ -116,17 +129,16 @@ namespace _Editor.GramBlog
             return false;
         }
 
-        void ProcessContextMenu()
+        private void ProcessContextMenu()
         {
             var genericMenu = new GenericMenu();
-            genericMenu.AddItem(new GUIContent("Remove node"), false, func: OnClickRemoveNode);
+            genericMenu.AddItem(content: new GUIContent("Remove node"), on: false, func: OnClickRemoveNode);
             genericMenu.ShowAsContext();
         }
 
-        void OnClickRemoveNode()
+        private void OnClickRemoveNode()
         {
-            if (OnRemoveNode != null)
-                OnRemoveNode(this);
+            OnRemoveNode?.Invoke(obj: this);
         }
     }
 }
