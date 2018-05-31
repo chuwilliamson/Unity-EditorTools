@@ -2,17 +2,10 @@
 using System.Collections.Generic;
 using System.Linq;
 using UnityEditor;
-using UnityEditor.Experimental.UIElements.GraphView;
 using UnityEngine;
 using Object = UnityEngine.Object;
 
-public static class Extensions
-{
-    public static void MoveDown(this Rect rect, int amount)
-    {
-        rect.position = new Vector2(rect.x, rect.y + amount);
-    }
-}
+
 namespace ChuTools
 {
     [System.Serializable]
