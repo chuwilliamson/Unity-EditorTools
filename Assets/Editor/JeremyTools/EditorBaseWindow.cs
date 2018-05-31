@@ -302,7 +302,7 @@ public class EditorBaseWindow : EditorWindow
         nodes.Remove(node);
     }
 
-    [MenuItem(itemName: "JeremyTools/NodeWindow")]
+    [MenuItem(itemName: "Tools/JeremyTools/NodeWindow")]
     static void OpenWindow()
     {
         var w = CreateInstance<EditorBaseWindow>();
