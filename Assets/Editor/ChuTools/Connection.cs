@@ -2,8 +2,7 @@
 using UnityEngine;
 
 namespace ChuTools
-{
-    [Serializable]
+{ 
     public class Connection : IDrawable
     {
         private readonly IEventSystem _eventSystem;
@@ -29,7 +28,7 @@ namespace ChuTools
         {
             if (!_connecting && !_complete)return;
             var rect = new Rect(e.mousePosition, Vector3.one);
-            Chutilities.DrawNodeCurve(_in.BackgroundRect, end: _connecting ? rect:_out.BackgroundRect);
+            Chutilities.DrawNodeCurve(_in._Rect, end: _connecting ? rect:_out._Rect);
         }
 
         private void OnMouseDown(Event e)
