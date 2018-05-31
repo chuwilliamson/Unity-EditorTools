@@ -23,7 +23,7 @@ namespace ChuTools
             get { return Application.dataPath + "/Dialogue/nodes.json"; }
         }
 
-        [MenuItem("Tools/NodeWindow")]
+        [MenuItem("Tools/ChuTools/NodeWindow")]
         private static void Init()
         {
             var window = GetWindow<NodeEditorWindow>();
