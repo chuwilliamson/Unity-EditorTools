@@ -18,7 +18,8 @@ namespace ChuTools
         private bool isDragging = false;
         private Vector2 currentMouse = Vector2.zero;
         private readonly Action<ConnectionPoint> _onConnectionComplete;
-        private GUIStyle _normalStyle = Node.InPointStyle;
+
+        private GUIStyle _normalStyle = new GUIStyle("U2D.pivotDot");
         
         public int Guid;
 
@@ -33,6 +34,10 @@ namespace ChuTools
         {
             _Rect = new Rect(position, size);
             _endRect = new Rect(_Rect);
+            NodeEditorWindow.NodeEvents.OnMouseDrag += OnPointerDrag;
+            NodeEditorWindow.NodeEvents.OnMouseDown += OnPointerDown;
+            NodeEditorWindow.NodeEvents.OnMouseUp += OnPointerUp;
+
         }
 
         public override void Draw()
@@ -47,25 +52,6 @@ namespace ChuTools
                 Handles.RectangleHandleCap(GUIUtility.GetControlID(FocusType.Passive), _endRect.position, Quaternion.identity, 15, EventType.Repaint);
             }
         }
-
-        public override void PollEvents(Event e)
-        {
-            switch (e.type)
-            {
-                case EventType.MouseDown:
-                    OnPointerDown(e);
-                    break;
-                case EventType.MouseUp:
-                    OnPointerUp(e);
-                    break;
-                case EventType.MouseDrag:
-                    OnPointerDrag(e);
-                    break;
-
-            }
-        }
-
-
 
         public Vector2 Position
         {
