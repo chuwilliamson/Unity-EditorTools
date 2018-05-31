@@ -1,59 +1,33 @@
-﻿using System;
+﻿using Dialogue;
 using UnityEditor;
 using UnityEngine;
-namespace Dialogue
+using Object = UnityEngine.Object;
+namespace ChuTools
 {
-    public class EditorDialogueNode
+    public partial class Node
     {
-        private DialogueRootObject Target { get; set; }
-
-        public EditorDialogueNode()
+        public class EditorDialogueNode
         {
-            Target = ScriptableObject.CreateInstance<DialogueRootObject>();
-        }
- 
-        public void Draw()
-        {
-            if (Target == null)
-                return;
-            if (Target.Conversation.Count <= 0)
-            {
-                if (!GUILayout.Button("Add Line", GUILayout.Width(Screen.width / 2.0f))) return;
+            public Object Data;
 
-                var node = new DialogueNode
-                {
-                    ConversationID = "",
-                    ParticipantName = "Name...",
-                    Side = "Right",
-                    EmoteType = "Reg",
-                    Line = "Thing to Say"
-                };
-
-                Target.Conversation.Add(node);
-            }
-            else
+            public void Draw()
             {
-                EditorGUI.BeginChangeCheck();
-                for (var i = 0; i < Target.Conversation.Count; i++)
+                Data = EditorGUILayout.ObjectField(Data, objType: typeof(DialogueRootObject), allowSceneObjects: false);
+                EditorGUILayout.RectField(value: GUILayoutUtility.GetLastRect());
+                if (Data != null)
                 {
-                    GUILayout.Space(10);
-                    GUILayout.BeginHorizontal();
-                    GUILayout.Label(string.Format("Line {0}", i));
-                    if(Target.Conversation.Count > 1)
-                        if (GUILayout.Button("Remove", GUILayout.ExpandWidth(false)))
-                            Target.Conversation.Remove(Target.Conversation[i]);
-                    GUILayout.EndHorizontal();
-                    Target.Conversation[i].ParticipantName = EditorGUILayout.TextField("Who is talking?", Target.Conversation[i].ParticipantName);
-                    Target.Conversation[i].Side = EditorGUILayout.EnumPopup("Which Side?", (Side)Enum.Parse(typeof(Side), Target.Conversation[i].Side)).ToString();
-                    Target.Conversation[i].Line = EditorGUILayout.TextField("What to say..", Target.Conversation[i].Line);
-                    Target.Conversation[i].EmoteType = EditorGUILayout.EnumPopup("How are you feeling?", (EmoteType)Enum.Parse(typeof(EmoteType), Target.Conversation[i].EmoteType)).ToString();
-                }
-                if (EditorGUI.EndChangeCheck())
-                {
-                    EditorUtility.SetDirty(Target);
+                    var so = new SerializedObject(Data);
+                    var sp = so.FindProperty("Conversation");
+                    var rp = sp.FindPropertyRelative("DialogueNodes");
+
+                    if (EditorGUILayout.PropertyField(rp, true))
+                    {
+
+                    }
+                    EditorGUILayout.RectField(value: GUILayoutUtility.GetLastRect());
+
                 }
             }
-        }
+        } 
     }
-
 }

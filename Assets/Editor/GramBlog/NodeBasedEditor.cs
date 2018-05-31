@@ -237,10 +237,10 @@ namespace _Editor.GramBlog
             if (nodes == null)
                 nodes = new List<Node>();
 
-            nodes.Add(new Node(position: mousePosition, width: 200, height: 50, nodeStyle: nodeStyle,
-                selectedStyle: selectedNodeStyle, inPointStyle: inPointStyle, outPointStyle: outPointStyle,
-                onClickInPoint: OnClickInPoint, onClickOutPoint: OnClickOutPoint,
-                onClickRemoveNode: OnClickRemoveNode));
+            nodes.Add(new Node(mousePosition, 200, 50, nodeStyle,
+                selectedNodeStyle, inPointStyle, outPointStyle,
+                OnClickInPoint, OnClickOutPoint,
+                OnClickRemoveNode));
         }
 
         private void OnClickInPoint(ConnectionPoint inPoint)
@@ -303,8 +303,8 @@ namespace _Editor.GramBlog
             if (connections == null)
                 connections = new List<Connection>();
 
-            connections.Add(new Connection(inPoint: selectedInPoint, outPoint: selectedOutPoint,
-                onClickRemoveConnection: OnClickRemoveConnection));
+            connections.Add(new Connection(selectedInPoint, selectedOutPoint,
+                OnClickRemoveConnection));
         }
 
         private void ClearConnectionSelection()

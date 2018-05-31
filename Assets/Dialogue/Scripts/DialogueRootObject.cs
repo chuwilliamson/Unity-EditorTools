@@ -1,39 +1,42 @@
-﻿using UnityEngine;
-using System.Collections.Generic;
-[CreateAssetMenu(fileName = "Data", menuName = "Dialogue/Dialogue Root", order = 1)]
-public class DialogueRootObject : ScriptableObject
+﻿using System.Collections.Generic;
+using UnityEngine;
+
+namespace Dialogue
 {
-    public Dialogue.DialogueRoot Conversation;
-    private void OnEnable()
+    [CreateAssetMenu(fileName = "Data", menuName = "Dialogue/Dialogue Root", order = 1)]
+    public class DialogueRootObject : ScriptableObject
     {
-        if(Conversation == null)
-            Init();
-    }
+        public DialogueRoot Conversation;
 
-    public void Init()
-    {
+        private void OnEnable()
+        {
+            if (Conversation == null)
+                Init();
+        }
 
-        Conversation = new Dialogue.DialogueRoot();
-        Conversation.DialogueNodes = new List<Dialogue.DialogueNode>();
-        var node = new Dialogue.DialogueNode();
-        node.ConversationID = "CON::WORLD::NODE";
-        node.ParticipantName = "Name";
-        node.Line = "Thing to say";
-        node.Side = "Left";
-        node.EmoteType = "Reg";
-        Conversation.DialogueNodes.Add(node);
-    }
+        public void Init()
+        {
+            Conversation = new DialogueRoot {DialogueNodes = new List<DialogueNode>()};
+            var node = new DialogueNode
+            {
+                ConversationID = "CON::WORLD::NODE",
+                ParticipantName = "Name",
+                Line = "Thing to say",
+                Side = "Left",
+                EmoteType = "Reg"
+            };
+            Conversation.DialogueNodes.Add(node);
+        }
 
-    [ContextMenu("Reset Index")]
-    public void ResetIndex()
-    {
-        Conversation.Reset();
-    }
+        [ContextMenu("Reset Index")]
+        public void ResetIndex()
+        {
+            Conversation.Reset();
+        }
 
-    public void ExecuteCurrent()
-    {        
-        Conversation.NextNode();       
+        public void ExecuteCurrent()
+        {
+            Conversation.NextNode();
+        }
     }
 }
-
-

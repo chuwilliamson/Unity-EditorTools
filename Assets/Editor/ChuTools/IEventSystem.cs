@@ -2,6 +2,21 @@
 
 namespace ChuTools
 {
+    public interface IMouseDragHandler
+    {
+        void OnMouseDrag(Event e);
+    }
+
+    public interface IMouseDownHandler
+    {
+        void OnMouseDown(Event e);
+    }
+
+    public interface IMouseUpHandler
+    {
+        void OnMouseUp(Event e);
+    }
+
     public interface IEventSystem
     {
         void SetSelected(object obj);

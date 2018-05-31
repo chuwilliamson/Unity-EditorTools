@@ -14,6 +14,15 @@ namespace ChuTools
             offrect.yMax -= height.y;
             return offrect;
         }
+        public static void DrawNodeCurve(Vector3 startPos, Vector3 endPos)
+        {
+            var startTan = startPos + Vector3.right * 50;
+            var endTan = endPos + Vector3.left * 50;
+            var shadowCol = new Color(0, 0, 0, 0.06f);
+            for (var i = 0; i < 3; i++) // Draw a shadow
+                Handles.DrawBezier(startPos, endPos, startTan, endTan, shadowCol, null, width: (i + 1) * 5);
+            Handles.DrawBezier(startPos, endPos, startTan, endTan, Color.black, null, 1);
+        }
         public static void DrawNodeCurve(Rect start, Rect end)
         {
             var startPos = new Vector3(x: start.x + start.width, y: start.y + start.height / 2, z: 0);

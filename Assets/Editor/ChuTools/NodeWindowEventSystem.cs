@@ -26,9 +26,9 @@ namespace ChuTools
 
             SetSelected(obj);
         }
-        public void Invoke(EditorEvent editorEvent, Event e)
+        public void Invoke(EditorEvent cb, Event e)
         {
-            editorEvent?.Invoke(e);
+            cb?.Invoke(e);
         }
         public void PollEvents(Event e)
         {
