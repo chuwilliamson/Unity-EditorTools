@@ -1,6 +1,7 @@
 ﻿using System.Collections.Generic;
 using System.Diagnostics.CodeAnalysis;
 using System.IO;
+using Interfaces;
 using JeremyTools;
 using UnityEditor;
 using UnityEngine;
@@ -15,19 +16,18 @@ namespace ChuTools
         public static GUIStyle InPointStyle;
         public static GUIStyle OutPointStyle;
 
-        public List<Connection> Connections;
-        public List<Node> Nodes;
+        public List<IDrawable> Connections;
+        public List<IDrawable> Nodes;
         public static IEventSystem NodeEvents { get; private set; }
         public Vector2 CenterWindow => new Vector2(Screen.width / 2.0f, Screen.height / 2.0f);
         private string _path => Application.dataPath + "/Dialogue/nodes.json";
-
+        
         [MenuItem("Tools/ChuTools/NodeWindow")]
         private static void Init()
         {
             var window = GetWindow<NodeEditorWindow>();
             window.Show();
         }
-
 
         private void OnEnable()
         {
@@ -71,9 +71,8 @@ namespace ChuTools
                 normal = {background = EditorGUIUtility.Load("builtin skins/darkskin/images/node1.png") as Texture2D},
                 border = new RectOffset(12, 12, 12, 12)
             };
-            Nodes = new List<Node>();
-
-            Connections = new List<Connection>();
+            Nodes = new List<IDrawable>();
+            Connections = new List<IDrawable>();
             NodeEvents = new NodeWindowEventSystem();
 
             NodeEvents.OnContextClick += CreateContextMenu;
@@ -102,9 +101,7 @@ namespace ChuTools
             EditorGUILayout.LabelField("Control Name: ", GUI.GetNameOfFocusedControl());
             EditorGUILayout.LabelField("Path", _path);
             EditorGUILayout.LabelField("Current Event", NodeEvents.Current.ToString());
-
             EditorGUILayout.LabelField("Event count ", Event.GetEventCount().ToString());
-
             EditorGUILayout.LabelField("EventSystem Selected", value1);
             EditorGUILayout.LabelField("EventSystem Will Selected   ", value2);
             EditorGUILayout.EndVertical();
@@ -142,16 +139,14 @@ namespace ChuTools
 
         private void ClearNodes()
         {
-            Nodes = new List<Node>();
+            Nodes = new List<IDrawable>();
         }
 
         private void Save()
         {
             var n = new NodeList();
-            Nodes.ForEach(node => n.Nodes.Add(node));
-
+            Nodes.ForEach(node => n.Nodes.Add(null));
             var json = JsonUtility.ToJson(n, true);
-
             File.WriteAllText(_path, json);
         }
 
@@ -160,7 +155,7 @@ namespace ChuTools
             var json = File.ReadAllText(_path);
             var n = new NodeList();
             JsonUtility.FromJsonOverwrite(json, n);
-            Nodes = n.Nodes;
+       
         }
 
         public class NodeList//just for saving

@@ -135,7 +135,7 @@ namespace ChuTools
             Selected = 2
         }
 
-        public Vector2 OutCenter { get { return _endRect.center; } }
-        public Vector2 InCenter { get { return Rect.center; } }
+        public Vector2 OutCenter => _endRect.center;
+        public Vector2 InCenter => Rect.center;
     }
 }

@@ -1,6 +1,7 @@
-﻿using UnityEngine;
+﻿using Interfaces;
+using UnityEngine;
 
-public abstract class UIElement
+public abstract class UIElement : IDrawable
 {
     public Rect Rect;
     public Vector2 Position
@@ -17,6 +18,7 @@ public abstract class UIElement
     public GUIContent Content { get; set; }
     public int ControlId { get; protected set; }
 
+    Rect IDrawable.Rect => Rect;
     /// <summary>
     /// Draw the default box for this ui element
     /// </summary>
