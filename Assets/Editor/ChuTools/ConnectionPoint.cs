@@ -8,7 +8,7 @@ using UnityEngine;
 
 namespace ChuTools
 {
-    public class ConnectionPoint : UIElement, IConnection, IMouseDownHandler, IMouseUpHandler, IMouseDragHandler, INode
+    public class ConnectionPoint : UIElement, IConnection, IMouseDownHandler, IMouseUpHandler, IMouseDragHandler 
     {
         public ConnectionPoint()
         {

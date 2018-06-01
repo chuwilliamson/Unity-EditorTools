@@ -1,9 +1,10 @@
-﻿using UnityEditor;
+﻿using Interfaces;
+using UnityEditor;
 using UnityEngine;
 
 namespace JeremyTools
 {
-    public class JNode : INode
+    public partial class JNode 
     {
         // fields
         public ChuTools.IEventSystem EventSystem { get; set; }
@@ -116,11 +117,5 @@ namespace JeremyTools
             }
         }
 
-        public void Draw()
-        {
-            GUI.Box(rect, content, style);
-            inPoint.Draw();
-            outPoint.Draw();
-        }
     }
 }

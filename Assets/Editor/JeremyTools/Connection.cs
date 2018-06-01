@@ -1,21 +1,15 @@
-﻿using UnityEditor;
+﻿using Interfaces;
+using UnityEditor;
+using UnityEngine;
 
 namespace JeremyTools
 {
-    public class Connection
+    public partial class Connection
     {
-        INode inNode;
-        INode outNode;
-
-        public Connection(INode inN, INode outN)
+        public Connection(IDrawable inN, IDrawable outN)
         {
-            inNode = inN;
-            outNode = outN;
-        }
-
-        public void Draw()
-        {
-            Handles.DrawLine(inNode.InCenter, outNode.OutCenter);
+            In = inN;
+            Out = outN;
         }
     }
 }

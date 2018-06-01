@@ -1,4 +1,5 @@
 ﻿using System;
+using Interfaces;
 using JeremyTools;
 using UnityEditor;
 using UnityEngine;
@@ -6,7 +7,7 @@ using UnityEngine;
 namespace ChuTools
 {
     [Serializable]
-    public partial class Node : INode
+    public partial class Node 
     {
         private readonly ConnectionPoint _in;
         private readonly Action<Connection> _onConnectionMade;
@@ -63,11 +64,11 @@ namespace ChuTools
 
         private void ConnectionMade(ConnectionPoint outPoint)
         {
-            if (_in.Rect.Overlaps(outPoint.Rect))
-            {
-                Debug.Log("connection made");
-                _onConnectionMade(new Connection(_in, outPoint));
-            }
+            //if (_in.Rect.Overlaps(outPoint.Rect))
+            //{
+            //    Debug.Log("connection made");
+            //    _onConnectionMade(new Connection(_in, outPoint));
+            //}
         }
 
         public void OnMouseDown(Event e)
@@ -136,5 +137,7 @@ namespace ChuTools
         {
             return $"Node {ControlId}";
         }
+
+        public int Value { get; set; }
     }
 }
