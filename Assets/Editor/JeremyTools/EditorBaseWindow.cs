@@ -4,328 +4,331 @@ using UnityEngine;
 using UnityEditor;
 using System;
 
-public class ConnectionPoint
+namespace Facehead
 {
-    public Rect rect;
-    public string name;
-
-    public ConnectionPoint(Rect r, string n)
+    public class ConnectionPoint
     {
-        rect = r;
-        name = n;
-    }
+        public Rect rect;
+        public string name;
 
-    public void Draw()
-    {
-        GUI.Box(rect, new GUIContent(name, name));
-    }
-}
-
-public class Connection
-{
-    INode inNode;
-    INode outNode;
-
-    public Connection(INode inN, INode outN)
-    {
-        inNode = inN;
-        outNode = outN;
-    }
-
-    public void Draw()
-    {
-        Handles.DrawLine(inNode.InCenter, outNode.OutCenter);
-    }
-}
-
-public class JNode : INode
-{
-    // fields
-    public ChuTools.IEventSystem EventSystem { get; set; }
-
-    Rect OutRect
-    {
-        get
+        public ConnectionPoint(Rect r, string n)
         {
-            return new Rect(new Vector2(rect.xMax, (rect.center.y - (25 / 2))), new Vector3(25, 25));
+            rect = r;
+            name = n;
+        }
+
+        public void Draw()
+        {
+            GUI.Box(rect, new GUIContent(name, name));
         }
     }
 
-    Rect InRect
+    public class Connection
     {
-        get { return new Rect(new Vector2(rect.xMin - 25, (rect.center.y - (25 / 2))), new Vector3(25, 25)); }
-    }
+        INode inNode;
+        INode outNode;
 
-    public Vector2 OutCenter
-    {
-        get
+        public Connection(INode inN, INode outN)
         {
-            return OutRect.center;
+            inNode = inN;
+            outNode = outN;
+        }
+
+        public void Draw()
+        {
+            Handles.DrawLine(inNode.InCenter, outNode.OutCenter);
         }
     }
 
-    public Vector2 InCenter
+    public class JNode : INode
     {
-        get
+        // fields
+        public ChuTools.IEventSystem EventSystem { get; set; }
+
+        Rect OutRect
         {
-            return InRect.center;
+            get
+            {
+                return new Rect(new Vector2(rect.xMax, (rect.center.y - (25 / 2))), new Vector3(25, 25));
+            }
         }
-    }
 
-    public Rect rect;
-    public ConnectionPoint outPoint, inPoint;
-    public GUIContent content;
-    public GUIStyle style;
-    private System.Action<JNode> _onNodeDelete;
-    public bool isSelected;
+        Rect InRect
+        {
+            get { return new Rect(new Vector2(rect.xMin - 25, (rect.center.y - (25 / 2))), new Vector3(25, 25)); }
+        }
 
-    //methods
-    public JNode(Rect r, GUIContent c, GUIStyle s, ChuTools.IEventSystem eventSystem, System.Action<JNode> onNodeDelete) : this(r, c, s)
-    {
-        EventSystem = eventSystem;
-        EventSystem.OnMouseDown += OnMouseDown;
-        _onNodeDelete = onNodeDelete;
-        EventSystem.OnContextClick += onContextClick;
-        EventSystem.OnMouseDrag += OnMouseDrag;
+        public Vector2 OutCenter
+        {
+            get
+            {
+                return OutRect.center;
+            }
+        }
 
-        outPoint = new ConnectionPoint(OutRect, "out");
-        inPoint = new ConnectionPoint(InRect, "in");
-    }
+        public Vector2 InCenter
+        {
+            get
+            {
+                return InRect.center;
+            }
+        }
 
-    public JNode(Rect r, GUIContent c, GUIStyle s)
-    {
-        rect = r;
-        content = c;
-        style = s;
-    }
+        public Rect rect;
+        public ConnectionPoint outPoint, inPoint;
+        public GUIContent content;
+        public GUIStyle style;
+        private System.Action<JNode> _onNodeDelete;
+        public bool isSelected;
 
-    ~JNode()
-    {
-        EventSystem.OnMouseDown -= OnMouseDown;
-        EventSystem.OnContextClick -= onContextClick;
-        EventSystem = null;
-    }
+        //methods
+        public JNode(Rect r, GUIContent c, GUIStyle s, ChuTools.IEventSystem eventSystem, System.Action<JNode> onNodeDelete) : this(r, c, s)
+        {
+            EventSystem = eventSystem;
+            EventSystem.OnMouseDown += OnMouseDown;
+            _onNodeDelete = onNodeDelete;
+            EventSystem.OnContextClick += onContextClick;
+            EventSystem.OnMouseDrag += OnMouseDrag;
 
-    public void onContextClick(Event e)
-    {
-        if (!rect.Contains(e.mousePosition)) return;
-        var gm = new GenericMenu();
-        gm.AddItem(new GUIContent("Delete Node"), false, () =>
+            outPoint = new ConnectionPoint(OutRect, "out");
+            inPoint = new ConnectionPoint(InRect, "in");
+        }
+
+        public JNode(Rect r, GUIContent c, GUIStyle s)
+        {
+            rect = r;
+            content = c;
+            style = s;
+        }
+
+        ~JNode()
         {
             EventSystem.OnMouseDown -= OnMouseDown;
             EventSystem.OnContextClick -= onContextClick;
-            _onNodeDelete(this);
-        });
-        gm.ShowAsContext();
-        GUI.changed = true;
-    }
+            EventSystem = null;
+        }
 
-    public void OnMouseDown(Event e)
-    {
-        if (e.button == 0)
+        public void onContextClick(Event e)
         {
-            if (rect.Contains(e.mousePosition))
+            if (!rect.Contains(e.mousePosition)) return;
+            var gm = new GenericMenu();
+            gm.AddItem(new GUIContent("Delete Node"), false, () =>
             {
-                Debug.Log("Left Down Node");
+                EventSystem.OnMouseDown -= OnMouseDown;
+                EventSystem.OnContextClick -= onContextClick;
+                _onNodeDelete(this);
+            });
+            gm.ShowAsContext();
+            GUI.changed = true;
+        }
+
+        public void OnMouseDown(Event e)
+        {
+            if (e.button == 0)
+            {
+                if (rect.Contains(e.mousePosition))
+                {
+                    Debug.Log("Left Down Node");
+                    GUI.changed = true;
+                }
+            }
+        }
+
+        public void OnMouseUp(Event e)
+        {
+            if (e.button == 0)
+            {
+                Debug.Log("Left Up Node");
                 GUI.changed = true;
             }
         }
-    }
 
-    public void OnMouseUp(Event e)
-    {
-        if (e.button == 0)
+        public void OnMouseDrag(Event e)
         {
-            Debug.Log("Left Up Node");
-            GUI.changed = true;
-        }
-    }
-
-    public void OnMouseDrag(Event e)
-    {
-        if (isSelected)
-        {
-            rect.position += e.delta;
-            inPoint.rect.position += e.delta;
-            outPoint.rect.position += e.delta;
-        }
-    }
-
-    public void Draw()
-    {
-        GUI.Box(rect, content, style);
-        inPoint.Draw();
-        outPoint.Draw();
-    }
-}
-
-public class EditorBaseWindow : EditorWindow
-{
-    // fields
-    public List<JNode> nodes;
-    public List<Connection> connections;
-    bool isDrag = false;
-    private Rect startRect, endRect;
-    private JNode startNode, endNode;
-    ChuTools.IEventSystem EventSystem = new ChuTools.NodeWindowEventSystem();
-
-    // methods
-    void OnEnable()
-    {
-        startRect = new Rect(Vector2.zero, Vector2.zero);
-        endRect = new Rect(Vector2.zero, Vector2.zero);
-        wantsMouseMove = true;
-        nodes = new List<JNode>();
-        connections = new List<Connection>();
-        EventSystem = new ChuTools.NodeWindowEventSystem();
-        EventSystem.OnMouseDown += OnMouseDown;
-        EventSystem.OnMouseUp += OnMouseUp;
-        EventSystem.OnMouseDrag += OnMouseDrag;
-        EventSystem.OnContextClick += onContextClick;
-    }
-
-    void Draw()
-    {
-        nodes.ForEach(n => n.Draw());
-        connections.ForEach(c => c.Draw());
-
-        EditorGUILayout.IntField("nodes", nodes.Count);
-        EditorGUILayout.IntField("connections", connections.Count);
-        EditorGUILayout.RectField("start", startRect);
-        EditorGUILayout.RectField("end", endRect);
-        if (GUILayout.Button("Reopen Window"))
-        {
-            ClearWindow();
-        }
-        if (GUILayout.Button("Clear Console"))
-        {
-            ClearConsole();
-        }
-
-        if (isDrag)
-        {
-            DrawLine();
-        }
-        GUI.changed = true;
-    }
-
-    void OnGUI()
-    {
-        EventSystem.PollEvents(Event.current);
-        Draw();
-        if (GUI.changed)
-            Repaint();
-    }
-
-    void OnMouseDown(Event e)
-    {
-        if (e.button == 0)
-        {
-            foreach (var n in nodes)
+            if (isSelected)
             {
-                if (n.outPoint.rect.Contains(e.mousePosition))
-                {
-                    startNode = n;
-                    startRect.position = e.mousePosition;
-                    endRect = startRect;
-                    isDrag = true;
-                    Debug.Log("Left Down Connection Point");
-                }
-                if (n.rect.Contains(e.mousePosition))
-                {
-                    n.isSelected = true;
-                    Debug.Log("Left Down Node");
-                }
-                else
-                {
-                    n.isSelected = false;
-                    Debug.Log("Left Down Node");
-                }
+                rect.position += e.delta;
+                inPoint.rect.position += e.delta;
+                outPoint.rect.position += e.delta;
+            }
+        }
+
+        public void Draw()
+        {
+            GUI.Box(rect, content, style);
+            inPoint.Draw();
+            outPoint.Draw();
+        }
+    }
+
+    public class EditorBaseWindow : EditorWindow
+    {
+        // fields
+        public List<JNode> nodes;
+        public List<Connection> connections;
+        bool isDrag = false;
+        private Rect startRect, endRect;
+        private JNode startNode, endNode;
+        ChuTools.IEventSystem EventSystem = new ChuTools.NodeWindowEventSystem();
+
+        // methods
+        void OnEnable()
+        {
+            startRect = new Rect(Vector2.zero, Vector2.zero);
+            endRect = new Rect(Vector2.zero, Vector2.zero);
+            wantsMouseMove = true;
+            nodes = new List<JNode>();
+            connections = new List<Connection>();
+            EventSystem = new ChuTools.NodeWindowEventSystem();
+            EventSystem.OnMouseDown += OnMouseDown;
+            EventSystem.OnMouseUp += OnMouseUp;
+            EventSystem.OnMouseDrag += OnMouseDrag;
+            EventSystem.OnContextClick += onContextClick;
+        }
+
+        void Draw()
+        {
+            nodes.ForEach(n => n.Draw());
+            connections.ForEach(c => c.Draw());
+
+            EditorGUILayout.IntField("nodes", nodes.Count);
+            EditorGUILayout.IntField("connections", connections.Count);
+            EditorGUILayout.RectField("start", startRect);
+            EditorGUILayout.RectField("end", endRect);
+            if (GUILayout.Button("Reopen Window"))
+            {
+                ClearWindow();
+            }
+            if (GUILayout.Button("Clear Console"))
+            {
+                ClearConsole();
+            }
+
+            if (isDrag)
+            {
+                DrawLine();
             }
             GUI.changed = true;
         }
-    }
 
-    void OnMouseUp(Event e)
-    {
-        if (e.button == 0)
+        void OnGUI()
         {
-            foreach (JNode n in nodes)
+            EventSystem.PollEvents(Event.current);
+            Draw();
+            if (GUI.changed)
+                Repaint();
+        }
+
+        void OnMouseDown(Event e)
+        {
+            if (e.button == 0)
             {
-                if (isDrag)
+                foreach (var n in nodes)
                 {
-                    if (n.inPoint.rect.Contains(e.mousePosition))
+                    if (n.outPoint.rect.Contains(e.mousePosition))
                     {
-                        endNode = n;
-                        connections.Add(new Connection(endNode, startNode));
+                        startNode = n;
+                        startRect.position = e.mousePosition;
+                        endRect = startRect;
+                        isDrag = true;
+                        Debug.Log("Left Down Connection Point");
+                    }
+                    if (n.rect.Contains(e.mousePosition))
+                    {
+                        n.isSelected = true;
+                        Debug.Log("Left Down Node");
+                    }
+                    else
+                    {
+                        n.isSelected = false;
+                        Debug.Log("Left Down Node");
                     }
                 }
-                if (n.outPoint.rect.Contains(e.mousePosition))
-                {
-                    endRect.position = e.mousePosition;
-                }
-                if (n.rect.Contains(e.mousePosition))
-                {
-                    n.isSelected = false;
-                }
+                GUI.changed = true;
             }
-            isDrag = false;
+        }
+
+        void OnMouseUp(Event e)
+        {
+            if (e.button == 0)
+            {
+                foreach (JNode n in nodes)
+                {
+                    if (isDrag)
+                    {
+                        if (n.inPoint.rect.Contains(e.mousePosition))
+                        {
+                            endNode = n;
+                            connections.Add(new Connection(endNode, startNode));
+                        }
+                    }
+                    if (n.outPoint.rect.Contains(e.mousePosition))
+                    {
+                        endRect.position = e.mousePosition;
+                    }
+                    if (n.rect.Contains(e.mousePosition))
+                    {
+                        n.isSelected = false;
+                    }
+                }
+                isDrag = false;
+                GUI.changed = true;
+            }
+        }
+
+        void OnMouseDrag(Event e)
+        {
+            endRect.position = e.mousePosition;
+            Handles.DrawLine(startRect.position, endRect.position);
+        }
+
+        public void onContextClick(Event e)
+        {
+            var gm = new GenericMenu();
+            gm.AddItem(new GUIContent("Create Node"), false, () => { CreateNode(e); });
+            gm.ShowAsContext();
             GUI.changed = true;
         }
-    }
 
-    void OnMouseDrag(Event e)
-    {
-        endRect.position = e.mousePosition;
-        Handles.DrawLine(startRect.position, endRect.position);
-    }
+        void CreateNode(Event e)
+        {
+            var rect = new Rect(e.mousePosition, new Vector2(100, 100));
+            var content = new GUIContent(Resources.Load("white-square") as Texture2D, ("Node" + nodes.Count));
+            nodes.Add(new JNode(rect, content, new GUIStyle(), EventSystem, RemoveNode));
+        }
 
-    public void onContextClick(Event e)
-    {
-        var gm = new GenericMenu();
-        gm.AddItem(new GUIContent("Create Node"), false, () => { CreateNode(e); });
-        gm.ShowAsContext();
-        GUI.changed = true;
-    }
+        void RemoveNode(JNode node)
+        {
+            if (!nodes.Contains(node))
+                return;
+            nodes.Remove(node);
+        }
 
-    void CreateNode(Event e)
-    {
-        var rect = new Rect(e.mousePosition, new Vector2(100, 100));
-        var content = new GUIContent(Resources.Load("white-square") as Texture2D, ("Node" + nodes.Count));
-        nodes.Add(new JNode(rect, content, new GUIStyle(), EventSystem, RemoveNode));
-    }
+        [MenuItem(itemName: "Tools/JeremyTools/NodeWindow")]
+        static void OpenWindow()
+        {
+            var w = CreateInstance<EditorBaseWindow>();
+            w.Show();
+        }
 
-    void RemoveNode(JNode node)
-    {
-        if (!nodes.Contains(node))
-            return;
-        nodes.Remove(node);
-    }
+        static void ClearConsole()
+        {
+            var logEntries = System.Type.GetType("UnityEditor.LogEntries, UnityEditor.dll");
+            var clearMethod = logEntries.GetMethod("Clear", System.Reflection.BindingFlags.Static | System.Reflection.BindingFlags.Public);
+            clearMethod.Invoke(null, null);
+            GUI.changed = true;
+            Debug.Log("Console Cleared.");
+        }
 
-    [MenuItem(itemName: "Tools/JeremyTools/NodeWindow")]
-    static void OpenWindow()
-    {
-        var w = CreateInstance<EditorBaseWindow>();
-        w.Show();
-    }
+        void ClearWindow()
+        {
+            OpenWindow();
+            Close();
+        }
 
-    static void ClearConsole()
-    {
-        var logEntries = System.Type.GetType("UnityEditor.LogEntries, UnityEditor.dll");
-        var clearMethod = logEntries.GetMethod("Clear", System.Reflection.BindingFlags.Static | System.Reflection.BindingFlags.Public);
-        clearMethod.Invoke(null, null);
-        GUI.changed = true;
-        Debug.Log("Console Cleared.");
-    }
-
-    void ClearWindow()
-    {
-        OpenWindow();
-        Close();
-    }
-
-    void DrawLine()
-    {
-        Handles.DrawLine(startRect.position, endRect.position);
+        void DrawLine()
+        {
+            Handles.DrawLine(startRect.position, endRect.position);
+        }
     }
 }
