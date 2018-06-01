@@ -4,7 +4,7 @@ using UnityEngine;
 using UnityEditor;
 using System;
 
-namespace Facehead
+namespace JeremyTools
 {
     public class ConnectionPoint
     {
