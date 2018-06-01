@@ -170,7 +170,7 @@ namespace JeremyTools
         bool isDrag = false;
         private Rect startRect, endRect;
         private JNode startNode, endNode;
-        ChuTools.IEventSystem EventSystem = new ChuTools.NodeWindowEventSystem();
+        private ChuTools.IEventSystem EventSystem = new ChuTools.NodeWindowEventSystem();
 
         // methods
         void OnEnable()

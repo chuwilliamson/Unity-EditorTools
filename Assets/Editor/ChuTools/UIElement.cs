@@ -3,7 +3,6 @@
 public abstract class UIElement
 {
     public Rect Rect;
-
     public Vector2 Position
     {
         get { return Rect.position; }
@@ -14,7 +13,7 @@ public abstract class UIElement
         }
     }
 
-    public GUIStyle Style { get; protected set; }
+    public GUIStyle Style { get; set; }
     public GUIContent Content { get; set; }
     public int ControlId { get; protected set; }
 

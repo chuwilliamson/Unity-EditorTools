@@ -111,8 +111,6 @@ namespace ChuTools
 
             Nodes.ForEach(n => n.Draw());
             Connections.ForEach(c => c.Draw());
-
-
         }
 
 

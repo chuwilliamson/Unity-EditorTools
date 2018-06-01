@@ -55,7 +55,6 @@ namespace ChuTools
             if (Rect.Contains(e.mousePosition))
                 if (e.button == 0)
                 {
-                    GUIUtility.hotControl = ControlId;
                     _cstate = ButtonState.Selected;
                     _currentMouse = e.mousePosition;
                     GUI.changed = true;
@@ -75,8 +74,6 @@ namespace ChuTools
 
         public void OnMouseUp(Event e)
         { 
-            if (GUIUtility.hotControl == ControlId)
-                GUIUtility.hotControl = 0; 
             _cstate = ButtonState.Normal;
 
             GUI.changed = true;
@@ -87,7 +84,6 @@ namespace ChuTools
         {
             if (Rect.Contains(e.mousePosition))
             {
-                var currenthot = GUIUtility.GetStateObject(typeof(ConnectionPoint), GUIUtility.hotControl);
                 switch (_cstate)
                 {
                     case ButtonState.Normal:
@@ -98,10 +94,6 @@ namespace ChuTools
                     case ButtonState.Active:
                         break;
                     case ButtonState.Selected:
-                        if(currenthot != null)
-                        {
-                            Debug.Log("currenthot = " + currenthot.ToString());
-                        }
                         break;
                 }
             }
