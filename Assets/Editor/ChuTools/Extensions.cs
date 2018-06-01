@@ -4,9 +4,11 @@ namespace ChuTools
 {
     public static class Extensions
     {
-        public static void MoveDown(this Rect rect, int amount)
+        public static Rect MoveDown(this Rect rect, int amount)
         {
-            rect.position = new Vector2(rect.x, rect.y + amount);
+            var arect = rect;
+            arect.position = new Vector2(rect.x, rect.y + amount);
+            return arect;
         }
 
         public static void SetX(this Vector3 v3, int value)

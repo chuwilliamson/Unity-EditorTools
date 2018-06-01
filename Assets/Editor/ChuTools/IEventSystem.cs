@@ -17,10 +17,13 @@ namespace ChuTools
         void OnMouseUp(Event e);
     }
 
+    public interface IMouseMoveHandler
+    {
+        void OnMouseMoveHandler(Event e);
+    }
+
     public interface IEventSystem
     {
-        void SetSelected(object obj);
-        void Release(object obj);
         object Selected { get; set; }
         object WillSelect { get; set; }
         EditorEvent OnMouseDown { get; set; }
@@ -30,6 +33,9 @@ namespace ChuTools
         EditorEvent OnContextClick { get; set; }
         EditorEvent OnMouseMove { get; set; }
         EditorEvent OnUsed { get; set; }
+        Event Current { get; set; }
+        void SetSelected(object obj);
+        void Release(object obj);
         void PollEvents(Event e);
     }
 }

@@ -4,6 +4,7 @@ namespace ChuTools
 {
     public class NodeWindowEventSystem : IEventSystem
     {
+        public Event Current { get; set; }
         public object Selected { get; set; }
         public object WillSelect { get; set; }
         public EditorEvent OnMouseDown { get; set; }
@@ -21,42 +22,45 @@ namespace ChuTools
 
         public void Release(object obj)
         {
-            if (Selected == null)
+            if(Selected == null)
                 return;
 
             SetSelected(obj);
         }
-        public void Invoke(EditorEvent cb, Event e)
-        {
-            cb?.Invoke(e);
-        }
+
         public void PollEvents(Event e)
         {
-            switch (e.type)
+            Current = e;
+            switch (Current.type)
             {
                 case EventType.MouseDrag:
-                    Invoke(OnMouseDrag, e);
+                    Invoke(OnMouseDrag, Current);
                     break;
                 case EventType.MouseUp:
-                    Invoke(OnMouseUp, e);
+                    Invoke(OnMouseUp, Current);
                     break;
                 case EventType.MouseDown:
-                    Invoke(OnMouseDown, e);
+                    Invoke(OnMouseDown, Current);
                     break;
                 case EventType.Repaint:
-                    Invoke(OnRepaint, e);
+                    Invoke(OnRepaint, Current);
                     break;
                 case EventType.ContextClick:
-                    Invoke(OnContextClick, e);
+                    Invoke(OnContextClick, Current);
                     break;
                 case EventType.MouseMove:
-                    Invoke(OnMouseMove, e);
+                    Invoke(OnMouseMove, Current);
                     break;
                 case EventType.Used:
-                    Invoke(OnUsed, e);
+                    Invoke(OnUsed, Current);
                     break;
 
             }
+        }
+
+        public void Invoke(EditorEvent cb, Event e)
+        {
+            cb?.Invoke(e);
         }
     }
 }

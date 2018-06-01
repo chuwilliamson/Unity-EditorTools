@@ -4,6 +4,6 @@ namespace ChuTools
 {
     public interface IDrawable
     {
-        void Draw(Event e);
+        void Draw();
     }
 }

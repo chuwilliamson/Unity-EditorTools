@@ -1,8 +1,7 @@
-﻿using ChuTools;
-using UnityEngine;
+﻿using UnityEngine;
 
 public interface INode
 {
-    Vector2 OutCenter { get;}
+    Vector2 OutCenter { get; }
     Vector2 InCenter { get; }
 }

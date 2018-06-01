@@ -2,5 +2,5 @@
 
 namespace ChuTools
 {
-    public delegate void EditorEvent(Event e); 
+    public delegate void EditorEvent(Event e);
 }

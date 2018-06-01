@@ -1,108 +1,149 @@
 ﻿using System;
-using System.Collections;
-using System.Collections.Generic;
+using TrentTools;
 using UnityEditor;
 using UnityEngine;
-using UnityEngine.EventSystems;
+
+// ReSharper disable InconsistentNaming
 
 
 namespace ChuTools
 {
-
-    public class ConnectionPoint : UIElement
+    public class ConnectionPoint : UIElement, IConnection, IMouseDownHandler, IMouseUpHandler, IMouseDragHandler, INode
     {
-
-        private Rect _endRect;
-        private bool _connected;
-        private bool isActive = false;
-        private bool isDragging = false;
-        private Vector2 currentMouse = Vector2.zero;
+        public ConnectionPoint()
+        {
+            Style = new GUIStyle("flow node 6");
+        }
+        private readonly GUIStyle _normalStyle;
         private readonly Action<ConnectionPoint> _onConnectionComplete;
 
-        private GUIStyle _normalStyle = new GUIStyle("U2D.pivotDot");
-        
-        public int Guid;
+        private Vector2 _currentMouse = Vector2.zero;
 
-        public ConnectionPoint(Vector2 position, Vector2 size, Action<ConnectionPoint> onConnectionComplete) : this(position, size)
+        private int _dragcounter;
+        private Rect _endRect;
+        private bool _isActive = false;
+
+        public ConnectionPoint(Vector2 position, Vector2 size, Action<ConnectionPoint> onConnectionComplete) : this(
+            position, size)
         {
-            Guid = GetHashCode();
-            
             _onConnectionComplete = onConnectionComplete;
+                
+         
+            Content = GUIContent.none;
         }
 
-        public ConnectionPoint(Vector2 position, Vector2 size)
+        public override string ToString()
         {
-            _Rect = new Rect(position, size);
-            _endRect = new Rect(_Rect);
-            NodeEditorWindow.NodeEvents.OnMouseDrag += OnPointerDrag;
-            NodeEditorWindow.NodeEvents.OnMouseDown += OnPointerDown;
-            NodeEditorWindow.NodeEvents.OnMouseUp += OnPointerUp;
-
+            return base.ToString() + "::" + ControlId.ToString();
         }
 
-        public override void Draw()
+        public ConnectionPoint(Vector2 position, Vector2 size) : this()
         {
-            GUI.Box(_Rect, GUIContent.none, Node.NormalStyle);
-            GUI.Label(_Rect, Guid.ToString());
-            
-            if (isDragging)
+            Rect = new Rect(position, size);
+            _endRect = new Rect(Rect);
+            NodeEditorWindow.NodeEvents.OnMouseDrag += OnMouseDrag;
+            NodeEditorWindow.NodeEvents.OnMouseDown += OnMouseDown;
+            NodeEditorWindow.NodeEvents.OnMouseUp += OnMouseUp;
+            NodeEditorWindow.NodeEvents.OnMouseMove += OnMouseMove;
+        }
+
+
+        private ButtonState _cstate { get; set; }
+
+        public void OnMouseDown(Event e)
+        {
+            if (Rect.Contains(e.mousePosition))
+                if (e.button == 0)
+                {
+                    GUIUtility.hotControl = ControlId;
+                    _cstate = ButtonState.Selected;
+                    _currentMouse = e.mousePosition;
+                    GUI.changed = true;
+                }
+        }
+
+        public void OnMouseDrag(Event e)
+        {
+            if (_cstate == ButtonState.Selected)
             {
-                _endRect = new Rect(currentMouse, _Rect.size);
-                Chutilities.DrawNodeCurve(_Rect, _endRect);
-                Handles.RectangleHandleCap(GUIUtility.GetControlID(FocusType.Passive), _endRect.position, Quaternion.identity, 15, EventType.Repaint);
-            }
-        }
-
-        public Vector2 Position
-        {
-            get { return _Rect.position; }
-            set { _Rect.position = value; }
-        }
-
-        public void OnPointerUp(Event e)
-        {
-            if (!isActive) return;
-
-            isActive = false;
-            isDragging = false;
-            _onConnectionComplete(this);
-            GUI.changed = true;
-        }
-        public void OnPointerDown(Event e)
-        {
-            if (_Rect.Contains(e.mousePosition))
-            {
-                isActive = true;
-                isDragging = true;
+                _dragcounter++;
+                _currentMouse = e.mousePosition;
                 GUI.changed = true;
-                currentMouse = e.mousePosition;
                 e.Use();
             }
         }
 
-        public void OnPointerDrag(Event e)
-        {
-            if (isActive)
-            {
-                isDragging = true;
-                currentMouse = e.mousePosition;
-                GUI.changed = true;
+        public void OnMouseUp(Event e)
+        { 
+            if (GUIUtility.hotControl == ControlId)
+                GUIUtility.hotControl = 0; 
+            _cstate = ButtonState.Normal;
 
+            GUI.changed = true;
+
+        }
+
+        private void OnMouseMove(Event e)
+        {
+            if (Rect.Contains(e.mousePosition))
+            {
+                var currenthot = GUIUtility.GetStateObject(typeof(ConnectionPoint), GUIUtility.hotControl);
+                switch (_cstate)
+                {
+                    case ButtonState.Normal:
+                        _cstate = ButtonState.Hovered;
+                        GUIUtility.hotControl = ControlId;
+                        GUI.changed = true;
+                        break;
+                    case ButtonState.Active:
+                        break;
+                    case ButtonState.Selected:
+                        if(currenthot != null)
+                        {
+                            Debug.Log("currenthot = " + currenthot.ToString());
+                        }
+                        break;
+                }
+            }
+            else
+            {
+                if (GUIUtility.hotControl == ControlId)
+                {
+                    _cstate = ButtonState.Normal;
+                    GUIUtility.hotControl = 0;
+                    GUI.changed = true;
+                }
             }
         }
 
-
-        public bool CreateConnection(ConnectionPoint connectionPoint)
+        public override void Draw()
         {
-            if (_endRect.Overlaps(connectionPoint._Rect))
-            {
-                Debug.Log(string.Format("connecting {0} with {1}", Guid, connectionPoint.Guid));
-                _endRect = connectionPoint._Rect;
-                connectionPoint._endRect = _Rect;
-                return _endRect.Overlaps(connectionPoint._Rect);
-            }
-            return _endRect.Overlaps(connectionPoint._Rect);
+            base.Draw();
+            ControlId = GUIUtility.GetControlID(FocusType.Passive, Rect);
+            GUILayout.BeginArea(Rect);
+            GUILayout.Label("id:" + ControlId);
+            GUILayout.EndArea();
 
+            switch (_cstate)
+            {
+                case ButtonState.Selected:
+                    _endRect = new Rect(_currentMouse, Rect.size);
+                    Chutilities.DrawNodeCurve(Rect, _endRect);
+                    Handles.RectangleHandleCap(GUIUtility.GetControlID(FocusType.Passive, _endRect), _endRect.center,
+                        Quaternion.identity, 15, EventType.Repaint);
+                    break;
+            }
         }
+
+        private enum ButtonState
+        {
+            Normal = 0,
+            Active = 1,
+            Hovered = 1,
+            Selected = 2
+        }
+
+        public Vector2 OutCenter { get { return _endRect.center; } }
+        public Vector2 InCenter { get { return Rect.center; } }
     }
 }
