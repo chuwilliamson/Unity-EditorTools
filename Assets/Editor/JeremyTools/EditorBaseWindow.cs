@@ -6,6 +6,7 @@ using System;
 
 namespace JeremyTools
 {
+    //ToDo:: put this in a seperate file
     public class ConnectionPoint
     {
         public Rect rect;
@@ -22,7 +23,7 @@ namespace JeremyTools
             GUI.Box(rect, new GUIContent(name, name));
         }
     }
-
+    //ToDo:: put this in a seperate file
     public class Connection
     {
         INode inNode;
@@ -39,7 +40,7 @@ namespace JeremyTools
             Handles.DrawLine(inNode.InCenter, outNode.OutCenter);
         }
     }
-
+    //ToDo:: put this in a seperate file
     public class JNode : INode
     {
         // fields
@@ -160,7 +161,7 @@ namespace JeremyTools
             outPoint.Draw();
         }
     }
-
+    //ToDo:: put this in a seperate file
     public class EditorBaseWindow : EditorWindow
     {
         // fields
