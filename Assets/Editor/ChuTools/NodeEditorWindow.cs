@@ -19,7 +19,7 @@ namespace ChuTools
         }
          
         public List<Node> Nodes;
-        public List<ConnectionPoint> ConnectionPoints;
+        public List<Connection> Connections;
 
 
         private string _path => Application.dataPath + "/Dialogue/nodes.json";
@@ -34,7 +34,7 @@ namespace ChuTools
         private void OnEnable()
         {
             Nodes = new List<Node>();
-            ConnectionPoints = new List<ConnectionPoint>();
+            Connections = new List<Connection>();
             NodeEvents = new NodeWindowEventSystem();
             NodeEvents.OnContextClick += CreateContextMenu;
         }
@@ -46,7 +46,6 @@ namespace ChuTools
 
             DrawMenu();
             Nodes.ForEach(n => n.Draw());
-
             if (GUI.changed)
                 Repaint();
         }
@@ -65,7 +64,7 @@ namespace ChuTools
         private void CreateNode(object e)
         {
             var pos = ((Event) e).mousePosition;
-            Nodes.Add(item: new Node(pos, size: new Vector2(150, 50), id: Nodes.Count, onRemoveNode: RemoveNode));
+            Nodes.Add(new Node(pos, new Vector2(150, 50), Nodes.Count, RemoveNode));
         }
 
         private void RemoveNode(Node n)
