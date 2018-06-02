@@ -8,12 +8,8 @@ using UnityEngine;
 
 namespace ChuTools
 {
-    public class ConnectionPoint : UIElement, IConnection, IMouseDownHandler, IMouseUpHandler, IMouseDragHandler 
+    public class ConnectionPoint : UIElement, IConnection, IMouseDownHandler, IMouseUpHandler, IMouseDragHandler
     {
-        public ConnectionPoint()
-        {
-            Style = new GUIStyle("flow node 6");
-        }
         private readonly GUIStyle _normalStyle;
         private readonly Action<ConnectionPoint> _onConnectionComplete;
 
@@ -23,23 +19,24 @@ namespace ChuTools
         private Rect _endRect;
         private bool _isActive = false;
 
+        public ConnectionPoint()
+        {
+            Style = new GUIStyle("flow node 6");
+        }
+
         public ConnectionPoint(Vector2 position, Vector2 size, Action<ConnectionPoint> onConnectionComplete) : this(
             position, size)
         {
             _onConnectionComplete = onConnectionComplete;
-                
-         
-            Content = GUIContent.none;
-        }
 
-        public override string ToString()
-        {
-            return base.ToString() + "::" + ControlId.ToString();
+
+            Content = GUIContent.none;
         }
 
         public ConnectionPoint(Vector2 position, Vector2 size) : this()
         {
             Rect = new Rect(position, size);
+            ControlId = GUIUtility.GetControlID(FocusType.Passive, Rect);
             _endRect = new Rect(Rect);
             NodeEditorWindow.NodeEvents.OnMouseDrag += OnMouseDrag;
             NodeEditorWindow.NodeEvents.OnMouseDown += OnMouseDown;
@@ -47,8 +44,10 @@ namespace ChuTools
             NodeEditorWindow.NodeEvents.OnMouseMove += OnMouseMove;
         }
 
-
         private ButtonState _cstate { get; set; }
+
+        public Vector2 OutCenter => _endRect.center;
+        public Vector2 InCenter => Rect.center;
 
         public void OnMouseDown(Event e)
         {
@@ -73,11 +72,14 @@ namespace ChuTools
         }
 
         public void OnMouseUp(Event e)
-        { 
+        {
             _cstate = ButtonState.Normal;
-
             GUI.changed = true;
+        }
 
+        public override string ToString()
+        {
+            return base.ToString() + "::" + ControlId;
         }
 
         private void OnMouseMove(Event e)
@@ -111,7 +113,7 @@ namespace ChuTools
         public override void Draw()
         {
             base.Draw();
-            ControlId = GUIUtility.GetControlID(FocusType.Passive, Rect);
+
             GUILayout.BeginArea(Rect);
             GUILayout.Label("id:" + ControlId);
             GUILayout.EndArea();
@@ -134,8 +136,5 @@ namespace ChuTools
             Hovered = 1,
             Selected = 2
         }
-
-        public Vector2 OutCenter => _endRect.center;
-        public Vector2 InCenter => Rect.center;
     }
 }

@@ -24,6 +24,12 @@ public abstract class UIElement : IDrawable
     /// </summary>
     public virtual void Draw()
     {
+        if (Content == null)
+            Content = GUIContent.none;
+
+        if (Style == null)
+            Style = new GUIStyle();
+
         GUI.Box(Rect, Content, Style);
-    } 
+    }
 }

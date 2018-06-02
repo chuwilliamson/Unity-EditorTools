@@ -1,5 +1,4 @@
 ﻿using System;
-using Interfaces;
 using JeremyTools;
 using UnityEditor;
 using UnityEngine;
@@ -19,7 +18,7 @@ namespace ChuTools
         public Node()
         {
             Rect = new Rect(new Vector2(0, 0), new Vector2(25, 25));
-         
+
             Content = new GUIContent(ControlId.ToString());
             Style = NodeEditorWindow.NodeStyle;
 
@@ -27,7 +26,8 @@ namespace ChuTools
             Content = new GUIContent("in");
 
             _out = new ConnectionPoint(new Vector2(Rect.x + Rect.width + 5, Rect.y), new Vector2(50, 50),
-                ConnectionMade) {Content = new GUIContent("out")};
+                    ConnectionMade)
+                {Content = new GUIContent("out")};
 
 
             NodeEditorWindow.NodeEvents.OnMouseDown += OnMouseDown;
@@ -44,7 +44,7 @@ namespace ChuTools
         public Node(Vector2 position, Vector2 size, Action<Node> onRemoveNode)
         {
             Rect = new Rect(position, size);
-           
+
             Content = new GUIContent(ControlId.ToString());
             Style = NodeEditorWindow.NodeStyle;
 
@@ -61,6 +61,8 @@ namespace ChuTools
         public Vector2 OutCenter => Rect.center;
 
         public Vector2 InCenter => _in.Rect.center;
+
+        public int Value { get; set; }
 
         private void ConnectionMade(ConnectionPoint outPoint)
         {
@@ -82,6 +84,7 @@ namespace ChuTools
                         Style = NodeEditorWindow.SelectedNodeStyle;
                         GUI.changed = true;
                     }
+
                     break;
                 case 1:
                     if (!Rect.Contains(e.mousePosition)) return;
@@ -89,6 +92,7 @@ namespace ChuTools
                     gm.AddItem(new GUIContent("Nodes/Remove"), false, OnRemoveNode, this);
                     gm.ShowAsContext();
                     GUI.changed = true;
+                    e.Use();
                     break;
                 case 2:
                     break;
@@ -113,11 +117,10 @@ namespace ChuTools
                 GUI.changed = true;
                 e.Use();
             }
-
-        } 
+        }
 
         public override void Draw()
-        { 
+        {
             base.Draw();
             GUILayout.BeginArea(Rect);
             ControlId = GUIUtility.GetControlID(FocusType.Passive, Rect);
@@ -125,7 +128,6 @@ namespace ChuTools
             GUILayout.EndArea();
             _in.Draw();
             _out.Draw();
-
         }
 
         private void OnRemoveNode(object n)
@@ -137,7 +139,5 @@ namespace ChuTools
         {
             return $"Node {ControlId}";
         }
-
-        public int Value { get; set; }
     }
 }
