@@ -92,63 +92,28 @@ public class UIConnectionPoint : UIElement
 }
 
 
-
-public class UIInConnectionPoint : UIConnectionPoint
-{
-    //drag outconnection onto this
-    public UIInConnectionPoint(Rect rect)
-    {
-        Rect = rect;
-        Content = new GUIContent("IN:  " + ControlId);
-        SelectedStyle = new GUIStyle("CN Box") { alignment = TextAnchor.LowerLeft, fontSize = 12 };
-        NormalStyle = new GUIStyle("CN Box") { alignment = TextAnchor.LowerLeft, fontSize = 12 };
-        Style = NormalStyle;
-    
-    }
-
-    public override void OnMouseDrag(Event e)
-    {
-        if (Rect.Contains(e.mousePosition))
-        {
-            if(NodeEditorWindow.CurrentSendingDrag == null) return;
-            NodeEditorWindow.CurrentAcceptingDrag = this;
-            GUI.changed = true;
-        }
-    }
-
-    public override void OnMouseUp(Event e)
-    {
-        base.OnMouseUp(e);
-        var @out = NodeEditorWindow.CurrentSendingDrag;
-        if(Rect.Contains(e.mousePosition))
-        {
-            NodeEditorWindow.ConnectionCreatedEvent(@out, this);
-        }
-            
-    
-    }
-}
 public class UIDisplayNode : UIElement
 {
-    private UIInConnectionPoint _in;
+    private readonly UIInConnectionPoint _in;
     private INode _node;
 
     public UIDisplayNode(Vector2 pos, Vector2 size)
     {
         Rect = new Rect(pos, size);
         _node = new DisplayNode(null);
-        _in = new UIInConnectionPoint(new Rect(Rect.position, new Vector2(50, 50)));
+        _in = new UIInConnectionPoint(new Rect(Rect.position, new Vector2(50, 50)), Connect);
+
         Content = new GUIContent("In" + ControlId);
         SelectedStyle = new GUIStyle("flow node 1 on") { alignment = TextAnchor.LowerLeft, fontSize = 12 };
         NormalStyle = new GUIStyle("flow node 1") { alignment = TextAnchor.LowerLeft, fontSize = 12 };
         Style = NormalStyle;
     }
 
-    public bool Connect(IConnectionOut outConnection)
+    public void Connect(IConnectionOut outConnection)
     {
+        if (outConnection == null)
+            return;
         _node = new DisplayNode(new InConnection(outConnection));
-        _in = new UIInConnectionPoint(new Rect(Rect.position, new Vector2(50, 50)));
-        return true;
     }
 
     public void Disconnect()
@@ -168,13 +133,50 @@ public class UIDisplayNode : UIElement
         GUILayout.EndArea();
     }
 }
+public class UIInConnectionPoint : UIConnectionPoint
+{
+    public IConnectionOut Out;
+    //drag outconnection onto this
+    public UIInConnectionPoint(Rect rect, System.Action<IConnectionOut> cb)
+    {
+        Rect = rect;
+        ConnectionCallback = cb;
+        Content = new GUIContent("IN:  " + ControlId);
+        SelectedStyle = new GUIStyle("CN Box") { alignment = TextAnchor.LowerLeft, fontSize = 12 };
+        NormalStyle = new GUIStyle("CN Box") { alignment = TextAnchor.LowerLeft, fontSize = 12 };
+        Style = NormalStyle;
+    }
+
+    public override void OnMouseDrag(Event e)
+    {
+        if (Rect.Contains(e.mousePosition))
+        {
+            if (NodeEditorWindow.CurrentSendingDrag == null) return;
+            NodeEditorWindow.CurrentAcceptingDrag = this;
+            GUI.changed = true;
+        }
+    }
+
+    public Action<IConnectionOut> ConnectionCallback;
+    public override void OnMouseUp(Event e)
+    {
+        base.OnMouseUp(e);
+        var @out = NodeEditorWindow.CurrentSendingDrag;
+        if (Rect.Contains(e.mousePosition))
+        {
+            NodeEditorWindow.ConnectionCreatedEvent(@out, this);
+            ConnectionCallback.Invoke(Out);
+        }
+    }
+}
+
 public class UIOutConnectionPoint : UIConnectionPoint
 {
-    private OutConnection @out;
+    public IConnectionOut _out;
 
-    public UIOutConnectionPoint(Rect rect, OutConnection @out) : this(rect)
+    public UIOutConnectionPoint(Rect rect, IConnectionOut @out) : this(rect)
     {
-        this.@out = @out;
+        _out = @out;
     }
     public UIOutConnectionPoint(Rect rect)
     {
@@ -188,8 +190,16 @@ public class UIOutConnectionPoint : UIConnectionPoint
     public override void OnMouseUp(Event e)
     {
         base.OnMouseUp(e);
-        if (NodeEditorWindow.CurrentAcceptingDrag == null)
-            NodeEditorWindow.CurrentSendingDrag = null;
+        NodeEditorWindow.CurrentAcceptingDrag?.ConnectionCallback?.Invoke(_out);
+
+        if (NodeEditorWindow.CurrentAcceptingDrag != null) return;
+
+        NodeEditorWindow.CurrentSendingDrag = null;
+    }
+
+    private void ConnectionCallback(IConnectionOut connectionOut)
+    {
+
     }
 
     public override void OnMouseDown(Event e)
@@ -197,6 +207,63 @@ public class UIOutConnectionPoint : UIConnectionPoint
         base.OnMouseDown(e);
         if (!Rect.Contains(e.mousePosition)) return;
         NodeEditorWindow.CurrentSendingDrag = this;
+    }
+}
+
+public class UINode : UIElement
+{
+    private INode _input;
+    private INode _display;
+    private UIInConnectionPoint _in;
+    private UIOutConnectionPoint _out;
+
+    public UINode(Vector2 pos, Vector2 size)
+    {
+        Rect = new Rect(pos, size);
+        _input = new InputNode();
+        _out = new UIOutConnectionPoint(new Rect(Rect.position, new Vector2(50, 50)), new OutConnection(_input));
+        _display = null;
+        _in = new UIInConnectionPoint(new Rect(Rect.position, new Vector2(50, 50)), Connect);
+
+
+        Content = new GUIContent("Input Node: " + ControlId);
+        SelectedStyle = new GUIStyle("flow node 0 on") { alignment = TextAnchor.LowerRight, fontSize = 25 };
+        NormalStyle = new GUIStyle("flow node 0") { alignment = TextAnchor.LowerRight, fontSize = 25 };
+        Style = NormalStyle;
+    }
+
+    public void Connect(IConnectionOut outConnection)
+    {
+        if (outConnection == null)
+            return;
+        _display = new DisplayNode(new InConnection(outConnection));
+        _out._out = outConnection;
+    }
+
+    public override void Draw()
+    {
+        base.Draw();
+        _in.Rect = new Rect(Rect.position.x - 55, Rect.position.y, 50, 50);
+        _in?.Draw();
+        _out.Rect = new Rect(Rect.position.x + Rect.width, Rect.position.y, 50, 50);
+        _out?.Draw();
+
+        GUILayout.BeginArea(Rect);
+        if (_display != null)
+        {
+            _input.Value = _display.Value ;
+            GUILayout.Label("In " + _input.Value);
+            GUILayout.Label("Out " + _display.Value);
+        }
+
+        else
+        {
+            _input.Value = EditorGUILayout.IntSlider("In ", _input.Value, 0, 10);
+
+        }
+
+        GUILayout.EndArea();
+
     }
 }
 
@@ -209,7 +276,7 @@ public class UIInputNode : UIElement
     {
         Rect = new Rect(pos, size);
         _node = new InputNode();
-        _out = new UIOutConnectionPoint(new Rect(Rect.position, new Vector2(50, 50)));
+        _out = new UIOutConnectionPoint(new Rect(Rect.position, new Vector2(50, 50)), new OutConnection(_node));
 
         Content = new GUIContent("Input Node: " + ControlId);
         SelectedStyle = new GUIStyle("flow node 0 on") { alignment = TextAnchor.LowerRight, fontSize = 25 };

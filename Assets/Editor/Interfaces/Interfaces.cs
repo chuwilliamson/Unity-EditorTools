@@ -15,7 +15,7 @@
         /// <summary>
         /// This will return the Node.Value
         /// </summary>
-        int Value { get; }
+        int Value { get;  }
 
         INode Node { get; set; }
 
@@ -26,7 +26,7 @@
         /// <summary>
         /// this will return the Out.Value
         /// </summary>
-        int Value { get; set; }
+        int Value { get;  }
 
     }
 }

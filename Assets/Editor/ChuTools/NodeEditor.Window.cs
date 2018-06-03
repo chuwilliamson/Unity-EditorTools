@@ -68,9 +68,16 @@ namespace ChuTools
 
             gm.AddItem(new GUIContent("Create Input Node"), false, CreateInputNode, e);
             gm.AddItem(new GUIContent("Create Display Node"), false, CreateDisplayNode, e);
+            gm.AddItem(new GUIContent("Create Input/Output Node"), false, CreateNode, e);
             gm.AddItem(new GUIContent("Clear Nodes"), false, ClearNodes);
             gm.ShowAsContext();
             e.Use();
+        }
+
+        private void CreateNode(object e)
+        {
+            var pos = ((Event)e).mousePosition;
+            Nodes.Add(new UINode(pos, new Vector2(300, 150)));
         }
 
         private void CreateDisplayNode(object e)
