@@ -7,23 +7,34 @@ using UnityEngine;
 // ReSharper disable InconsistentNaming
 
 /// <summary>
-///     this node will have one out
+/// this node will have one out
 /// </summary>
 public class InputNode : INode
 {
-    private readonly System.Action<IConnectionOut> _onConnectionOut;
     public InputNode(Action<IConnectionOut> onConnectionOut)
     {
         Value = 0;
-        _onConnectionOut = onConnectionOut;
-        OutConnection = new OutConnection(this);
-        _onConnectionOut?.Invoke(OutConnection);
+        IConnectionOut outConnection = new OutConnection(this);
+        onConnectionOut?.Invoke(outConnection);
     }
 
 
-    private readonly IConnectionOut OutConnection;
-
     public int Value { get; set; }
+}
+public class InConnection : IConnectionIn
+{
+    public InConnection(IConnectionOut outConnection)
+    {
+        Out = outConnection;
+    }
+
+    public IConnectionOut Out { get; set; }
+
+    public int Value
+    {
+        get { return Out.Value; }
+        set { }
+    }
 }
 
 public class OutConnection : IConnectionOut
@@ -38,11 +49,10 @@ public class OutConnection : IConnectionOut
     public INode Node { get; set; }
 }
 
-
 public class DisplayNode : INode
 {
     private readonly IConnectionIn _inConnection;
-    private readonly Action<IConnectionIn> _onConnectionIn; 
+    private readonly Action<IConnectionIn> _onConnectionIn;
 
     public DisplayNode(IConnectionIn inConnection, Action<IConnectionIn> onConnectionIn) : this(inConnection)
     {
@@ -66,109 +76,157 @@ public class DisplayNode : INode
     }
 }
 
-public class InConnection : IConnectionIn
+
+public class UIInConnection : UIElement
 {
-    public InConnection(IConnectionOut outConnection)
+    public UIInConnection(Rect rect)
     {
-        Out = outConnection;
+        Rect = rect;
+        Content = new GUIContent("Display Node: " + ControlId);
+        SelectedStyle = new GUIStyle("CN Box") {alignment = TextAnchor.LowerLeft, fontSize = 25};
+
+        NormalStyle = new GUIStyle("CN Box") {alignment = TextAnchor.LowerLeft, fontSize = 25};
+
+        Style = NormalStyle;
     }
 
-    public IConnectionOut Out { get; set; }
-
-    public int Value
+    public override void OnMouseUp(Event e)
     {
-        get { return Out.Value; }
-        set { }
+        base.OnMouseUp(e);
+        if(Rect.Contains(e.mousePosition))
+        {
+            if(NodeEditorWindow.CurrentDrag == this) return;
+
+            var @out = NodeEditorWindow.CurrentDrag as UIOutConnection;
+            if(@out == null) return;
+            NodeEditorWindow.ConnectionCreatedEvent?.Invoke(@out, this);
+        }
+
+    }
+
+    //drag outconnection onto this
+}
+public class UIOutConnection : UIElement
+{
+    public UIOutConnection(Rect rect)
+    {
+        Rect = rect;
+        Content = new GUIContent("Display Node: " + ControlId);
+        SelectedStyle = new GUIStyle("CN Box") {alignment = TextAnchor.LowerLeft, fontSize = 25};
+
+        NormalStyle = new GUIStyle("CN Box") {alignment = TextAnchor.LowerLeft, fontSize = 25};
+
+        Style = NormalStyle;
+    }
+
+
+    public override void OnMouseDown(Event e)
+    {
+        base.OnMouseDown(e);
+        if (Rect.Contains(e.mousePosition))
+        {
+            Debug.Log("set current");
+            NodeEditorWindow.CurrentDrag = this;
+        }
+
+    }
+
+    public override void OnMouseUp(Event e)
+    {
+        base.OnMouseUp(e);
+        if (NodeEditorWindow.CurrentDrag == this)
+            NodeEditorWindow.CurrentDrag = null;
     }
 }
 
-
 public class UIDisplayNode : UIElement
 {
+    private readonly UIInConnection _in;
     private INode _node;
 
-    public UIDisplayNode()
-    {
-        InitGUI();
-    }
-
-    public UIDisplayNode(Vector2 pos, Vector2 size, Action<IConnectionIn> onConnectionIn) : this(pos, size)
+    public UIDisplayNode(Vector2 pos, Vector2 size, Action<IConnectionIn> onConnectionIn)
     {
         _node = new DisplayNode(null, onConnectionIn);
-    }
-
-    public UIDisplayNode(Vector2 pos, Vector2 size) : this()
-    {
         Rect = new Rect(pos, size);
+        _in = new UIInConnection(new Rect(Rect.position, new Vector2(50, 50)));
+        Content = new GUIContent("In" + ControlId);
+        SelectedStyle = new GUIStyle("CN Box")
+        {
+            alignment = TextAnchor.LowerLeft,
+            fontSize = 12
+        };
+
+        NormalStyle = new GUIStyle("CN Box")
+        {
+            alignment = TextAnchor.LowerLeft,
+            fontSize = 12
+        };
+
+        Style = NormalStyle;
     }
 
     public bool Connect(IConnectionOut outConnection)
     {
         _node = new DisplayNode(new InConnection(outConnection));
+
         return true;
     }
 
-    private void InitGUI()
+    public void Disconnect()
     {
-        Style = new GUIStyle("CN Box")
-        {
-            alignment = TextAnchor.LowerLeft,
-            fontSize = 25
-        };
-        Content = new GUIContent("Display Node");
-
-        NodeEditorWindow.OnMouseDrag += e =>
-        {
-            if (!Rect.Contains(e.mousePosition)) return;
-            if (GUIUtility.hotControl == ControlId)
-            {
-                Rect.position += e.delta;
-                GUI.changed = true;
-                e.Use();
-            }
-        };
+        _node = null;
     }
+
 
     public override void Draw()
     {
         base.Draw();
-
+        _in.Rect = new Rect(Rect.position.x - 55, Rect.position.y, 50, 50);
+        _in?.Draw();
         GUILayout.BeginArea(Rect);
-        GUILayout.Label("Value  ::  " + _node.Value);
+        var value = _node?.Value;
+
+        GUILayout.Label("Value  ::  " + value);
+
         GUILayout.EndArea();
     }
 }
 
 public class UIInputNode : UIElement
 {
-    private INode _node;
-
+    private readonly INode _node;
+    private readonly UIOutConnection _out;
     public UIInputNode(Vector2 pos, Vector2 size, Action<IConnectionOut> onOutConnection)
     {
         Rect = new Rect(pos, size);
         _node = new InputNode(onOutConnection);
-        InitGUI();
-    }
-
-    private void InitGUI()
-    {
-        Style = new GUIStyle("CN Box");
-        Content = new GUIContent("Input Node", Resources.Load<Texture2D>("white-square"));
-        NodeEditorWindow.OnMouseDrag += e =>
+        Content = new GUIContent("Input Node: " + ControlId);
+        SelectedStyle = new GUIStyle("CN Box")
         {
-            if (!Rect.Contains(e.mousePosition)) return;
-            if (GUIUtility.hotControl == ControlId)
-            {
-                Rect.position += e.delta;
-                GUI.changed = true;
-                e.Use();
-            }
+            alignment = TextAnchor.LowerRight,
+            fontSize = 25,
+            normal = new GUIStyleState { textColor = Color.green },
+
         };
+
+        NormalStyle = new GUIStyle("CN Box")
+        {
+            alignment = TextAnchor.LowerRight,
+            fontSize = 25,
+            normal = new GUIStyleState { textColor = Color.cyan }
+        };
+
+        Style = NormalStyle;
+
+        _out = new UIOutConnection(new Rect(Rect.position, new Vector2(50, 50)));
+
     }
 
     public override void Draw()
     {
         base.Draw();
+        _out.Rect = new Rect(Rect.position.x + Rect.width + 55, Rect.position.y, 50, 50);
+        _out.Draw();
 
         GUILayout.BeginArea(Rect);
         _node.Value = EditorGUILayout.IntSlider("Value", _node.Value, 0, 10);

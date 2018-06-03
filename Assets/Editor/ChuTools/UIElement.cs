@@ -1,9 +1,20 @@
-﻿using Interfaces;
+﻿using ChuTools;
+using Interfaces;
 using UnityEngine;
 
-public abstract class UIElement : IDrawable
+public abstract class UIElement : IDrawable, IMouseDownHandler, IMouseUpHandler, IMouseDragHandler
 {
+    protected UIElement()
+    {
+        NodeEditorWindow.NodeEvents.OnMouseDown += OnMouseDown;
+        NodeEditorWindow.NodeEvents.OnMouseUp += OnMouseUp;
+        NodeEditorWindow.NodeEvents.OnMouseDrag += OnMouseDrag;
+        ControlId = GUIUtility.GetControlID(FocusType.Passive, Rect);
+
+    }
+
     public Rect Rect;
+    public bool IsSelected { get; private set; }
     public Vector2 Position
     {
         get { return Rect.position; }
@@ -14,9 +25,11 @@ public abstract class UIElement : IDrawable
         }
     }
 
+    public GUIStyle SelectedStyle { get; set; }
+    public GUIStyle NormalStyle { get; set; }
     public GUIStyle Style { get; set; }
     public GUIContent Content { get; set; }
-    public int ControlId { get; protected set; }
+    public int ControlId;
 
     Rect IDrawable.Rect => Rect;
     /// <summary>
@@ -24,12 +37,41 @@ public abstract class UIElement : IDrawable
     /// </summary>
     public virtual void Draw()
     {
-        if (Content == null)
-            Content = GUIContent.none;
-
-        if (Style == null)
-            Style = new GUIStyle();
-
         GUI.Box(Rect, Content, Style);
+  
+    }
+
+    public virtual void OnMouseDown(Event e)
+    {
+        if (Rect.Contains(e.mousePosition))
+        {
+            IsSelected = true;
+            GUIUtility.hotControl = ControlId;
+            Style = SelectedStyle;
+            GUI.changed = true;
+        }
+    }
+
+    public virtual void OnMouseUp(Event e)
+    {
+        IsSelected = false;
+
+        if (GUIUtility.hotControl == ControlId)
+        {
+            GUIUtility.hotControl = 0;
+            Style = NormalStyle;
+            GUI.changed = true;
+        }
+    }
+
+    public virtual void OnMouseDrag(Event e)
+    {
+        if (GUIUtility.hotControl == ControlId)
+        {
+            Rect.position += e.delta;
+            GUI.changed = true;
+            e.Use();
+        }
+
     }
 }

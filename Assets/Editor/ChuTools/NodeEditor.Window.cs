@@ -8,17 +8,24 @@ using UnityEngine;
 
 namespace ChuTools
 {
+    public delegate void ConnectionCreated(UIOutConnection @out, UIInConnection @in);
     [SuppressMessage("ReSharper", "SwitchStatementMissingSomeCases")]
     public partial class NodeEditorWindow : EditorWindow
     {
+        public static ConnectionCreated ConnectionCreatedEvent;
         public static GUIStyle NodeStyle;
         public static GUIStyle SelectedNodeStyle;
         public static GUIStyle InPointStyle;
         public static GUIStyle OutPointStyle;
-        public IConnectionIn TESTIN;
-        public IConnectionOut TESTOUT;
+
+        public static IDrawable CurrentDrag;
+
+        private bool _connect;
+        private UIDisplayNode _displayNode;
         public List<IDrawable> Connections;
         public List<IDrawable> Nodes;
+        public static IConnectionIn TESTIN;
+        public static IConnectionOut TESTOUT;
         public static IEventSystem NodeEvents { get; private set; }
         public Vector2 CenterWindow => new Vector2(Screen.width / 2.0f, Screen.height / 2.0f);
         private string _path => Application.dataPath + "/Dialogue/nodes.json";
@@ -45,7 +52,7 @@ namespace ChuTools
             InPointStyle = new GUIStyle
             {
                 normal
-                    = {background = EditorGUIUtility.Load("builtin skins/darkskin/images/btn left.png") as Texture2D},
+                    = { background = EditorGUIUtility.Load("builtin skins/darkskin/images/btn left.png") as Texture2D },
                 hover =
                 {
                     background = EditorGUIUtility.Load("builtin skins/darkskin/images/btn left on.png") as Texture2D
@@ -69,7 +76,7 @@ namespace ChuTools
 
             NodeStyle = new GUIStyle
             {
-                normal = {background = EditorGUIUtility.Load("builtin skins/darkskin/images/node1.png") as Texture2D},
+                normal = { background = EditorGUIUtility.Load("builtin skins/darkskin/images/node1.png") as Texture2D },
                 border = new RectOffset(12, 12, 12, 12)
             };
             Nodes = new List<IDrawable>();
@@ -77,62 +84,33 @@ namespace ChuTools
             NodeEvents = new NodeWindowEventSystem();
 
             NodeEvents.OnContextClick += CreateContextMenu;
-            var c = new ConnectionPoint(new Vector2(500, 50), new Vector2(25, 25));
-            var d = new ConnectionPoint(new Vector2(600, 50), new Vector2(25, 25));
-            Connections.Add(new Connection(c, d));
+            ConnectionCreatedEvent += OnConnectionCreated;
         }
-        
+
         private void OnGUI()
         {
             NodeEvents.PollEvents(Event.current);
             if (GUI.changed)
                 Repaint();
 
-            GUILayout.BeginHorizontal();
-            var value1 = "null";
-            var value2 = "null";
-            if (GUILayout.Button(new GUIContent("Save"), EditorStyles.toolbarButton, GUILayout.Width(35))) Save();
-            GUILayout.Space(5);
-            if (GUILayout.Button(new GUIContent("Load"), EditorStyles.toolbarButton, GUILayout.Width(35))) Load();
-            GUILayout.EndHorizontal();
-            
-            var lastrect = GUILayoutUtility.GetLastRect();
-            var pos = new Vector2(lastrect.xMin, lastrect.yMax);
-            var menurect = new Rect(pos, new Vector2(250, 200));
-            
+            DrawMenu();
+           
 
-            GUI.BeginGroup(menurect);
-            GUI.Box(menurect, GUIContent.none);
-            EditorGUILayout.BeginVertical();
-            EditorGUILayout.LabelField("Width", Screen.width.ToString());
-            wantsMouseMove = EditorGUILayout.Toggle("WantsMouseMove", wantsMouseMove);
-            EditorGUILayout.LabelField("Height", Screen.height.ToString());
-            EditorGUILayout.LabelField("HotControl: ", GUIUtility.hotControl.ToString());
-            EditorGUILayout.LabelField("Control Name: ", GUI.GetNameOfFocusedControl());
-            EditorGUILayout.LabelField("Path", _path);
-            EditorGUILayout.LabelField("Current Event", NodeEvents.Current.ToString());
-            EditorGUILayout.LabelField("Event count ", Event.GetEventCount().ToString());
-            EditorGUILayout.LabelField("EventSystem Selected", value1);
-            EditorGUILayout.LabelField("EventSystem Will Selected   ", value2);
-    
-            EditorGUILayout.EndVertical();
-            GUI.EndGroup();
-            if (TESTOUT != null)
-            {
-                if (GUILayout.Button("Make Connection?"))
-                {
-                    _displayNode.Connect(TESTOUT);
-                }
-            }
             Nodes.ForEach(n => n.Draw());
             Connections.ForEach(c => c.Draw());
-        }
 
+
+            if (CurrentDrag == null) return;
+            Chutilities.DrawNodeCurve(CurrentDrag.Rect, new Rect(Event.current.mousePosition, CurrentDrag.Rect.size));
+            var endRect = new Rect(Current.mousePosition, Vector2.one * 10);
+            Handles.RectangleHandleCap(GUIUtility.GetControlID(FocusType.Passive, endRect), endRect.center,
+                Quaternion.identity, 15, EventType.Repaint);
+        }
 
         private void CreateContextMenu(Event e)
         {
             var gm = new GenericMenu();
-            gm.AddItem(new GUIContent("Create Node"), false, CreateNode, e);
+
             gm.AddItem(new GUIContent("Create Input Node"), false, CreateInputNode, e);
             gm.AddItem(new GUIContent("Create Display Node"), false, CreateDisplayNode, e);
             gm.AddItem(new GUIContent("Clear Nodes"), false, ClearNodes);
@@ -147,34 +125,27 @@ namespace ChuTools
             Nodes.Add(_displayNode);
         }
 
-        private UIDisplayNode _displayNode;
         private void CreateInputNode(object e)
         {
             var pos = ((Event)e).mousePosition;
-            
-            Nodes.Add( new UIInputNode(pos, new Vector2(300, 150), SetConnectionOut));
+
+            Nodes.Add(new UIInputNode(pos, new Vector2(300, 150), SetConnectionOut));
         }
 
-        private void SetConnectionOut(IConnectionOut outConnection)
+        private void OnConnectionCreated(UIOutConnection @out, UIInConnection @in)
+        {
+            Connections.Add(new Connection(@out, @in));
+        }
+
+        private static void SetConnectionOut(IConnectionOut outConnection)
         {
             TESTOUT = outConnection;
         }
 
-        private void SetConnectionIn(IConnectionIn inConnectionIn)
+        private static void SetConnectionIn(IConnectionIn inConnectionIn)
         {
             TESTIN = inConnectionIn;
         }
-        private void CreateNode(object e)
-        {
-            var pos = ((Event) e).mousePosition;
-            Nodes.Add(new Node(pos, new Vector2(150, 50), RemoveNode, CreateConnection));
-        }
-
-        private void CreateConnection(Connection connection)
-        {
-            Connections.Add(connection);
-        }
-
 
         private void RemoveNode(Node n)
         {
@@ -184,6 +155,9 @@ namespace ChuTools
         private void ClearNodes()
         {
             Nodes = new List<IDrawable>();
+            Connections = new List<IDrawable>();
+            NodeEvents = new NodeWindowEventSystem();
+            NodeEvents.OnContextClick += CreateContextMenu;
         }
 
         private void Save()
@@ -201,7 +175,7 @@ namespace ChuTools
             JsonUtility.FromJsonOverwrite(json, n);
         }
 
-        public class NodeList //just for saving
+        public class NodeList//just for saving
         {
             public List<Node> Nodes;
         }

@@ -21,6 +21,7 @@ namespace ChuTools
 
         public ConnectionPoint()
         {
+            Content = GUIContent.none;
             Style = new GUIStyle("flow node 6");
         }
 
@@ -35,53 +36,16 @@ namespace ChuTools
 
         public ConnectionPoint(Vector2 position, Vector2 size) : this()
         {
-            Rect = new Rect(position, size);
-            ControlId = GUIUtility.GetControlID(FocusType.Passive, Rect);
+            Rect = new Rect(position, size); 
             _endRect = new Rect(Rect);
-            NodeEditorWindow.NodeEvents.OnMouseDrag += OnMouseDrag;
-            NodeEditorWindow.NodeEvents.OnMouseDown += OnMouseDown;
-            NodeEditorWindow.NodeEvents.OnMouseUp += OnMouseUp;
-            NodeEditorWindow.NodeEvents.OnMouseMove += OnMouseMove;
+ 
         }
 
         private ButtonState _cstate { get; set; }
 
         public Vector2 OutCenter => _endRect.center;
         public Vector2 InCenter => Rect.center;
-
-        public void OnMouseDown(Event e)
-        {
-            if (Rect.Contains(e.mousePosition))
-                if (e.button == 0)
-                {
-                    _cstate = ButtonState.Selected;
-                    _currentMouse = e.mousePosition;
-                    GUI.changed = true;
-                }
-        }
-
-        public void OnMouseDrag(Event e)
-        {
-            if (_cstate == ButtonState.Selected)
-            {
-                _dragcounter++;
-                _currentMouse = e.mousePosition;
-                GUI.changed = true;
-                e.Use();
-            }
-        }
-
-        public void OnMouseUp(Event e)
-        {
-            _cstate = ButtonState.Normal;
-            GUI.changed = true;
-        }
-
-        public override string ToString()
-        {
-            return base.ToString() + "::" + ControlId;
-        }
-
+         
         private void OnMouseMove(Event e)
         {
             if (Rect.Contains(e.mousePosition))
@@ -121,10 +85,7 @@ namespace ChuTools
             switch (_cstate)
             {
                 case ButtonState.Selected:
-                    _endRect = new Rect(_currentMouse, Rect.size);
-                    Chutilities.DrawNodeCurve(Rect, _endRect);
-                    Handles.RectangleHandleCap(GUIUtility.GetControlID(FocusType.Passive, _endRect), _endRect.center,
-                        Quaternion.identity, 15, EventType.Repaint);
+                    
                     break;
             }
         }
