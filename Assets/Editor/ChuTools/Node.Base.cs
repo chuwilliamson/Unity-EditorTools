@@ -20,7 +20,7 @@ namespace ChuTools
             Rect = new Rect(position, size);
 
             Content = new GUIContent(ControlId.ToString());
-            Style = NodeEditorWindow.NodeStyle;
+           
             points = new List<ConnectionPoint>();
 
             _onRemoveNodeAction = onRemoveNode;
@@ -42,8 +42,7 @@ namespace ChuTools
                 case 0:
                     if(Rect.Contains(e.mousePosition))
                     {
-                        GUIUtility.hotControl = ControlId;
-                        Style = NodeEditorWindow.SelectedNodeStyle;
+                        GUIUtility.hotControl = ControlId; 
                         GUI.changed = true;
                     }
 
@@ -62,7 +61,7 @@ namespace ChuTools
         }
          
 
-        public virtual void OnMouseDrag(Event e)
+        public override void OnMouseDrag(Event e)
         {
             if(GUIUtility.hotControl == ControlId)
             {

@@ -71,7 +71,6 @@ public abstract class UIElement : IDrawable, IMouseDownHandler, IMouseUpHandler,
             Rect.position += e.delta;
             GUI.changed = true;
             e.Use();
-        }
-
+        } 
     }
 }

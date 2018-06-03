@@ -8,17 +8,13 @@ using UnityEngine;
 
 namespace ChuTools
 {
-    public class ConnectionPoint : UIElement, IConnection, IMouseDownHandler, IMouseUpHandler, IMouseDragHandler
+    public class ConnectionPoint : UIElement, IConnection 
     {
         private readonly GUIStyle _normalStyle;
-        private readonly Action<ConnectionPoint> _onConnectionComplete;
-
-        private Vector2 _currentMouse = Vector2.zero;
-
+ 
         private int _dragcounter;
         private Rect _endRect;
-        private bool _isActive = false;
-
+ 
         public ConnectionPoint()
         {
             Content = GUIContent.none;
@@ -28,9 +24,7 @@ namespace ChuTools
         public ConnectionPoint(Vector2 position, Vector2 size, Action<ConnectionPoint> onConnectionComplete) : this(
             position, size)
         {
-            _onConnectionComplete = onConnectionComplete;
-
-
+  
             Content = GUIContent.none;
         }
 
@@ -46,34 +40,7 @@ namespace ChuTools
         public Vector2 OutCenter => _endRect.center;
         public Vector2 InCenter => Rect.center;
          
-        private void OnMouseMove(Event e)
-        {
-            if (Rect.Contains(e.mousePosition))
-            {
-                switch (_cstate)
-                {
-                    case ButtonState.Normal:
-                        _cstate = ButtonState.Hovered;
-                        GUIUtility.hotControl = ControlId;
-                        GUI.changed = true;
-                        break;
-                    case ButtonState.Active:
-                        break;
-                    case ButtonState.Selected:
-                        break;
-                }
-            }
-            else
-            {
-                if (GUIUtility.hotControl == ControlId)
-                {
-                    _cstate = ButtonState.Normal;
-                    GUIUtility.hotControl = 0;
-                    GUI.changed = true;
-                }
-            }
-        }
-
+    
         public override void Draw()
         {
             base.Draw();
