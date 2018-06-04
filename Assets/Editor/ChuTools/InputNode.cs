@@ -6,39 +6,48 @@ using UnityEngine;
 
 // ReSharper disable InconsistentNaming
 
+public delegate bool ConnectionResponse(IConnectionOut co);
 
-
-
-///Process:::
+/// Process:::
 /// Input node manipulates information
 /// OUT connection will carry that data
 /// IN connection will be connected to the OUT connection
 /// Display node will display the information from the OUT connection
-/// 
-/// 
-/// 
 /// <summary>
-/// this node will have one out
-/// It will manipulate it's data
-/// The Out Connection will take this data and transfer it to an inconnection 
+///     this node will have one out
+///     It will manipulate it's data
+///     The Out Connection will take this data and transfer it to an inconnection
 /// </summary>
 public class InputNode : INode
 {
-    public InputNode() { Value = 0; }
+    public InputNode()
+    {
+        Value = 0;
+    }
+
     public int Value { get; set; }
 }
+
 public class OutConnection : IConnectionOut
 {
-    public OutConnection(INode inputNode) { Node = inputNode; }
+    public OutConnection(INode inputNode)
+    {
+        Node = inputNode;
+    }
+
     public int Value => Node?.Value ?? 0;
     public INode Node { get; set; }
 }
 
 public class InConnection : IConnectionIn
 {
-    public InConnection(IConnectionOut outConnection) { Out = outConnection; }
+    public InConnection(IConnectionOut outConnection)
+    {
+        Out = outConnection;
+    }
+
     public IConnectionOut Out { get; set; }
-    public int Value { get { return Out.Value; } }
+    public int Value => Out.Value;
 }
 
 public class DisplayNode : INode
@@ -53,42 +62,17 @@ public class DisplayNode : INode
     public int Value
     {
         get { return _inConnection?.Value ?? 0; }
-        set { Debug.LogWarning("no you shouldn't be setting the inconnection value through the node" + value.ToString()); }
+        set { Debug.LogWarning("no you shouldn't be setting the inconnection value through the node" + value); }
     }
 }
 
-public class UIBezierConnection : IDrawable
-{
-    public IDrawable @in;
-    public IDrawable @out;
-
-    public UIBezierConnection(IDrawable @in, IDrawable @out)
-    {
-        this.@in = @in;
-        this.@out = @out;
-    }
-
-    public Rect Rect => @out.Rect;
-
-    public void Draw()
-    {
-        Chutilities.DrawNodeCurve(@in.Rect.center, @out.Rect.center);
-    }
-}
-
-public class UIConnectionPoint : UIElement
-{
-    private string _name;
-}
-
-public delegate bool ConnectionResponse(IConnectionOut co);
 
 public class UIDisplayNode : UIElement
 {
     private readonly UIInConnectionPoint _in;
     private INode _node;
 
-    public UIDisplayNode(Vector2 pos, Vector2 size) : base("In", pos, size)
+    public UIDisplayNode(Vector2 pos, Vector2 size) : base("Display Node: ", pos, size)
     {
         _node = new DisplayNode(null);
         _in = new UIInConnectionPoint(new Rect(Rect.position, new Vector2(50, 50)), Connect);
@@ -120,9 +104,12 @@ public class UIDisplayNode : UIElement
         GUILayout.EndArea();
     }
 }
+
 public class UIInConnectionPoint : UIConnectionPoint
 {
     private readonly ConnectionResponse _connectionResponse;
+
+    private bool connectionState;
 
     //drag outconnection onto this
     public UIInConnectionPoint(Rect rect, ConnectionResponse cb)
@@ -130,14 +117,15 @@ public class UIInConnectionPoint : UIConnectionPoint
         Rect = rect;
         _connectionResponse = cb;
         Content = new GUIContent("IN:  " + ControlId);
-        SelectedStyle = new GUIStyle("CN Box") { alignment = TextAnchor.LowerLeft, fontSize = 12 };
-        NormalStyle = new GUIStyle("CN Box") { alignment = TextAnchor.LowerLeft, fontSize = 12 };
+        SelectedStyle = new GUIStyle("CN Box") { alignment = TextAnchor.LowerLeft, fontSize = 8 };
+        NormalStyle = new GUIStyle("CN Box") { alignment = TextAnchor.LowerLeft, fontSize = 8 };
         Style = NormalStyle;
     }
 
     public bool ValidateConnection(IConnectionOut @out)
     {
-        return _connectionResponse.Invoke(@out);
+        if (connectionState) return false;
+        return connectionState = _connectionResponse.Invoke(@out);
     }
 
     public override void OnMouseDrag(Event e)
@@ -147,28 +135,21 @@ public class UIInConnectionPoint : UIConnectionPoint
         NodeEditorWindow.CurrentAcceptingDrag = this;
         GUI.changed = true;
     }
-
 }
 
 public class UIOutConnectionPoint : UIConnectionPoint
 {
-    private IConnectionOut _out;
-
-    public IConnectionOut Out
-    {
-        get { return _out; }
-        set { _out = value; }
-    }
-
     public UIOutConnectionPoint(Rect rect, IConnectionOut @out)
     {
-        _out = @out;
+        Out = @out;
         Rect = rect;
         Content = new GUIContent("Out: " + ControlId);
         SelectedStyle = new GUIStyle("CN Box") { alignment = TextAnchor.LowerLeft, fontSize = 8 };
         NormalStyle = new GUIStyle("CN Box") { alignment = TextAnchor.LowerLeft, fontSize = 8 };
         Style = NormalStyle;
     }
+
+    public IConnectionOut Out { get; set; }
 
     public override void OnMouseUp(Event e)
     {
@@ -179,7 +160,7 @@ public class UIOutConnectionPoint : UIConnectionPoint
         if (@out != this) return;
 
         Debug.Log("doit");
-        NodeEditorWindow.RequestConnection(this, _out);
+        NodeEditorWindow.RequestConnection(this, Out);
     }
 
     public override void OnMouseDown(Event e)
@@ -209,34 +190,36 @@ public class UIInputNode : UIElement
         _out.Draw();
 
         GUILayout.BeginArea(Rect);
-        _node.Value = EditorGUILayout.IntSlider("Value", _node.Value, 0, 10);
+        _node.Value = EditorGUILayout.IntSlider("Value: ", _node.Value, 0, 10);
         GUILayout.EndArea();
 
     }
 }
 
 /// <summary>
-/// This node will represent a pass through node
-/// It will receive data from it's in connection
-/// That data will then be changed by the node implementation
-/// 
+///     This node will represent a pass through node
+///     It will receive data from it's in connection
+///     That data will then be changed by the node implementation
 /// </summary>
 public class UINode : UIElement
 {
+    private readonly UIInConnectionPoint _in;
     private readonly INode _input;
+    private readonly UIOutConnectionPoint _out;
     private readonly INode _transformation;
     private INode _display;
-    private readonly UIInConnectionPoint _in;
-    private readonly UIOutConnectionPoint _out;
 
-    public UINode(Vector2 pos, Vector2 size) : base("Transformation Node", pos, size)
+    private int slidervalue;
+
+    public UINode(Vector2 pos, Vector2 size) : base("Transformation: ", pos, size)
     {
         _display = new DisplayNode(null);
         _in = new UIInConnectionPoint(new Rect(Rect.position, new Vector2(50, 50)), Connect);
 
         _transformation = new InputNode();
         _input = new InputNode();
-        _out = new UIOutConnectionPoint(new Rect(Rect.position, new Vector2(50, 50)), new OutConnection(_transformation));
+        _out = new UIOutConnectionPoint(new Rect(Rect.position, new Vector2(50, 50)),
+            new OutConnection(_transformation));
     }
 
     public bool Connect(IConnectionOut outConnection)
@@ -246,7 +229,6 @@ public class UINode : UIElement
         return true;
     }
 
-    private int slidervalue;
     public override void Draw()
     {
         base.Draw();
@@ -258,13 +240,15 @@ public class UINode : UIElement
         GUILayout.BeginArea(Rect);
 
 
-        slidervalue = EditorGUILayout.IntSlider("Modifier", slidervalue, 0, 10);
-        _input.Value = slidervalue;
+        _input.Value = EditorGUILayout.IntSlider("Modifier: ", _input.Value, 0, 10);
+
         _transformation.Value = _display.Value + _input.Value;
-        GUILayout.Label("Input " + _input?.Value);
-        GUILayout.Label("Display " + _display?.Value);
-        GUILayout.Label("Transformation " + _transformation.Value, new GUIStyle(Style) { fontSize = 15, alignment = TextAnchor.LowerLeft });
+        GUILayout.Label("Input: " + _input?.Value);
+        GUILayout.Label("Display: " + _display?.Value);
+        GUILayout.Label("Output: " + _transformation.Value);
         GUILayout.EndArea();
+        var rect = new Rect(Rect.x - 5 + Rect.width / 2, Rect.y - 5 + Rect.height / 2, Rect.width / 2, Rect.height / 2);
+        GUI.Box(rect, GUIContent.none);
+        GUI.Label(rect, "ADD", new GUIStyle(Style) { fontSize = 55, alignment = TextAnchor.MiddleCenter });
     }
 }
-

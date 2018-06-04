@@ -14,7 +14,8 @@ namespace ChuTools
         public static System.Action<UIOutConnectionPoint, UIInConnectionPoint> ConnectionCreatedEvent;
         public static UIOutConnectionPoint CurrentSendingDrag { get; set; }
         public static UIInConnectionPoint CurrentAcceptingDrag { get; set; }
-
+        public int NodeHeight { get; set; }
+        public int NodeWidth { get; set; }
         public static void RequestConnection(UIOutConnectionPoint @uiOut, IConnectionOut @out)
         {
             if (CurrentAcceptingDrag.ValidateConnection(@out))
@@ -22,6 +23,8 @@ namespace ChuTools
             else
             {
                 Debug.Log("cancel connection request");
+                CurrentAcceptingDrag = null;
+                CurrentSendingDrag = null;
             }
         }
 
@@ -40,19 +43,7 @@ namespace ChuTools
 
         private void OnEnable()
         {
-            wantsMouseMove = true;
-            Nodes = new List<IDrawable>();
-            Connections = new List<IDrawable>();
-            NodeEvents = new NodeWindowEventSystem();
-
-            NodeEvents.OnContextClick += CreateContextMenu;
-            ConnectionCreatedEvent += OnConnectionCreated;
-            NodeEvents.OnMouseUp += e =>
-            {
-                if(CurrentAcceptingDrag != null) return;
-                CurrentAcceptingDrag = null;
-                CurrentSendingDrag = null;
-            };
+            ClearNodes();
         }
 
         private void OnGUI()
@@ -93,29 +84,30 @@ namespace ChuTools
         private void CreateNode(object userdata)
         {
             var pos = ((Event)userdata).mousePosition;
-            Nodes.Add(new UINode(pos, new Vector2(300, 150)));
+            Nodes.Add(new UINode(pos, new Vector2(NodeWidth, NodeHeight)));
         }
 
         private void CreateDisplayNode(object userdata)
         {
             var pos = ((Event)userdata).mousePosition;
-            Nodes.Add(new UIDisplayNode(pos, new Vector2(300, 150)));
+            Nodes.Add(new UIDisplayNode(pos, new Vector2(NodeWidth, NodeHeight)));
         }
 
         private void CreateInputNode(object userdata)
         {
             var pos = ((Event)userdata).mousePosition;
-            Nodes.Add(new UIInputNode(pos, new Vector2(300, 150)));
+            Nodes.Add(new UIInputNode(pos, new Vector2(NodeWidth, NodeHeight)));
         }
 
         private void OnConnectionCreated(UIOutConnectionPoint @out, UIInConnectionPoint @in)
         {
-            CurrentSendingDrag = null;
-            CurrentAcceptingDrag = null;
             if (@out != null && @in != null)
             {
                 Connections.Add(new UIBezierConnection(@out, @in));
             }
+
+            CurrentSendingDrag = null;
+            CurrentAcceptingDrag = null;
         }
 
 
@@ -126,10 +118,21 @@ namespace ChuTools
 
         private void ClearNodes()
         {
+            NodeWidth = 300;
+            NodeHeight = 150;
+            wantsMouseMove = true;
             Nodes = new List<IDrawable>();
             Connections = new List<IDrawable>();
             NodeEvents = new NodeWindowEventSystem();
+
             NodeEvents.OnContextClick += CreateContextMenu;
+            ConnectionCreatedEvent += OnConnectionCreated;
+            NodeEvents.OnMouseUp += e =>
+            {
+                if (CurrentAcceptingDrag != null) return;
+                CurrentAcceptingDrag = null;
+                CurrentSendingDrag = null;
+            };
         }
 
         private void Save()
