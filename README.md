@@ -6,7 +6,7 @@ Tired of writing the same GUI.Box bs everywhere u go? me too, lets write some ed
 
 # How To Contribute
 1. clone the repository git clone https://github.com/chuwilliamson/Unity-EditorTools.git
-1. create a new branch from editor-tools branch named editor-tools-<your name>
+1. create a new branch from editor-tools branch named `editor-tools-<your name>`
 
 ~~~
 git checkout -b editor-tools-zach
