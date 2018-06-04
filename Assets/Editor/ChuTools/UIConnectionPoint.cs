@@ -1,4 +1,9 @@
-﻿public class UIConnectionPoint : UIElement
+﻿namespace ChuTools
 {
-    private string _name;
+    [System.Serializable]
+    public class UIConnectionPoint : UIElement
+    {
+        
+        private string _name;
+    }
 }

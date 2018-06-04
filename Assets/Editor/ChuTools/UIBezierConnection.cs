@@ -1,22 +1,24 @@
-﻿using ChuTools;
-using Interfaces;
+﻿using Interfaces;
 using UnityEngine;
 
-public class UIBezierConnection : IDrawable
+namespace ChuTools
 {
-    public IDrawable @in;
-    public IDrawable @out;
-
-    public UIBezierConnection(IDrawable @in, IDrawable @out)
+    public class UIBezierConnection : IDrawable
     {
-        this.@in = @in;
-        this.@out = @out;
-    }
+        public IDrawable @in;
+        public IDrawable @out;
 
-    public Rect Rect => @out.Rect;
+        public UIBezierConnection(IDrawable @in, IDrawable @out)
+        {
+            this.@in = @in;
+            this.@out = @out;
+        }
 
-    public void Draw()
-    {
-        Chutilities.DrawNodeCurve(@in.Rect.center, @out.Rect.center);
+        public Rect Rect => @out.Rect;
+
+        public void Draw()
+        {
+            Chutilities.DrawNodeCurve(@in.Rect.center, @out.Rect.center);
+        }
     }
 }

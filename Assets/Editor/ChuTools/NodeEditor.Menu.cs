@@ -19,13 +19,14 @@ namespace ChuTools
 
             var lastrect = GUILayoutUtility.GetLastRect();
             var pos = new Vector2(lastrect.xMin, lastrect.yMax);
-            var menurect = new Rect(pos, new Vector2(350, 200));
+            var menurect = new Rect(pos, new Vector2(550, 200));
 
 
             GUI.BeginGroup(menurect);
+        
             GUI.Box(menurect, GUIContent.none);
             EditorGUILayout.BeginVertical();
-            EditorGUILayout.LabelField("Path", _path);
+            EditorGUILayout.TextField("Path", _path, GUILayout.ExpandWidth(true));
             EditorGUILayout.BeginHorizontal();
             EditorGUILayout.LabelField("Width", Screen.width.ToString());
             EditorGUILayout.LabelField("Height", Screen.height.ToString());
