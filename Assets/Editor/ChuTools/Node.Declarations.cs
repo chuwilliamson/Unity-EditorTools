@@ -13,11 +13,7 @@ namespace ChuTools
 
         private Vector2 _scrollPosition;
 
-        public bool IsSelected
-        {
-            get { return GUIUtility.hotControl == ControlId; }
-        }
-
+ 
         public bool IsHovered
         {
             get { return GUIUtility.hotControl == ControlId && Rect.Contains(NodeEditorWindow.Current.mousePosition); }
