@@ -39,14 +39,19 @@ public class Node
         DeleteRect = new Rect(VisualRect.position, new Vector2(20, 20));
         if (GUI.Button(DeleteRect, "X"))
         {
-            _onDelete?.Invoke(this);
+            var gm = new UnityEditor.GenericMenu();
+            gm.AddItem(new GUIContent("Remove Node"), false, RemoveNode, this);
+            gm.ShowAsContext();
         }
     }
-
+    void RemoveNode(object userdata)
+    {
+        _onDelete.Invoke(this);
+    }
     private void ScaleVisual()
     {
         var current = Event.current;
-        if(ScaleRect.Contains(current.mousePosition))
+        if (ScaleRect.Contains(current.mousePosition))
         {
             var newScale = VisualRect.size + current.delta;
             VisualRect.size += current.delta;
@@ -56,5 +61,5 @@ public class Node
                 VisualRect.size = new Vector2(VisualRect.size.x, MinScale.y);
             current.Use();
         }
-    }    
+    }
 }
