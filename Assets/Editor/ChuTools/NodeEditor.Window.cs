@@ -14,6 +14,17 @@ namespace ChuTools
         public static System.Action<UIOutConnectionPoint, UIInConnectionPoint> ConnectionCreatedEvent;
         public static UIOutConnectionPoint CurrentSendingDrag { get; set; }
         public static UIInConnectionPoint CurrentAcceptingDrag { get; set; }
+
+        public static void RequestConnection(UIOutConnectionPoint @uiOut, IConnectionOut @out)
+        {
+            if (CurrentAcceptingDrag.ValidateConnection(@out))
+                ConnectionCreatedEvent.Invoke(CurrentSendingDrag, CurrentAcceptingDrag);
+            else
+            {
+                Debug.Log("cancel connection request");
+            }
+        }
+
         public List<IDrawable> Connections;
         public List<IDrawable> Nodes;
         public static IEventSystem NodeEvents { get; private set; }
@@ -36,6 +47,12 @@ namespace ChuTools
 
             NodeEvents.OnContextClick += CreateContextMenu;
             ConnectionCreatedEvent += OnConnectionCreated;
+            NodeEvents.OnMouseUp += e =>
+            {
+                if(CurrentAcceptingDrag != null) return;
+                CurrentAcceptingDrag = null;
+                CurrentSendingDrag = null;
+            };
         }
 
         private void OnGUI()
@@ -65,31 +82,29 @@ namespace ChuTools
         private void CreateContextMenu(Event e)
         {
             var gm = new GenericMenu();
-
+            gm.AddItem(new GUIContent("Create Input-Output Node"), false, CreateNode, e);
             gm.AddItem(new GUIContent("Create Input Node"), false, CreateInputNode, e);
             gm.AddItem(new GUIContent("Create Display Node"), false, CreateDisplayNode, e);
-            gm.AddItem(new GUIContent("Create Input/Output Node"), false, CreateNode, e);
             gm.AddItem(new GUIContent("Clear Nodes"), false, ClearNodes);
             gm.ShowAsContext();
             e.Use();
         }
 
-        private void CreateNode(object e)
+        private void CreateNode(object userdata)
         {
-            var pos = ((Event)e).mousePosition;
+            var pos = ((Event)userdata).mousePosition;
             Nodes.Add(new UINode(pos, new Vector2(300, 150)));
         }
 
-        private void CreateDisplayNode(object e)
+        private void CreateDisplayNode(object userdata)
         {
-            var pos = ((Event)e).mousePosition;
+            var pos = ((Event)userdata).mousePosition;
             Nodes.Add(new UIDisplayNode(pos, new Vector2(300, 150)));
         }
 
-        private void CreateInputNode(object e)
+        private void CreateInputNode(object userdata)
         {
-            var pos = ((Event)e).mousePosition;
-
+            var pos = ((Event)userdata).mousePosition;
             Nodes.Add(new UIInputNode(pos, new Vector2(300, 150)));
         }
 

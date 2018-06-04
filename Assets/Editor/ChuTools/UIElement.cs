@@ -10,7 +10,15 @@ public abstract class UIElement : IDrawable, IMouseDownHandler, IMouseUpHandler,
         NodeEditorWindow.NodeEvents.OnMouseUp += OnMouseUp;
         NodeEditorWindow.NodeEvents.OnMouseDrag += OnMouseDrag;
         ControlId = GUIUtility.GetControlID(FocusType.Passive, Rect);
+    }
 
+    protected UIElement(string name, Vector2 pos, Vector2 size) : this()
+    {
+        Rect = new Rect(pos, size);
+        Content = new GUIContent(name + ControlId);
+        SelectedStyle = new GUIStyle("flow node 1 on") { alignment = TextAnchor.LowerLeft, fontSize = 12 };
+        NormalStyle = new GUIStyle("flow node 1") { alignment = TextAnchor.LowerLeft, fontSize = 12 };
+        Style = NormalStyle;
     }
 
     public Rect Rect;
@@ -38,7 +46,7 @@ public abstract class UIElement : IDrawable, IMouseDownHandler, IMouseUpHandler,
     public virtual void Draw()
     {
         GUI.Box(Rect, Content, Style);
-  
+
     }
 
     public virtual void OnMouseDown(Event e)
@@ -71,6 +79,6 @@ public abstract class UIElement : IDrawable, IMouseDownHandler, IMouseUpHandler,
             Rect.position += e.delta;
             GUI.changed = true;
             e.Use();
-        } 
+        }
     }
 }
