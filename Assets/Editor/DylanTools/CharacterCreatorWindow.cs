@@ -7,8 +7,7 @@ namespace DylanTools
 {
     public class CharacterCreatorWindow : EditorWindow
     {
-        private List<Node> Nodes = new List<Node>();
-        private List<ScriptableVisual> Visuals = new List<ScriptableVisual>();
+        private List<Node> Nodes = new List<Node>();        
 
         [UnityEditor.MenuItem("Tools/Character Creator Window")]
         public static void Init()
@@ -46,6 +45,7 @@ namespace DylanTools
         {
             var newNode = new DraggableNode("Sample", new Vector2(75, 75), new Vector2(100, 100), DeleteNode);
             Nodes.Add(newNode);
+            new ScriptableVisual(newNode);
         }
 
         void DeleteNode(Node node)

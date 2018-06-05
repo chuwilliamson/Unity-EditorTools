@@ -57,11 +57,8 @@ namespace DylanTools
                 gm.AddItem(new GUIContent("Remove Node"), false, RemoveNode, this);
                 gm.ShowAsContext();
             }
-            if (GUI.changed)
-            {
-                if(scriptableChangedEvent != null)
-                    scriptableChangedEvent.Invoke(Scriptable);
-            }
+            if (scriptableChangedEvent != null)
+                scriptableChangedEvent.Invoke(Scriptable);
         }
         private void RemoveNode(object userdata)
         {
