@@ -2,6 +2,7 @@
 
 namespace ChuTools
 {
+    [System.Serializable]
     public class NodeWindowEventSystem : IEventSystem
     {
         public Event Current { get; set; }
@@ -49,10 +50,10 @@ namespace ChuTools
                     Invoke(OnContextClick, Current);
                     break;
                 case EventType.MouseMove:
-                    Invoke(OnMouseMove, Current);
+                    OnMouseMove?.Invoke(Current);
                     break;
                 case EventType.Used:
-                    Invoke(OnUsed, Current);
+                    OnUsed?.Invoke(Current);
                     break;
 
             }
