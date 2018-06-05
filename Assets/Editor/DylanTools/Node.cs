@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class Node
+public class Node : Interfaces.IDrawable
 {
     protected Rect VisualRect;
     private Rect ScaleRect;
@@ -15,12 +15,20 @@ public class Node
     public OnNodeDestroyed nodeDestroyedEvent;
     public System.Action<Node> _onDelete;
 
+    public Rect Rect
+    {
+        get
+        {
+            return VisualRect;
+        }
+    }
+
     public Node(string name, Vector2 position, Vector2 scale, System.Action<Node> onDelete) : this(name, position, scale)
     {
         _onDelete = onDelete;
     }
 
-    public Node(string name, Vector2 position, Vector2 scale)
+    private Node(string name, Vector2 position, Vector2 scale)
     {
         Name = name;
         Position = position;
@@ -40,14 +48,15 @@ public class Node
         if (GUI.Button(DeleteRect, "X"))
         {
             var gm = new UnityEditor.GenericMenu();
-            gm.AddItem(new GUIContent("Remove Node"), false, RemoveNode, this);
+            gm.AddItem(new GUIContent("Remove Node"), false, RemoveNode, this);            
             gm.ShowAsContext();
         }
     }
-    void RemoveNode(object userdata)
+    private void RemoveNode(object userdata)
     {
         _onDelete.Invoke(this);
     }
+
     private void ScaleVisual()
     {
         var current = Event.current;
