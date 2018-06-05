@@ -16,11 +16,16 @@ namespace LukeTools
             var w = ScriptableObject.CreateInstance<SpawnEditor>();
             w.Show();
         }
+
+        private Object Prefab;
         void Draw()
         {
-            Rect buttonRect = new UnityEngine.Rect(x: 50, y: 50, width: 150, height: 150);
+            var buttonRect = new Rect(x: 50, y: 50, width: 150, height: 150);
             var content = new Rect(buttonRect);
             GUI.Box(buttonRect, "object");
+            GUILayout.BeginArea(buttonRect);
+            Prefab = EditorGUILayout.ObjectField(Prefab, typeof(GameObject), false);
+            GUILayout.EndArea();
         }
 
 
