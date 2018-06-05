@@ -8,6 +8,7 @@ namespace DylanTools
     public class CharacterCreatorWindow : EditorWindow
     {
         private List<Node> Nodes = new List<Node>();
+        private List<ScriptableVisual> Visuals = new List<ScriptableVisual>();
 
         [UnityEditor.MenuItem("Tools/Character Creator Window")]
         public static void Init()
@@ -36,8 +37,9 @@ namespace DylanTools
         private void OnGUI()
         {
             EditorGlobals.GUIEvents();
-            Nodes?.ForEach(n => n.Draw());
-            Repaint();
+            Nodes?.ForEach(n => n.Draw());            
+            if(GUI.changed)
+                Repaint();
         }
 
         void CreateNode()
