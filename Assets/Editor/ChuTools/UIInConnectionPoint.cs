@@ -1,9 +1,10 @@
-﻿using Interfaces;
+﻿using System;
+using Interfaces;
 using UnityEngine;
 
 namespace ChuTools
 {
-    [System.Serializable]
+    [Serializable]
     public class UIInConnectionPoint : UIConnectionPoint
     {
         private readonly ConnectionResponse _connectionResponse;
@@ -16,8 +17,8 @@ namespace ChuTools
             Rect = rect;
             _connectionResponse = cb;
             Content = new GUIContent("IN:  " + ControlId);
-            SelectedStyle = new GUIStyle("CN Box") { alignment = TextAnchor.LowerLeft, fontSize = 8 };
-            NormalStyle = new GUIStyle("CN Box") { alignment = TextAnchor.LowerLeft, fontSize = 8 };
+            SelectedStyle = new GUIStyle("CN Box") {alignment = TextAnchor.LowerLeft, fontSize = 8};
+            NormalStyle = new GUIStyle("CN Box") {alignment = TextAnchor.LowerLeft, fontSize = 8};
             Style = NormalStyle;
         }
 

@@ -23,7 +23,7 @@ namespace ChuTools
 
 
             GUI.BeginGroup(menurect);
-        
+
             GUI.Box(menurect, GUIContent.none);
             EditorGUILayout.BeginVertical();
             EditorGUILayout.TextField("Path", _path, GUILayout.ExpandWidth(true));

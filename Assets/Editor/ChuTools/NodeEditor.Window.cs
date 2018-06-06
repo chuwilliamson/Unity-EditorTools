@@ -86,27 +86,28 @@ namespace ChuTools
             gm.ShowAsContext();
             e.Use();
         }
+
         private void CreateOldNode(object userdata)
         {
-            var pos = ((Event)userdata).mousePosition;
+            var pos = ((Event) userdata).mousePosition;
             Nodes.Add(new Node(pos, new Vector2(NodeWidth, NodeHeight), RemoveNode));
         }
 
         private void CreateNode(object userdata)
         {
-            var pos = ((Event)userdata).mousePosition;
+            var pos = ((Event) userdata).mousePosition;
             Nodes.Add(new UINode(pos, new Vector2(NodeWidth, NodeHeight)));
         }
 
         private void CreateDisplayNode(object userdata)
         {
-            var pos = ((Event)userdata).mousePosition;
+            var pos = ((Event) userdata).mousePosition;
             Nodes.Add(new UIDisplayNode(pos, new Vector2(NodeWidth, NodeHeight)));
         }
 
         private void CreateInputNode(object userdata)
         {
-            var pos = ((Event)userdata).mousePosition;
+            var pos = ((Event) userdata).mousePosition;
             Nodes.Add(new UIInputNode(pos, new Vector2(NodeWidth, NodeHeight)));
         }
 
@@ -155,7 +156,7 @@ namespace ChuTools
             Connections.ForEach(connection => n.Connections.Add(connection));
 
             var json = JsonConvert.SerializeObject(n,
-                new JsonSerializerSettings { TypeNameHandling = TypeNameHandling.All, Formatting = Formatting.Indented });
+                new JsonSerializerSettings {TypeNameHandling = TypeNameHandling.All, Formatting = Formatting.Indented});
 
             File.WriteAllText(_path, json);
         }
@@ -165,7 +166,7 @@ namespace ChuTools
             var json = File.ReadAllText(_path);
 
             var n = JsonConvert.DeserializeObject<NodeEditorWindowSaveLoad>(json,
-                new JsonSerializerSettings { TypeNameHandling = TypeNameHandling.All, Formatting = Formatting.Indented });
+                new JsonSerializerSettings {TypeNameHandling = TypeNameHandling.All, Formatting = Formatting.Indented});
             Nodes = n.Nodes;
             Connections = n.Connections;
         }

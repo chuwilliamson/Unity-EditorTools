@@ -1,9 +1,10 @@
-﻿using Interfaces;
+﻿using System;
+using Interfaces;
 using UnityEngine;
 
 namespace ChuTools
 {
-    [System.Serializable]
+    [Serializable]
     public class UIOutConnectionPoint : UIConnectionPoint
     {
         public UIOutConnectionPoint(Rect rect, IConnectionOut @out)
@@ -11,8 +12,8 @@ namespace ChuTools
             Out = @out;
             Rect = rect;
             Content = new GUIContent("Out: " + ControlId);
-            SelectedStyle = new GUIStyle("CN Box") { alignment = TextAnchor.LowerLeft, fontSize = 8 };
-            NormalStyle = new GUIStyle("CN Box") { alignment = TextAnchor.LowerLeft, fontSize = 8 };
+            SelectedStyle = new GUIStyle("CN Box") {alignment = TextAnchor.LowerLeft, fontSize = 8};
+            NormalStyle = new GUIStyle("CN Box") {alignment = TextAnchor.LowerLeft, fontSize = 8};
             Style = NormalStyle;
         }
 

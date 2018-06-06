@@ -1,8 +1,9 @@
-﻿using Interfaces;
+﻿using System;
+using Interfaces;
 
 namespace ChuTools
 {
-    [System.Serializable]
+    [Serializable]
     public class OutConnection : IConnectionOut
     {
         public OutConnection(INode inputNode)

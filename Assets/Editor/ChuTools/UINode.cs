@@ -1,6 +1,8 @@
-﻿using Interfaces;
+﻿using System;
+using Interfaces;
 using UnityEditor;
 using UnityEngine;
+using Object = UnityEngine.Object;
 
 namespace ChuTools
 {
@@ -9,7 +11,7 @@ namespace ChuTools
     ///     It will receive data from it's in connection
     ///     That data will then be changed by the node implementation
     /// </summary>
-    [System.Serializable]
+    [Serializable]
     public class UINode : UIElement
     {
         private readonly UIInConnectionPoint _in;
@@ -31,6 +33,8 @@ namespace ChuTools
                 new OutConnection(_transformation));
         }
 
+        public Object Prefab { get; set; }
+
         public bool Connect(IConnectionOut outConnection)
         {
             if (outConnection == null) return false;
@@ -50,9 +54,9 @@ namespace ChuTools
             Prefab = EditorGUILayout.ObjectField(Prefab, typeof(GameObject), true);
             if (GUILayout.Button("Spawn)"))
             {
-                var go = GameObject.Instantiate(Prefab) as GameObject;
-
+                var go = Object.Instantiate(Prefab) as GameObject;
             }
+
             _input.Value = EditorGUILayout.IntSlider("Modifier: ", _input.Value, 0, 10);
 
             _transformation.Value = _display.Value + _input.Value;
@@ -60,11 +64,10 @@ namespace ChuTools
             GUILayout.Label("Display: " + _display?.Value);
             GUILayout.Label("Output: " + _transformation.Value);
             GUILayout.EndArea();
-            var rect = new Rect(Rect.x - 5 + Rect.width / 2, Rect.y - 5 + Rect.height / 2, Rect.width / 2, Rect.height / 2);
+            var rect = new Rect(Rect.x - 5 + Rect.width / 2, Rect.y - 5 + Rect.height / 2, Rect.width / 2,
+                Rect.height / 2);
             GUI.Box(rect, GUIContent.none);
-            GUI.Label(rect, "ADD", new GUIStyle(Style) { fontSize = 55, alignment = TextAnchor.MiddleCenter });
+            GUI.Label(rect, "ADD", new GUIStyle(Style) {fontSize = 55, alignment = TextAnchor.MiddleCenter});
         }
-
-        public Object Prefab { get; set; }
     }
 }

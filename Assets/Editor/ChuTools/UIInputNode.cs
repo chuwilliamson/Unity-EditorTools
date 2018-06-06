@@ -1,10 +1,11 @@
-﻿using Interfaces;
+﻿using System;
+using Interfaces;
 using UnityEditor;
 using UnityEngine;
 
 namespace ChuTools
 {
-    [System.Serializable]
+    [Serializable]
     public class UIInputNode : UIElement
     {
         private readonly INode _node;
@@ -25,7 +26,6 @@ namespace ChuTools
             GUILayout.BeginArea(Rect);
             _node.Value = EditorGUILayout.IntSlider("Value: ", _node.Value, 0, 10);
             GUILayout.EndArea();
-
         }
     }
 }

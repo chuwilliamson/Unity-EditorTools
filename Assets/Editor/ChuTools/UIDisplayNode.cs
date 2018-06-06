@@ -1,9 +1,10 @@
-﻿using Interfaces;
+﻿using System;
+using Interfaces;
 using UnityEngine;
 
 namespace ChuTools
 {
-    [System.Serializable]
+    [Serializable]
     public class UIDisplayNode : UIElement
     {
         private readonly UIInConnectionPoint _in;
@@ -13,7 +14,6 @@ namespace ChuTools
         {
             _node = new DisplayNode(null);
             _in = new UIInConnectionPoint(new Rect(Rect.position, new Vector2(50, 50)), Connect);
-
         }
 
         public bool Connect(IConnectionOut outConnection)

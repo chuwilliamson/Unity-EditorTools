@@ -20,7 +20,7 @@ namespace ChuTools
             var startTan = startPos + Vector3.right * 50;
             var endTan = endPos + Vector3.left * 50;
             var shadowCol = new Color(0, 0, 0, 0.06f);
-            for (var i = 0; i < 3; i++)// Draw a shadow
+            for (var i = 0; i < 3; i++) // Draw a shadow
                 Handles.DrawBezier(startPos, endPos, startTan, endTan, shadowCol, null, (i + 1) * 5);
             Handles.DrawBezier(startPos, endPos, startTan, endTan, Color.black, null, 1);
         }
@@ -32,7 +32,7 @@ namespace ChuTools
             var startTan = startPos + Vector3.right * 50;
             var endTan = endPos + Vector3.left * 50;
             var shadowCol = new Color(0, 0, 0, 0.06f);
-            for (var i = 0; i < 3; i++)// Draw a shadow
+            for (var i = 0; i < 3; i++) // Draw a shadow
                 Handles.DrawBezier(startPos, endPos, startTan, endTan, shadowCol, null, (i + 1) * 5);
             Handles.DrawBezier(startPos, endPos, startTan, endTan, Color.black, null, 1);
         }

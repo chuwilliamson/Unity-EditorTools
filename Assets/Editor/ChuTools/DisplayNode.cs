@@ -1,9 +1,10 @@
-﻿using Interfaces;
+﻿using System;
+using Interfaces;
 using UnityEngine;
 
 namespace ChuTools
 {
-    [System.Serializable]
+    [Serializable]
     public class DisplayNode : INode
     {
         private readonly IConnectionIn _inConnection;
