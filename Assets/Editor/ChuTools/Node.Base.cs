@@ -15,7 +15,7 @@ namespace ChuTools
 
         public List<ConnectionPoint> points;
 
-        public Node(Vector2 position, Vector2 size, Action<Node> onRemoveNode) : base("OldNode", position, size)
+        public Node(Vector2 position, Vector2 size, Action<Node> onRemoveNode) : base("OldNode", "flow node 0", "flow node on 0", position, size)
         {
             points = new List<ConnectionPoint>();
             _onRemoveNodeAction = onRemoveNode;
@@ -25,16 +25,14 @@ namespace ChuTools
         public override void OnMouseDown(Event e)
         {
             base.OnMouseDown(e);
-            switch (e.button)
+            if (e.button == 1)
             {
-                case 1:
-                    if (!Rect.Contains(e.mousePosition)) return;
-                    var gm = new GenericMenu();
-                    gm.AddItem(new GUIContent("Remove"), false, OnRemoveNode, this);
-                    gm.ShowAsContext();
-                    GUI.changed = true;
-                    e.Use();
-                    break;
+                if (!Rect.Contains(e.mousePosition)) return;
+                var gm = new GenericMenu();
+                gm.AddItem(new GUIContent("Remove"), false, OnRemoveNode, this);
+                gm.ShowAsContext();
+                GUI.changed = true;
+                e.Use();
             }
         }
 

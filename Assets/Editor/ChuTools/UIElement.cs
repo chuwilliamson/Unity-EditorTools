@@ -18,20 +18,19 @@ namespace ChuTools
             NodeEditorWindow.NodeEvents.OnMouseDown += OnMouseDown;
             NodeEditorWindow.NodeEvents.OnMouseUp += OnMouseUp;
             NodeEditorWindow.NodeEvents.OnMouseDrag += OnMouseDrag;
-            ControlId = GUIUtility.GetControlID(FocusType.Passive, Rect);
-            Content = new GUIContent(_name + ControlId);
         }
 
-        protected UIElement(string name, Vector2 pos, Vector2 size) : this()
+        protected UIElement(string name, string normalStyleName, string selectedStyleName, Vector2 pos, Vector2 size) : this()
         {
             _name = name;
             Rect = new Rect(pos, size);
             ControlId = GUIUtility.GetControlID(FocusType.Passive, Rect);
             Content = new GUIContent(_name + ControlId);
-            SelectedStyle = new GUIStyle("flow node 1 on") {alignment = TextAnchor.LowerLeft, fontSize = 12};
-            NormalStyle = new GUIStyle("flow node 1") {alignment = TextAnchor.LowerLeft, fontSize = 12};
+            NormalStyle = new GUIStyle(normalStyleName) { alignment = TextAnchor.LowerLeft, fontSize = 10 };
+            SelectedStyle = new GUIStyle(selectedStyleName) { alignment = TextAnchor.LowerLeft, fontSize = 10 };
             Style = NormalStyle;
         }
+
 
         public int ControlId
         {
@@ -39,7 +38,7 @@ namespace ChuTools
             set
             {
                 _controlId = value;
-                Content = new GUIContent(_name + ControlId);
+                Content = new GUIContent(_name+": " + ControlId);
             }
         }
 

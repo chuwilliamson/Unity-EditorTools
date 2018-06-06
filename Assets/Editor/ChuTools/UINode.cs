@@ -22,7 +22,7 @@ namespace ChuTools
 
         private int slidervalue;
 
-        public UINode(Vector2 pos, Vector2 size) : base("Transformation: ", pos, size)
+        public UINode(Vector2 pos, Vector2 size) : base("Transformation", "flow node 3", "flow node 3 on", pos, size)
         {
             _display = new DisplayNode(null);
             _in = new UIInConnectionPoint(new Rect(Rect.position, new Vector2(50, 50)), Connect);

@@ -138,7 +138,8 @@ namespace ChuTools
             Nodes = new List<IDrawable>();
             Connections = new List<IDrawable>();
             NodeEvents = new NodeWindowEventSystem();
-
+            CurrentAcceptingDrag = null;
+            CurrentSendingDrag = null;
             NodeEvents.OnContextClick += CreateContextMenu;
             ConnectionCreatedEvent += OnConnectionCreated;
             NodeEvents.OnMouseUp += e =>

@@ -7,10 +7,16 @@ namespace ChuTools
     [Serializable]
     public class UIDisplayNode : UIElement
     {
-        private readonly UIInConnectionPoint _in;
+        private UIInConnectionPoint _in;
+
+        public UIInConnectionPoint In
+        {
+            get { return _in; }
+            set { _in = value; }
+        }
         private INode _node;
 
-        public UIDisplayNode(Vector2 pos, Vector2 size) : base("Display Node: ", pos, size)
+        public UIDisplayNode(Vector2 pos, Vector2 size) : base("Display Node: ", "flow node 1", "flow node 1 on", pos, size)
         {
             _node = new DisplayNode(null);
             _in = new UIInConnectionPoint(new Rect(Rect.position, new Vector2(50, 50)), Connect);

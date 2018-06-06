@@ -9,12 +9,19 @@ namespace ChuTools
     public class UIInputNode : UIElement
     {
         private readonly INode _node;
-        private readonly UIOutConnectionPoint _out;
+        private UIOutConnectionPoint _out;
 
-        public UIInputNode(Vector2 pos, Vector2 size) : base("Input Node: ", pos, size)
+        public UIOutConnectionPoint Out
+        {
+            get { return _out; }
+            set { _out = value; }
+        }
+
+        public UIInputNode(Vector2 pos, Vector2 size) : base("Input Node", "flow node 2", "flow node 2 on", pos, size)
         {
             _node = new InputNode();
             _out = new UIOutConnectionPoint(new Rect(Rect.position, new Vector2(50, 50)), new OutConnection(_node));
+            ControlId = GUIUtility.GetControlID(FocusType.Passive, Rect);
         }
 
         public override void Draw()

@@ -5,16 +5,11 @@ using UnityEngine;
 namespace ChuTools
 {
     [Serializable]
-    public class UIOutConnectionPoint : UIConnectionPoint
+    public class UIOutConnectionPoint : UIElement
     {
-        public UIOutConnectionPoint(Rect rect, IConnectionOut @out)
+        public UIOutConnectionPoint(Rect rect, IConnectionOut @out) : base("Out", "CN Box", "CN Box", rect.position, rect.size)
         {
             Out = @out;
-            Rect = rect;
-            Content = new GUIContent("Out: " + ControlId);
-            SelectedStyle = new GUIStyle("CN Box") {alignment = TextAnchor.LowerLeft, fontSize = 8};
-            NormalStyle = new GUIStyle("CN Box") {alignment = TextAnchor.LowerLeft, fontSize = 8};
-            Style = NormalStyle;
         }
 
         public IConnectionOut Out { get; set; }
@@ -27,7 +22,6 @@ namespace ChuTools
             if (@in == null) return;
             if (@out != this) return;
 
-            Debug.Log("doit");
             NodeEditorWindow.RequestConnection(this, Out);
         }
 

@@ -5,27 +5,22 @@ using UnityEngine;
 namespace ChuTools
 {
     [Serializable]
-    public class UIInConnectionPoint : UIConnectionPoint
+    public class UIInConnectionPoint : UIElement
     {
         private readonly ConnectionResponse _connectionResponse;
 
-        private bool connectionState;
+        private bool _connectionState;
 
         //drag outconnection onto this
-        public UIInConnectionPoint(Rect rect, ConnectionResponse cb)
+        public UIInConnectionPoint(Rect rect, ConnectionResponse cb) : base("In", "CN Box", "CN Box", rect.position, rect.size)
         {
-            Rect = rect;
             _connectionResponse = cb;
-            Content = new GUIContent("IN:  " + ControlId);
-            SelectedStyle = new GUIStyle("CN Box") {alignment = TextAnchor.LowerLeft, fontSize = 8};
-            NormalStyle = new GUIStyle("CN Box") {alignment = TextAnchor.LowerLeft, fontSize = 8};
-            Style = NormalStyle;
         }
 
         public bool ValidateConnection(IConnectionOut @out)
         {
-            if (connectionState) return false;
-            return connectionState = _connectionResponse.Invoke(@out);
+            if (_connectionState) return false;
+            return _connectionState = _connectionResponse.Invoke(@out);
         }
 
         public override void OnMouseDrag(Event e)
