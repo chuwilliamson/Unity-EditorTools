@@ -7,16 +7,16 @@ namespace ChuTools
     [Serializable]
     public class DisplayNode : INode
     {
-        private readonly IConnectionIn _inConnection;
+        public IConnectionIn InConnection { get; set; }
 
         public DisplayNode(IConnectionIn inConnection)
         {
-            _inConnection = inConnection;
+            InConnection = inConnection;
         }
 
         public int Value
         {
-            get { return _inConnection?.Value ?? 0; }
+            get { return InConnection?.Value ?? 0; }
             set { Debug.LogWarning("no you shouldn't be setting the inconnection value through the node" + value); }
         }
     }

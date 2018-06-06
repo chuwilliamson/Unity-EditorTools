@@ -10,6 +10,6 @@ namespace ChuTools
         private Vector2 _scrollPosition;
 
         public bool IsHovered =>
-            GUIUtility.hotControl == ControlId && Rect.Contains(NodeEditorWindow.Current.mousePosition);
+            GUIUtility.hotControl == ControlId && uRect.Contains(NodeEditorWindow.Current.mousePosition);
     }
 }

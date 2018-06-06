@@ -8,71 +8,60 @@ namespace ChuTools
     [Serializable]
     public abstract class UIElement : IDrawable, IMouseDownHandler, IMouseUpHandler, IMouseDragHandler
     {
-        private readonly string _name;
-
         private int _controlId;
-        public Rect Rect;
+        private Rect _uRect;
+        public string Name { get; set; }
 
-        protected UIElement()
+        public Rect uRect
         {
-            NodeEditorWindow.NodeEvents.OnMouseDown += OnMouseDown;
-            NodeEditorWindow.NodeEvents.OnMouseUp += OnMouseUp;
-            NodeEditorWindow.NodeEvents.OnMouseDrag += OnMouseDrag;
+            get { return _uRect; }
+            set { _uRect = value; }
         }
-
-        protected UIElement(string name, string normalStyleName, string selectedStyleName, Vector2 pos, Vector2 size) : this()
-        {
-            _name = name;
-            Rect = new Rect(pos, size);
-            ControlId = GUIUtility.GetControlID(FocusType.Passive, Rect);
-            Content = new GUIContent(_name + ControlId);
-            NormalStyle = new GUIStyle(normalStyleName) { alignment = TextAnchor.LowerLeft, fontSize = 10 };
-            SelectedStyle = new GUIStyle(selectedStyleName) { alignment = TextAnchor.LowerLeft, fontSize = 10 };
-            Style = NormalStyle;
-        }
-
 
         public int ControlId
         {
             get { return _controlId; }
-            set
-            {
-                _controlId = value;
-                Content = new GUIContent(_name+": " + ControlId);
-            }
-        }
-
-        public bool IsSelected { get; private set; }
-
-        public Vector2 Position
-        {
-            get { return Rect.position; }
-            set
-            {
-                var newp = new Vector2(value.x, value.y);
-                Rect.position = newp;
-            }
+            set { _controlId = value; }
         }
 
         [JsonIgnore] public GUIStyle SelectedStyle { get; set; }
         [JsonIgnore] public GUIStyle NormalStyle { get; set; }
         [JsonIgnore] public GUIStyle Style { get; set; }
         [JsonIgnore] public GUIContent Content { get; set; }
-        Rect IDrawable.Rect => Rect;
+        public Rect Rect
+        {
+            get { return uRect; }
+        }
+
+        public void Base(string name, string normalStyleName, string selectedStyleName, Rect rect)
+        {
+            Name = name;
+            uRect = new Rect(rect);
+            _controlId = GUIUtility.GetControlID(FocusType.Passive, uRect);
+            Content = new GUIContent(Name + ": " + ControlId);
+            NormalStyle = new GUIStyle(normalStyleName) { alignment = TextAnchor.LowerLeft, fontSize = 10 };
+            SelectedStyle = new GUIStyle(selectedStyleName) { alignment = TextAnchor.LowerLeft, fontSize = 10 };
+            Style = NormalStyle;
+            NodeEditorWindow.NodeEvents.OnMouseDown += OnMouseDown;
+            NodeEditorWindow.NodeEvents.OnMouseUp += OnMouseUp;
+            NodeEditorWindow.NodeEvents.OnMouseDrag += OnMouseDrag;
+         
+        }
+ 
 
         /// <summary>
         ///     Draw the default box for this ui element
         /// </summary>
         public virtual void Draw()
         {
-            GUI.Box(Rect, Content, Style);
+            Content = new GUIContent(Name + ": " + ControlId);
+            GUI.Box(uRect, Content, Style);
         }
 
         public virtual void OnMouseDown(Event e)
         {
-            if (Rect.Contains(e.mousePosition))
+            if (uRect.Contains(e.mousePosition))
             {
-                IsSelected = true;
                 GUIUtility.hotControl = ControlId;
                 Style = SelectedStyle;
                 GUI.changed = true;
@@ -83,7 +72,7 @@ namespace ChuTools
         {
             if (GUIUtility.hotControl == ControlId)
             {
-                Rect.position += e.delta;
+                uRect = new Rect(uRect.position + e.delta, uRect.size);
                 GUI.changed = true;
                 e.Use();
             }
@@ -91,8 +80,6 @@ namespace ChuTools
 
         public virtual void OnMouseUp(Event e)
         {
-            IsSelected = false;
-
             if (GUIUtility.hotControl == ControlId)
             {
                 GUIUtility.hotControl = 0;

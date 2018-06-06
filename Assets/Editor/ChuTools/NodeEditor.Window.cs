@@ -14,8 +14,8 @@ namespace ChuTools
     {
         public static Action<UIOutConnectionPoint, UIInConnectionPoint> ConnectionCreatedEvent;
 
-        public List<IDrawable> Connections;
-        public List<IDrawable> Nodes;
+        public List<UIBezierConnection> Connections = new List<UIBezierConnection>();
+        public List<UIElement> Nodes = new List<UIElement>();
         public static UIOutConnectionPoint CurrentSendingDrag { get; set; }
         public static UIInConnectionPoint CurrentAcceptingDrag { get; set; }
         public int NodeHeight { get; set; }
@@ -67,8 +67,8 @@ namespace ChuTools
         private void DrawConnection()
         {
             if (CurrentSendingDrag == null) return;
-            Chutilities.DrawNodeCurve(CurrentSendingDrag.Rect,
-                new Rect(Event.current.mousePosition, CurrentSendingDrag.Rect.size));
+            Chutilities.DrawNodeCurve(CurrentSendingDrag.uRect,
+                new Rect(Event.current.mousePosition, CurrentSendingDrag.uRect.size));
             var endRect = new Rect(Current.mousePosition, Vector2.one * 10);
             Handles.RectangleHandleCap(GUIUtility.GetControlID(FocusType.Passive, endRect), endRect.center,
                 Quaternion.identity, 15, EventType.Repaint);
@@ -79,7 +79,6 @@ namespace ChuTools
         {
             var gm = new GenericMenu();
             gm.AddItem(new GUIContent("Create Input-Output Node"), false, CreateNode, e);
-            gm.AddItem(new GUIContent("Create Old Node"), false, CreateOldNode, e);
             gm.AddItem(new GUIContent("Create Input Node"), false, CreateInputNode, e);
             gm.AddItem(new GUIContent("Create Display Node"), false, CreateDisplayNode, e);
             gm.AddItem(new GUIContent("Clear Nodes"), false, ClearNodes);
@@ -87,28 +86,25 @@ namespace ChuTools
             e.Use();
         }
 
-        private void CreateOldNode(object userdata)
-        {
-            var pos = ((Event) userdata).mousePosition;
-            Nodes.Add(new Node(pos, new Vector2(NodeWidth, NodeHeight), RemoveNode));
-        }
-
         private void CreateNode(object userdata)
         {
-            var pos = ((Event) userdata).mousePosition;
-            Nodes.Add(new UINode(pos, new Vector2(NodeWidth, NodeHeight)));
+            var pos = ((Event)userdata).mousePosition;
+            var rect = new Rect(pos, new Vector2(NodeWidth, NodeHeight));
+            Nodes.Add(new UINode(rect));
         }
 
         private void CreateDisplayNode(object userdata)
         {
-            var pos = ((Event) userdata).mousePosition;
-            Nodes.Add(new UIDisplayNode(pos, new Vector2(NodeWidth, NodeHeight)));
+            var pos = ((Event)userdata).mousePosition;
+            var rect = new Rect(pos, new Vector2(NodeWidth, NodeHeight));
+            Nodes.Add(new UIDisplayNode(rect));
         }
 
         private void CreateInputNode(object userdata)
         {
-            var pos = ((Event) userdata).mousePosition;
-            Nodes.Add(new UIInputNode(pos, new Vector2(NodeWidth, NodeHeight)));
+            var pos = ((Event)userdata).mousePosition;
+            var rect = new Rect(pos, new Vector2(NodeWidth, NodeHeight));
+            Nodes.Add(new UIInputNode(rect));
         }
 
         /// <summary>
@@ -118,7 +114,12 @@ namespace ChuTools
         /// <param name="in">the ui element associated with the in connection</param>
         private void OnConnectionCreated(UIOutConnectionPoint @out, UIInConnectionPoint @in)
         {
-            if (@out != null && @in != null) Connections.Add(new UIBezierConnection(@out, @in));
+
+            if (@out != null && @in != null)
+            {
+                Debug.Log("connection created");
+                Connections.Add(new UIBezierConnection(@out, @in));
+            }
 
             CurrentSendingDrag = null;
             CurrentAcceptingDrag = null;
@@ -135,12 +136,15 @@ namespace ChuTools
             NodeWidth = 300;
             NodeHeight = 150;
             wantsMouseMove = true;
-            Nodes = new List<IDrawable>();
-            Connections = new List<IDrawable>();
-            NodeEvents = new NodeWindowEventSystem();
             CurrentAcceptingDrag = null;
             CurrentSendingDrag = null;
+
+            Nodes = new List<UIElement>();
+            Connections = new List<UIBezierConnection>();
+            NodeEvents = new NodeWindowEventSystem();
+            
             NodeEvents.OnContextClick += CreateContextMenu;
+            ConnectionCreatedEvent = null;
             ConnectionCreatedEvent += OnConnectionCreated;
             NodeEvents.OnMouseUp += e =>
             {
@@ -150,33 +154,38 @@ namespace ChuTools
             };
         }
 
+        private readonly JsonSerializerSettings _settings = new JsonSerializerSettings
+        {
+            TypeNameHandling = TypeNameHandling.All,
+            PreserveReferencesHandling = PreserveReferencesHandling.Objects,
+            Formatting = Formatting.Indented
+        };
+
         private void Save()
         {
-            var n = new NodeEditorWindowSaveLoad();
-            Nodes.ForEach(node => n.Nodes.Add(node));
-            Connections.ForEach(connection => n.Connections.Add(connection));
+            var n = new NodeEditorWindowSaveLoad
+            {
+                Nodes = Nodes,
+                Connections = Connections
+            };
 
-            var json = JsonConvert.SerializeObject(n,
-                new JsonSerializerSettings {TypeNameHandling = TypeNameHandling.All, Formatting = Formatting.Indented});
-
+            var json = JsonConvert.SerializeObject(n, _settings);
             File.WriteAllText(_path, json);
         }
 
         private void Load()
         {
+            ClearNodes();
             var json = File.ReadAllText(_path);
-
-            var n = JsonConvert.DeserializeObject<NodeEditorWindowSaveLoad>(json,
-                new JsonSerializerSettings {TypeNameHandling = TypeNameHandling.All, Formatting = Formatting.Indented});
+            var n = JsonConvert.DeserializeObject<NodeEditorWindowSaveLoad>(json, _settings);
             Nodes = n.Nodes;
             Connections = n.Connections;
         }
-
-        [Serializable]
-        public class NodeEditorWindowSaveLoad //just for saving
-        {
-            public List<IDrawable> Connections = new List<IDrawable>();
-            public List<IDrawable> Nodes = new List<IDrawable>();
-        }
+    }
+    [Serializable]
+    public class NodeEditorWindowSaveLoad //just for saving
+    {
+        public List<UIBezierConnection> Connections { get; set; }
+        public List<UIElement> Nodes { get; set; }
     }
 }

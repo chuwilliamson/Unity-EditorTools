@@ -7,42 +7,37 @@ namespace ChuTools
     [Serializable]
     public class UIDisplayNode : UIElement
     {
-        private UIInConnectionPoint _in;
+        public UIInConnectionPoint In { get; set; }
+        public INode Node { get; set; }
 
-        public UIInConnectionPoint In
+        public UIDisplayNode(Rect rect)
         {
-            get { return _in; }
-            set { _in = value; }
-        }
-        private INode _node;
-
-        public UIDisplayNode(Vector2 pos, Vector2 size) : base("Display Node: ", "flow node 1", "flow node 1 on", pos, size)
-        {
-            _node = new DisplayNode(null);
-            _in = new UIInConnectionPoint(new Rect(Rect.position, new Vector2(50, 50)), Connect);
+            Node = new DisplayNode(null);
+            In = new UIInConnectionPoint(new Rect(uRect.position, new Vector2(50, 50)), Connect);
+            Base("Display Node: ", "flow node 1", "flow node 1 on", rect);
         }
 
-        public bool Connect(IConnectionOut outConnection)
+        private bool Connect(IConnectionOut outConnection)
         {
             if (outConnection == null)
                 return false;
-            _node = new DisplayNode(new InConnection(outConnection));
+            Node = new DisplayNode(new InConnection(outConnection));
             return true;
         }
 
         public void Disconnect()
         {
-            _node = null;
+            Node = null;
         }
 
 
         public override void Draw()
         {
             base.Draw();
-            _in.Rect = new Rect(Rect.position.x - 55, Rect.position.y, 50, 50);
-            _in?.Draw();
-            GUILayout.BeginArea(Rect);
-            var value = _node?.Value;
+            In.uRect = new Rect(uRect.position.x - 55, uRect.position.y, 50, 50);
+            In?.Draw();
+            GUILayout.BeginArea(uRect);
+            var value = Node?.Value;
             GUILayout.Label("Value  ::  " + value);
             GUILayout.EndArea();
         }

@@ -18,11 +18,6 @@ namespace ChuTools
     [Serializable]
     public class InputNode : INode
     {
-        public InputNode()
-        {
-            Value = 0;
-        }
-
         public int Value { get; set; }
     }
 }

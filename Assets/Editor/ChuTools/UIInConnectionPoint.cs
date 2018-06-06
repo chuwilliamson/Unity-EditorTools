@@ -12,9 +12,10 @@ namespace ChuTools
         private bool _connectionState;
 
         //drag outconnection onto this
-        public UIInConnectionPoint(Rect rect, ConnectionResponse cb) : base("In", "CN Box", "CN Box", rect.position, rect.size)
+        public UIInConnectionPoint(Rect rect, ConnectionResponse cb)
         {
             _connectionResponse = cb;
+            Base("In", "CN Box", "CN Box", rect);
         }
 
         public bool ValidateConnection(IConnectionOut @out)
@@ -25,7 +26,7 @@ namespace ChuTools
 
         public override void OnMouseDrag(Event e)
         {
-            if (!Rect.Contains(e.mousePosition)) return;
+            if (!uRect.Contains(e.mousePosition)) return;
             if (NodeEditorWindow.CurrentSendingDrag == null) return;
             NodeEditorWindow.CurrentAcceptingDrag = this;
             GUI.changed = true;

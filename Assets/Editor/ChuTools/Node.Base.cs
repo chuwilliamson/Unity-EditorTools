@@ -15,10 +15,11 @@ namespace ChuTools
 
         public List<ConnectionPoint> points;
 
-        public Node(Vector2 position, Vector2 size, Action<Node> onRemoveNode) : base("OldNode", "flow node 0", "flow node on 0", position, size)
+        public Node(Vector2 position, Vector2 size, Action<Node> onRemoveNode)
         {
             points = new List<ConnectionPoint>();
             _onRemoveNodeAction = onRemoveNode;
+            Base("OldNode", "flow node 0", "flow node on 0", new Rect(position, size));
         }
 
 
@@ -27,7 +28,7 @@ namespace ChuTools
             base.OnMouseDown(e);
             if (e.button == 1)
             {
-                if (!Rect.Contains(e.mousePosition)) return;
+                if (!uRect.Contains(e.mousePosition)) return;
                 var gm = new GenericMenu();
                 gm.AddItem(new GUIContent("Remove"), false, OnRemoveNode, this);
                 gm.ShowAsContext();
@@ -39,7 +40,7 @@ namespace ChuTools
         public override void Draw()
         {
             base.Draw();
-            GUILayout.BeginArea(Rect);
+            GUILayout.BeginArea(uRect);
             GUILayout.Label(_dragcounter.ToString());
             GUILayout.EndArea();
         }

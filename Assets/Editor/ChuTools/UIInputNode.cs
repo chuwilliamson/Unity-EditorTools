@@ -8,30 +8,26 @@ namespace ChuTools
     [Serializable]
     public class UIInputNode : UIElement
     {
-        private readonly INode _node;
-        private UIOutConnectionPoint _out;
+        public  INode Node { get; set; }
+        public UIOutConnectionPoint Out { get; set; }
 
-        public UIOutConnectionPoint Out
+        
+        public UIInputNode(Rect rect)
         {
-            get { return _out; }
-            set { _out = value; }
-        }
-
-        public UIInputNode(Vector2 pos, Vector2 size) : base("Input Node", "flow node 2", "flow node 2 on", pos, size)
-        {
-            _node = new InputNode();
-            _out = new UIOutConnectionPoint(new Rect(Rect.position, new Vector2(50, 50)), new OutConnection(_node));
-            ControlId = GUIUtility.GetControlID(FocusType.Passive, Rect);
+            Node = new InputNode();
+            Out = new UIOutConnectionPoint(new Rect(uRect.position, new Vector2(50, 50)), new OutConnection(Node));
+            ControlId = GUIUtility.GetControlID(FocusType.Passive, uRect);
+            Base("Input Node", "flow node 2", "flow node 2 on", rect);
         }
 
         public override void Draw()
         {
             base.Draw();
-            _out.Rect = new Rect(Rect.position.x + Rect.width, Rect.position.y, 50, 50);
-            _out.Draw();
+            Out.uRect = new Rect(uRect.position.x + uRect.width, uRect.position.y, 50, 50);
+            Out.Draw();
 
-            GUILayout.BeginArea(Rect);
-            _node.Value = EditorGUILayout.IntSlider("Value: ", _node.Value, 0, 10);
+            GUILayout.BeginArea(uRect);
+            Node.Value = EditorGUILayout.IntSlider("Value: ", Node.Value, 0, 10);
             GUILayout.EndArea();
         }
     }

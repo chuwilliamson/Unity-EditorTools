@@ -7,12 +7,13 @@ namespace ChuTools
     [Serializable]
     public class UIOutConnectionPoint : UIElement
     {
-        public UIOutConnectionPoint(Rect rect, IConnectionOut @out) : base("Out", "CN Box", "CN Box", rect.position, rect.size)
+        public UIOutConnectionPoint(Rect rect, IConnectionOut @out)
         {
             Out = @out;
+            Base("Out", "CN Box", "CN Box", rect);
         }
 
-        public IConnectionOut Out { get; set; }
+        private IConnectionOut Out { get; set; }
 
         public override void OnMouseUp(Event e)
         {
@@ -28,7 +29,7 @@ namespace ChuTools
         public override void OnMouseDown(Event e)
         {
             base.OnMouseDown(e);
-            if (!Rect.Contains(e.mousePosition)) return;
+            if (!uRect.Contains(e.mousePosition)) return;
             NodeEditorWindow.CurrentSendingDrag = this;
         }
     }

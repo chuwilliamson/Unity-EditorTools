@@ -14,28 +14,24 @@ namespace ChuTools
     [Serializable]
     public class UINode : UIElement
     {
-        private readonly UIInConnectionPoint _in;
-        private readonly INode _input;
-        private readonly UIOutConnectionPoint _out;
-        private readonly INode _transformation;
+        private UIInConnectionPoint _in;
+        private INode _input;
+        private UIOutConnectionPoint _out;
+        private INode _transformation;
         private INode _display;
 
-        private int slidervalue;
+        public UINode(Rect rect)
 
-        public UINode(Vector2 pos, Vector2 size) : base("Transformation", "flow node 3", "flow node 3 on", pos, size)
         {
             _display = new DisplayNode(null);
-            _in = new UIInConnectionPoint(new Rect(Rect.position, new Vector2(50, 50)), Connect);
-
+            _in = new UIInConnectionPoint(new Rect(uRect.position, new Vector2(50, 50)), Connect);
             _transformation = new InputNode();
             _input = new InputNode();
-            _out = new UIOutConnectionPoint(new Rect(Rect.position, new Vector2(50, 50)),
-                new OutConnection(_transformation));
+            _out = new UIOutConnectionPoint(new Rect(uRect.position, new Vector2(50, 50)), new OutConnection(_transformation));
+            Base("Transformation", "flow node 3", "flow node 3 on", rect);
         }
 
-        public Object Prefab { get; set; }
-
-        public bool Connect(IConnectionOut outConnection)
+        private bool Connect(IConnectionOut outConnection)
         {
             if (outConnection == null) return false;
             _display = new DisplayNode(new InConnection(outConnection));
@@ -45,17 +41,12 @@ namespace ChuTools
         public override void Draw()
         {
             base.Draw();
-            _in.Rect = new Rect(Rect.position.x - 55, Rect.position.y, 50, 50);
+            _in.uRect = new Rect(uRect.position.x - 55, uRect.position.y, 50, 50);
             _in?.Draw();
-            _out.Rect = new Rect(Rect.position.x + Rect.width, Rect.position.y, 50, 50);
+            _out.uRect = new Rect(uRect.position.x + uRect.width, uRect.position.y, 50, 50);
             _out?.Draw();
 
-            GUILayout.BeginArea(Rect);
-            Prefab = EditorGUILayout.ObjectField(Prefab, typeof(GameObject), true);
-            if (GUILayout.Button("Spawn)"))
-            {
-                var go = Object.Instantiate(Prefab) as GameObject;
-            }
+            GUILayout.BeginArea(uRect);
 
             _input.Value = EditorGUILayout.IntSlider("Modifier: ", _input.Value, 0, 10);
 
@@ -64,10 +55,10 @@ namespace ChuTools
             GUILayout.Label("Display: " + _display?.Value);
             GUILayout.Label("Output: " + _transformation.Value);
             GUILayout.EndArea();
-            var rect = new Rect(Rect.x - 5 + Rect.width / 2, Rect.y - 5 + Rect.height / 2, Rect.width / 2,
-                Rect.height / 2);
+            var rect = new Rect(uRect.x - 5 + uRect.width / 2, uRect.y - 5 + uRect.height / 2, uRect.width / 2,
+                uRect.height / 2);
             GUI.Box(rect, GUIContent.none);
-            GUI.Label(rect, "ADD", new GUIStyle(Style) {fontSize = 55, alignment = TextAnchor.MiddleCenter});
+            GUI.Label(rect, "ADD", new GUIStyle(Style) { fontSize = 55, alignment = TextAnchor.MiddleCenter });
         }
     }
 }
