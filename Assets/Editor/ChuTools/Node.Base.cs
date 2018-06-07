@@ -19,7 +19,7 @@ namespace ChuTools
         {
             points = new List<ConnectionPoint>();
             _onRemoveNodeAction = onRemoveNode;
-            Base("OldNode", "flow node 0", "flow node on 0", new Rect(position, size));
+            Base(name: "OldNode", normalStyleName: "flow node 0", selectedStyleName: "flow node on 0", rect: new Rect(position, size));
         }
 
 

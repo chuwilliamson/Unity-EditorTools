@@ -10,7 +10,7 @@ namespace ChuTools
         public UIOutConnectionPoint(Rect rect, IConnectionOut @out)
         {
             Out = @out;
-            Base("Out", "CN Box", "CN Box", rect);
+            Base(name: "Out", normalStyleName: "CN Box", selectedStyleName: "CN Box", rect: rect);
         }
 
         private IConnectionOut Out { get; set; }

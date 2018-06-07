@@ -33,7 +33,7 @@ namespace ChuTools
             _transformation = new InputNode();
             _input = new InputNode();
             _out = new UIOutConnectionPoint(new Rect(base.rect.position, new Vector2(50, 50)), new OutConnection(_transformation));
-            Base("Transformation", "flow node 3", "flow node 3 on", rect);
+            Base(name: "Transformation", normalStyleName: "flow node 3", selectedStyleName: "flow node 3 on", rect: rect);
         }
 
         private bool Connect(IConnectionOut outConnection)

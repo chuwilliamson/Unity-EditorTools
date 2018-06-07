@@ -8,7 +8,7 @@ namespace ChuTools
     {
         public UIConnectionPoint(string name, string normalStyleName, string selectedStyleName, Rect rect)
         {
-            Base(name, normalStyleName, selectedStyleName, rect);
+            Base(name: name, normalStyleName: normalStyleName, selectedStyleName: selectedStyleName, rect: rect);
         }
     }
 }

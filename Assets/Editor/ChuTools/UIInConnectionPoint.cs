@@ -15,7 +15,7 @@ namespace ChuTools
         public UIInConnectionPoint(Rect rect, ConnectionResponse cb)
         {
             _connectionResponse = cb;
-            Base("In", "CN Box", "CN Box", rect);
+            Base(name: "In", normalStyleName: "CN Box", selectedStyleName: "CN Box", rect: rect);
         }
 
         public bool ValidateConnection(IConnectionOut @out)
