@@ -92,7 +92,7 @@ namespace ChuTools
         {
             var pos = ((Event)userdata).mousePosition;
             var rect = new Rect(pos, new Vector2(NodeWidth, NodeHeight));
-            Nodes.Add(new JeremyTools.UIMethodNode(rect));
+            Nodes.Add(new ChuTools.UIMethodNode(rect));
         }
 
         private void CreateDelegateNode(object userdata)
