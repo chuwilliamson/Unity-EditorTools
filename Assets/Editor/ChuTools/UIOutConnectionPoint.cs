@@ -29,7 +29,7 @@ namespace ChuTools
         public override void OnMouseDown(Event e)
         {
             base.OnMouseDown(e);
-            if (!uRect.Contains(e.mousePosition)) return;
+            if (!rect.Contains(e.mousePosition)) return;
             NodeEditorWindow.CurrentSendingDrag = this;
         }
     }

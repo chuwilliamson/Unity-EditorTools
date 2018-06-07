@@ -28,7 +28,7 @@ namespace ChuTools
             base.OnMouseDown(e);
             if (e.button == 1)
             {
-                if (!uRect.Contains(e.mousePosition)) return;
+                if (!rect.Contains(e.mousePosition)) return;
                 var gm = new GenericMenu();
                 gm.AddItem(new GUIContent("Remove"), false, OnRemoveNode, this);
                 gm.ShowAsContext();
@@ -40,7 +40,7 @@ namespace ChuTools
         public override void Draw()
         {
             base.Draw();
-            GUILayout.BeginArea(uRect);
+            GUILayout.BeginArea(rect);
             GUILayout.Label(_dragcounter.ToString());
             GUILayout.EndArea();
         }

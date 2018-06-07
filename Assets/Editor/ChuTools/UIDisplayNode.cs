@@ -7,13 +7,13 @@ namespace ChuTools
     [Serializable]
     public class UIDisplayNode : UIElement
     {
-        public UIInConnectionPoint In { get; set; }
+        public UIInConnectionPoint In;
         public INode Node { get; set; }
 
         public UIDisplayNode(Rect rect)
         {
             Node = new DisplayNode(null);
-            In = new UIInConnectionPoint(new Rect(uRect.position, new Vector2(50, 50)), Connect);
+            In = new UIInConnectionPoint(new Rect(base.rect.position, new Vector2(50, 50)), Connect);
             Base("Display Node: ", "flow node 1", "flow node 1 on", rect);
         }
 
@@ -34,9 +34,9 @@ namespace ChuTools
         public override void Draw()
         {
             base.Draw();
-            In.uRect = new Rect(uRect.position.x - 55, uRect.position.y, 50, 50);
+            In.rect = new Rect(rect.position.x - 55, rect.position.y, 50, 50);
             In?.Draw();
-            GUILayout.BeginArea(uRect);
+            GUILayout.BeginArea(rect);
             var value = Node?.Value;
             GUILayout.Label("Value  ::  " + value);
             GUILayout.EndArea();

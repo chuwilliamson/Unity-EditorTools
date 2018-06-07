@@ -67,8 +67,8 @@ namespace ChuTools
         private void DrawConnection()
         {
             if (CurrentSendingDrag == null) return;
-            Chutilities.DrawNodeCurve(CurrentSendingDrag.uRect,
-                new Rect(Event.current.mousePosition, CurrentSendingDrag.uRect.size));
+            Chutilities.DrawNodeCurve(CurrentSendingDrag.Rect,
+                new Rect(Event.current.mousePosition, CurrentSendingDrag.Rect.size));
             var endRect = new Rect(Current.mousePosition, Vector2.one * 10);
             Handles.RectangleHandleCap(GUIUtility.GetControlID(FocusType.Passive, endRect), endRect.center,
                 Quaternion.identity, 15, EventType.Repaint);

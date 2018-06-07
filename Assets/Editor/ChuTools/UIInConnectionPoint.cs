@@ -26,7 +26,7 @@ namespace ChuTools
 
         public override void OnMouseDrag(Event e)
         {
-            if (!uRect.Contains(e.mousePosition)) return;
+            if (!rect.Contains(e.mousePosition)) return;
             if (NodeEditorWindow.CurrentSendingDrag == null) return;
             NodeEditorWindow.CurrentAcceptingDrag = this;
             GUI.changed = true;

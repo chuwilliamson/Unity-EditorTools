@@ -8,15 +8,12 @@ namespace ChuTools
     [Serializable]
     public abstract class UIElement : IDrawable, IMouseDownHandler, IMouseUpHandler, IMouseDragHandler
     {
-        private int _controlId;
-        private Rect _uRect;
-        public string Name { get; set; }
+        [SerializeField]
+        protected int _controlId;
+        [SerializeField]
+        public Rect rect;
 
-        public Rect uRect
-        {
-            get { return _uRect; }
-            set { _uRect = value; }
-        }
+        public string Name { get; set; }
 
         public int ControlId
         {
@@ -28,16 +25,13 @@ namespace ChuTools
         [JsonIgnore] public GUIStyle NormalStyle { get; set; }
         [JsonIgnore] public GUIStyle Style { get; set; }
         [JsonIgnore] public GUIContent Content { get; set; }
-        public Rect Rect
-        {
-            get { return uRect; }
-        }
+        public Rect Rect => rect;
 
-        public void Base(string name, string normalStyleName, string selectedStyleName, Rect rect)
+        protected void Base(string name, string normalStyleName, string selectedStyleName, Rect rect)
         {
             Name = name;
-            uRect = new Rect(rect);
-            _controlId = GUIUtility.GetControlID(FocusType.Passive, uRect);
+            this.rect = new Rect(rect);
+            _controlId = GUIUtility.GetControlID(FocusType.Passive, this.rect);
             Content = new GUIContent(Name + ": " + ControlId);
             NormalStyle = new GUIStyle(normalStyleName) { alignment = TextAnchor.LowerLeft, fontSize = 10 };
             SelectedStyle = new GUIStyle(selectedStyleName) { alignment = TextAnchor.LowerLeft, fontSize = 10 };
@@ -45,9 +39,9 @@ namespace ChuTools
             NodeEditorWindow.NodeEvents.OnMouseDown += OnMouseDown;
             NodeEditorWindow.NodeEvents.OnMouseUp += OnMouseUp;
             NodeEditorWindow.NodeEvents.OnMouseDrag += OnMouseDrag;
-         
+
         }
- 
+
 
         /// <summary>
         ///     Draw the default box for this ui element
@@ -55,12 +49,12 @@ namespace ChuTools
         public virtual void Draw()
         {
             Content = new GUIContent(Name + ": " + ControlId);
-            GUI.Box(uRect, Content, Style);
+            GUI.Box(rect, Content, Style);
         }
 
         public virtual void OnMouseDown(Event e)
         {
-            if (uRect.Contains(e.mousePosition))
+            if (rect.Contains(e.mousePosition))
             {
                 GUIUtility.hotControl = ControlId;
                 Style = SelectedStyle;
@@ -72,7 +66,7 @@ namespace ChuTools
         {
             if (GUIUtility.hotControl == ControlId)
             {
-                uRect = new Rect(uRect.position + e.delta, uRect.size);
+                rect = new Rect(rect.position + e.delta, rect.size);
                 GUI.changed = true;
                 e.Use();
             }

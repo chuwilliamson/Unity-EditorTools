@@ -14,20 +14,25 @@ namespace ChuTools
     [Serializable]
     public class UINode : UIElement
     {
-        private UIInConnectionPoint _in;
-        private INode _input;
-        private UIOutConnectionPoint _out;
-        private INode _transformation;
-        private INode _display;
+        [SerializeField]
+        public UIInConnectionPoint _in;
+        [SerializeField]
+        public UIOutConnectionPoint _out;
+
+        public INode _input { get; set; }
+
+        public INode _transformation { get; set; }
+
+        public INode _display { get; set; }
 
         public UINode(Rect rect)
 
         {
             _display = new DisplayNode(null);
-            _in = new UIInConnectionPoint(new Rect(uRect.position, new Vector2(50, 50)), Connect);
+            _in = new UIInConnectionPoint(new Rect(base.rect.position, new Vector2(50, 50)), Connect);
             _transformation = new InputNode();
             _input = new InputNode();
-            _out = new UIOutConnectionPoint(new Rect(uRect.position, new Vector2(50, 50)), new OutConnection(_transformation));
+            _out = new UIOutConnectionPoint(new Rect(base.rect.position, new Vector2(50, 50)), new OutConnection(_transformation));
             Base("Transformation", "flow node 3", "flow node 3 on", rect);
         }
 
@@ -41,12 +46,12 @@ namespace ChuTools
         public override void Draw()
         {
             base.Draw();
-            _in.uRect = new Rect(uRect.position.x - 55, uRect.position.y, 50, 50);
+            _in.rect = new Rect(base.rect.position.x - 55, base.rect.position.y, 50, 50);
             _in?.Draw();
-            _out.uRect = new Rect(uRect.position.x + uRect.width, uRect.position.y, 50, 50);
+            _out.rect = new Rect(base.rect.position.x + base.rect.width, base.rect.position.y, 50, 50);
             _out?.Draw();
 
-            GUILayout.BeginArea(uRect);
+            GUILayout.BeginArea(base.rect);
 
             _input.Value = EditorGUILayout.IntSlider("Modifier: ", _input.Value, 0, 10);
 
@@ -55,8 +60,8 @@ namespace ChuTools
             GUILayout.Label("Display: " + _display?.Value);
             GUILayout.Label("Output: " + _transformation.Value);
             GUILayout.EndArea();
-            var rect = new Rect(uRect.x - 5 + uRect.width / 2, uRect.y - 5 + uRect.height / 2, uRect.width / 2,
-                uRect.height / 2);
+            var rect = new Rect(base.rect.x - 5 + base.rect.width / 2, base.rect.y - 5 + base.rect.height / 2, base.rect.width / 2,
+                base.rect.height / 2);
             GUI.Box(rect, GUIContent.none);
             GUI.Label(rect, "ADD", new GUIStyle(Style) { fontSize = 55, alignment = TextAnchor.MiddleCenter });
         }
