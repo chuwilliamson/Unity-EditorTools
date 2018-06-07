@@ -2,40 +2,61 @@
 using System.Collections.Generic;
 using System.Reflection;
 using ChuTools;
+using UnityEditor;
 using UnityEngine;
 
 namespace JeremyTools
 {
-    public delegate void CustomCallback();
-
     public class UIDelegateNode : UIElement
     {
-        public static CustomCallback CallbackReceiver;
+        public static List<MethodObject> MethodObjects = new List<MethodObject>();
+
         public UIDelegateNode(Rect rect)
         {
-            Base(rect: rect, name: "UIMethodNode");
+            MethodObjects = new List<MethodObject>();
+            Base(rect: rect, name: "Delegate Node");
         }
 
         public override void Draw()
         {
             base.Draw();
+            if (MethodObjects.Count < 1)
+                return;
+            EditorGUILayout.LabelField("no methods");
+
             GUILayout.BeginArea(rect);
-            foreach (var m in CallbackReceiver.GetInvocationList())
+            EditorGUILayout.BeginVertical();
+            MethodObjects.ForEach(n => EditorGUILayout.LabelField(n.MethodName));
+            EditorGUILayout.EndVertical();
+
+            if (GUILayout.Button("Invoke"))
             {
-                if (GUILayout.Button(m.Method.Name))
+                foreach (var mo in MethodObjects)
                 {
-                    m.Method.Invoke(this, new object[] { });
+                    mo.Invoke();
                 }
             }
+
+            GUILayout.EndArea();
         }
 
-
-        public void AddDelegate(MethodInfo callbackSender)
+        public static void AddMethod(object sender, MethodInfo method)
         {
-            CallbackReceiver += () =>
+            var id = sender as UIElement;
+            
+            MethodObjects.Add(new MethodObject { info = method, MethodName = id.ControlId + "::" + method.Name, Target = sender });
+        }
+
+        public class MethodObject
+        {
+            public object Target;
+            public string MethodName;
+            public MethodInfo info;
+
+            public void Invoke()
             {
-                callbackSender.Invoke(this, new object[] { });
-            };
+                info.Invoke(Target, new object[] { });
+            }
         }
     }
 }
