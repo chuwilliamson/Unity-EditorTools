@@ -78,12 +78,28 @@ namespace ChuTools
         private void CreateContextMenu(Event e)
         {
             var gm = new GenericMenu();
+            gm.AddItem(new GUIContent("Create Method Node"), false, CreateMethodNode, e);
+            gm.AddItem(new GUIContent("Create Delegate Node"), false, CreateDelegateNode, e);
             gm.AddItem(new GUIContent("Create Input-Output Node"), false, CreateNode, e);
             gm.AddItem(new GUIContent("Create Input Node"), false, CreateInputNode, e);
             gm.AddItem(new GUIContent("Create Display Node"), false, CreateDisplayNode, e);
             gm.AddItem(new GUIContent("Clear Nodes"), false, ClearNodes);
             gm.ShowAsContext();
             e.Use();
+        }
+
+        private void CreateMethodNode(object userdata)
+        {
+            var pos = ((Event)userdata).mousePosition;
+            var rect = new Rect(pos, new Vector2(NodeWidth, NodeHeight));
+            Nodes.Add(new JeremyTools.UIMethodNode(rect));
+        }
+
+        private void CreateDelegateNode(object userdata)
+        {
+            var pos = ((Event)userdata).mousePosition;
+            var rect = new Rect(pos, new Vector2(NodeWidth, NodeHeight));
+            Nodes.Add(new JeremyTools.UIDelegateNode(rect));
         }
 
         private void CreateNode(object userdata)
