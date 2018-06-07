@@ -27,7 +27,7 @@ namespace ChuTools
         [JsonIgnore] public GUIContent Content { get; set; }
         public Rect Rect => rect;
 
-        protected void Base(string name, string normalStyleName, string selectedStyleName, Rect rect)
+        protected void Base(Rect rect, string name = "default", string normalStyleName = "flow node 0", string selectedStyleName = "flow node 0 on")
         {
             Name = name;
             this.rect = new Rect(rect);
