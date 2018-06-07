@@ -44,7 +44,7 @@ namespace DylanTools
 
         public virtual void Draw()
         {            
-            GUI.Box(VisualRect, Name);
+            GUI.Box(VisualRect, Name);            
             ScaleRect = new Rect(VisualRect.position, new Vector2(10, 10));
             ScaleRect.position += new Vector2(VisualRect.width - 10, VisualRect.height - 10);
             GUI.Box(ScaleRect, "");
@@ -56,9 +56,8 @@ namespace DylanTools
                 var gm = new UnityEditor.GenericMenu();
                 gm.AddItem(new GUIContent("Remove Node"), false, RemoveNode, this);
                 gm.ShowAsContext();
-            }
-            if (scriptableChangedEvent != null)
-                scriptableChangedEvent.Invoke(Scriptable);
+            }            
+            scriptableChangedEvent?.Invoke(Scriptable);   
         }
         private void RemoveNode(object userdata)
         {

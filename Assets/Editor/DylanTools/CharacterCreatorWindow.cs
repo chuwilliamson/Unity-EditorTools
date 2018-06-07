@@ -36,7 +36,7 @@ namespace DylanTools
         private void OnGUI()
         {
             EditorGlobals.GUIEvents();
-            Nodes?.ForEach(n => n.Draw());            
+            Nodes?.ForEach(n => n.Draw());                
             if(GUI.changed)
                 Repaint();
         }
