@@ -9,25 +9,34 @@ using UnityEngine;
 
 namespace ChuTools
 {
-    [SuppressMessage("ReSharper", "SwitchStatementMissingSomeCases")]
+    [SuppressMessage(category: "ReSharper", checkId: "SwitchStatementMissingSomeCases")]
     public partial class NodeEditorWindow : EditorWindow
-    {
+    { 
         public static Action<UIOutConnectionPoint, UIInConnectionPoint> ConnectionCreatedEvent;
 
-        public List<UIBezierConnection> Connections = new List<UIBezierConnection>();
-        public List<UIElement> Nodes = new List<UIElement>();
+        private readonly JsonSerializerSettings _settings = new JsonSerializerSettings
+        {
+            TypeNameHandling = TypeNameHandling.All,
+            PreserveReferencesHandling = PreserveReferencesHandling.Objects,
+            Formatting = Formatting.Indented
+        };
+
+        public List<IDrawable> Connections;
+        public List<IDrawable> Nodes;
         public static UIOutConnectionPoint CurrentSendingDrag { get; set; }
         public static UIInConnectionPoint CurrentAcceptingDrag { get; set; }
+        public static IEventSystem NodeEvents { get; private set; }
         public int NodeHeight { get; set; }
         public int NodeWidth { get; set; }
-        public static IEventSystem NodeEvents { get; private set; }
+        
         public Vector2 CenterWindow => new Vector2(Screen.width / 2.0f, Screen.height / 2.0f);
-        private string _path => Application.dataPath + "/Editor/ChuTools/nodes.json";
+        private static string _path => Application.dataPath + "/Editor/ChuTools/nodes.json";
 
-        [MenuItem("Tools/ChuTools/NodeWindow")]
+        [MenuItem(itemName: "Tools/ChuTools/NodeWindow")]
         private static void Init()
         {
-            var window = GetWindow<NodeEditorWindow>();
+            var window = CreateInstance<NodeEditorWindow>();
+            window.InitializeComponent();
             window.Show();
         }
 
@@ -39,7 +48,7 @@ namespace ChuTools
             }
             else
             {
-                Debug.Log("cancel connection request");
+                Debug.Log(message: "cancel connection request");
                 CurrentAcceptingDrag = null;
                 CurrentSendingDrag = null;
             }
@@ -48,7 +57,7 @@ namespace ChuTools
 
         private void OnEnable()
         {
-            ClearNodes();
+            InitializeComponent();
         }
 
         private void OnGUI()
@@ -78,31 +87,31 @@ namespace ChuTools
         private void CreateContextMenu(Event e)
         {
             var gm = new GenericMenu();
-            gm.AddItem(new GUIContent("Create Input-Output Node"), false, CreateNode, e);
-            gm.AddItem(new GUIContent("Create Input Node"), false, CreateInputNode, e);
-            gm.AddItem(new GUIContent("Create Display Node"), false, CreateDisplayNode, e);
-            gm.AddItem(new GUIContent("Clear Nodes"), false, ClearNodes);
+            gm.AddItem(new GUIContent(text: "Create Input-Output Node"), false, CreateNode, e);
+            gm.AddItem(new GUIContent(text: "Create Input Node"), false, CreateInputNode, e);
+            gm.AddItem(new GUIContent(text: "Create Display Node"), false, CreateDisplayNode, e);
+            gm.AddItem(new GUIContent(text: "Clear Nodes"), false, InitializeComponent);
             gm.ShowAsContext();
             e.Use();
         }
 
         private void CreateNode(object userdata)
         {
-            var pos = ((Event)userdata).mousePosition;
+            var pos = ((Event) userdata).mousePosition;
             var rect = new Rect(pos, new Vector2(NodeWidth, NodeHeight));
             Nodes.Add(new UINode(rect));
         }
 
         private void CreateDisplayNode(object userdata)
         {
-            var pos = ((Event)userdata).mousePosition;
+            var pos = ((Event) userdata).mousePosition;
             var rect = new Rect(pos, new Vector2(NodeWidth, NodeHeight));
             Nodes.Add(new UIDisplayNode(rect));
         }
 
         private void CreateInputNode(object userdata)
         {
-            var pos = ((Event)userdata).mousePosition;
+            var pos = ((Event) userdata).mousePosition;
             var rect = new Rect(pos, new Vector2(NodeWidth, NodeHeight));
             Nodes.Add(new UIInputNode(rect));
         }
@@ -114,10 +123,9 @@ namespace ChuTools
         /// <param name="in">the ui element associated with the in connection</param>
         private void OnConnectionCreated(UIOutConnectionPoint @out, UIInConnectionPoint @in)
         {
-
             if (@out != null && @in != null)
             {
-                Debug.Log("connection created");
+                Debug.Log(message: "connection created");
                 Connections.Add(new UIBezierConnection(@out, @in));
             }
 
@@ -125,24 +133,22 @@ namespace ChuTools
             CurrentAcceptingDrag = null;
         }
 
-
-        private void RemoveNode(Node n)
+        private void RemoveNode(IDrawable n)
         {
             Nodes.Remove(n);
         }
 
-        private void ClearNodes()
-        {
+        private void InitializeComponent()
+        { 
             NodeWidth = 300;
             NodeHeight = 150;
             wantsMouseMove = true;
             CurrentAcceptingDrag = null;
             CurrentSendingDrag = null;
-
-            Nodes = new List<UIElement>();
-            Connections = new List<UIBezierConnection>();
+            Nodes = new List<IDrawable>();
+            Connections = new List<IDrawable>();
             NodeEvents = new NodeWindowEventSystem();
-            
+
             NodeEvents.OnContextClick += CreateContextMenu;
             ConnectionCreatedEvent = null;
             ConnectionCreatedEvent += OnConnectionCreated;
@@ -153,13 +159,6 @@ namespace ChuTools
                 CurrentSendingDrag = null;
             };
         }
-
-        private readonly JsonSerializerSettings _settings = new JsonSerializerSettings
-        {
-            TypeNameHandling = TypeNameHandling.All,
-            PreserveReferencesHandling = PreserveReferencesHandling.Objects,
-            Formatting = Formatting.Indented
-        };
 
         private void Save()
         {
@@ -175,17 +174,18 @@ namespace ChuTools
 
         private void Load()
         {
-            ClearNodes();
+            InitializeComponent();
             var json = File.ReadAllText(_path);
             var n = JsonConvert.DeserializeObject<NodeEditorWindowSaveLoad>(json, _settings);
             Nodes = n.Nodes;
             Connections = n.Connections;
         }
     }
+
     [Serializable]
     public class NodeEditorWindowSaveLoad //just for saving
     {
-        public List<UIBezierConnection> Connections { get; set; }
-        public List<UIElement> Nodes { get; set; }
+        public List<IDrawable> Connections { get; set; }
+        public List<IDrawable> Nodes { get; set; }
     }
 }
