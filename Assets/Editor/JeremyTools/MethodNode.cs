@@ -6,6 +6,7 @@ using UnityEngine;
 
 namespace JeremyTools
 {
+    [System.Serializable]
     public class MethodNode : INode
     {
         public object Value { get; set; }

@@ -174,7 +174,8 @@ namespace ChuTools
         {
             TypeNameHandling = TypeNameHandling.All,
             ObjectCreationHandling = ObjectCreationHandling.Auto,
-            PreserveReferencesHandling = PreserveReferencesHandling.Objects,
+            PreserveReferencesHandling = PreserveReferencesHandling.All,
+            ConstructorHandling = ConstructorHandling.AllowNonPublicDefaultConstructor,
             Formatting = Formatting.Indented
         };
 
