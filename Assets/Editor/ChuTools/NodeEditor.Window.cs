@@ -78,6 +78,7 @@ namespace ChuTools
         private void CreateContextMenu(Event e)
         {
             var gm = new GenericMenu();
+            gm.AddItem(new GUIContent("Create Roslyn Node"), false, CreateRoslynNode, e);
             gm.AddItem(new GUIContent("Create Method Node"), false, CreateMethodNode, e);
             gm.AddItem(new GUIContent("Create Delegate Node"), false, CreateDelegateNode, e);
             gm.AddItem(new GUIContent("Create Input-Output Node"), false, CreateNode, e);
@@ -86,6 +87,13 @@ namespace ChuTools
             gm.AddItem(new GUIContent("Clear Nodes"), false, ClearNodes);
             gm.ShowAsContext();
             e.Use();
+        }
+
+        private void CreateRoslynNode(object userdata)
+        {
+            var pos = ((Event)userdata).mousePosition;
+            var rect = new Rect(pos, new Vector2(NodeWidth+25, NodeHeight+25));
+            Nodes.Add(new TrentTools.RoslynNode(rect));
         }
 
         private void CreateMethodNode(object userdata)
