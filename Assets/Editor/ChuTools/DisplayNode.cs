@@ -14,7 +14,7 @@ namespace ChuTools
             InConnection = inConnection;
         }
 
-        public int Value
+        public object Value
         {
             get { return InConnection?.Value ?? 0; }
             set { Debug.LogWarning("no you shouldn't be setting the inconnection value through the node" + value); }

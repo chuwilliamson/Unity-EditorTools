@@ -91,7 +91,7 @@ namespace ChuTools
         private void CreateMethodNode(object userdata)
         {
             var pos = ((Event)userdata).mousePosition;
-            var rect = new Rect(pos, new Vector2(NodeWidth, NodeHeight));
+            var rect = new Rect(pos, new Vector2(NodeWidth/2.0f, NodeHeight/2.0f));
             Nodes.Add(new ChuTools.UIMethodNode(rect));
         }
 
@@ -106,7 +106,7 @@ namespace ChuTools
         {
             var pos = ((Event)userdata).mousePosition;
             var rect = new Rect(pos, new Vector2(NodeWidth, NodeHeight));
-            Nodes.Add(new UINode(rect));
+            Nodes.Add(new UITransformationNode(rect));
         }
 
         private void CreateDisplayNode(object userdata)
@@ -173,6 +173,7 @@ namespace ChuTools
         private readonly JsonSerializerSettings _settings = new JsonSerializerSettings
         {
             TypeNameHandling = TypeNameHandling.All,
+            ObjectCreationHandling = ObjectCreationHandling.Auto,
             PreserveReferencesHandling = PreserveReferencesHandling.Objects,
             Formatting = Formatting.Indented
         };

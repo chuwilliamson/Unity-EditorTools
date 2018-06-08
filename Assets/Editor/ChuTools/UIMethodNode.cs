@@ -7,17 +7,21 @@ using UIDelegateNode = JeremyTools.UIDelegateNode;
 
 namespace ChuTools
 {
-    public class UIMethodNode : UIElement
+    /// <summary>
+    /// ToDo: create an INode implementation of the data this node holds
+    /// you 
+    /// </summary>
+    public class UIMethodNode : UIInputNode
     {
         private MethodInfo methodInfo;
         private object sender;
 
-        public UIMethodNode(Rect rect)
+        public UIMethodNode(Rect rect) : base(rect)
         {
-            Base(rect: rect, name: "Method Node", normalStyleName: "flow node 0", selectedStyleName: "flow node 0 on");
             var t = GetType();
             methodInfo = t.GetMethod("TestMethod");
             sender = this;
+            Base(rect: rect, name: "Method Node", normalStyleName: "flow node 0", selectedStyleName: "flow node 0 on");
         }
 
         public void TestMethod()
