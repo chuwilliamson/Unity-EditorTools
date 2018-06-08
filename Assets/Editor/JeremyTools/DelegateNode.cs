@@ -3,6 +3,7 @@ using UnityEngine;
 
 namespace JeremyTools
 {
+    [System.Serializable]
     public class DelegateNode : INode
     {
         public IConnectionIn InConnection { get; set; }
