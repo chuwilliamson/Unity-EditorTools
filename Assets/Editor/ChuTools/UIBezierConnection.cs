@@ -3,6 +3,7 @@ using UnityEngine;
 
 namespace ChuTools
 {
+    [System.Serializable]
     public class UIBezierConnection : IDrawable
     {
         public IDrawable @in;

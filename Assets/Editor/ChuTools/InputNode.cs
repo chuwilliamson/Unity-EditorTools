@@ -1,8 +1,8 @@
-﻿using Interfaces;
+﻿using System;
+using Interfaces;
 
 namespace ChuTools
 {
-
     // ReSharper disable InconsistentNaming
 
     /// Process:::
@@ -15,15 +15,9 @@ namespace ChuTools
     ///     It will manipulate it's data
     ///     The Out Connection will take this data and transfer it to an inconnection
     /// </summary>
-    [System.Serializable]
+    [Serializable]
     public class InputNode : INode
     {
-        public InputNode()
-        {
-            Value = 0;
-        }
-
-        public int Value { get; set; }
-
+        public object Value { get; set; }
     }
 }

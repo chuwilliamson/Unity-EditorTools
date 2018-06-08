@@ -1,8 +1,9 @@
-﻿using UnityEngine;
+﻿using System;
+using UnityEngine;
 
 namespace ChuTools
 {
-    [System.Serializable]
+    [Serializable]
     public class NodeWindowEventSystem : IEventSystem
     {
         public Event Current { get; set; }
@@ -23,7 +24,7 @@ namespace ChuTools
 
         public void Release(object obj)
         {
-            if(Selected == null)
+            if (Selected == null)
                 return;
 
             SetSelected(obj);
@@ -55,7 +56,6 @@ namespace ChuTools
                 case EventType.Used:
                     OnUsed?.Invoke(Current);
                     break;
-
             }
         }
 

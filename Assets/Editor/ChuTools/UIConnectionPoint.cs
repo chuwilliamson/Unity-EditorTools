@@ -1,9 +1,14 @@
-﻿namespace ChuTools
+﻿using System;
+using UnityEngine;
+
+namespace ChuTools
 {
-    [System.Serializable]
+    [Serializable]
     public class UIConnectionPoint : UIElement
     {
-        
-        private string _name;
+        public UIConnectionPoint(string name, string normalStyleName, string selectedStyleName, Rect rect)
+        {
+            Base(name: name, normalStyleName: normalStyleName, selectedStyleName: selectedStyleName, rect: rect);
+        }
     }
 }

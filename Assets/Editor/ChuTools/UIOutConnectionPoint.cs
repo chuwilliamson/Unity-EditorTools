@@ -1,22 +1,19 @@
-﻿using Interfaces;
+﻿using System;
+using Interfaces;
 using UnityEngine;
 
 namespace ChuTools
 {
-    [System.Serializable]
-    public class UIOutConnectionPoint : UIConnectionPoint
+    [Serializable]
+    public class UIOutConnectionPoint : UIElement
     {
         public UIOutConnectionPoint(Rect rect, IConnectionOut @out)
         {
             Out = @out;
-            Rect = rect;
-            Content = new GUIContent("Out: " + ControlId);
-            SelectedStyle = new GUIStyle("CN Box") { alignment = TextAnchor.LowerLeft, fontSize = 8 };
-            NormalStyle = new GUIStyle("CN Box") { alignment = TextAnchor.LowerLeft, fontSize = 8 };
-            Style = NormalStyle;
+            Base(name: "Out", normalStyleName: "CN Box", selectedStyleName: "CN Box", rect: rect);
         }
 
-        public IConnectionOut Out { get; set; }
+        private IConnectionOut Out { get; set; }
 
         public override void OnMouseUp(Event e)
         {
@@ -26,14 +23,13 @@ namespace ChuTools
             if (@in == null) return;
             if (@out != this) return;
 
-            Debug.Log("doit");
             NodeEditorWindow.RequestConnection(this, Out);
         }
 
         public override void OnMouseDown(Event e)
         {
             base.OnMouseDown(e);
-            if (!Rect.Contains(e.mousePosition)) return;
+            if (!rect.Contains(e.mousePosition)) return;
             NodeEditorWindow.CurrentSendingDrag = this;
         }
     }

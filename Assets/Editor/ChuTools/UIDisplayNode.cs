@@ -1,43 +1,44 @@
-﻿using Interfaces;
+﻿using System;
+using Interfaces;
 using UnityEngine;
 
 namespace ChuTools
 {
-    [System.Serializable]
+    [Serializable]
     public class UIDisplayNode : UIElement
     {
-        private readonly UIInConnectionPoint _in;
-        private INode _node;
+        public UIInConnectionPoint In;
+        public INode Node { get; set; }
 
-        public UIDisplayNode(Vector2 pos, Vector2 size) : base("Display Node: ", pos, size)
+        public UIDisplayNode(Rect rect)
         {
-            _node = new DisplayNode(null);
-            _in = new UIInConnectionPoint(new Rect(Rect.position, new Vector2(50, 50)), Connect);
-
+            Node = new DisplayNode(inConnection: null);
+            In = new UIInConnectionPoint(rect: new Rect(position: base.rect.position, size: new Vector2(x: 50, y: 50)), cb: Connect);
+            Base(name: "Display Node: ", normalStyleName: "flow node 1", selectedStyleName: "flow node 1 on", rect: rect);
         }
 
-        public bool Connect(IConnectionOut outConnection)
+        private bool Connect(IConnectionOut outConnection)
         {
             if (outConnection == null)
                 return false;
-            _node = new DisplayNode(new InConnection(outConnection));
+            Node = new DisplayNode(inConnection: new InConnection(outConnection: outConnection));
             return true;
         }
 
         public void Disconnect()
         {
-            _node = null;
+            Node = null;
         }
 
 
         public override void Draw()
         {
             base.Draw();
-            _in.Rect = new Rect(Rect.position.x - 55, Rect.position.y, 50, 50);
-            _in?.Draw();
-            GUILayout.BeginArea(Rect);
-            var value = _node?.Value;
-            GUILayout.Label("Value  ::  " + value);
+            In.rect = new Rect(x: rect.position.x - 55, y: rect.position.y, width: 50, height: 50);
+            In?.Draw();
+            GUILayout.BeginArea(screenRect: rect);
+            var value = Node?.Value;
+            GUILayout.Label(text: "Value  ::  " + value);
             GUILayout.EndArea();
         }
     }

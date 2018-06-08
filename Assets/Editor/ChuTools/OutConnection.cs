@@ -1,8 +1,9 @@
-﻿using Interfaces;
+﻿using System;
+using Interfaces;
 
 namespace ChuTools
 {
-    [System.Serializable]
+    [Serializable]
     public class OutConnection : IConnectionOut
     {
         public OutConnection(INode inputNode)
@@ -10,7 +11,7 @@ namespace ChuTools
             Node = inputNode;
         }
 
-        public int Value => Node?.Value ?? 0;
+        public object Value => Node?.Value ?? 0;
         public INode Node { get; set; }
     }
 }

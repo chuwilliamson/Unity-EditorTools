@@ -1,79 +1,63 @@
-﻿using Interfaces;
+﻿using System;
+using Interfaces;
 using Newtonsoft.Json;
 using UnityEngine;
 
 namespace ChuTools
 {
-    [System.Serializable]
+    [Serializable]
     public abstract class UIElement : IDrawable, IMouseDownHandler, IMouseUpHandler, IMouseDragHandler
     {
-        public int ControlId { get; set; }
-        
-        protected UIElement()
-        {
-            NodeEditorWindow.NodeEvents.OnMouseDown += OnMouseDown;
-            NodeEditorWindow.NodeEvents.OnMouseUp += OnMouseUp;
-            NodeEditorWindow.NodeEvents.OnMouseDrag += OnMouseDrag;
-            ControlId = GUIUtility.GetControlID(FocusType.Passive, Rect);
-        }
+        [SerializeField]
+        protected int _controlId;
+        [SerializeField]
+        public Rect rect;
 
-        protected UIElement(string name, Vector2 pos, Vector2 size) : this()
-        {
-            Rect = new Rect(pos, size);
-            Content = new GUIContent(name + ControlId);
-            SelectedStyle = new GUIStyle("flow node 1 on") { alignment = TextAnchor.LowerLeft, fontSize = 12 };
-            NormalStyle = new GUIStyle("flow node 1") { alignment = TextAnchor.LowerLeft, fontSize = 12 };
-            Style = NormalStyle;
-        }
+        public string Name { get; set; }
 
-        public Rect Rect;
-        public bool IsSelected { get; private set; }
-        public Vector2 Position
+        public int ControlId
         {
-            get { return Rect.position; }
-            set
-            {
-                var newp = new Vector2(value.x, value.y);
-                Rect.position = newp;
-            }
+            get { return _controlId; }
+            set { _controlId = value; }
         }
 
         [JsonIgnore] public GUIStyle SelectedStyle { get; set; }
         [JsonIgnore] public GUIStyle NormalStyle { get; set; }
         [JsonIgnore] public GUIStyle Style { get; set; }
         [JsonIgnore] public GUIContent Content { get; set; }
+        public Rect Rect => rect;
 
-        
+        protected void Base(Rect rect, string name = "default", string normalStyleName = "flow node 0", string selectedStyleName = "flow node 0 on")
+        {
+            Name = name;
+            this.rect = new Rect(rect);
+            _controlId = GUIUtility.GetControlID(FocusType.Passive, this.rect);
+            Content = new GUIContent(Name + ": " + ControlId);
+            NormalStyle = new GUIStyle(normalStyleName) { alignment = TextAnchor.LowerLeft, fontSize = 10 };
+            SelectedStyle = new GUIStyle(selectedStyleName) { alignment = TextAnchor.LowerLeft, fontSize = 10 };
+            Style = NormalStyle;
+            NodeEditorWindow.NodeEvents.OnMouseDown += OnMouseDown;
+            NodeEditorWindow.NodeEvents.OnMouseUp += OnMouseUp;
+            NodeEditorWindow.NodeEvents.OnMouseDrag += OnMouseDrag;
 
-        Rect IDrawable.Rect => Rect;
+        }
+
+
         /// <summary>
-        /// Draw the default box for this ui element
+        ///     Draw the default box for this ui element
         /// </summary>
         public virtual void Draw()
         {
-            GUI.Box(Rect, Content, Style);
-
+            Content = new GUIContent(Name + ": " + ControlId);
+            GUI.Box(rect, Content, Style);
         }
 
         public virtual void OnMouseDown(Event e)
         {
-            if (Rect.Contains(e.mousePosition))
+            if (rect.Contains(e.mousePosition))
             {
-                IsSelected = true;
                 GUIUtility.hotControl = ControlId;
                 Style = SelectedStyle;
-                GUI.changed = true;
-            }
-        }
-
-        public virtual void OnMouseUp(Event e)
-        {
-            IsSelected = false;
-
-            if (GUIUtility.hotControl == ControlId)
-            {
-                GUIUtility.hotControl = 0;
-                Style = NormalStyle;
                 GUI.changed = true;
             }
         }
@@ -82,9 +66,19 @@ namespace ChuTools
         {
             if (GUIUtility.hotControl == ControlId)
             {
-                Rect.position += e.delta;
+                rect = new Rect(rect.position + e.delta, rect.size);
                 GUI.changed = true;
                 e.Use();
+            }
+        }
+
+        public virtual void OnMouseUp(Event e)
+        {
+            if (GUIUtility.hotControl == ControlId)
+            {
+                GUIUtility.hotControl = 0;
+                Style = NormalStyle;
+                GUI.changed = true;
             }
         }
     }

@@ -9,6 +9,7 @@ namespace ChuTools
             get { return NodeEvents.Current; }
             set { NodeEvents.Selected = value; }
         }
+
         public static object Selected
         {
             get { return NodeEvents.Selected; }

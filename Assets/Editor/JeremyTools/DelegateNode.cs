@@ -1,15 +1,13 @@
-﻿using System;
-using Interfaces;
+﻿using Interfaces;
 using UnityEngine;
 
-namespace ChuTools
+namespace JeremyTools
 {
-    [Serializable]
-    public class DisplayNode : INode
+    public class DelegateNode : INode
     {
         public IConnectionIn InConnection { get; set; }
 
-        public DisplayNode(IConnectionIn inConnection)
+        public DelegateNode(IConnectionIn inConnection)
         {
             InConnection = inConnection;
         }
