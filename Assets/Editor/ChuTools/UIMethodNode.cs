@@ -33,7 +33,7 @@ namespace ChuTools
         {
             base.Draw();
             GUILayout.BeginArea(Rect);
-
+            GUILayout.Space(25);
             if (GUILayout.Button("Add method to Delegate Node"))
             {
                 UIDelegateNode.AddMethod(sender,methodInfo);
