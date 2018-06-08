@@ -91,7 +91,7 @@ namespace ChuTools
         private void CreateMethodNode(object userdata)
         {
             var pos = ((Event)userdata).mousePosition;
-            var rect = new Rect(pos, new Vector2(NodeWidth/2.0f, NodeHeight/2.0f));
+            var rect = new Rect(pos, new Vector2(NodeWidth, NodeHeight));
             Nodes.Add(new ChuTools.UIMethodNode(rect));
         }
 
@@ -174,7 +174,8 @@ namespace ChuTools
         {
             TypeNameHandling = TypeNameHandling.All,
             ObjectCreationHandling = ObjectCreationHandling.Auto,
-            PreserveReferencesHandling = PreserveReferencesHandling.Objects,
+            PreserveReferencesHandling = PreserveReferencesHandling.All,
+            ConstructorHandling = ConstructorHandling.AllowNonPublicDefaultConstructor,
             Formatting = Formatting.Indented
         };
 

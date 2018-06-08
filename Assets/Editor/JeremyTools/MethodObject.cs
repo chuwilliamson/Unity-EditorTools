@@ -1,17 +1,18 @@
-﻿using System.Reflection;
+﻿
 
 namespace JeremyTools
 {
     [System.Serializable]
     public class MethodObject
     {
-        public object Target;
-        public string MethodName;
-        public MethodInfo Info;
+        public object Target { get; set; }
+        public string MethodName { get; set; }
+        public System.Type Type { get; set; }
 
-        public void Invoke()
+        public void DynamicInvoke()
         {
-            Info.Invoke(Target, new object[] { });
+            var method = Type.GetMethod(MethodName);
+            method?.Invoke(Target, new object[] { });
         }
     }
 }
