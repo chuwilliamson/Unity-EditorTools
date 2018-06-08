@@ -14,8 +14,8 @@ namespace ChuTools
     {
         public static Action<UIOutConnectionPoint, UIInConnectionPoint> ConnectionCreatedEvent;
 
-        public List<UIBezierConnection> Connections = new List<UIBezierConnection>();
-        public List<UIElement> Nodes = new List<UIElement>();
+        public List<IDrawable> Connections = new List<IDrawable>();
+        public List<IDrawable> Nodes = new List<IDrawable>();
         public static UIOutConnectionPoint CurrentSendingDrag { get; set; }
         public static UIInConnectionPoint CurrentAcceptingDrag { get; set; }
         public int NodeHeight { get; set; }
@@ -142,7 +142,7 @@ namespace ChuTools
         }
 
 
-        private void RemoveNode(Node n)
+        private void RemoveNode(IDrawable n)
         {
             Nodes.Remove(n);
         }
@@ -155,8 +155,8 @@ namespace ChuTools
             CurrentAcceptingDrag = null;
             CurrentSendingDrag = null;
 
-            Nodes = new List<UIElement>();
-            Connections = new List<UIBezierConnection>();
+            Nodes = new List<IDrawable>();
+            Connections = new List<IDrawable>();
             NodeEvents = new NodeWindowEventSystem();
             
             NodeEvents.OnContextClick += CreateContextMenu;
@@ -201,7 +201,7 @@ namespace ChuTools
     [Serializable]
     public class NodeEditorWindowSaveLoad //just for saving
     {
-        public List<UIBezierConnection> Connections { get; set; }
-        public List<UIElement> Nodes { get; set; }
+        public List<IDrawable> Connections { get; set; }
+        public List<IDrawable> Nodes { get; set; }
     }
 }
