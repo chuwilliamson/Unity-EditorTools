@@ -1,45 +1,40 @@
-﻿using System.Collections.Generic;
-using System.Reflection;
+﻿using System.Reflection;
+using Interfaces;
 using JeremyTools;
-using UnityEditor;
 using UnityEngine;
-using UIDelegateNode = JeremyTools.UIDelegateNode;
 
 namespace ChuTools
 {
-    /// <summary>
-    /// ToDo: create an INode implementation of the data this node holds
-    /// you 
-    /// </summary>
-    public class UIMethodNode : UIInputNode
+    public class UIMethodNode : UIElement
     {
-        private MethodInfo methodInfo;
-        private object sender;
+        public virtual INode Node { get; set; }
 
-        public UIMethodNode(Rect rect) : base(rect)
+        private MethodInfo _methodInfo;
+        public UIOutConnectionPoint Out;
+        private object _sender;
+
+        public UIMethodNode(Rect rect)
         {
             var t = GetType();
-            methodInfo = t.GetMethod("TestMethod");
-            sender = this;
-            Base(rect: rect, name: "Method Node", normalStyleName: "flow node 0", selectedStyleName: "flow node 0 on");
+            var mName = "TestMethod";
+            var mInfo = t.GetMethod(mName);
+            var methodObject = new MethodObject {Target = this, MethodName = mName, Info = mInfo};
+
+            Node = new MethodNode(methodObject);
+            Out = new UIOutConnectionPoint(new Rect(this.rect.position, new Vector2(50, 50)), new OutConnection(Node));
+            Base(rect, "Method Node", "flow node 0", "flow node 0 on");
         }
 
         public void TestMethod()
         {
-            Debug.Log("im from the methodnode " + ControlId.ToString());
+            Debug.Log("im from the methodnode " + ControlId);
         }
 
         public override void Draw()
         {
             base.Draw();
-            GUILayout.BeginArea(Rect);
-            GUILayout.Space(25);
-            if (GUILayout.Button("Add method to Delegate Node"))
-            {
-                UIDelegateNode.AddMethod(sender,methodInfo);
-            }
-            
-            GUILayout.EndArea();
+            Out.rect = new Rect(rect.position.x + rect.width, rect.position.y, 50, 50);
+            Out.Draw();
         }
     }
 }
