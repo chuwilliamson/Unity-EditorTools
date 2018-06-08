@@ -1,44 +1,59 @@
-﻿using System.Collections.Generic;
-using System.Reflection;
+﻿using System.Reflection;
+using Interfaces;
 using JeremyTools;
-using UnityEditor;
 using UnityEngine;
-using UIDelegateNode = JeremyTools.UIDelegateNode;
 
 namespace ChuTools
 {
-    /// <summary>
-    /// ToDo: create an INode implementation of the data this node holds
-    /// you 
-    /// </summary>
-    public class UIMethodNode : UIInputNode
+    [System.Serializable]
+    public class UIMethodNode : UIElement
     {
-        private MethodInfo methodInfo;
-        private object sender;
+        public INode Node { get; set; }
 
-        public UIMethodNode(Rect rect) : base(rect)
+        public UIOutConnectionPoint Out { get; set; }
+
+        public UIMethodNode()
         {
-            var t = GetType();
-            methodInfo = t.GetMethod("TestMethod");
-            sender = this;
-            Base(rect: rect, name: "Method Node", normalStyleName: "flow node 0", selectedStyleName: "flow node 0 on");
+            Node = new MethodNode(new MethodObject
+            {
+                Target = this,
+                Type = typeof(UIMethodNode),
+                MethodName = "TestMethod"
+            });
+            Out = new UIOutConnectionPoint(new Rect(this.rect.position, new Vector2(50, 50)), new OutConnection(Node));
+            Base(rect, "Method Node");
+        }
+
+        public UIMethodNode(Rect rect)
+        {
+            Node = new MethodNode(new MethodObject
+            {
+                Target = this,
+                Type = typeof(UIMethodNode),
+                MethodName = "TestMethod"
+            });
+
+            Out = new UIOutConnectionPoint(new Rect(this.rect.position, new Vector2(50, 50)), new OutConnection(Node));
+            Base(rect, "Method Node");
         }
 
         public void TestMethod()
         {
-            Debug.Log("im from the methodnode " + ControlId.ToString());
+            Debug.Log("im from the methodnode " + ControlId);
         }
 
         public override void Draw()
         {
             base.Draw();
-            GUILayout.BeginArea(Rect);
-            GUILayout.Space(25);
-            if (GUILayout.Button("Add method to Delegate Node"))
+
+            Out.rect = new Rect(rect.position.x + rect.width, rect.position.y, 50, 50);
+            Out.Draw();
+            GUILayout.BeginArea(rect);
+            if (GUILayout.Button("DynamicInvoke"))
             {
-                UIDelegateNode.AddMethod(sender,methodInfo);
+                var obj = Node.Value as MethodObject;
+                obj?.DynamicInvoke();
             }
-            
             GUILayout.EndArea();
         }
     }

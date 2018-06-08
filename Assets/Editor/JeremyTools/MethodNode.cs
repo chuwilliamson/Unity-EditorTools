@@ -6,22 +6,14 @@ using UnityEngine;
 
 namespace JeremyTools
 {
+    [System.Serializable]
     public class MethodNode : INode
     {
         public object Value { get; set; }
-        private MethodInfo methodInfo;
-        private object sender;
 
-        public MethodNode(MethodInfo info)
+        public MethodNode(MethodObject methodObject)
         {
-            var t = GetType();
-            methodInfo = t.GetMethod("TestMethod");
-            sender = this;
-        }
-
-        public void TestMethod()
-        {
-            Debug.Log("im from the methodnode " + methodInfo.Name.ToString());
+            Value = methodObject;
         }
     }
 }

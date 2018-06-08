@@ -1,52 +1,78 @@
-﻿using System.Collections;
+﻿using System;
+using System.Collections;
 using System.Collections.Generic;
 using System.Reflection;
 using ChuTools;
+using Interfaces;
 using UnityEditor;
+using UnityEditorInternal;
 using UnityEngine;
 
 namespace JeremyTools
 {
+    [System.Serializable]
     public class UIDelegateNode : UIElement
     {
-        public static List<MethodObject> MethodObjects = new List<MethodObject>();
+        [NonSerialized]
+        private readonly ReorderableList _roMethodObjects;
+
+        public MethodObjects MethodObjects;
+        public UIInConnectionPoint In;
+
+        public INode Node { get; set; }
+
+        protected UIDelegateNode()
+        {
+
+            Node = new DelegateNode(new InConnection(null));
+            In = new UIInConnectionPoint(new Rect(base.rect.position, new Vector2(x: 5, y: 50)), Connect);
+            MethodObjects = new MethodObjects { MethodObjectsList = new List<MethodObject>() };
+            _roMethodObjects = new ReorderableList(MethodObjects.MethodObjectsList, typeof(MethodObject), true, true, true, true);
+            ControlId = GUIUtility.GetControlID(FocusType.Passive, base.rect);
+            Base(name: "UIDelegate Node", normalStyleName: "flow node 2", selectedStyleName: "flow node 2 on", rect: rect);
+        }
 
         public UIDelegateNode(Rect rect)
         {
-            MethodObjects = new List<MethodObject>();
-            Base(rect: rect, name: "Delegate Node");
+
+            Node = new DelegateNode(new InConnection(null));
+            In = new UIInConnectionPoint(new Rect(base.rect.position, new Vector2(x: 5, y: 50)), Connect);
+            MethodObjects = new MethodObjects { MethodObjectsList = new List<MethodObject>() };
+            _roMethodObjects = new ReorderableList(MethodObjects.MethodObjectsList, typeof(MethodObject), true, true, true, true);
+            ControlId = GUIUtility.GetControlID(FocusType.Passive, base.rect);
+            Base(name: "UIDelegate Node", normalStyleName: "flow node 2", selectedStyleName: "flow node 2 on", rect: rect);
+
         }
 
         public override void Draw()
         {
-            base.Draw();
-            if (MethodObjects.Count < 1)
-                return;
-            EditorGUILayout.LabelField("no methods");
+            GUI.Box(rect, Content, style: NormalStyle);
+            In.rect = new Rect(x: rect.position.x - 55, y: rect.position.y, width: 50, height: 50);
+            In?.Draw();
+
 
             GUILayout.BeginArea(rect);
+
+
             EditorGUILayout.BeginVertical();
-            MethodObjects.ForEach(n => EditorGUILayout.LabelField(n.MethodName));
+            _roMethodObjects?.DoLayoutList();
             EditorGUILayout.EndVertical();
-
-            if (GUILayout.Button("Invoke"))
-            {
-                foreach (var mo in MethodObjects)
-                {
-                    mo.Invoke();
-                }
-            }
-
+            if (GUILayout.Button("DynamicInvoke")) { MethodObjects.MethodObjectsList.ForEach(mo => mo.DynamicInvoke()); }
             GUILayout.EndArea();
         }
 
-        public static void AddMethod(object sender, MethodInfo method)
+        protected virtual bool Connect(IConnectionOut outConnection)
         {
-            var id = sender as UIElement;
-            
-            MethodObjects.Add(new MethodObject { Info = method, MethodName = id.ControlId + "::" + method.Name, Target = sender });
+            if (outConnection == null)
+                return false;
+            Node = new DelegateNode(new InConnection(outConnection));
+            MethodObjects.MethodObjectsList.Add(Node.Value as MethodObject);
+            return true;
         }
 
-        
+        public virtual void Disconnect()
+        {
+            Node = null;
+        }
     }
 }
