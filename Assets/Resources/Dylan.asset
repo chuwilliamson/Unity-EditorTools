@@ -11,3 +11,5 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 18ea1ba84ffc3fd479046f9ec891c911, type: 3}
   m_Name: Dylan
   m_EditorClassIdentifier: 
+  _Race: {fileID: 11400000, guid: 99920fa98b326bd48ae98402a16d9c2b, type: 2}
+  _Job: {fileID: 11400000, guid: 52a20eee837cf474387bf4967997d53c, type: 2}
