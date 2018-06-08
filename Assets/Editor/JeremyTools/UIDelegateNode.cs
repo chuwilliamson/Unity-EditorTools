@@ -44,19 +44,9 @@ namespace JeremyTools
         {
             var id = sender as UIElement;
             
-            MethodObjects.Add(new MethodObject { info = method, MethodName = id.ControlId + "::" + method.Name, Target = sender });
+            MethodObjects.Add(new MethodObject { Info = method, MethodName = id.ControlId + "::" + method.Name, Target = sender });
         }
 
-        public class MethodObject
-        {
-            public object Target;
-            public string MethodName;
-            public MethodInfo info;
-
-            public void Invoke()
-            {
-                info.Invoke(Target, new object[] { });
-            }
-        }
+        
     }
 }
