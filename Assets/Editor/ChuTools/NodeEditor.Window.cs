@@ -169,7 +169,7 @@ namespace ChuTools
             
             NodeEvents.OnContextClick += CreateContextMenu;
             ConnectionCreatedEvent = null;
-            ConnectionCreatedEvent += OnConnectionCreated;
+            ConnectionCreatedEvent = OnConnectionCreated;
             NodeEvents.OnMouseUp += e =>
             {
                 if (CurrentAcceptingDrag != null) return;
