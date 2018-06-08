@@ -8,13 +8,13 @@ namespace ChuTools
     [Serializable]
     public class UIInputNode : UIElement
     {
-        public INode Node { get; set; }
+        public virtual INode Node { get; set; }
         public UIOutConnectionPoint Out;
 
 
         public UIInputNode(Rect rect)
         {
-            Node = new InputNode();
+            Node = new InputNode {Value = 0};
             Out = new UIOutConnectionPoint(new Rect(base.rect.position, new Vector2(50, 50)), new OutConnection(Node));
             ControlId = GUIUtility.GetControlID(FocusType.Passive, base.rect);
             Base(name: "Input Node", normalStyleName: "flow node 2", selectedStyleName: "flow node 2 on", rect: rect);
@@ -27,7 +27,10 @@ namespace ChuTools
             Out.Draw();
 
             GUILayout.BeginArea(rect);
-            Node.Value = EditorGUILayout.IntSlider("Value: ", Node.Value, 0, 10);
+            
+            Node.Value = EditorGUILayout.IntSlider("Value: ", 
+                Convert.ToInt32(Node.Value), 0, 10);
+
             GUILayout.EndArea();
         }
     }

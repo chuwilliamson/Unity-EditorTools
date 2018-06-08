@@ -5,5 +5,5 @@ using UnityEngine;
 
 public partial class JNode :INode
 {
-    public int Value { get; set; }
+    public object Value { get; set; }
 }

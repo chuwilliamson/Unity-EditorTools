@@ -11,7 +11,7 @@ namespace ChuTools
             Node = inputNode;
         }
 
-        public int Value => Node?.Value ?? 0;
+        public object Value => Node?.Value ?? 0;
         public INode Node { get; set; }
     }
 }

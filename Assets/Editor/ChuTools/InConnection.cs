@@ -12,6 +12,6 @@ namespace ChuTools
         }
 
         public IConnectionOut Out { get; set; }
-        public int Value => Out.Value;
+        public object Value => Out.Value;
     }
 }

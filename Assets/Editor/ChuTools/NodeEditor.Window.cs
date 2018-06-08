@@ -106,7 +106,7 @@ namespace ChuTools
         {
             var pos = ((Event)userdata).mousePosition;
             var rect = new Rect(pos, new Vector2(NodeWidth, NodeHeight));
-            Nodes.Add(new UINode(rect));
+            Nodes.Add(new UITransformationNode(rect));
         }
 
         private void CreateDisplayNode(object userdata)
@@ -173,7 +173,9 @@ namespace ChuTools
         private readonly JsonSerializerSettings _settings = new JsonSerializerSettings
         {
             TypeNameHandling = TypeNameHandling.All,
-            PreserveReferencesHandling = PreserveReferencesHandling.Objects,
+            ObjectCreationHandling = ObjectCreationHandling.Auto,
+            PreserveReferencesHandling = PreserveReferencesHandling.All,
+            ConstructorHandling = ConstructorHandling.AllowNonPublicDefaultConstructor,
             Formatting = Formatting.Indented
         };
 

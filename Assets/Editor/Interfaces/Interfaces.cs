@@ -8,14 +8,14 @@
     }
     public interface INode
     {
-        int Value { get; set; }
+        object Value { get; set; }
     }
     public interface IConnectionOut
     {
         /// <summary>
         /// This will return the Node.Value
         /// </summary>
-        int Value { get;  }
+        object Value { get;  }
 
         INode Node { get; set; }
 
@@ -26,7 +26,7 @@
         /// <summary>
         /// this will return the Out.Value
         /// </summary>
-        int Value { get;  }
+        object Value { get;  }
 
     }
 }
