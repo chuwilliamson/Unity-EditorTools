@@ -68,58 +68,24 @@ namespace ChuTools.View
         private void CreateContextMenu(Event e)
         {
             var gm = new GenericMenu();
-            gm.AddItem(new GUIContent("Create Roslyn Node"), false, CreateRoslynNode, e);
-            gm.AddItem(new GUIContent("Create Method Node"), false, CreateMethodNode, e);
-            gm.AddItem(new GUIContent("Create Delegate Node"), false, CreateDelegateNode, e);
-            gm.AddItem(new GUIContent("Create Input-Output Node"), false, CreateNode, e);
-            gm.AddItem(new GUIContent("Create Input Node"), false, CreateInputNode, e);
-            gm.AddItem(new GUIContent("Create Display Node"), false, CreateDisplayNode, e);
+            gm.AddItem(new GUIContent("Create Roslyn Node"), false, CreateNode<UIRoslynNode>, e);
+            gm.AddItem(new GUIContent("Create Method Node"), false, CreateNode<UIMethodNode>, e);
+            gm.AddItem(new GUIContent("Create Delegate Node"), false, CreateNode<UIDelegateNode>, e);
+            gm.AddItem(new GUIContent("Create Input-Output Node"), false, CreateNode<UITransformationNode>, e);
+            gm.AddItem(new GUIContent("Create Input Node"), false, CreateNode<UIInputNode>, e);
+            gm.AddItem(new GUIContent("Create Display Node"), false, CreateNode<UIDisplayNode>, e);
             gm.AddItem(new GUIContent("Clear Nodes"), false, ClearNodes);
             gm.ShowAsContext();
             e.Use();
         }
 
-        private void CreateRoslynNode(object userdata)
-        {
-            var pos = ((Event)userdata).mousePosition;
-            var rect = new Rect(pos, new Vector2(NodeWidth + 25, NodeHeight + 25));
-            Nodes.Add(new RoslynNode(rect));
-        }
-
-        private void CreateMethodNode(object userdata)
+        private void CreateNode<T>(object userdata) where T : IDrawable
         {
             var pos = ((Event)userdata).mousePosition;
             var rect = new Rect(pos, new Vector2(NodeWidth, NodeHeight));
-            Nodes.Add(new UIMethodNode(rect));
+            Nodes.Add((T)Activator.CreateInstance(typeof(T), rect));
         }
 
-        private void CreateDelegateNode(object userdata)
-        {
-            var pos = ((Event)userdata).mousePosition;
-            var rect = new Rect(pos, new Vector2(NodeWidth, NodeHeight));
-            Nodes.Add(new UIDelegateNode(rect));
-        }
-
-        private void CreateNode(object userdata)
-        {
-            var pos = ((Event)userdata).mousePosition;
-            var rect = new Rect(pos, new Vector2(NodeWidth, NodeHeight));
-            Nodes.Add(new UITransformationNode(rect));
-        }
-
-        private void CreateDisplayNode(object userdata)
-        {
-            var pos = ((Event)userdata).mousePosition;
-            var rect = new Rect(pos, new Vector2(NodeWidth, NodeHeight));
-            Nodes.Add(new UIDisplayNode(rect));
-        }
-
-        private void CreateInputNode(object userdata)
-        {
-            var pos = ((Event)userdata).mousePosition;
-            var rect = new Rect(pos, new Vector2(NodeWidth, NodeHeight));
-            Nodes.Add(new UIInputNode(rect));
-        }
 
         /// <summary>
         ///     when a connection is created add it to the connections list to draw

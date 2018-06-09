@@ -1,19 +1,18 @@
-﻿using System.Collections;
-using System.Collections.Generic;
-using System.Reflection;
+﻿using System;
 using Interfaces;
-using UnityEngine;
+using Newtonsoft.Json;
 
 namespace JeremyTools
 {
-    [System.Serializable]
+    [Serializable]
     public class MethodNode : INode
     {
-        public object Value { get; set; }
-
+        [JsonConstructor]
         public MethodNode(MethodObject methodObject)
         {
             Value = methodObject;
         }
+
+        public object Value { get; set; }
     }
 }

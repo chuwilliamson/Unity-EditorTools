@@ -11,14 +11,14 @@ using UnityEditor;
 namespace TrentTools
 {
     [System.Serializable]
-    public class RoslynNode : UIMethodNode
+    public class UIRoslynNode : UIMethodNode
     {
-        public RoslynNode(Rect @rect)
+        public UIRoslynNode(Rect @rect)
         {
             Node = new MethodNode(new MethodObject
             {
                 Target = this,
-                Type = typeof(RoslynNode),
+                Type = typeof(UIRoslynNode),
                 MethodName = "DoCompile"
             });
 

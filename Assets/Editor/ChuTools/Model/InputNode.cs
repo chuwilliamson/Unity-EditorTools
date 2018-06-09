@@ -1,5 +1,5 @@
-﻿using Interfaces;
-using System;
+﻿using System;
+using Interfaces;
 
 namespace ChuTools.Model
 {

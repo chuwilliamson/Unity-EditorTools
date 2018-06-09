@@ -1,6 +1,7 @@
-﻿using UnityEngine;
+﻿using ChuTools;
+using UnityEngine;
 
-namespace ChuTools
+namespace Interfaces
 {
     public interface IMouseDragHandler
     {

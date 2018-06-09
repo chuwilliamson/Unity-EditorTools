@@ -1,4 +1,5 @@
 ﻿using Interfaces;
+using Interfaces;
 using UnityEditor;
 using UnityEngine;
 
@@ -7,7 +8,7 @@ namespace JeremyTools
     public partial class JNode 
     {
         // fields
-        public ChuTools.IEventSystem EventSystem { get; set; }
+        public IEventSystem EventSystem { get; set; }
 
         Rect OutRect
         {
@@ -46,7 +47,7 @@ namespace JeremyTools
         public bool isSelected;
 
         //methods
-        public JNode(Rect r, GUIContent c, GUIStyle s, ChuTools.IEventSystem eventSystem, System.Action<JNode> onNodeDelete) : this(r, c, s)
+        public JNode(Rect r, GUIContent c, GUIStyle s, IEventSystem eventSystem, System.Action<JNode> onNodeDelete) : this(r, c, s)
         {
             EventSystem = eventSystem;
             EventSystem.OnMouseDown += OnMouseDown;
