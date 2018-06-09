@@ -67,7 +67,7 @@ namespace TrentTools
                 }
             }
         }
-
+        ///ToDo: you can have one function handle all of this by passing in a type argument Ex: Compile<T>(string code) with an Evaluate<T> then case on a current enumselection  
         public int Compile_INT(string code)
         {
             return RoslynWrapper.Evaluate<int>(code).Result;
@@ -101,9 +101,9 @@ namespace TrentTools
             GUILayout.BeginArea(rect);
 
             GUILayout.Space(20);
-
+            ///tryout the EditorGUILayout.EnumPopup
             output_type_index = EditorGUILayout.Popup("OUTPUT TYPE", output_type_index, output_options);
-
+            
             codeinput = GUILayout.TextArea(codeinput);
 
             EditorGUILayout.LabelField("Result = :: " + result);
@@ -118,6 +118,7 @@ namespace TrentTools
         public string codeinput = "var a = 1; var b = 2; return a + b;";
         public string result = string.Empty;
 
+        //ToDo: you should change these to be an enum like enum OutputType{Int = 0, Float = 1, etc...} doing that will  make the types more strongly typed and meaningful. you could also use the enumpopup selection
         public string[] output_options = {"int", "float", "bool", "string", "object"};
         private int output_type_index;
 
