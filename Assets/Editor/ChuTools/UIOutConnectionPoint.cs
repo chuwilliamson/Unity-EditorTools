@@ -13,15 +13,13 @@ namespace ChuTools
             Base(name: "Out", normalStyleName: "CN Box", selectedStyleName: "CN Box", rect: rect);
         }
 
-        private IConnectionOut Out { get; set; }
+        public IConnectionOut Out { get; set; }
 
         public override void OnMouseUp(Event e)
         {
             base.OnMouseUp(e);
-            var @in = NodeEditorWindow.CurrentAcceptingDrag;
-            var @out = NodeEditorWindow.CurrentSendingDrag;
-            if (@in == null) return;
-            if (@out != this) return;
+            if (NodeEditorWindow.CurrentAcceptingDrag == null) return;
+            if (NodeEditorWindow.CurrentSendingDrag != this) return;
 
             NodeEditorWindow.RequestConnection(this, Out);
         }

@@ -7,13 +7,13 @@ namespace ChuTools
     [Serializable]
     public class UIDisplayNode : UIElement
     {
-        public UIInConnectionPoint In;
+        public UIInConnectionPoint In { get; set; }
         public INode Node { get; set; }
 
         public UIDisplayNode(Rect rect)
         {
-            Node = new DisplayNode(inConnection: null);
-            In = new UIInConnectionPoint(rect: new Rect(position: base.rect.position, size: new Vector2(x: 50, y: 50)), cb: Connect);
+            Node = new DisplayNode(null);
+            In = new UIInConnectionPoint(new Rect(base.rect.position, new Vector2(50, 50)), Connect);
             Base(name: "Display Node: ", normalStyleName: "flow node 1", selectedStyleName: "flow node 1 on", rect: rect);
         }
 
