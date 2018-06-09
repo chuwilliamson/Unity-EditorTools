@@ -1,6 +1,7 @@
-﻿using UnityEngine;
+﻿using ChuTools;
+using UnityEngine;
 
-namespace ChuTools
+namespace Interfaces
 {
     public interface IMouseDragHandler
     {
@@ -24,6 +25,9 @@ namespace ChuTools
 
     public interface IEventSystem
     {
+        void SetSelected(object obj);
+        void Release(object obj);
+        void PollEvents(Event e);
         object Selected { get; set; }
         object WillSelect { get; set; }
         EditorEvent OnMouseDown { get; set; }
@@ -34,8 +38,5 @@ namespace ChuTools
         EditorEvent OnMouseMove { get; set; }
         EditorEvent OnUsed { get; set; }
         Event Current { get; set; }
-        void SetSelected(object obj);
-        void Release(object obj);
-        void PollEvents(Event e);
     }
 }

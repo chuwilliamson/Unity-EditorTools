@@ -1,14 +1,14 @@
 ﻿using Interfaces;
+using Newtonsoft.Json;
+using System;
 using UnityEngine;
 
-namespace ChuTools
+namespace ChuTools.Controller
 {
-    [System.Serializable]
+    [Serializable]
     public class UIBezierConnection : IDrawable
     {
-        public IDrawable @in;
-        public IDrawable @out;
-
+        [JsonConstructor]
         public UIBezierConnection(IDrawable @in, IDrawable @out)
         {
             this.@in = @in;
@@ -21,5 +21,8 @@ namespace ChuTools
         {
             Chutilities.DrawNodeCurve(@in.Rect.center, @out.Rect.center);
         }
+
+        public IDrawable @in;
+        public IDrawable @out;
     }
 }

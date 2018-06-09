@@ -1,13 +1,14 @@
-﻿using Interfaces;
+﻿using System;
+using Interfaces;
+using Newtonsoft.Json;
 using UnityEngine;
 
 namespace JeremyTools
 {
-    [System.Serializable]
+    [Serializable]
     public class DelegateNode : INode
     {
-        public IConnectionIn InConnection { get; set; }
-
+        [JsonConstructor]
         public DelegateNode(IConnectionIn inConnection)
         {
             InConnection = inConnection;
@@ -18,5 +19,7 @@ namespace JeremyTools
             get { return InConnection?.Value ?? 0; }
             set { Debug.LogWarning("no you shouldn't be setting the inconnection value through the node" + value); }
         }
+
+        public IConnectionIn InConnection { get; set; }
     }
 }

@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEditor;
 using System;
+using Interfaces;
 
 namespace JeremyTools
 {
@@ -14,7 +15,7 @@ namespace JeremyTools
         bool isDrag = false;
         private Rect startRect, endRect;
         private JNode startNode, endNode;
-        private ChuTools.IEventSystem EventSystem = new ChuTools.NodeWindowEventSystem();
+        private IEventSystem EventSystem = new ChuTools.NodeWindowEventSystem();
 
         // methods
         void OnEnable()

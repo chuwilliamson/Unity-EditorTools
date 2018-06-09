@@ -1,7 +1,7 @@
 ﻿using System;
 using Interfaces;
 
-namespace ChuTools
+namespace ChuTools.Model
 {
     // ReSharper disable InconsistentNaming
 

@@ -1,27 +1,21 @@
-﻿using System.Reflection;
+﻿using ChuTools.Model;
 using Interfaces;
 using JeremyTools;
+using System;
+using Newtonsoft.Json;
 using UnityEngine;
 
-namespace ChuTools
+namespace ChuTools.Controller
 {
-    [System.Serializable]
+    [Serializable]
     public class UIMethodNode : UIElement
     {
-        public INode Node { get; set; }
-
-        public UIOutConnectionPoint Out { get; set; }
-
-        public UIMethodNode()
+        [JsonConstructor]
+        public UIMethodNode(UIOutConnectionPoint @out, INode @node, Rect @rect)
         {
-            Node = new MethodNode(new MethodObject
-            {
-                Target = this,
-                Type = typeof(UIMethodNode),
-                MethodName = "TestMethod"
-            });
-            Out = new UIOutConnectionPoint(new Rect(this.rect.position, new Vector2(50, 50)), new OutConnection(Node));
-            Base(rect, "Method Node");
+            Out = @out;
+            Node = @node;
+            Base(@rect, "Method Node");
         }
 
         public UIMethodNode(Rect rect)
@@ -46,7 +40,7 @@ namespace ChuTools
         {
             base.Draw();
 
-            Out.rect = new Rect(rect.position.x + rect.width, rect.position.y, 50, 50);
+            Out.rect = new Rect(this.rect.position.x + this.rect.width, this.rect.position.y, 50, 50);
             Out.Draw();
             GUILayout.BeginArea(rect);
             if (GUILayout.Button("DynamicInvoke"))
@@ -56,5 +50,9 @@ namespace ChuTools
             }
             GUILayout.EndArea();
         }
+
+        public INode Node;
+
+        public UIOutConnectionPoint Out;
     }
 }

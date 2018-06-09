@@ -1,7 +1,7 @@
 ﻿using UnityEditor;
 using UnityEngine;
 
-namespace ChuTools
+namespace ChuTools.View
 {
     public partial class NodeEditorWindow
     {
@@ -21,7 +21,6 @@ namespace ChuTools
             var pos = new Vector2(lastrect.xMin, lastrect.yMax);
             var menurect = new Rect(pos, new Vector2(550, 200));
 
-
             GUI.BeginGroup(menurect);
 
             GUI.Box(menurect, GUIContent.none);
@@ -37,7 +36,6 @@ namespace ChuTools
             EditorGUILayout.LabelField("Current Requesting Drag  ", value2);
             EditorGUILayout.LabelField("Node Count: " + Nodes.Count);
             EditorGUILayout.LabelField("Connections Count: " + Connections.Count);
-
 
             EditorGUILayout.EndVertical();
             GUI.EndGroup();

@@ -1,11 +1,13 @@
 ﻿using System;
 using Interfaces;
+using Newtonsoft.Json;
 
-namespace ChuTools
+namespace ChuTools.Model
 {
     [Serializable]
     public class OutConnection : IConnectionOut
     {
+        [JsonConstructor]
         public OutConnection(INode inputNode)
         {
             Node = inputNode;

@@ -1,8 +1,9 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 
 namespace JeremyTools
 {
-    [System.Serializable]
+    [Serializable]
     public class MethodObjects
     {
         public List<MethodObject> MethodObjectsList { get; set; }
