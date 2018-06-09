@@ -30,7 +30,7 @@ namespace TrentTools
             Out = new UIOutConnectionPoint(new Rect(this.rect.position, new Vector2(50, 50)), new OutConnection(Node));
             Base(rect, "Script Node", resize: true);
         }
-        
+
         public UIRoslynNode(Rect rect)
         {
             Node = new MethodNode(new MethodObject
@@ -46,31 +46,31 @@ namespace TrentTools
 
         public void DoCompile()
         {
-            switch (output_type_index)
+            switch (selected_output)
             {
-                case 0://INT
+                case Output_Options.Int:
                     {
-                        result = Compile_INT(codeinput).ToString();
+                        result = Compile<int>(codeinput).ToString();
                         break;
                     }
-                case 1://FLOAT
+                case Output_Options.Float:
                     {
-                        result = Compile_FLOAT(codeinput).ToString();
+                        result = Compile<float>(codeinput).ToString();
                         break;
                     }
-                case 2://BOOL
+                case Output_Options.Bool:
                     {
-                        result = Compile_BOOL(codeinput).ToString();
+                        result = Compile<bool>(codeinput).ToString();
                         break;
                     }
-                case 3://STRING
+                case Output_Options.String:
                     {
-                        result = Compile_STRING(codeinput);
+                        result = Compile<string>(codeinput);
                         break;
                     }
-                case 4://OBJECT
+                case Output_Options.Object:
                     {
-                        result = Compile_OBJECT(codeinput).ToString();
+                        result = Compile<object>(codeinput).ToString();
                         break;
                     }
                 default:
@@ -81,30 +81,9 @@ namespace TrentTools
             }
         }
 
-        ///ToDo: you can have one function handle all of this by passing in a type argument Ex: Compile<T>(string code) with an Evaluate<T> then case on a current enumselection
-        public int Compile_INT(string code)
+        public static T Compile<T>(string code)
         {
-            return RoslynWrapper.Evaluate<int>(code).Result;
-        }
-
-        public float Compile_FLOAT(string code)
-        {
-            return RoslynWrapper.Evaluate<float>(code).Result;
-        }
-
-        public bool Compile_BOOL(string code)
-        {
-            return RoslynWrapper.Evaluate<bool>(code).Result;
-        }
-
-        public string Compile_STRING(string code)
-        {
-            return RoslynWrapper.Evaluate<string>(code).Result;
-        }
-
-        public object Compile_OBJECT(string code)
-        {
-            return RoslynWrapper.Evaluate<object>(code).Result;
+            return RoslynWrapper.Evaluate<T>(code).Result;
         }
 
         public override void Draw()
@@ -115,8 +94,8 @@ namespace TrentTools
             GUILayout.BeginArea(rect);
 
             GUILayout.Space(20);
-            //tryout the EditorGUILayout.EnumPopup
-            output_type_index = EditorGUILayout.Popup("OUTPUT TYPE", output_type_index, output_options);
+
+            selected_output = (Output_Options)EditorGUILayout.EnumPopup("OUTPUT", selected_output);
 
             codeinput = GUILayout.TextArea(codeinput);
 
@@ -128,16 +107,15 @@ namespace TrentTools
         public INode Node { get; set; }
 
         #region Fields
-        [SerializeField]
-        public string codeinput = "var a = 1; var b = 2; return a + b;";
-        [SerializeField]
-        public string result = string.Empty;
+        [SerializeField] private string codeinput = "var a = 1; var b = 2; return a + b;";
+        public string CodeInput { get { return codeinput; } set { codeinput = value; } }
 
-        //ToDo: you should change these to be an enum like enum OutputType{Int = 0, Float = 1, etc...} doing that will  make the types more strongly typed and meaningful. you could also use the enumpopup selection
-        [NonSerialized] string[] output_options = { "int", "float", "bool", "string", "object" };
+        [SerializeField] private string result = string.Empty;
+        public string Result { get { return result; } set { result = value; } }
 
-        [NonSerialized] int output_type_index;
-
+        public enum Output_Options { Int = 0, Float = 1, Bool = 2, String = 3, Object = 4};
+        private Output_Options selected_output = Output_Options.Int;
+        public Output_Options SelectedOutput { get { return selected_output; } set { selected_output = value; } }
         #endregion Fields
     }
 }
