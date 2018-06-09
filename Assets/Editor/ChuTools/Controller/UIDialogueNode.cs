@@ -2,14 +2,12 @@
 using UnityEditor;
 using UnityEngine;
 
-namespace ChuTools
+namespace ChuTools.Controller
 {
-    public partial class Node
+    public class Node
     {
         public class EditorDialogueNode
         {
-            public Object Data;
-
             public void Draw()
             {
                 Data = EditorGUILayout.ObjectField(Data, typeof(DialogueRootObject), false);
@@ -27,6 +25,8 @@ namespace ChuTools
                     EditorGUILayout.RectField(GUILayoutUtility.GetLastRect());
                 }
             }
+
+            public Object Data;
         }
     }
 }

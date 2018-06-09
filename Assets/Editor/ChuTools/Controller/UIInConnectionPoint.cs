@@ -1,16 +1,15 @@
-﻿using System;
+﻿using ChuTools.View;
 using Interfaces;
+using Newtonsoft.Json;
+using System;
 using UnityEngine;
 
-namespace ChuTools
+namespace ChuTools.Controller
 {
     [Serializable]
     public class UIInConnectionPoint : UIElement
     {
-        protected ConnectionResponse ConnectionResponse { get; set; }
-        public  bool ConnectionState { get; set; }
-
-        //drag outconnection onto this
+        [JsonConstructor]
         public UIInConnectionPoint(Rect rect, ConnectionResponse cb)
         {
             ConnectionState = false;
@@ -26,9 +25,9 @@ namespace ChuTools
 
         public override void OnMouseDrag(Event e)
         {
-            if (!rect.Contains(e.mousePosition)) //this fixes the dragging
-            //this is bad because we dont want the nodes affecting the 
-            //window state
+            if (!rect.Contains(e.mousePosition))//this fixes the dragging
+                                                //this is bad because we dont want the nodes affecting the
+                                                //window state
             {
                 if (NodeEditorWindow.CurrentAcceptingDrag == this)
                     NodeEditorWindow.CurrentAcceptingDrag = null;
@@ -39,5 +38,8 @@ namespace ChuTools
             NodeEditorWindow.CurrentAcceptingDrag = this;
             GUI.changed = true;
         }
+
+        protected ConnectionResponse ConnectionResponse { get; set; }
+        public bool ConnectionState { get; set; }
     }
 }

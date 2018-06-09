@@ -1,6 +1,8 @@
-﻿using System;
-using ChuTools;
+﻿using System; 
+using ChuTools.Controller;
+using ChuTools.Model;
 using JeremyTools;
+using UnityEditor;
 using UnityEngine;
 #if UNITY_EDITOR
 using UnityEditor;

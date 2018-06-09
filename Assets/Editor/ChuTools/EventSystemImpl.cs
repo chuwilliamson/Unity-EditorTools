@@ -38,21 +38,27 @@ namespace ChuTools
                 case EventType.MouseDrag:
                     Invoke(OnMouseDrag, Current);
                     break;
+
                 case EventType.MouseUp:
                     Invoke(OnMouseUp, Current);
                     break;
+
                 case EventType.MouseDown:
                     Invoke(OnMouseDown, Current);
                     break;
+
                 case EventType.Repaint:
                     Invoke(OnRepaint, Current);
                     break;
+
                 case EventType.ContextClick:
                     Invoke(OnContextClick, Current);
                     break;
+
                 case EventType.MouseMove:
                     OnMouseMove?.Invoke(Current);
                     break;
+
                 case EventType.Used:
                     OnUsed?.Invoke(Current);
                     break;

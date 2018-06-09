@@ -1,14 +1,14 @@
-﻿using System;
-using Interfaces;
+﻿using Interfaces;
+using Newtonsoft.Json;
+using System;
 using UnityEngine;
 
-namespace ChuTools
+namespace ChuTools.Model
 {
     [Serializable]
     public class DisplayNode : INode
     {
-        public IConnectionIn InConnection { get; set; }
-
+        [JsonConstructor]
         public DisplayNode(IConnectionIn inConnection)
         {
             InConnection = inConnection;
@@ -19,5 +19,7 @@ namespace ChuTools
             get { return InConnection?.Value ?? 0; }
             set { Debug.LogWarning("no you shouldn't be setting the inconnection value through the node" + value); }
         }
+
+        public IConnectionIn InConnection { get; set; }
     }
 }

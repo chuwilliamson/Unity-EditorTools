@@ -1,6 +1,6 @@
 ﻿using Interfaces;
 
-namespace ChuTools
+namespace ChuTools.Controller
 {
     public delegate bool ConnectionResponse(IConnectionOut co);
 }

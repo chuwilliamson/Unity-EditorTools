@@ -1,9 +1,24 @@
 ﻿using UnityEngine;
 
-namespace ChuTools
+namespace ChuTools.View
 {
     public partial class NodeEditorWindow
     {
+        public static void SetSelected(object obj)
+        {
+            NodeEvents.SetSelected(obj);
+        }
+
+        public static void Release(object obj)
+        {
+            NodeEvents.Release(obj);
+        }
+
+        public static void PollEvents(Event e)
+        {
+            NodeEvents.PollEvents(e);
+        }
+
         public static Event Current
         {
             get { return NodeEvents.Current; }
@@ -62,21 +77,6 @@ namespace ChuTools
         {
             get { return NodeEvents.OnUsed; }
             set { NodeEvents.OnUsed = value; }
-        }
-
-        public static void SetSelected(object obj)
-        {
-            NodeEvents.SetSelected(obj);
-        }
-
-        public static void Release(object obj)
-        {
-            NodeEvents.Release(obj);
-        }
-
-        public static void PollEvents(Event e)
-        {
-            NodeEvents.PollEvents(e);
         }
     }
 }

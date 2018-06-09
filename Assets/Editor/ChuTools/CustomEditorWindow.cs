@@ -5,7 +5,6 @@ namespace ChuTools
 {
     public abstract class CustomEditorWindow : EditorWindow, IEventSystem
     {
-        public abstract IEventSystem NodeEventSystem { get; set; }
         public Event Current { get; set; }
 
         public void SetSelected(object obj)
@@ -76,5 +75,7 @@ namespace ChuTools
         {
             NodeEventSystem.PollEvents(e);
         }
+
+        public abstract IEventSystem NodeEventSystem { get; set; }
     }
 }

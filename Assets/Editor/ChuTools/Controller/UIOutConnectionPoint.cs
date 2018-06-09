@@ -1,19 +1,20 @@
-﻿using System;
+﻿using ChuTools.View;
 using Interfaces;
+using Newtonsoft.Json;
+using System;
 using UnityEngine;
 
-namespace ChuTools
+namespace ChuTools.Controller
 {
     [Serializable]
     public class UIOutConnectionPoint : UIElement
     {
+        [JsonConstructor]
         public UIOutConnectionPoint(Rect rect, IConnectionOut @out)
         {
             Out = @out;
             Base(name: "Out", normalStyleName: "CN Box", selectedStyleName: "CN Box", rect: rect);
         }
-
-        public IConnectionOut Out { get; set; }
 
         public override void OnMouseUp(Event e)
         {
@@ -30,5 +31,7 @@ namespace ChuTools
             if (!rect.Contains(e.mousePosition)) return;
             NodeEditorWindow.CurrentSendingDrag = this;
         }
+
+        public IConnectionOut Out { get; set; }
     }
 }
