@@ -1,5 +1,6 @@
 ﻿using Interfaces;
 using System;
+using ChuTools.View;
 using UnityEngine;
 
 namespace ChuTools
@@ -17,6 +18,8 @@ namespace ChuTools
         public EditorEvent OnContextClick { get; set; }
         public EditorEvent OnMouseMove { get; set; }
         public EditorEvent OnUsed { get; set; }
+        public EditorEvent OnDragExited { get; set; }
+        public EditorEvent OnScrollWheel { get; set; }
 
         public void SetSelected(object obj)
         {
@@ -33,9 +36,13 @@ namespace ChuTools
 
         public void PollEvents(Event e)
         {
+            NodeEditorWindow._drag = Vector2.zero;
             Current = e;
             switch (Current.type)
             {
+                case EventType.ScrollWheel:
+                    OnScrollWheel?.Invoke(Current);
+                    break;
                 case EventType.MouseDrag:
                     Invoke(OnMouseDrag, Current);
                     break;
@@ -62,6 +69,10 @@ namespace ChuTools
 
                 case EventType.Used:
                     OnUsed?.Invoke(Current);
+                    break;
+
+                case EventType.DragExited:
+                    OnDragExited?.Invoke(Current);
                     break;
             }
         }

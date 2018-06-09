@@ -25,6 +25,8 @@ namespace Interfaces
 
     public interface IEventSystem
     {
+        EditorEvent OnDragExited { get; set; }
+
         void SetSelected(object obj);
 
         void Release(object obj);
@@ -40,6 +42,7 @@ namespace Interfaces
         EditorEvent OnContextClick { get; set; }
         EditorEvent OnMouseMove { get; set; }
         EditorEvent OnUsed { get; set; }
+        EditorEvent OnScrollWheel { get; set; }
         Event Current { get; set; }
     }
 }

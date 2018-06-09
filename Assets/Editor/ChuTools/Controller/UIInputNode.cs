@@ -8,14 +8,14 @@ using UnityEngine;
 namespace ChuTools.Controller
 {
     [Serializable]
-    public class UIInputNode : UIElement
+    public sealed class UIInputNode : UIElement
     {
         [JsonConstructor]
         public UIInputNode(Rect rect)
         {
             Out = new UIOutConnectionPoint(new Rect(this.rect.position, new Vector2(50, 50)), new OutConnection(Node));
             ControlId = GUIUtility.GetControlID(FocusType.Passive, this.rect);
-            Base(name: "Input Node", normalStyleName: "flow node 2", selectedStyleName: "flow node 2 on", rect: rect);
+            Base(name: "Input Node", normalStyleName: "flow node 2", selectedStyleName: "flow node 2 on", rect: rect, resize: true);
         }
 
         public override void Draw()
@@ -31,7 +31,7 @@ namespace ChuTools.Controller
             GUILayout.EndArea();
         }
 
-        public virtual INode Node { get; set; } = new InputNode { Value = 0 };
+        public INode Node { get; set; } = new InputNode { Value = 0 };
         public UIOutConnectionPoint Out { get; set; }
     }
 }

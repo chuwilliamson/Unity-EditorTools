@@ -25,7 +25,7 @@ namespace ChuTools.Controller
             _out = new UIOutConnectionPoint(new Rect(this.rect.position, new Vector2(50, 50)),
                 new OutConnection(_transformation));
             Base(name: "Transformation", normalStyleName: "flow node 3", selectedStyleName: "flow node 3 on",
-                rect: rect);
+                rect: rect, resize: true);
         }
 
         private bool Connect(IConnectionOut outConnection)

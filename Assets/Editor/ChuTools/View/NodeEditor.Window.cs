@@ -6,6 +6,7 @@ using System;
 using System.Collections.Generic;
 using System.Diagnostics.CodeAnalysis;
 using System.IO;
+using System.Reflection;
 using TrentTools;
 using UnityEditor;
 using UnityEngine;
@@ -38,31 +39,63 @@ namespace ChuTools.View
 
         private void OnEnable()
         {
-            ClearNodes();
+            Load();
+        }
+
+        private void OnDisable()
+        {
+            Save();
         }
 
         private void OnGUI()
         {
-            NodeEvents.PollEvents(Event.current);
-            if (GUI.changed)
-                Repaint();
+            DrawGrid(20, 0.2f, Color.gray);
+            DrawGrid(100, 0.4f, Color.gray);
 
             DrawMenu();
             DrawConnection();
 
             Nodes.ForEach(n => n.Draw());
             Connections.ForEach(c => c.Draw());
+
+            NodeEvents.PollEvents(Event.current);
+
+            if (GUI.changed)
+                Repaint();
         }
 
         private void DrawConnection()
         {
             if (CurrentSendingDrag == null) return;
-            Chutilities.DrawNodeCurve(CurrentSendingDrag.Rect,
-                new Rect(Event.current.mousePosition, CurrentSendingDrag.Rect.size));
+            Chutilities.DrawNodeCurve(CurrentSendingDrag.rect,
+                new Rect(Event.current.mousePosition, CurrentSendingDrag.rect.size));
             var endRect = new Rect(Current.mousePosition, Vector2.one * 10);
             Handles.RectangleHandleCap(GUIUtility.GetControlID(FocusType.Passive, endRect), endRect.center,
                 Quaternion.identity, 15, EventType.Repaint);
             GUI.changed = true;
+        }
+
+        private void DrawGrid(float gridSpacing, float gridOpacity, Color gridColor)
+        {
+            var widthDivs = Mathf.CeilToInt(position.width / gridSpacing);
+            var heightDivs = Mathf.CeilToInt(position.height / gridSpacing);
+
+            Handles.BeginGUI();
+            Handles.color = new Color(gridColor.r, gridColor.g, gridColor.b, gridOpacity);
+
+            _offset += _drag * .5f;
+            var newOffset = new Vector3(_offset.x % gridSpacing, _offset.y % gridSpacing, 0);
+
+            for (var i = 0; i < widthDivs; i++)
+                Handles.DrawLine(new Vector3(gridSpacing * i, -gridSpacing, 0) + newOffset,
+                    new Vector3(gridSpacing * i, position.height, 0f) + newOffset);
+
+            for (var j = 0; j < heightDivs; j++)
+                Handles.DrawLine(new Vector3(-gridSpacing, gridSpacing * j, 0) + newOffset,
+                    new Vector3(position.width, gridSpacing * j, 0f) + newOffset);
+
+            Handles.color = Color.white;
+            Handles.EndGUI();
         }
 
         private void CreateContextMenu(Event e)
@@ -74,7 +107,7 @@ namespace ChuTools.View
             gm.AddItem(new GUIContent("Create Input-Output Node"), false, CreateNode<UITransformationNode>, e);
             gm.AddItem(new GUIContent("Create Input Node"), false, CreateNode<UIInputNode>, e);
             gm.AddItem(new GUIContent("Create Display Node"), false, CreateNode<UIDisplayNode>, e);
-            gm.AddItem(new GUIContent("Clear Nodes"), false, ClearNodes);
+            gm.AddItem(new GUIContent("Clear Nodes"), false, InitializeComponents);
             gm.ShowAsContext();
             e.Use();
         }
@@ -108,7 +141,7 @@ namespace ChuTools.View
             Nodes.Remove(n);
         }
 
-        private void ClearNodes()
+        private void InitializeComponents()
         {
             NodeWidth = 300;
             NodeHeight = 150;
@@ -123,12 +156,35 @@ namespace ChuTools.View
             NodeEvents.OnContextClick += CreateContextMenu;
             ConnectionCreatedEvent = null;
             ConnectionCreatedEvent = OnConnectionCreated;
-            NodeEvents.OnMouseUp += e =>
-            {
-                if (CurrentAcceptingDrag != null) return;
-                CurrentAcceptingDrag = null;
-                CurrentSendingDrag = null;
-            };
+            NodeEvents.OnMouseUp += ClearDrag;
+            NodeEvents.OnMouseDrag += Drag;
+            typeof(EditorBaseWindow).GetMethod("ClearConsole", BindingFlags.Static | BindingFlags.NonPublic)
+                .Invoke(null, null);
+
+            NodeEvents.OnScrollWheel += OnScroll;
+
+        }
+
+        private void OnScroll(Event e)
+        {
+            Debug.Log(e.delta);
+            Nodes?.ForEach(c => (c as UIElement).rect.size += (Vector2.one * e.delta.y));
+            GUI.changed = true;
+        }
+        private void Drag(Event e)
+        {
+            if (GUIUtility.hotControl != 0)
+                return;
+            _drag = e.delta;
+            Nodes?.ForEach(c => (c as UIElement).rect.position += _drag);
+            GUI.changed = true;
+        }
+
+        private void ClearDrag(Event e)
+        {
+            if (CurrentAcceptingDrag != null) return;
+            CurrentAcceptingDrag = null;
+            CurrentSendingDrag = null;
         }
 
         private void Save()
@@ -141,7 +197,7 @@ namespace ChuTools.View
 
         private void Load()
         {
-            ClearNodes();
+            InitializeComponents();
             var json = File.ReadAllText(_path);
             var n = JsonConvert.DeserializeObject<NodeEditorWindowSaveLoad>(json, _settings);
             Nodes = n.Nodes;
@@ -159,6 +215,8 @@ namespace ChuTools.View
             ReferenceLoopHandling = ReferenceLoopHandling.Serialize
         };
 
+        private Vector2 _offset;
+
         public List<IDrawable> Connections = new List<IDrawable>();
         public List<IDrawable> Nodes = new List<IDrawable>();
         public static UIOutConnectionPoint CurrentSendingDrag { get; set; }
@@ -168,13 +226,15 @@ namespace ChuTools.View
         public static IEventSystem NodeEvents { get; private set; }
         public Vector2 CenterWindow => new Vector2(Screen.width / 2.0f, Screen.height / 2.0f);
         private string _path => Application.dataPath + "/Editor/ChuTools/nodes.json";
+
+        public static Vector2 _drag;
         public static Action<UIOutConnectionPoint, UIInConnectionPoint> ConnectionCreatedEvent;
     }
 
     [Serializable]
     public class NodeEditorWindowSaveLoad//just for saving
     {
-        public List<IDrawable> Connections { get; set; }
         public List<IDrawable> Nodes { get; set; }
+        public List<IDrawable> Connections { get; set; }
     }
 }

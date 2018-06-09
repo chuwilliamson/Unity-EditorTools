@@ -10,15 +10,24 @@ namespace ChuTools.Controller
     public class UIDisplayNode : UIElement
     {
         [JsonConstructor]
+        public UIDisplayNode()
+        {
+            Node = new DisplayNode(null);
+            In = new UIInConnectionPoint(new Rect(this.rect.position, new Vector2(50, 50)), this.Connect);
+            Base(name: "Display Node: ", normalStyleName: "flow node 1", selectedStyleName: "flow node 1 on",
+                rect: rect, resize: true);
+        }
+
+
         public UIDisplayNode(Rect rect)
         {
             Node = new DisplayNode(null);
-            In = new UIInConnectionPoint(new Rect(this.rect.position, new Vector2(50, 50)), Connect);
+            In = new UIInConnectionPoint(new Rect(this.rect.position, new Vector2(50, 50)), this.Connect);
             Base(name: "Display Node: ", normalStyleName: "flow node 1", selectedStyleName: "flow node 1 on",
-                rect: rect);
+                rect: rect, resize: true);
         }
 
-        private bool Connect(IConnectionOut outConnection)
+        public bool Connect(IConnectionOut outConnection)
         {
             if (outConnection == null)
                 return false;

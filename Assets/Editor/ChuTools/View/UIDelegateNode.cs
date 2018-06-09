@@ -14,6 +14,18 @@ namespace JeremyTools
     public class UIDelegateNode : UIElement
     {
         [JsonConstructor]
+        public UIDelegateNode()
+        {
+            Node = new DelegateNode(new InConnection(null));
+            In = new UIInConnectionPoint(new Rect(this.rect.position, new Vector2(5, 50)), Connect);
+            MethodObjects = new MethodObjects { MethodObjectsList = new List<MethodObject>() };
+            _roMethodObjects = new ReorderableList(MethodObjects.MethodObjectsList, typeof(MethodObject), true, true,
+                true, true);
+            ControlId = GUIUtility.GetControlID(FocusType.Passive, this.rect);
+            Base(name: "UIDelegate Node", normalStyleName: "flow node 2", selectedStyleName: "flow node 2 on",
+                rect: rect, resize: true);
+        }
+
         public UIDelegateNode(Rect rect)
         {
             Node = new DelegateNode(new InConnection(null));
@@ -23,7 +35,7 @@ namespace JeremyTools
                 true, true);
             ControlId = GUIUtility.GetControlID(FocusType.Passive, this.rect);
             Base(name: "UIDelegate Node", normalStyleName: "flow node 2", selectedStyleName: "flow node 2 on",
-                rect: rect);
+                rect: rect, resize: true);
         }
 
         public override void Draw()
@@ -47,7 +59,7 @@ namespace JeremyTools
             GUILayout.EndArea();
         }
 
-        protected bool Connect(IConnectionOut outConnection)
+        public bool Connect(IConnectionOut outConnection)
         {
             if (outConnection == null)
                 return false;

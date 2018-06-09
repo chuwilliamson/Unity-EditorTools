@@ -18,6 +18,19 @@ namespace TrentTools
     public class UIRoslynNode : UIElement
     {
         [JsonConstructor]
+        public UIRoslynNode()
+        {
+            Node = new MethodNode(new MethodObject
+            {
+                Target = this,
+                Type = typeof(UIRoslynNode),
+                MethodName = "DoCompile"
+            });
+
+            Out = new UIOutConnectionPoint(new Rect(this.rect.position, new Vector2(50, 50)), new OutConnection(Node));
+            Base(rect, "Script Node", resize: true);
+        }
+        
         public UIRoslynNode(Rect rect)
         {
             Node = new MethodNode(new MethodObject
@@ -28,7 +41,7 @@ namespace TrentTools
             });
 
             Out = new UIOutConnectionPoint(new Rect(this.rect.position, new Vector2(50, 50)), new OutConnection(Node));
-            Base(rect, "Script Node");
+            Base(rect, "Script Node", resize: true);
         }
 
         public void DoCompile()
@@ -102,7 +115,7 @@ namespace TrentTools
             GUILayout.BeginArea(rect);
 
             GUILayout.Space(20);
-            ///tryout the EditorGUILayout.EnumPopup
+            //tryout the EditorGUILayout.EnumPopup
             output_type_index = EditorGUILayout.Popup("OUTPUT TYPE", output_type_index, output_options);
 
             codeinput = GUILayout.TextArea(codeinput);
@@ -115,14 +128,15 @@ namespace TrentTools
         public INode Node { get; set; }
 
         #region Fields
-
+        [SerializeField]
         public string codeinput = "var a = 1; var b = 2; return a + b;";
+        [SerializeField]
         public string result = string.Empty;
 
         //ToDo: you should change these to be an enum like enum OutputType{Int = 0, Float = 1, etc...} doing that will  make the types more strongly typed and meaningful. you could also use the enumpopup selection
-        public string[] output_options = { "int", "float", "bool", "string", "object" };
+        [NonSerialized] string[] output_options = { "int", "float", "bool", "string", "object" };
 
-        private int output_type_index;
+        [NonSerialized] int output_type_index;
 
         #endregion Fields
     }

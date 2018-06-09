@@ -8,7 +8,7 @@ namespace ChuTools.Controller
 {
     [Serializable]
     public class UIOutConnectionPoint : UIElement
-    {
+    { 
         [JsonConstructor]
         public UIOutConnectionPoint(Rect rect, IConnectionOut @out)
         {

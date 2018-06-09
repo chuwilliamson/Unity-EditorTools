@@ -11,11 +11,19 @@ namespace ChuTools.Controller
     public class UIMethodNode : UIElement
     {
         [JsonConstructor]
-        public UIMethodNode(UIOutConnectionPoint @out, INode node, Rect rect)
+        public UIMethodNode()
         {
-            Out = @out;
-            Node = node;
-            Base(rect, "Method Node");
+            Out = new UIOutConnectionPoint(new Rect(rect.position, new Vector2(50, 50)), new OutConnection(Node));
+
+            Node = new MethodNode(new MethodObject
+            {
+                Target = this,
+                Type = typeof(UIMethodNode),
+                MethodName = "TestMethod"
+            });
+
+            
+            Base(rect, "Method Node", resize: true);
         }
 
         public UIMethodNode(Rect rect)
@@ -28,7 +36,7 @@ namespace ChuTools.Controller
             });
 
             Out = new UIOutConnectionPoint(new Rect(this.rect.position, new Vector2(50, 50)), new OutConnection(Node));
-            Base(rect, "Method Node");
+            Base(rect, "Method Node", resize: true);
         }
 
         public void TestMethod()
@@ -41,7 +49,7 @@ namespace ChuTools.Controller
             base.Draw();
 
             Out.rect = new Rect(rect.position.x + rect.width, rect.position.y, 50, 50);
-            Out.Draw();
+            Out?.Draw();
             GUILayout.BeginArea(rect);
             if (GUILayout.Button("DynamicInvoke"))
             {

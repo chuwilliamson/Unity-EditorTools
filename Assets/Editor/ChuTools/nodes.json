@@ -1,0 +1,110 @@
+{
+  "$id": "1",
+  "$type": "ChuTools.View.NodeEditorWindowSaveLoad, Assembly-CSharp-Editor",
+  "Nodes": {
+    "$id": "2",
+    "$type": "System.Collections.Generic.List`1[[Interfaces.IDrawable, Assembly-CSharp-Editor]], mscorlib",
+    "$values": [
+      {
+        "$id": "3",
+        "$type": "ChuTools.Controller.UIDisplayNode, Assembly-CSharp-Editor",
+        "DragID": 0,
+        "rect": {
+          "$id": "4",
+          "$type": "UnityEngine.Rect, UnityEngine.CoreModule",
+          "x": 223.0,
+          "y": 339.0,
+          "position": {
+            "x": 223.0,
+            "y": 339.0
+          },
+          "center": {
+            "x": -327827.0,
+            "y": -163686.0
+          },
+          "min": {
+            "x": 223.0,
+            "y": 339.0
+          },
+          "max": {
+            "x": -655877.0,
+            "y": -327711.0
+          },
+          "width": -656100.0,
+          "height": -328050.0,
+          "size": {
+            "x": -656100.0,
+            "y": -328050.0
+          },
+          "xMin": 223.0,
+          "yMin": 339.0,
+          "xMax": -655877.0,
+          "yMax": -327711.0,
+          "left": 223.0,
+          "right": -655877.0,
+          "top": 339.0,
+          "bottom": -327711.0
+        },
+        "In": {
+          "$id": "5",
+          "$type": "ChuTools.Controller.UIInConnectionPoint, Assembly-CSharp-Editor",
+          "DragID": 0,
+          "rect": {
+            "$id": "6",
+            "$type": "UnityEngine.Rect, UnityEngine.CoreModule",
+            "x": 168.0,
+            "y": 339.0,
+            "position": {
+              "x": 168.0,
+              "y": 339.0
+            },
+            "center": {
+              "x": 193.0,
+              "y": 364.0
+            },
+            "min": {
+              "x": 168.0,
+              "y": 339.0
+            },
+            "max": {
+              "x": 218.0,
+              "y": 389.0
+            },
+            "width": 50.0,
+            "height": 50.0,
+            "size": {
+              "x": 50.0,
+              "y": 50.0
+            },
+            "xMin": 168.0,
+            "yMin": 339.0,
+            "xMax": 218.0,
+            "yMax": 389.0,
+            "left": 168.0,
+            "right": 218.0,
+            "top": 339.0,
+            "bottom": 389.0
+          },
+          "ConnectionState": false,
+          "Resize": false,
+          "Name": "In",
+          "ControlId": 2578
+        },
+        "Node": {
+          "$id": "7",
+          "$type": "ChuTools.Model.DisplayNode, Assembly-CSharp-Editor",
+          "Value": 0,
+          "InConnection": null
+        },
+        "Resize": false,
+        "Name": "Display Node: ",
+        "ControlId": 2579
+      }
+    ]
+  },
+  "Connections": {
+    "$id": "8",
+    "$type": "System.Collections.Generic.List`1[[Interfaces.IDrawable, Assembly-CSharp-Editor]], mscorlib",
+    "$values": []
+  }
+}

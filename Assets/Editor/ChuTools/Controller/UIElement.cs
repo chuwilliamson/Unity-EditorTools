@@ -9,7 +9,20 @@ namespace ChuTools.Controller
     [Serializable]
     public abstract class UIElement : IDrawable, IMouseDownHandler, IMouseUpHandler, IMouseDragHandler
     {
-        public Rect Rect => rect;
+        protected void Base(Rect rect, string name = "default", string normalStyleName = "flow node 0",
+            string selectedStyleName = "flow node 0 on", bool resize = false)
+        {
+            Name = name;
+            this.rect = new Rect(rect);
+            ControlId = GUIUtility.GetControlID(FocusType.Passive, this.rect);
+            Content = new GUIContent(Name + ": " + ControlId);
+            NormalStyle = new GUIStyle(normalStyleName) { alignment = TextAnchor.LowerLeft, fontSize = 10 };
+            SelectedStyle = new GUIStyle(selectedStyleName) { alignment = TextAnchor.LowerLeft, fontSize = 10 };
+            Style = NormalStyle;
+            NodeEditorWindow.NodeEvents.OnMouseDown += OnMouseDown;
+            NodeEditorWindow.NodeEvents.OnMouseUp += OnMouseUp;
+            NodeEditorWindow.NodeEvents.OnMouseDrag += OnMouseDrag;
+        }
 
         /// <summary>
         ///     Draw the default box for this ui element
@@ -18,10 +31,28 @@ namespace ChuTools.Controller
         {
             Content = new GUIContent(Name + ": " + ControlId);
             GUI.Box(rect, Content, Style);
+            if (!Resize) return;
+
+            GUI.Box(DragRect, GUIContent.none);
+            DragID = GUIUtility.GetControlID(FocusType.Passive, DragRect);
+        }
+
+        Rect IDrawable.Rect
+        {
+            get { return rect; }
+       
         }
 
         public virtual void OnMouseDown(Event e)
         {
+
+            if (DragRect.Contains(e.mousePosition) && Resize)
+            {
+                GUIUtility.hotControl = DragID;
+                GUI.changed = true;
+                return;
+            }
+
             if (rect.Contains(e.mousePosition))
             {
                 GUIUtility.hotControl = ControlId;
@@ -32,6 +63,14 @@ namespace ChuTools.Controller
 
         public virtual void OnMouseDrag(Event e)
         {
+            if (GUIUtility.hotControl == DragID && Resize)
+            {
+                rect = new Rect(rect.position, rect.size + e.delta);
+                GUI.changed = true;
+                e.Use();
+                
+            }
+
             if (GUIUtility.hotControl == ControlId)
             {
                 rect = new Rect(rect.position + e.delta, rect.size);
@@ -48,34 +87,26 @@ namespace ChuTools.Controller
                 Style = NormalStyle;
                 GUI.changed = true;
             }
+
+            if (GUIUtility.hotControl == DragID && Resize)
+            {
+                GUIUtility.hotControl = 0;
+                Style = NormalStyle;
+                GUI.changed = true;
+            }
         }
 
-        protected void Base(Rect rect, string name = "default", string normalStyleName = "flow node 0",
-            string selectedStyleName = "flow node 0 on")
-        {
-            Name = name;
-            this.rect = new Rect(rect);
-            _controlId = GUIUtility.GetControlID(FocusType.Passive, this.rect);
-            Content = new GUIContent(Name + ": " + ControlId);
-            NormalStyle = new GUIStyle(normalStyleName) { alignment = TextAnchor.LowerLeft, fontSize = 10 };
-            SelectedStyle = new GUIStyle(selectedStyleName) { alignment = TextAnchor.LowerLeft, fontSize = 10 };
-            Style = NormalStyle;
-            NodeEditorWindow.NodeEvents.OnMouseDown += OnMouseDown;
-            NodeEditorWindow.NodeEvents.OnMouseUp += OnMouseUp;
-            NodeEditorWindow.NodeEvents.OnMouseDrag += OnMouseDrag;
-        }
+        public int DragID;
 
-        [SerializeField] protected int _controlId;
+        public bool Resize { get; set; }
 
-        [SerializeField] public Rect rect;
+        private Rect DragRect => new Rect(new Vector2(rect.xMax - 15, rect.yMax - 15), new Vector2(15, 15));
+
+        public Rect rect;
 
         public string Name { get; set; }
 
-        public int ControlId
-        {
-            get { return _controlId; }
-            set { _controlId = value; }
-        }
+        public int ControlId { get; set; }
 
         [JsonIgnore]
         public GUIStyle SelectedStyle { get; set; }

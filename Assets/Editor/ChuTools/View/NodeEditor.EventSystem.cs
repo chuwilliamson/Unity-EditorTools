@@ -61,6 +61,11 @@ namespace ChuTools.View
             set { NodeEvents.OnMouseDrag = value; }
         }
 
+        public static EditorEvent OnDragExited
+        {
+            get { return NodeEvents.OnDragExited; }
+            set { NodeEvents.OnDragExited = value; }
+        }
         public static EditorEvent OnContextClick
         {
             get { return NodeEvents.OnContextClick; }
@@ -73,6 +78,11 @@ namespace ChuTools.View
             set { NodeEvents.OnMouseMove = value; }
         }
 
+        public static EditorEvent OnScrollWheel
+        {
+            get { return NodeEvents.OnScrollWheel; }
+            set { NodeEvents.OnScrollWheel = value; }
+        }
         public static EditorEvent OnUsed
         {
             get { return NodeEvents.OnUsed; }

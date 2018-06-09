@@ -2,6 +2,7 @@
 using Interfaces;
 using Newtonsoft.Json;
 using System;
+using JeremyTools;
 using UnityEngine;
 
 namespace ChuTools.Controller
@@ -13,14 +14,14 @@ namespace ChuTools.Controller
         public UIInConnectionPoint(Rect rect, ConnectionResponse cb)
         {
             ConnectionState = false;
-            ConnectionResponse = cb;
+            _connectionResponse = cb;
             Base(name: "In", normalStyleName: "CN Box", selectedStyleName: "CN Box", rect: rect);
         }
 
         public bool ValidateConnection(IConnectionOut @out)
         {
             if (ConnectionState) return false;
-            return ConnectionState = ConnectionResponse.Invoke(@out);
+            return ConnectionState = _connectionResponse.Invoke(@out);
         }
 
         public override void OnMouseDrag(Event e)
@@ -39,7 +40,8 @@ namespace ChuTools.Controller
             GUI.changed = true;
         }
 
-        protected ConnectionResponse ConnectionResponse { get; set; }
+        [NonSerialized]
+        private ConnectionResponse _connectionResponse;
         public bool ConnectionState { get; set; }
     }
 }
