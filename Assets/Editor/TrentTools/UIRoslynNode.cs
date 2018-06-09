@@ -30,7 +30,7 @@ namespace TrentTools
             Out = new UIOutConnectionPoint(new Rect(this.rect.position, new Vector2(50, 50)), new OutConnection(Node));
             Base(rect, "Script Node", resize: true);
         }
-        
+
         public UIRoslynNode(Rect rect)
         {
             Node = new MethodNode(new MethodObject
@@ -81,7 +81,7 @@ namespace TrentTools
             }
         }
 
-        public T Compile<T>(string code)
+        public static T Compile<T>(string code)
         {
             return RoslynWrapper.Evaluate<T>(code).Result;
         }
@@ -107,11 +107,15 @@ namespace TrentTools
         public INode Node { get; set; }
 
         #region Fields
-        [SerializeField] public string codeinput = "var a = 1; var b = 2; return a + b;";
-        [SerializeField] public string result = string.Empty;
+        [SerializeField] private string codeinput = "var a = 1; var b = 2; return a + b;";
+        public string CodeInput { get { return codeinput; } set { codeinput = value; } }
+
+        [SerializeField] private string result = string.Empty;
+        public string Result { get { return result; } set { result = value; } }
 
         public enum Output_Options { Int = 0, Float = 1, Bool = 2, String = 3, Object = 4};
-        public Output_Options selected_output;
+        private Output_Options selected_output = Output_Options.Int;
+        public Output_Options SelectedOutput { get { return selected_output; } set { selected_output = value; } }
         #endregion Fields
     }
 }
