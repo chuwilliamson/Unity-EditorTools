@@ -1,8 +1,8 @@
 ﻿using ChuTools.Model;
 using Interfaces;
 using JeremyTools;
-using System;
 using Newtonsoft.Json;
+using System;
 using UnityEngine;
 
 namespace ChuTools.Controller
@@ -11,11 +11,11 @@ namespace ChuTools.Controller
     public class UIMethodNode : UIElement
     {
         [JsonConstructor]
-        public UIMethodNode(UIOutConnectionPoint @out, INode @node, Rect @rect)
+        public UIMethodNode(UIOutConnectionPoint @out, INode node, Rect rect)
         {
             Out = @out;
-            Node = @node;
-            Base(@rect, "Method Node");
+            Node = node;
+            Base(rect, "Method Node");
         }
 
         public UIMethodNode(Rect rect)
@@ -40,7 +40,7 @@ namespace ChuTools.Controller
         {
             base.Draw();
 
-            Out.rect = new Rect(this.rect.position.x + this.rect.width, this.rect.position.y, 50, 50);
+            Out.rect = new Rect(rect.position.x + rect.width, rect.position.y, 50, 50);
             Out.Draw();
             GUILayout.BeginArea(rect);
             if (GUILayout.Button("DynamicInvoke"))

@@ -1,53 +1,15 @@
 ﻿using Interfaces;
-using Interfaces;
+using System;
 using UnityEditor;
 using UnityEngine;
 
 namespace JeremyTools
 {
-    public partial class JNode 
+    public partial class JNode
     {
-        // fields
-        public IEventSystem EventSystem { get; set; }
-
-        Rect OutRect
-        {
-            get
-            {
-                return new Rect(new Vector2(rect.xMax, (rect.center.y - (25 / 2))), new Vector3(25, 25));
-            }
-        }
-
-        Rect InRect
-        {
-            get { return new Rect(new Vector2(rect.xMin - 25, (rect.center.y - (25 / 2))), new Vector3(25, 25)); }
-        }
-
-        public Vector2 OutCenter
-        {
-            get
-            {
-                return OutRect.center;
-            }
-        }
-
-        public Vector2 InCenter
-        {
-            get
-            {
-                return InRect.center;
-            }
-        }
-
-        public Rect rect;
-        public ConnectionPoint outPoint, inPoint;
-        public GUIContent content;
-        public GUIStyle style;
-        private System.Action<JNode> _onNodeDelete;
-        public bool isSelected;
-
         //methods
-        public JNode(Rect r, GUIContent c, GUIStyle s, IEventSystem eventSystem, System.Action<JNode> onNodeDelete) : this(r, c, s)
+        public JNode(Rect r, GUIContent c, GUIStyle s, IEventSystem eventSystem, Action<JNode> onNodeDelete) : this(r,
+            c, s)
         {
             EventSystem = eventSystem;
             EventSystem.OnMouseDown += OnMouseDown;
@@ -90,13 +52,11 @@ namespace JeremyTools
         public void OnMouseDown(Event e)
         {
             if (e.button == 0)
-            {
                 if (rect.Contains(e.mousePosition))
                 {
                     Debug.Log("Left Down Node");
                     GUI.changed = true;
                 }
-            }
         }
 
         public void OnMouseUp(Event e)
@@ -118,5 +78,24 @@ namespace JeremyTools
             }
         }
 
+        private readonly Action<JNode> _onNodeDelete;
+        public GUIContent content;
+        public bool isSelected;
+        public ConnectionPoint outPoint, inPoint;
+
+        public Rect rect;
+
+        public GUIStyle style;
+
+        // fields
+        public IEventSystem EventSystem { get; set; }
+
+        private Rect OutRect => new Rect(new Vector2(rect.xMax, rect.center.y - 25 / 2), new Vector3(25, 25));
+
+        private Rect InRect => new Rect(new Vector2(rect.xMin - 25, rect.center.y - 25 / 2), new Vector3(25, 25));
+
+        public Vector2 OutCenter => OutRect.center;
+
+        public Vector2 InCenter => InRect.center;
     }
 }

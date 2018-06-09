@@ -4,9 +4,6 @@ namespace JeremyTools
 {
     public class ConnectionPoint
     {
-        public Rect rect;
-        public string name;
-
         public ConnectionPoint(Rect r, string n)
         {
             rect = r;
@@ -17,5 +14,8 @@ namespace JeremyTools
         {
             GUI.Box(rect, new GUIContent(name, name));
         }
+
+        public string name;
+        public Rect rect;
     }
 }

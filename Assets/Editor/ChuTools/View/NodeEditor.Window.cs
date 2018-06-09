@@ -1,10 +1,12 @@
 ﻿using ChuTools.Controller;
 using Interfaces;
+using JeremyTools;
 using Newtonsoft.Json;
 using System;
 using System.Collections.Generic;
 using System.Diagnostics.CodeAnalysis;
 using System.IO;
+using TrentTools;
 using UnityEditor;
 using UnityEngine;
 
@@ -66,9 +68,9 @@ namespace ChuTools.View
         private void CreateContextMenu(Event e)
         {
             var gm = new GenericMenu();
-            gm.AddItem(new GUIContent("Create Roslyn Node"), false, CreateNode<TrentTools.UIRoslynNode>, e);
+            gm.AddItem(new GUIContent("Create Roslyn Node"), false, CreateNode<UIRoslynNode>, e);
             gm.AddItem(new GUIContent("Create Method Node"), false, CreateNode<UIMethodNode>, e);
-            gm.AddItem(new GUIContent("Create Delegate Node"), false, CreateNode<JeremyTools.UIDelegateNode>, e);
+            gm.AddItem(new GUIContent("Create Delegate Node"), false, CreateNode<UIDelegateNode>, e);
             gm.AddItem(new GUIContent("Create Input-Output Node"), false, CreateNode<UITransformationNode>, e);
             gm.AddItem(new GUIContent("Create Input Node"), false, CreateNode<UIInputNode>, e);
             gm.AddItem(new GUIContent("Create Display Node"), false, CreateNode<UIDisplayNode>, e);
@@ -145,7 +147,7 @@ namespace ChuTools.View
             Nodes = n.Nodes;
             Connections = n.Connections;
         }
-        
+
         private readonly JsonSerializerSettings _settings = new JsonSerializerSettings
         {
             TypeNameHandling = TypeNameHandling.All,
@@ -155,7 +157,6 @@ namespace ChuTools.View
             Formatting = Formatting.Indented,
             DefaultValueHandling = DefaultValueHandling.Populate,
             ReferenceLoopHandling = ReferenceLoopHandling.Serialize
-
         };
 
         public List<IDrawable> Connections = new List<IDrawable>();
