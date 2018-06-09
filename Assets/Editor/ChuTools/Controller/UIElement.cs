@@ -30,30 +30,31 @@ namespace ChuTools.Controller
         public virtual void Draw()
         {
             Content = new GUIContent(Name + ": " + ControlId);
+
             GUI.Box(rect, Content, Style);
-            if (!Resize) return;
 
             GUI.Box(DragRect, GUIContent.none);
             DragID = GUIUtility.GetControlID(FocusType.Passive, DragRect);
+
         }
 
         Rect IDrawable.Rect
         {
             get { return rect; }
-       
+
         }
 
+        private bool resizing = false;
         public virtual void OnMouseDown(Event e)
         {
-
-            if (DragRect.Contains(e.mousePosition) && Resize)
+            if (DragRect.Contains(e.mousePosition))
             {
                 GUIUtility.hotControl = DragID;
                 GUI.changed = true;
-                return;
+                resizing = true;
             }
 
-            if (rect.Contains(e.mousePosition))
+            if (rect.Contains(e.mousePosition) && !resizing)
             {
                 GUIUtility.hotControl = ControlId;
                 Style = SelectedStyle;
@@ -63,12 +64,11 @@ namespace ChuTools.Controller
 
         public virtual void OnMouseDrag(Event e)
         {
-            if (GUIUtility.hotControl == DragID && Resize)
+            if (GUIUtility.hotControl == DragID)
             {
                 rect = new Rect(rect.position, rect.size + e.delta);
                 GUI.changed = true;
                 e.Use();
-                
             }
 
             if (GUIUtility.hotControl == ControlId)
@@ -88,11 +88,12 @@ namespace ChuTools.Controller
                 GUI.changed = true;
             }
 
-            if (GUIUtility.hotControl == DragID && Resize)
+            if (GUIUtility.hotControl == DragID)
             {
                 GUIUtility.hotControl = 0;
                 Style = NormalStyle;
                 GUI.changed = true;
+                resizing = false;
             }
         }
 

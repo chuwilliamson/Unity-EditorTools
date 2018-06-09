@@ -14,6 +14,7 @@ namespace ChuTools.Controller
         {
             Node = new DisplayNode(null);
             In = new UIInConnectionPoint(new Rect(this.rect.position, new Vector2(50, 50)), this.Connect);
+            In.rect = new Rect(rect.position.x - 55, rect.position.y, 50, 50);
             Base(name: "Display Node: ", normalStyleName: "flow node 1", selectedStyleName: "flow node 1 on",
                 rect: rect, resize: true);
         }
@@ -23,6 +24,7 @@ namespace ChuTools.Controller
         {
             Node = new DisplayNode(null);
             In = new UIInConnectionPoint(new Rect(this.rect.position, new Vector2(50, 50)), this.Connect);
+            In.rect = new Rect(rect.position.x - 55, rect.position.y, 50, 50);
             Base(name: "Display Node: ", normalStyleName: "flow node 1", selectedStyleName: "flow node 1 on",
                 rect: rect, resize: true);
         }

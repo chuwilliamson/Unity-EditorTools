@@ -7,68 +7,95 @@
     "$values": [
       {
         "$id": "3",
-        "$type": "ChuTools.Controller.UIDisplayNode, Assembly-CSharp-Editor",
-        "DragID": 0,
+        "$type": "TrentTools.UIRoslynNode, Assembly-CSharp-Editor",
+        "codeinput": "var a = 1; var b = 2; return a + b;",
+        "result": "",
+        "DragID": 3314,
         "rect": {
           "$id": "4",
           "$type": "UnityEngine.Rect, UnityEngine.CoreModule",
-          "x": 223.0,
-          "y": 339.0,
+          "x": 195.0,
+          "y": 461.0,
           "position": {
-            "x": 223.0,
-            "y": 339.0
+            "x": 195.0,
+            "y": 461.0
           },
           "center": {
-            "x": -327827.0,
-            "y": -163686.0
+            "x": 345.0,
+            "y": 536.0
           },
           "min": {
-            "x": 223.0,
-            "y": 339.0
+            "x": 195.0,
+            "y": 461.0
           },
           "max": {
-            "x": -655877.0,
-            "y": -327711.0
+            "x": 495.0,
+            "y": 611.0
           },
-          "width": -656100.0,
-          "height": -328050.0,
+          "width": 300.0,
+          "height": 150.0,
           "size": {
-            "x": -656100.0,
-            "y": -328050.0
+            "x": 300.0,
+            "y": 150.0
           },
-          "xMin": 223.0,
-          "yMin": 339.0,
-          "xMax": -655877.0,
-          "yMax": -327711.0,
-          "left": 223.0,
-          "right": -655877.0,
-          "top": 339.0,
-          "bottom": -327711.0
+          "xMin": 195.0,
+          "yMin": 461.0,
+          "xMax": 495.0,
+          "yMax": 611.0,
+          "left": 195.0,
+          "right": 495.0,
+          "top": 461.0,
+          "bottom": 611.0
         },
-        "In": {
+        "Out": {
           "$id": "5",
-          "$type": "ChuTools.Controller.UIInConnectionPoint, Assembly-CSharp-Editor",
-          "DragID": 0,
-          "rect": {
+          "$type": "ChuTools.Controller.UIOutConnectionPoint, Assembly-CSharp-Editor",
+          "Out": {
             "$id": "6",
+            "$type": "ChuTools.Model.OutConnection, Assembly-CSharp-Editor",
+            "Value": {
+              "$type": "JeremyTools.MethodObject, Assembly-CSharp-Editor",
+              "Target": {
+                "$ref": "3"
+              },
+              "MethodName": "DoCompile",
+              "Type": "TrentTools.UIRoslynNode, Assembly-CSharp-Editor, Version=0.0.0.0, Culture=neutral, PublicKeyToken=null"
+            },
+            "Node": {
+              "$id": "7",
+              "$type": "JeremyTools.MethodNode, Assembly-CSharp-Editor",
+              "Value": {
+                "$id": "8",
+                "$type": "JeremyTools.MethodObject, Assembly-CSharp-Editor",
+                "Target": {
+                  "$ref": "3"
+                },
+                "MethodName": "DoCompile",
+                "Type": "TrentTools.UIRoslynNode, Assembly-CSharp-Editor, Version=0.0.0.0, Culture=neutral, PublicKeyToken=null"
+              }
+            }
+          },
+          "DragID": 3317,
+          "rect": {
+            "$id": "9",
             "$type": "UnityEngine.Rect, UnityEngine.CoreModule",
-            "x": 168.0,
-            "y": 339.0,
+            "x": 495.0,
+            "y": 461.0,
             "position": {
-              "x": 168.0,
-              "y": 339.0
+              "x": 495.0,
+              "y": 461.0
             },
             "center": {
-              "x": 193.0,
-              "y": 364.0
+              "x": 520.0,
+              "y": 486.0
             },
             "min": {
-              "x": 168.0,
-              "y": 339.0
+              "x": 495.0,
+              "y": 461.0
             },
             "max": {
-              "x": 218.0,
-              "y": 389.0
+              "x": 545.0,
+              "y": 511.0
             },
             "width": 50.0,
             "height": 50.0,
@@ -76,34 +103,30 @@
               "x": 50.0,
               "y": 50.0
             },
-            "xMin": 168.0,
-            "yMin": 339.0,
-            "xMax": 218.0,
-            "yMax": 389.0,
-            "left": 168.0,
-            "right": 218.0,
-            "top": 339.0,
-            "bottom": 389.0
+            "xMin": 495.0,
+            "yMin": 461.0,
+            "xMax": 545.0,
+            "yMax": 511.0,
+            "left": 495.0,
+            "right": 545.0,
+            "top": 461.0,
+            "bottom": 511.0
           },
-          "ConnectionState": false,
           "Resize": false,
-          "Name": "In",
-          "ControlId": 2578
+          "Name": "Out",
+          "ControlId": 3349
         },
         "Node": {
-          "$id": "7",
-          "$type": "ChuTools.Model.DisplayNode, Assembly-CSharp-Editor",
-          "Value": 0,
-          "InConnection": null
+          "$ref": "7"
         },
         "Resize": false,
-        "Name": "Display Node: ",
-        "ControlId": 2579
+        "Name": "Script Node",
+        "ControlId": 3350
       }
     ]
   },
   "Connections": {
-    "$id": "8",
+    "$id": "10",
     "$type": "System.Collections.Generic.List`1[[Interfaces.IDrawable, Assembly-CSharp-Editor]], mscorlib",
     "$values": []
   }

@@ -13,7 +13,10 @@ namespace ChuTools.Controller
         [JsonConstructor]
         public UIInputNode(Rect rect)
         {
-            Out = new UIOutConnectionPoint(new Rect(this.rect.position, new Vector2(50, 50)), new OutConnection(Node));
+            Out = new UIOutConnectionPoint(new Rect(this.rect.position, new Vector2(50, 50)), new OutConnection(Node))
+            {
+                rect = new Rect(rect.position.x + rect.width, rect.position.y, 50, 50)
+            };
             ControlId = GUIUtility.GetControlID(FocusType.Passive, this.rect);
             Base(name: "Input Node", normalStyleName: "flow node 2", selectedStyleName: "flow node 2 on", rect: rect, resize: true);
         }

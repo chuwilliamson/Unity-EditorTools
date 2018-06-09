@@ -46,7 +46,12 @@ namespace JeremyTools
             In?.Draw();
 
             GUILayout.BeginArea(rect);
-
+            if(_roMethodObjects == null)
+            {
+                GUILayout.EndArea();
+                return;
+            }
+                
             EditorGUILayout.BeginVertical();
 
             _roMethodObjects?.DoLayoutList();

@@ -39,7 +39,7 @@ namespace ChuTools.View
 
         private void OnEnable()
         {
-            Load();
+            InitializeComponents();
         }
 
         private void OnDisable()
@@ -69,7 +69,7 @@ namespace ChuTools.View
             if (CurrentSendingDrag == null) return;
             Chutilities.DrawNodeCurve(CurrentSendingDrag.rect,
                 new Rect(Event.current.mousePosition, CurrentSendingDrag.rect.size));
-            var endRect = new Rect(Current.mousePosition, Vector2.one * 10);
+            var endRect = new Rect(Current.mousePosition, Vector2.one * 10) {center = Current.mousePosition};
             Handles.RectangleHandleCap(GUIUtility.GetControlID(FocusType.Passive, endRect), endRect.center,
                 Quaternion.identity, 15, EventType.Repaint);
             GUI.changed = true;

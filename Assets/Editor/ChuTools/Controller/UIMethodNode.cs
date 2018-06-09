@@ -1,8 +1,8 @@
-﻿using ChuTools.Model;
+﻿using System;
+using ChuTools.Model;
 using Interfaces;
 using JeremyTools;
 using Newtonsoft.Json;
-using System;
 using UnityEngine;
 
 namespace ChuTools.Controller
@@ -15,6 +15,8 @@ namespace ChuTools.Controller
         {
             Out = new UIOutConnectionPoint(new Rect(rect.position, new Vector2(50, 50)), new OutConnection(Node));
 
+            Out.rect = new Rect(rect.position.x + rect.width, rect.position.y, 50, 50);
+
             Node = new MethodNode(new MethodObject
             {
                 Target = this,
@@ -22,7 +24,6 @@ namespace ChuTools.Controller
                 MethodName = "TestMethod"
             });
 
-            
             Base(rect, "Method Node", resize: true);
         }
 
@@ -36,6 +37,8 @@ namespace ChuTools.Controller
             });
 
             Out = new UIOutConnectionPoint(new Rect(this.rect.position, new Vector2(50, 50)), new OutConnection(Node));
+
+            Out.rect = new Rect(rect.position.x + rect.width, rect.position.y, 50, 50);
             Base(rect, "Method Node", resize: true);
         }
 
@@ -51,7 +54,7 @@ namespace ChuTools.Controller
             Out.rect = new Rect(rect.position.x + rect.width, rect.position.y, 50, 50);
             Out?.Draw();
             GUILayout.BeginArea(rect);
-            if (GUILayout.Button("DynamicInvoke"))
+            if(GUILayout.Button("DynamicInvoke"))
             {
                 var obj = Node.Value as MethodObject;
                 obj?.DynamicInvoke();
