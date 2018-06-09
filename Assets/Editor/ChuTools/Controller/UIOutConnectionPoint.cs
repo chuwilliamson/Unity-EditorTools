@@ -32,6 +32,6 @@ namespace ChuTools.Controller
             NodeEditorWindow.CurrentSendingDrag = this;
         }
 
-        public IConnectionOut Out { get; set; }
+        public IConnectionOut Out;
     }
 }

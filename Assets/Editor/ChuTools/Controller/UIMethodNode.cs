@@ -2,6 +2,7 @@
 using Interfaces;
 using JeremyTools;
 using System;
+using Newtonsoft.Json;
 using UnityEngine;
 
 namespace ChuTools.Controller
@@ -9,16 +10,12 @@ namespace ChuTools.Controller
     [Serializable]
     public class UIMethodNode : UIElement
     {
-        public UIMethodNode()
+        [JsonConstructor]
+        public UIMethodNode(UIOutConnectionPoint @out, INode @node, Rect @rect)
         {
-            Node = new MethodNode(new MethodObject
-            {
-                Target = this,
-                Type = typeof(UIMethodNode),
-                MethodName = "TestMethod"
-            });
-            Out = new UIOutConnectionPoint(new Rect(rect.position, new Vector2(50, 50)), new OutConnection(Node));
-            Base(rect, "Method Node");
+            Out = @out;
+            Node = @node;
+            Base(@rect, "Method Node");
         }
 
         public UIMethodNode(Rect rect)
@@ -54,8 +51,8 @@ namespace ChuTools.Controller
             GUILayout.EndArea();
         }
 
-        public INode Node { get; set; }
+        public INode Node;
 
-        public UIOutConnectionPoint Out { get; set; }
+        public UIOutConnectionPoint Out;
     }
 }
