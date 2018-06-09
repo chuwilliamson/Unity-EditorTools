@@ -1,10 +1,15 @@
-﻿using UnityEditor;
+﻿using System.Collections.Generic;
+using System.Diagnostics;
+using System.Linq;
+using UnityEditor;
 using UnityEngine;
+using Debug = UnityEngine.Debug;
 
 namespace ChuTools.View
 {
     public partial class NodeEditorWindow
     {
+        public System.Collections.Generic.List<Process> WorkerProcesses = new List<Process>();
         public void DrawMenu()
         {
             GUILayout.BeginHorizontal();
@@ -19,10 +24,10 @@ namespace ChuTools.View
 
             var lastrect = GUILayoutUtility.GetLastRect();
             var pos = new Vector2(lastrect.xMin, lastrect.yMax);
-            var menurect = new Rect(pos, new Vector2(550, 200));
+            var menurect = new Rect(pos, new Vector2(550, 400));
 
+            GUILayout.BeginArea(menurect);
             GUI.BeginGroup(menurect);
-
             GUI.Box(menurect, GUIContent.none);
             EditorGUILayout.BeginVertical();
             EditorGUILayout.TextField("Path", _path, GUILayout.ExpandWidth(true));
@@ -36,9 +41,39 @@ namespace ChuTools.View
             EditorGUILayout.LabelField("Current Requesting Drag  ", value2);
             EditorGUILayout.LabelField("Node Count: " + Nodes.Count);
             EditorGUILayout.LabelField("Connections Count: " + Connections.Count);
+            var files = System.IO.Directory.GetFiles(Application.streamingAssetsPath).ToList();
 
+
+            if (GUILayout.Button("Open Command Prompt"))
+                WorkerProcesses.Add(Process.Start("cmd.exe"));
+            GUILayout.Label("StreamingAssets", EditorStyles.boldLabel);
+            foreach (var f in files)
+            {
+                var nf = f.Remove(0, Application.streamingAssetsPath.Length + 1);
+                if (nf.Contains(".meta"))
+                    continue;
+
+                if (GUILayout.Button(nf))
+                {
+                    WorkerProcesses.Add(Process.Start(f));
+                }
+            }
+
+            WorkerProcesses.ForEach(p =>
+                {
+                    EditorGUILayout.BeginHorizontal();
+
+                    if (GUILayout.Button(new GUIContent("Kill? " + p.ProcessName), EditorStyles.foldout))
+                    {
+                        p.Kill();
+                        WorkerProcesses.Remove(p);
+                    }
+                    EditorGUILayout.EndHorizontal();
+                }
+            );
             EditorGUILayout.EndVertical();
             GUI.EndGroup();
+            GUILayout.EndArea();
         }
     }
 }

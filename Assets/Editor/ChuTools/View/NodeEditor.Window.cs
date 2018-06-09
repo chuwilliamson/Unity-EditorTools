@@ -7,6 +7,7 @@ using System.Collections.Generic;
 using System.Diagnostics.CodeAnalysis;
 using System.IO;
 using System.Reflection;
+using System.Threading.Tasks;
 using TrentTools;
 using UnityEditor;
 using UnityEngine;
@@ -16,11 +17,11 @@ namespace ChuTools.View
     [SuppressMessage("ReSharper", "SwitchStatementMissingSomeCases")]
     public partial class NodeEditorWindow : EditorWindow
     {
-        [MenuItem("Tools/ChuTools/NodeWindow")]
+        [MenuItem("Tools/ChuTools/NodeWindow %g")]
         private static void Init()
         {
             var window = GetWindow<NodeEditorWindow>();
-            window.Show();
+            window.ShowTab();
         }
 
         public static void RequestConnection(UIOutConnectionPoint uiOut, IConnectionOut @out)
@@ -57,9 +58,9 @@ namespace ChuTools.View
 
             Nodes.ForEach(n => n.Draw());
             Connections.ForEach(c => c.Draw());
-
+            
             NodeEvents.PollEvents(Event.current);
-
+           
             if (GUI.changed)
                 Repaint();
         }
@@ -69,7 +70,7 @@ namespace ChuTools.View
             if (CurrentSendingDrag == null) return;
             Chutilities.DrawNodeCurve(CurrentSendingDrag.rect,
                 new Rect(Event.current.mousePosition, CurrentSendingDrag.rect.size));
-            var endRect = new Rect(Current.mousePosition, Vector2.one * 10) {center = Current.mousePosition};
+            var endRect = new Rect(Current.mousePosition, Vector2.one * 10) { center = Current.mousePosition };
             Handles.RectangleHandleCap(GUIUtility.GetControlID(FocusType.Passive, endRect), endRect.center,
                 Quaternion.identity, 15, EventType.Repaint);
             GUI.changed = true;
@@ -162,15 +163,15 @@ namespace ChuTools.View
                 .Invoke(null, null);
 
             NodeEvents.OnScrollWheel += OnScroll;
-
         }
 
         private void OnScroll(Event e)
         {
             Debug.Log(e.delta);
-            Nodes?.ForEach(c => (c as UIElement).rect.size += (Vector2.one * e.delta.y));
+            Nodes?.ForEach(c => (c as UIElement).rect.size += Vector2.one * e.delta.y);
             GUI.changed = true;
         }
+
         private void Drag(Event e)
         {
             if (GUIUtility.hotControl != 0)
@@ -237,4 +238,6 @@ namespace ChuTools.View
         public List<IDrawable> Nodes { get; set; }
         public List<IDrawable> Connections { get; set; }
     }
+
+    
 }
