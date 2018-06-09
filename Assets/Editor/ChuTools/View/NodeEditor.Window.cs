@@ -86,7 +86,6 @@ namespace ChuTools.View
             Nodes.Add((T)Activator.CreateInstance(typeof(T), rect));
         }
 
-
         /// <summary>
         ///     when a connection is created add it to the connections list to draw
         /// </summary>
