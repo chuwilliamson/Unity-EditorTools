@@ -29,7 +29,7 @@ namespace JeremyTools
         public override void Draw()
         {
             base.Draw();
-       
+
             In.rect = new Rect(rect.position.x - 55, rect.position.y, 50, 50);
             In?.Draw();
 
@@ -41,10 +41,8 @@ namespace JeremyTools
 
             EditorGUILayout.EndVertical();
 
-            if(GUILayout.Button("DynamicInvoke"))
-            {
+            if (GUILayout.Button("DynamicInvoke"))
                 MethodObjects.MethodObjectsList.ForEach(mo => mo.DynamicInvoke());
-            }
 
             GUILayout.EndArea();
         }

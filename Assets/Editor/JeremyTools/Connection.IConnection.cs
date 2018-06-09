@@ -1,7 +1,5 @@
-﻿
-using Interfaces;
-using UnityEditor;
-using UnityEngine;
+﻿using Interfaces;
+
 namespace JeremyTools
 {
     public partial class Connection : IConnection

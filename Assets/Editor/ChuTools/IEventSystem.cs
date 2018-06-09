@@ -26,8 +26,11 @@ namespace Interfaces
     public interface IEventSystem
     {
         void SetSelected(object obj);
+
         void Release(object obj);
+
         void PollEvents(Event e);
+
         object Selected { get; set; }
         object WillSelect { get; set; }
         EditorEvent OnMouseDown { get; set; }

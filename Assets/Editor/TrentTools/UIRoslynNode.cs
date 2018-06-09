@@ -1,10 +1,10 @@
-﻿using System;
-using ChuTools.Controller;
+﻿using ChuTools.Controller;
 using ChuTools.Model;
 using Interfaces;
 using JeremyTools;
 using Newtonsoft.Json;
 using RoslynCompiler;
+using System;
 using UnityEditor;
 using UnityEngine;
 
@@ -36,38 +36,39 @@ namespace TrentTools
             switch (output_type_index)
             {
                 case 0://INT
-                {
-                    result = Compile_INT(codeinput).ToString();
-                    break;
-                }
+                    {
+                        result = Compile_INT(codeinput).ToString();
+                        break;
+                    }
                 case 1://FLOAT
-                {
-                    result = Compile_FLOAT(codeinput).ToString();
-                    break;
-                }
+                    {
+                        result = Compile_FLOAT(codeinput).ToString();
+                        break;
+                    }
                 case 2://BOOL
-                {
-                    result = Compile_BOOL(codeinput).ToString();
-                    break;
-                }
+                    {
+                        result = Compile_BOOL(codeinput).ToString();
+                        break;
+                    }
                 case 3://STRING
-                {
-                    result = Compile_STRING(codeinput);
-                    break;
-                }
+                    {
+                        result = Compile_STRING(codeinput);
+                        break;
+                    }
                 case 4://OBJECT
-                {
-                    result = Compile_OBJECT(codeinput).ToString();
-                    break;
-                }
+                    {
+                        result = Compile_OBJECT(codeinput).ToString();
+                        break;
+                    }
                 default:
-                {
-                    result = "DEFAULT CASE REACHED, WE SHOULDENT BE HERE...";
-                    break;
-                }
+                    {
+                        result = "DEFAULT CASE REACHED, WE SHOULDENT BE HERE...";
+                        break;
+                    }
             }
         }
-        ///ToDo: you can have one function handle all of this by passing in a type argument Ex: Compile<T>(string code) with an Evaluate<T> then case on a current enumselection  
+
+        ///ToDo: you can have one function handle all of this by passing in a type argument Ex: Compile<T>(string code) with an Evaluate<T> then case on a current enumselection
         public int Compile_INT(string code)
         {
             return RoslynWrapper.Evaluate<int>(code).Result;
@@ -103,7 +104,7 @@ namespace TrentTools
             GUILayout.Space(20);
             ///tryout the EditorGUILayout.EnumPopup
             output_type_index = EditorGUILayout.Popup("OUTPUT TYPE", output_type_index, output_options);
-            
+
             codeinput = GUILayout.TextArea(codeinput);
 
             EditorGUILayout.LabelField("Result = :: " + result);
@@ -119,7 +120,8 @@ namespace TrentTools
         public string result = string.Empty;
 
         //ToDo: you should change these to be an enum like enum OutputType{Int = 0, Float = 1, etc...} doing that will  make the types more strongly typed and meaningful. you could also use the enumpopup selection
-        public string[] output_options = {"int", "float", "bool", "string", "object"};
+        public string[] output_options = { "int", "float", "bool", "string", "object" };
+
         private int output_type_index;
 
         #endregion Fields

@@ -34,7 +34,7 @@ namespace ChuTools.Controller
         public override void Draw()
         {
             base.Draw();
-            In.rect = new Rect(this.rect.position.x - 55, this.rect.position.y, 50, 50);
+            In.rect = new Rect(rect.position.x - 55, rect.position.y, 50, 50);
             In?.Draw();
             GUILayout.BeginArea(rect);
             var value = Node?.Value;

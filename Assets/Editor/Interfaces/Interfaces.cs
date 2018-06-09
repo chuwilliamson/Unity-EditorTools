@@ -14,12 +14,12 @@
     public interface IConnectionOut
     {
         /// <summary>
-        /// This will return the Node.Value
+        ///     This will return the Node.Value
         /// </summary>
         object Value { get; }
 
         /// <summary>
-        /// Out node from an input type node
+        ///     Out node from an input type node
         /// </summary>
         INode Node { get; set; }
     }
@@ -29,7 +29,7 @@
         IConnectionOut Out { get; set; }
 
         /// <summary>
-        /// this will return the Out.Value
+        ///     this will return the Out.Value
         /// </summary>
         object Value { get; }
     }
