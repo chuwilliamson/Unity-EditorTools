@@ -24,11 +24,23 @@ namespace ChuTools.View
             window.ShowTab();
         }
 
+        private void RequestCancelConnection(UIInConnectionPoint uiIn)
+        {
+            IDrawable flagForRemove = null;
+            foreach (var connection in Connections)
+            {
+                flagForRemove = (connection as UIBezierConnection).@in == uiIn ? connection : null;
+            }
+
+            Connections.Remove(flagForRemove);
+        }
+
+        public static Action<UIInConnectionPoint> OnConnectionCancelRequest;
         public static void RequestConnection(UIOutConnectionPoint uiOut, IConnectionOut @out)
         {
             if (CurrentAcceptingDrag.ValidateConnection(@out))
             {
-                ConnectionCreatedEvent.Invoke(CurrentSendingDrag, CurrentAcceptingDrag);
+                ConnectionCreatedEvent(CurrentSendingDrag, CurrentAcceptingDrag);
             }
             else
             {
@@ -58,9 +70,9 @@ namespace ChuTools.View
 
             Nodes.ForEach(n => n.Draw());
             Connections.ForEach(c => c.Draw());
-            
+
             NodeEvents.PollEvents(Event.current);
-           
+
             if (GUI.changed)
                 Repaint();
         }
@@ -68,11 +80,10 @@ namespace ChuTools.View
         private void DrawConnection()
         {
             if (CurrentSendingDrag == null) return;
-            Chutilities.DrawNodeCurve(CurrentSendingDrag.rect,
-                new Rect(Event.current.mousePosition, CurrentSendingDrag.rect.size));
-            var endRect = new Rect(Current.mousePosition, Vector2.one * 10) { center = Current.mousePosition };
-            Handles.RectangleHandleCap(GUIUtility.GetControlID(FocusType.Passive, endRect), endRect.center,
-                Quaternion.identity, 15, EventType.Repaint);
+
+            var endRect = new Rect(Current.mousePosition, new Vector2(10, 10));
+            Handles.DrawSolidRectangleWithOutline(endRect, Color.cyan, Color.black);
+            Chutilities.DrawNodeCurve(CurrentSendingDrag.rect, endRect);
             GUI.changed = true;
         }
 
@@ -84,7 +95,7 @@ namespace ChuTools.View
             Handles.BeginGUI();
             Handles.color = new Color(gridColor.r, gridColor.g, gridColor.b, gridOpacity);
 
-            _offset += _drag * .5f;
+            _offset += Drag * .5f;
             var newOffset = new Vector3(_offset.x % gridSpacing, _offset.y % gridSpacing, 0);
 
             for (var i = 0; i < widthDivs; i++)
@@ -102,6 +113,7 @@ namespace ChuTools.View
         private void CreateContextMenu(Event e)
         {
             var gm = new GenericMenu();
+            gm.AddItem(new GUIContent("Create UIMultiDelegate Node"), false, CreateNode<UIMultiDelegateNode>, e);
             gm.AddItem(new GUIContent("Create Roslyn Node"), false, CreateNode<UIRoslynNode>, e);
             gm.AddItem(new GUIContent("Create Method Node"), false, CreateNode<UIMethodNode>, e);
             gm.AddItem(new GUIContent("Create Delegate Node"), false, CreateNode<UIDelegateNode>, e);
@@ -130,7 +142,8 @@ namespace ChuTools.View
             if (@out != null && @in != null)
             {
                 Debug.Log("connection created");
-                Connections.Add(new UIBezierConnection(@out, @in));
+                Connections.Add(new UIBezierConnection(@in, @out));
+
             }
 
             CurrentSendingDrag = null;
@@ -157,8 +170,10 @@ namespace ChuTools.View
             NodeEvents.OnContextClick += CreateContextMenu;
             ConnectionCreatedEvent = null;
             ConnectionCreatedEvent = OnConnectionCreated;
+            OnConnectionCancelRequest = null;
+            OnConnectionCancelRequest = RequestCancelConnection;
             NodeEvents.OnMouseUp += ClearDrag;
-            NodeEvents.OnMouseDrag += Drag;
+            NodeEvents.OnMouseDrag += OnDrag;
             typeof(EditorBaseWindow).GetMethod("ClearConsole", BindingFlags.Static | BindingFlags.NonPublic)
                 .Invoke(null, null);
 
@@ -172,12 +187,12 @@ namespace ChuTools.View
             GUI.changed = true;
         }
 
-        private void Drag(Event e)
+        private void OnDrag(Event e)
         {
             if (GUIUtility.hotControl != 0)
                 return;
-            _drag = e.delta;
-            Nodes?.ForEach(c => (c as UIElement).rect.position += _drag);
+            Drag = e.delta;
+            Nodes?.ForEach(c => (c as UIElement).rect.position += Drag);
             GUI.changed = true;
         }
 
@@ -228,7 +243,7 @@ namespace ChuTools.View
         public Vector2 CenterWindow => new Vector2(Screen.width / 2.0f, Screen.height / 2.0f);
         private string _path => Application.dataPath + "/Editor/ChuTools/nodes.json";
 
-        public static Vector2 _drag;
+        public static Vector2 Drag;
         public static Action<UIOutConnectionPoint, UIInConnectionPoint> ConnectionCreatedEvent;
     }
 
@@ -238,6 +253,4 @@ namespace ChuTools.View
         public List<IDrawable> Nodes { get; set; }
         public List<IDrawable> Connections { get; set; }
     }
-
-    
 }
