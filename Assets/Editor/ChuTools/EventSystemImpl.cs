@@ -36,7 +36,7 @@ namespace ChuTools
 
         public void PollEvents(Event e)
         {
-            NodeEditorWindow._drag = Vector2.zero;
+            NodeEditorWindow.Drag = Vector2.zero;
             Current = e;
             switch (Current.type)
             {
