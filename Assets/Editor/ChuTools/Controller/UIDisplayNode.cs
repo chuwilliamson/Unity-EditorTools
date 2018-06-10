@@ -1,7 +1,7 @@
-﻿using ChuTools.Model;
+﻿using System;
+using ChuTools.Model;
 using Interfaces;
 using Newtonsoft.Json;
-using System;
 using UnityEngine;
 
 namespace ChuTools.Controller
@@ -13,8 +13,10 @@ namespace ChuTools.Controller
         public UIDisplayNode()
         {
             Node = new DisplayNode(null);
-            In = new UIInConnectionPoint(new Rect(this.rect.position, new Vector2(50, 50)), this.Connect);
-            In.rect = new Rect(rect.position.x - 55, rect.position.y, 50, 50);
+            In = new UIInConnectionPoint(new Rect(rect.position, new Vector2(50, 50)), Connect, Disconnect)
+            {
+                rect = new Rect(rect.position.x - 55, rect.position.y, 50, 50)
+            };
             Base(name: "Display Node: ", normalStyleName: "flow node 1", selectedStyleName: "flow node 1 on",
                 rect: rect, resize: true);
         }
@@ -23,18 +25,30 @@ namespace ChuTools.Controller
         public UIDisplayNode(Rect rect)
         {
             Node = new DisplayNode(null);
-            In = new UIInConnectionPoint(new Rect(this.rect.position, new Vector2(50, 50)), this.Connect);
-            In.rect = new Rect(rect.position.x - 55, rect.position.y, 50, 50);
+            In = new UIInConnectionPoint(new Rect(this.rect.position, new Vector2(50, 50)), Connect, Disconnect)
+            {
+                rect = new Rect(rect.position.x - 55, rect.position.y, 50, 50)
+            };
             Base(name: "Display Node: ", normalStyleName: "flow node 1", selectedStyleName: "flow node 1 on",
                 rect: rect, resize: true);
         }
 
+        private bool Disconnect(UIInConnectionPoint point)
+        {
+            return false;
+        }
+
         public bool Connect(IConnectionOut outConnection)
         {
-            if (outConnection == null)
+            if(outConnection == null)
                 return false;
             Node = new DisplayNode(new InConnection(outConnection));
             return true;
+        }
+
+        public bool Connect(IConnectionOut outConnection, UIInConnectionPoint connectionPoint)
+        {
+            return Connect(outConnection);
         }
 
         public void Disconnect()

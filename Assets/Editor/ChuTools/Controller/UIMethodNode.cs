@@ -13,9 +13,11 @@ namespace ChuTools.Controller
         [JsonConstructor]
         public UIMethodNode()
         {
-            Out = new UIOutConnectionPoint(new Rect(rect.position, new Vector2(50, 50)), new OutConnection(Node));
+            Out = new UIOutConnectionPoint(new Rect(rect.position, new Vector2(50, 50)), new OutConnection(Node))
+            {
+                rect = new Rect(rect.position.x + rect.width, rect.position.y, 50, 50)
+            };
 
-            Out.rect = new Rect(rect.position.x + rect.width, rect.position.y, 50, 50);
 
             Node = new MethodNode(new MethodObject
             {
@@ -36,9 +38,11 @@ namespace ChuTools.Controller
                 MethodName = "TestMethod"
             });
 
-            Out = new UIOutConnectionPoint(new Rect(this.rect.position, new Vector2(50, 50)), new OutConnection(Node));
+            Out = new UIOutConnectionPoint(new Rect(this.rect.position, new Vector2(50, 50)), new OutConnection(Node))
+            {
+                rect = new Rect(rect.position.x + rect.width, rect.position.y, 50, 50)
+            };
 
-            Out.rect = new Rect(rect.position.x + rect.width, rect.position.y, 50, 50);
             Base(rect, "Method Node", resize: true);
         }
 

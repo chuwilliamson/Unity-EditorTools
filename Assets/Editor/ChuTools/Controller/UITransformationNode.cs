@@ -1,7 +1,7 @@
-﻿using ChuTools.Model;
+﻿using System;
+using ChuTools.Model;
 using Interfaces;
 using Newtonsoft.Json;
-using System;
 using UnityEditor;
 using UnityEngine;
 
@@ -19,9 +19,10 @@ namespace ChuTools.Controller
         public UITransformationNode(Rect rect)
         {
             _display = new DisplayNode(null);
-            _in = new UIInConnectionPoint(new Rect(this.rect.position, new Vector2(50, 50)), Connect);
-            _transformation = new InputNode { Value = 0 };
-            _input = new InputNode { Value = 0 };
+            _in = new UIInConnectionPoint(new Rect(this.rect.position, new Vector2(50, 50)), Connect,
+                DisconnectResponse);
+            _transformation = new InputNode {Value = 0};
+            _input = new InputNode {Value = 0};
             _out = new UIOutConnectionPoint(new Rect(this.rect.position, new Vector2(50, 50)),
                 new OutConnection(_transformation));
             _in.rect = new Rect(this.rect.position.x - 55, this.rect.position.y, 50, 50);
@@ -31,9 +32,19 @@ namespace ChuTools.Controller
                 rect: rect, resize: true);
         }
 
+        private bool DisconnectResponse(UIInConnectionPoint point)
+        {
+            throw new NotImplementedException();
+        }
+
+        public bool Connect(IConnectionOut outConnection, UIInConnectionPoint connectionPoint)
+        {
+            return Connect(outConnection);
+        }
+
         private bool Connect(IConnectionOut outConnection)
         {
-            if (outConnection == null) return false;
+            if(outConnection == null) return false;
             _display = new DisplayNode(new InConnection(outConnection));
             return true;
         }
@@ -59,7 +70,7 @@ namespace ChuTools.Controller
             var rect = new Rect(this.rect.x - 5 + this.rect.width / 2, this.rect.y - 5 + this.rect.height / 2,
                 this.rect.width / 2, this.rect.height / 2);
             GUI.Box(rect, GUIContent.none);
-            GUI.Label(rect, "ADD", new GUIStyle(Style) { fontSize = 55, alignment = TextAnchor.MiddleCenter });
+            GUI.Label(rect, "ADD", new GUIStyle(Style) {fontSize = 55, alignment = TextAnchor.MiddleCenter});
         }
 
         public UIInConnectionPoint _in;

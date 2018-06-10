@@ -1,9 +1,10 @@
-﻿using ChuTools.Controller;
+﻿using System;
+using System.Collections.Generic;
+using ChuTools.Controller;
 using ChuTools.Model;
+using ChuTools.View;
 using Interfaces;
 using Newtonsoft.Json;
-using System;
-using System.Collections.Generic;
 using UnityEditor;
 using UnityEditorInternal;
 using UnityEngine;
@@ -16,26 +17,29 @@ namespace JeremyTools
         [JsonConstructor]
         public UIDelegateNode()
         {
-            Node = new DelegateNode(new InConnection(null));
-            In = new UIInConnectionPoint(new Rect(this.rect.position, new Vector2(5, 50)), Connect);
             MethodObjects = new MethodObjects { MethodObjectsList = new List<MethodObject>() };
-            _roMethodObjects = new ReorderableList(MethodObjects.MethodObjectsList, typeof(MethodObject), true, true,
-                true, true);
-            ControlId = GUIUtility.GetControlID(FocusType.Passive, this.rect);
-            Base(name: "UIDelegate Node", normalStyleName: "flow node 2", selectedStyleName: "flow node 2 on",
-                rect: rect, resize: true);
+            _roMethodObjects = new ReorderableList(MethodObjects.MethodObjectsList, typeof(MethodObject), true, true, true, true);
+            Base(name: "UIDelegate Node", normalStyleName: "flow node 2", selectedStyleName: "flow node 2 on", rect: rect, resize: true);
+          
         }
 
-        public UIDelegateNode(Rect rect)
+        public UIDelegateNode(Rect rect) : this()
         {
             Node = new DelegateNode(new InConnection(null));
-            In = new UIInConnectionPoint(new Rect(this.rect.position, new Vector2(5, 50)), Connect);
-            MethodObjects = new MethodObjects { MethodObjectsList = new List<MethodObject>() };
-            _roMethodObjects = new ReorderableList(MethodObjects.MethodObjectsList, typeof(MethodObject), true, true,
-                true, true);
+            In = new UIInConnectionPoint(new Rect(this.rect.position, new Vector2(5, 50)), Connect, Disconnect);
+            Base(name: "UIDelegate Node", normalStyleName: "flow node 2", selectedStyleName: "flow node 2 on", rect: rect, resize: true);
             ControlId = GUIUtility.GetControlID(FocusType.Passive, this.rect);
-            Base(name: "UIDelegate Node", normalStyleName: "flow node 2", selectedStyleName: "flow node 2 on",
-                rect: rect, resize: true);
+        }
+
+        private bool Disconnect(UIInConnectionPoint point)
+        {
+            if (point != In)
+                return false;
+            Node = null;
+            MethodObjects = new MethodObjects { MethodObjectsList = new List<MethodObject>() };
+            _roMethodObjects = new ReorderableList(MethodObjects.MethodObjectsList, typeof(MethodObject), true, true, true, true);
+            
+            return true;
         }
 
         public override void Draw()
@@ -46,12 +50,12 @@ namespace JeremyTools
             In?.Draw();
 
             GUILayout.BeginArea(rect);
-            if(_roMethodObjects == null)
+            if (_roMethodObjects == null)
             {
                 GUILayout.EndArea();
                 return;
             }
-                
+
             EditorGUILayout.BeginVertical();
 
             _roMethodObjects?.DoLayoutList();
@@ -59,12 +63,12 @@ namespace JeremyTools
             EditorGUILayout.EndVertical();
 
             if (GUILayout.Button("DynamicInvoke"))
-                MethodObjects.MethodObjectsList.ForEach(mo => mo.DynamicInvoke());
+                MethodObjects.MethodObjectsList?.ForEach(mo => mo.DynamicInvoke());
 
             GUILayout.EndArea();
         }
 
-        public bool Connect(IConnectionOut outConnection)
+        public bool Connect(IConnectionOut outConnection, UIInConnectionPoint connectionPoint)
         {
             if (outConnection == null)
                 return false;
@@ -78,7 +82,7 @@ namespace JeremyTools
             Node = null;
         }
 
-        [NonSerialized] private readonly ReorderableList _roMethodObjects;
+        [NonSerialized] private ReorderableList _roMethodObjects;
 
         public UIInConnectionPoint In { get; set; }
 

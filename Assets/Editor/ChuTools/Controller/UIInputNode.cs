@@ -1,7 +1,7 @@
-﻿using ChuTools.Model;
+﻿using System;
+using ChuTools.Model;
 using Interfaces;
 using Newtonsoft.Json;
-using System;
 using UnityEditor;
 using UnityEngine;
 
@@ -18,7 +18,8 @@ namespace ChuTools.Controller
                 rect = new Rect(rect.position.x + rect.width, rect.position.y, 50, 50)
             };
             ControlId = GUIUtility.GetControlID(FocusType.Passive, this.rect);
-            Base(name: "Input Node", normalStyleName: "flow node 2", selectedStyleName: "flow node 2 on", rect: rect, resize: true);
+            Base(name: "Input Node", normalStyleName: "flow node 2", selectedStyleName: "flow node 2 on", rect: rect,
+                resize: true);
         }
 
         public override void Draw()
@@ -34,7 +35,7 @@ namespace ChuTools.Controller
             GUILayout.EndArea();
         }
 
-        public INode Node { get; set; } = new InputNode { Value = 0 };
+        public INode Node { get; set; } = new InputNode {Value = 0};
         public UIOutConnectionPoint Out { get; set; }
     }
 }
