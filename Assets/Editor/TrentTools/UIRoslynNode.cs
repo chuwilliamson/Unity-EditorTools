@@ -97,7 +97,7 @@ namespace TrentTools
 
             selected_output = (Output_Options)EditorGUILayout.EnumPopup("OUTPUT", selected_output);
 
-            codeinput = GUILayout.TextArea(codeinput);
+            codeinput = EditorGUILayout.TextArea(codeinput);
 
             EditorGUILayout.LabelField("Result = :: " + result);
             GUILayout.EndArea();
