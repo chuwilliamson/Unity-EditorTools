@@ -26,6 +26,7 @@ public class GridEditorWindow : CustomEditorWindow
         public Vector3 Position;
     }
 
+    [SerializeField]
     private Vector2Int _dimensions;
     private List<Cell> _cells;
     public Rect MenuRect => new Rect(5, 5, 300, 300);
