@@ -1,6 +1,2 @@
-﻿using UnityEngine.Events;
-
-[System.Serializable]
-public class GameEventArgsResponse : UnityEvent<object[]>
-{
-}
+﻿[System.Serializable]
+public class GameEventArgsResponse : UnityEngine.Events.UnityEvent<object[]> { }
