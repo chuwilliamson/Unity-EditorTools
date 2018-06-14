@@ -23,15 +23,16 @@ namespace JeremyTools
           
         }
 
-        public UIDelegateNode(Rect rect) : this()
+        public UIDelegateNode(Rect rect)
         {
             Node = new DelegateNode(new InConnection(null));
-            In = new UIInConnectionPoint(new Rect(this.rect.position, new Vector2(5, 50)), Connect, Disconnect);
+            In = new UIInConnectionPoint(string.Empty, "U2D.pivotDot", "U2D.pivotDotActive",
+                new Rect(rect.position, new Vector2(15, 15)), Connect, DisconnectHandler);
             Base(name: "UIDelegate Node", normalStyleName: "flow node 2", selectedStyleName: "flow node 2 on", rect: rect, resize: true);
             ControlId = GUIUtility.GetControlID(FocusType.Passive, this.rect);
         }
 
-        private bool Disconnect(UIInConnectionPoint point)
+        private bool DisconnectHandler(UIInConnectionPoint point)
         {
             if (point != In)
                 return false;
@@ -46,8 +47,8 @@ namespace JeremyTools
         {
             base.Draw();
 
-            In.rect = new Rect(rect.position.x - 55, rect.position.y, 50, 50);
-            In?.Draw();
+            In.rect.Set(rect.x - 25, rect.y + 25 , 25, 25);
+            In.Draw();
 
             GUILayout.BeginArea(rect);
             if (_roMethodObjects == null)
@@ -77,7 +78,7 @@ namespace JeremyTools
             return true;
         }
 
-        public void Disconnect()
+        public void DisconnectHandler()
         {
             Node = null;
         }

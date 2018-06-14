@@ -61,7 +61,7 @@ namespace JeremyTools
             }
 
             GUILayout.BeginArea(rect);
-            if(_roMethodObjects == null)
+            if (_roMethodObjects == null)
             {
                 GUILayout.EndArea();
                 return;
@@ -73,7 +73,7 @@ namespace JeremyTools
 
             EditorGUILayout.EndVertical();
 
-            if(GUILayout.Button("DynamicInvoke"))
+            if (GUILayout.Button("DynamicInvoke"))
                 MethodObjects.ForEach(mo => mo.DynamicInvoke());
 
             GUILayout.EndArea();
@@ -81,25 +81,24 @@ namespace JeremyTools
 
         public bool Connect(IConnectionOut outConnection, UIInConnectionPoint inConnectionPoint)
         {
-            if(outConnection == null)
+            if (outConnection == null)
                 return false;
             var node = new DelegateNode(new InConnection(outConnection));
-            _dictionary.Add(node, node.Value as MethodObject);
-            MethodObjects.Add(_dictionary[node]);
+            MethodObjects.Add(node.Value as MethodObject);
             return true;
         }
 
         public bool DisconnectHandler(UIInConnectionPoint inConnectionPoint)
         {
-            if(!InConnectionPoints.Contains(inConnectionPoint))
+            if (!InConnectionPoints.Contains(inConnectionPoint))
                 return false;
             var index = InConnectionPoints.IndexOf(inConnectionPoint);
-            Nodes[index] = null;
+            Nodes.RemoveAt(index);
+            MethodObjects.RemoveAt(index);
             return true;
         }
 
-        private readonly Dictionary<DelegateNode, MethodObject> _dictionary =
-            new Dictionary<DelegateNode, MethodObject>();
+
 
         [NonSerialized] private readonly ReorderableList _roMethodObjects;
 

@@ -19,12 +19,12 @@ namespace ChuTools.Controller
             NormalStyle = new GUIStyle(normalStyleName) {alignment = TextAnchor.LowerLeft, fontSize = 10};
             SelectedStyle = new GUIStyle(selectedStyleName) {alignment = TextAnchor.LowerLeft, fontSize = 10};
             Style = NormalStyle;
-            NodeEditorWindow.NodeEvents.OnMouseDown += OnMouseDown;
-            NodeEditorWindow.NodeEvents.OnMouseUp += OnMouseUp;
-            NodeEditorWindow.NodeEvents.OnMouseDrag += OnMouseDrag;
-            NodeEditorWindow.NodeEvents.OnDragExited += OnDragExited;
-            NodeEditorWindow.NodeEvents.OnContextClick += OnContextClick;
-            NodeEditorWindow.NodeEvents.OnMouseMove += OnMouseMove;
+            NodeEditorWindow.NodeEventSystem.OnMouseDown += OnMouseDown;
+            NodeEditorWindow.NodeEventSystem.OnMouseUp += OnMouseUp;
+            NodeEditorWindow.NodeEventSystem.OnMouseDrag += OnMouseDrag;
+            NodeEditorWindow.NodeEventSystem.OnDragExited += OnDragExited;
+            NodeEditorWindow.NodeEventSystem.OnContextClick += OnContextClick;
+            NodeEditorWindow.NodeEventSystem.OnMouseMove += OnMouseMove;
             Resize = resize;
         }
 

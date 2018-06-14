@@ -4,8 +4,7 @@ using Interfaces;
 using JeremyTools;
 using Newtonsoft.Json;
 using RoslynCompiler;
-using System;
-using UnityEditor;
+using System; 
 using UnityEngine;
 
 #if UNITY_EDITOR

@@ -1,16 +1,12 @@
-﻿using Interfaces;
-using System;
-using ChuTools.View;
+﻿using ChuTools.View;
+using Interfaces;
 using UnityEngine;
 
 namespace ChuTools
 {
-    [Serializable]
-    public class NodeWindowEventSystem : IEventSystem
+    public abstract class EditorEventSystem : IEventSystem
     {
         public Event Current { get; set; }
-        public object Selected { get; set; }
-        public object WillSelect { get; set; }
         public EditorEvent OnMouseDown { get; set; }
         public EditorEvent OnMouseUp { get; set; }
         public EditorEvent OnRepaint { get; set; }
@@ -21,28 +17,15 @@ namespace ChuTools
         public EditorEvent OnDragExited { get; set; }
         public EditorEvent OnScrollWheel { get; set; }
 
-        public void SetSelected(object obj)
+        public virtual void PollEvents(Event e)
         {
-            Selected = WillSelect;
-        }
-
-        public void Release(object obj)
-        {
-            if (Selected == null)
-                return;
-
-            SetSelected(obj);
-        }
-
-        public void PollEvents(Event e)
-        {
-            NodeEditorWindow.Drag = Vector2.zero;
             Current = e;
             switch (Current.type)
             {
                 case EventType.ScrollWheel:
                     OnScrollWheel?.Invoke(Current);
                     break;
+
                 case EventType.MouseDrag:
                     Invoke(OnMouseDrag, Current);
                     break;
@@ -77,9 +60,19 @@ namespace ChuTools
             }
         }
 
-        public void Invoke(EditorEvent cb, Event e)
+        public virtual void Invoke(EditorEvent cb, Event e) => cb?.Invoke(e);
+    }
+
+    public class GridWindowEventSystem : EditorEventSystem
+    {
+    }
+
+    public class NodeWindowEventSystem : EditorEventSystem
+    {
+        public override void PollEvents(Event e)
         {
-            cb?.Invoke(e);
+            NodeEditorWindow.Drag = Vector2.zero;
+            base.PollEvents(e);
         }
     }
 }

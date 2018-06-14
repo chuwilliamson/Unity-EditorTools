@@ -25,16 +25,9 @@ namespace Interfaces
 
     public interface IEventSystem
     {
-        EditorEvent OnDragExited { get; set; }
-
-        void SetSelected(object obj);
-
-        void Release(object obj);
 
         void PollEvents(Event e);
-
-        object Selected { get; set; }
-        object WillSelect { get; set; }
+        EditorEvent OnDragExited { get; set; }
         EditorEvent OnMouseDown { get; set; }
         EditorEvent OnMouseUp { get; set; }
         EditorEvent OnRepaint { get; set; }
