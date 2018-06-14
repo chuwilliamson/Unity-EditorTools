@@ -1,90 +1,24 @@
-﻿using System;
-using System.Collections;
-using System.Linq;
-using System.Reflection;
-using UnityEditor;
+﻿
 using UnityEngine;
-
-//use this to draw all the things
-public interface IFunction
-{
-    void Call();
-}
-
-public class FunctionObject : IFunction
-{
-    public void Call()
-    {
-        Debug.Log("call func");
-    }
-}
-
+using Object = UnityEngine.Object;
 public class CallbackBehaviour : MonoBehaviour
 {
-    public IFunction Function { get; set; }
-}
+    private GameEventArgs StartEvent => Resources.Load("OnStart") as GameEventArgs;
 
-[CustomEditor(typeof(CallbackBehaviour))]
-public class EditorCallbackBehaviour : Editor
-{
-    private void OnEnable()
+    public void Start()
     {
-        Type = target.GetType();
-        Fields = Type.GetFields();
-        Interfaces = Type.GetInterfaces();
-        Properties = Type.GetProperties();
-        Foldouts = new bool[GetType().GetFields().Length];
+        StartEvent.Raise(gameObject);
     }
 
-    public static void DrawArray(ICollection array)
+
+    public void OnStartCallback(object obj)
     {
-        if (array == null)
-        {
-            EditorGUILayout.LabelField(new GUIContent("no members"), EditorStyles.helpBox);
+        var objects = obj as object[];
+        if (objects == null)
             return;
-        }
-
-        foreach (var a in array)
-        {
-            EditorGUI.indentLevel++;
-            EditorGUILayout.LabelField(a.ToString(), EditorStyles.miniLabel);
-            EditorGUI.indentLevel--;
-        }
+        var sender = objects[0] as GameObject;
+        if (sender != gameObject)
+            return;
+        Debug.Log("start");
     }
-
-    public override void OnInspectorGUI()
-    {
-
-        EditorGUILayout.LabelField(GetType().ToString());
-        DrawArray(GetType().GetFields());
-
-        var lr = GUILayoutUtility.GetLastRect();
-        lr.position = new Vector2(lr.position.x, lr.position.y + lr.height);
-        Handles.DrawLine(lr.position, new Vector3(lr.position.x + Screen.width, lr.position.y, 0));
-        EditorGUILayout.LabelField(Type.Name);
-        var count = 0;
-        foreach (var array in GetType().GetFields())
-        {
-            Foldouts[count] = EditorGUILayout.Foldout(Foldouts[count], array.Name);
-
-            EditorGUI.indentLevel++;
-            if (Foldouts[count])
-            {
-                var obj = array.GetValue(this);
-                DrawArray(obj as ICollection);
-            }
-            EditorGUI.indentLevel--;
-            count++;
-        }
-    }
-
-    
-
-    public Type Type;
-    public FieldInfo[] Fields;
-    public PropertyInfo[] Properties;
-    public Type[] Interfaces;
-    public MethodInfo[] MethodInfos;
-    
-    public bool[] Foldouts;
 }

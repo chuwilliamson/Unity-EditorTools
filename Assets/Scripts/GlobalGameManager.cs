@@ -1,5 +1,6 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
+using System.Reflection;
 using UnityEditor;
 using UnityEngine;
 
@@ -7,6 +8,15 @@ using UnityEngine;
 public class GlobalGameManager : ScriptableSingleton<GlobalGameManager>
 {
     public readonly List<GameObject> SpawnedObjects;
+    public static MethodInfo raisemethod => typeof(GameEventArgs).GetMethod("Raise");//some function
+
+    public void OnStartCallback(object obj)
+    { 
+        foreach(var o in obj as object[])
+        {
+            Debug.Log(o);
+        }        
+    }
 
     private void OnEnable()
     {
@@ -23,6 +33,10 @@ public class GlobalGameManager : ScriptableSingleton<GlobalGameManager>
         SpawnedObjects.Add(Instantiate(go, position, Quaternion.identity));
     }
 
+    public void Print(string value)
+    {
+        Debug.Log(value + " @time: " + Time.realtimeSinceStartup);
+    }
 }
 
 /*// Decompiled with JetBrains decompiler
