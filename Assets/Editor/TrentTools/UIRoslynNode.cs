@@ -5,6 +5,7 @@ using JeremyTools;
 using Newtonsoft.Json;
 using RoslynCompiler;
 using System;
+using System.Threading;
 using UnityEngine;
 
 #if UNITY_EDITOR
@@ -46,6 +47,7 @@ namespace TrentTools
 
         public void DoCompile()
         {
+             
             switch (selected_output)
             {
                 case Output_Options.Int:
@@ -70,9 +72,13 @@ namespace TrentTools
                     }
                 case Output_Options.Object:
                     {
-                        var obj = Compile<object>(codeinput);
-                        result = obj.ToString();
-                        ResultTuple = new Tuple<string, object>(result, obj);
+                        var job = new ThreadStart(()=>
+                        {
+                            Compile<object>(codeinput);
+                        });
+                        var thread = new Thread(job);
+                        thread.Start();
+                        //ResultTuple = new Tuple<string, object>(result, obj);
                         break;
                     }
                 default:
@@ -82,10 +88,10 @@ namespace TrentTools
                     }
             }
         }
-
+        
         public static T Compile<T>(string code)
         {
-            return RoslynWrapper.Evaluate<T>(code, new System.Collections.Generic.List<Type>() { typeof(GameObject), typeof(Transform) }, new System.Collections.Generic.List<string>() { }).Result;
+            return RoslynWrapper.Evaluate<T>(code, new System.Collections.Generic.List<Type>() { typeof(GameObject), typeof(Transform), typeof(CallbackBehaviour) }, new System.Collections.Generic.List<string>() { }).Result;
         }
 
         public override void Draw()
@@ -113,7 +119,7 @@ namespace TrentTools
         public INode Node { get; set; }
 
         #region Fields
-        [SerializeField] private string codeinput = "return new UnityEngine.GameObject()";
+        [SerializeField] private string codeinput = "return new UnityEngine.GameObject().AddComponent<CallbackBehaviour>()";
         public string CodeInput { get { return codeinput; } set { codeinput = value; } }
 
         [SerializeField] private string result = string.Empty;

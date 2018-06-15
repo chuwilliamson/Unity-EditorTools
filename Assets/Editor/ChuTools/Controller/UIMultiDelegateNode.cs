@@ -78,13 +78,18 @@ namespace JeremyTools
             _roMethodObjects?.DoLayoutList();
 
             EditorGUILayout.EndVertical();
+            EditorGUILayout.LabelField(typeof(CallbackBehaviour).FullName);
 
             if (GUILayout.Button("DynamicInvoke"))
+            {
+
                 MethodObjects.ForEach(mo =>
                 {
                     mo.DynamicInvoke();
 
                 });
+            }
+                
 
             if (MethodObjects.Count > 0)
             {
@@ -103,7 +108,7 @@ namespace JeremyTools
             GUILayout.EndArea();
         }
 
-
+        [NonSerialized]
         public object resultObject;
 
 
