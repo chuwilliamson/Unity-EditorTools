@@ -3,20 +3,18 @@ using UnityEngine;
 
 public class GameEventArgsListener : MonoBehaviour, IListener
 {
-    public GameEventArgs GameEvent;
+    public ISubscribeable GameEvent;
     public List<GameEventArgsResponse> Responses;
 
-    public object sender;
+    //public virtual void OnEnable()
+    //{
+    //    Subscribe();
+    //}
 
-    void OnEnable()
-    {
-        Subscribe();
-    }
-
-    void OnDisable()
-    {
-        Unsubscribe();
-    }
+    //public virtual void OnDisable()
+    //{
+    //    Unsubscribe();
+    //}
 
     public void OnEventRaised(object[] args)
     {

@@ -181,7 +181,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 306684036be2e4147975067dae509960, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  GameEvent: {fileID: 11400000, guid: ba629a3461015c44996c5929239e6db0, type: 2}
   Responses:
   - m_PersistentCalls:
       m_Calls:

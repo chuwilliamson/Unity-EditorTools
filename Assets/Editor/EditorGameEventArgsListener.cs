@@ -8,14 +8,14 @@ using System.Collections.Generic;
 [CustomEditor(typeof(GameEventArgsListener))]
 public class EditorGameEventArgsListener : Editor
 {
-    public FieldInfo Field;
+    public FieldInfo Field => target.GetType().GetField("GameEvent");
     public Object GameEventRef;
-    public ReorderableList list;
-    public static  MethodInfo raisemethod => typeof(GameEventArgs).GetMethod("Raise");//some function
+    public ReorderableList List;
+    public static MethodInfo Raisemethod => typeof(GameEventArgs).GetMethod("Raise");//some function
     protected virtual void OnEnable()
     {
-        Field = target.GetType().GetField("GameEvent");
-        list = new ReorderableList(serializedObject, serializedObject.FindProperty(propertyPath: "Responses"), true,
+        
+        List = new ReorderableList(serializedObject, serializedObject.FindProperty("Responses"), true,
             true, true, true)
         {
             drawElementCallback = DrawElementCallback,
@@ -27,12 +27,11 @@ public class EditorGameEventArgsListener : Editor
     private void DrawHeaderCallback(Rect rect)
     {
         EditorGUI.LabelField(rect, label: "Callbacks");
-
     }
 
     private void DrawElementCallback(Rect rect, int index, bool isactive, bool isfocused)
     {
-        var element = list.serializedProperty.GetArrayElementAtIndex(index);
+        var element = List.serializedProperty.GetArrayElementAtIndex(index);
         EditorGUI.PropertyField(new Rect(rect.x, rect.y, rect.width - 50,
                 EditorGUIUtility.singleLineHeight),
             element,
@@ -41,7 +40,7 @@ public class EditorGameEventArgsListener : Editor
 
     private float ElementHeightCallback(int index)
     {
-        var element = list.serializedProperty.GetArrayElementAtIndex(index);
+        var element = List.serializedProperty.GetArrayElementAtIndex(index);
         var elementHeight = EditorGUI.GetPropertyHeight(element);
         // optional, depending on the situation in question and the defaults you like
         // you may want to subtract the margin out in the drawElementCallback before drawing
@@ -51,31 +50,34 @@ public class EditorGameEventArgsListener : Editor
 
     public override void OnInspectorGUI()
     {
-        Field = target.GetType().GetField("GameEvent");
         EditorGUILayout.Space();
         EditorGUI.BeginChangeCheck();
         EditorGUILayout.Space();
 
-        EditorGUILayout.PropertyField(serializedObject.FindProperty("GameEvent"), true);
-        var method = serializedObject.FindProperty("GameEvent").objectReferenceValue.GetType().GetMethod("Raise");
+        var prop = serializedObject.FindProperty("GameEvent");
+        var objref = prop?.objectReferenceValue;
+        // ReSharper disable once Unity.NoNullPropogation
+        var method = objref?.GetType().GetMethod("Raise");
+        
+        var obj = EditorGUILayout.ObjectField(GameEventRef, typeof(GameEventArgs), false);
+        Field.SetValue(target, obj);
+        Label(Field?.GetValue(target)?.GetType().GetMethod("Raise")?.ToString());
 
-        Label(serializedObject.FindProperty("GameEvent").objectReferenceValue.GetType().GetMethod("Raise").ToString());       
-        
-        var gameevent = serializedObject.FindProperty("GameEvent").objectReferenceValue; //the gameevent
-        
         if (GUILayout.Button("Raise"))
         {
-           raisemethod.Invoke(gameevent, new object[] { null });
+        //    Raisemethod.Invoke(gameevent, new object[] { null });
         }
 
-        EditorGUILayout.LabelField("Field: " + Field.Name ?? "null");
+        EditorGUILayout.LabelField("Field: " + Field?.Name);
 
-        list.DoLayoutList();
+        List.DoLayoutList();
 
         if (EditorGUI.EndChangeCheck())
         {
+            Field.SetValue(target, GameEventRef as GameEventArgs);
             serializedObject.ApplyModifiedProperties();
-            serializedObject.Update();
+            EditorUtility.SetDirty(target);
+            EditorUtility.SetDirty(serializedObject.targetObject);
         }
 
 
@@ -84,18 +86,4 @@ public class EditorGameEventArgsListener : Editor
     {
         EditorGUILayout.LabelField(value);
     }
-
-    public System.Collections.Generic.List<string> FizzBuzz(int n)
-    {
-        var listofstrings = new List<string> { "1", "2", "Fizz", "3", "4", "Buzz" };        
-
-        for(int i = 0; i < n; i++)
-        {
-            if (i % 3 == 0)
-                listofstrings.Add("fizz");
-        }
-
-        return listofstrings;
-    }
 }
- 
