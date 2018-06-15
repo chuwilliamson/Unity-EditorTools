@@ -23,7 +23,7 @@ namespace JeremyTools
           
         }
 
-        public UIDelegateNode(Rect rect) : this()
+        public UIDelegateNode(Rect rect)
         {
             Node = new DelegateNode(new InConnection(null));
             In = new UIInConnectionPoint(new Rect(this.rect.position, new Vector2(5, 50)), Connect, Disconnect);
