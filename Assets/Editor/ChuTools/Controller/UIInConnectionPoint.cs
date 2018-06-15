@@ -88,7 +88,7 @@ namespace ChuTools.Controller
 
         [NonSerialized] private readonly ConnectionResponse _connectionResponse;
 
-        private readonly DisconnectResponse _disconnectResponse;
+        [NonSerialized] private readonly DisconnectResponse _disconnectResponse;
 
         public bool ConnectionState { get; set; }
     }
