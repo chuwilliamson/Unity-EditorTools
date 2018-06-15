@@ -82,7 +82,7 @@ namespace TrentTools
 
         public static T Compile<T>(string code)
         {
-            return RoslynWrapper.Evaluate<T>(code).Result;
+            return RoslynWrapper.Evaluate<T>(code, new System.Collections.Generic.List<Type>() { typeof(GameObject), typeof(Transform)}, new System.Collections.Generic.List<string>() { }).Result;
         }
 
         public override void Draw()
@@ -96,7 +96,7 @@ namespace TrentTools
 
             selected_output = (Output_Options)EditorGUILayout.EnumPopup("OUTPUT", selected_output);
 
-            codeinput = GUILayout.TextArea(codeinput);
+            codeinput = EditorGUILayout.TextArea(codeinput);
 
             EditorGUILayout.LabelField("Result = :: " + result);
             GUILayout.EndArea();
