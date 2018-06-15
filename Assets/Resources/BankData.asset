@@ -11,4 +11,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 53b3385fcc0cd6c4c8f521f2660893c3, type: 3}
   m_Name: BankData
   m_EditorClassIdentifier: 
-  Bank: []
+  Bank:
+  - 
+  - 

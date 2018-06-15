@@ -1,1 +1,2 @@
-namespace TrentTools {public interface IConnection{}}
+
+namespace TrentTools { public interface IConnection { } }

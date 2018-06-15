@@ -1,8 +1,11 @@
-﻿using UnityEngine;
+﻿using Interfaces;
+using System;
+using ChuTools.View;
+using UnityEngine;
 
 namespace ChuTools
 {
-    [System.Serializable]
+    [Serializable]
     public class NodeWindowEventSystem : IEventSystem
     {
         public Event Current { get; set; }
@@ -15,6 +18,8 @@ namespace ChuTools
         public EditorEvent OnContextClick { get; set; }
         public EditorEvent OnMouseMove { get; set; }
         public EditorEvent OnUsed { get; set; }
+        public EditorEvent OnDragExited { get; set; }
+        public EditorEvent OnScrollWheel { get; set; }
 
         public void SetSelected(object obj)
         {
@@ -23,7 +28,7 @@ namespace ChuTools
 
         public void Release(object obj)
         {
-            if(Selected == null)
+            if (Selected == null)
                 return;
 
             SetSelected(obj);
@@ -31,31 +36,44 @@ namespace ChuTools
 
         public void PollEvents(Event e)
         {
+            NodeEditorWindow.Drag = Vector2.zero;
             Current = e;
             switch (Current.type)
             {
+                case EventType.ScrollWheel:
+                    OnScrollWheel?.Invoke(Current);
+                    break;
                 case EventType.MouseDrag:
                     Invoke(OnMouseDrag, Current);
                     break;
+
                 case EventType.MouseUp:
                     Invoke(OnMouseUp, Current);
                     break;
+
                 case EventType.MouseDown:
                     Invoke(OnMouseDown, Current);
                     break;
+
                 case EventType.Repaint:
                     Invoke(OnRepaint, Current);
                     break;
+
                 case EventType.ContextClick:
                     Invoke(OnContextClick, Current);
                     break;
+
                 case EventType.MouseMove:
                     OnMouseMove?.Invoke(Current);
                     break;
+
                 case EventType.Used:
                     OnUsed?.Invoke(Current);
                     break;
 
+                case EventType.DragExited:
+                    OnDragExited?.Invoke(Current);
+                    break;
             }
         }
 

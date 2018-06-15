@@ -1,9 +1,11 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEditor;
 
 namespace DylanTools
 {
+    
     public class Node : Interfaces.IDrawable
     {
         protected Rect VisualRect;
@@ -12,11 +14,11 @@ namespace DylanTools
         protected Vector2 Position;
         protected Vector2 Scale;
         private Vector2 MinScale;
-        protected string Name;
-        public delegate void OnNodeDestroyed(Node node);
-        public OnNodeDestroyed nodeDestroyedEvent;
-        public System.Action<Node> _onDelete;
-
+        protected string Name;        
+        public System.Action<Node> _onDelete;        
+        public ScriptableObject Scriptable;
+        public delegate void OnScriptableChanged(ScriptableObject obj);
+        public OnScriptableChanged scriptableChangedEvent;
         public Rect Rect
         {
             get
@@ -41,18 +43,21 @@ namespace DylanTools
         }
 
         public virtual void Draw()
-        {
-            GUI.Box(VisualRect, Name);
+        {            
+            GUI.Box(VisualRect, Name);            
             ScaleRect = new Rect(VisualRect.position, new Vector2(10, 10));
             ScaleRect.position += new Vector2(VisualRect.width - 10, VisualRect.height - 10);
             GUI.Box(ScaleRect, "");
+            var objectRect = new Rect(VisualRect.position + new Vector2(0, 25), new Vector2(VisualRect.size.x, 20));                        
+            Scriptable = EditorGUI.ObjectField(objectRect,Scriptable, typeof(ScriptableObject), false) as ScriptableObject;
             DeleteRect = new Rect(VisualRect.position, new Vector2(20, 20));
             if (GUI.Button(DeleteRect, "X"))
             {
                 var gm = new UnityEditor.GenericMenu();
                 gm.AddItem(new GUIContent("Remove Node"), false, RemoveNode, this);
                 gm.ShowAsContext();
-            }
+            }            
+            scriptableChangedEvent?.Invoke(Scriptable);   
         }
         private void RemoveNode(object userdata)
         {

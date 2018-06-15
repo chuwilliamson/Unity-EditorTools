@@ -1,6 +1,4 @@
-﻿using System.Collections;
-using System.Collections.Generic;
-using Interfaces;
+﻿using Interfaces;
 using UnityEngine;
 
 namespace JeremyTools
@@ -15,6 +13,5 @@ namespace JeremyTools
             inPoint.Draw();
             outPoint.Draw();
         }
-
     }
 }

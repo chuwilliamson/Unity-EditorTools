@@ -1,37 +1,31 @@
-﻿using System.Collections;
-using System.Collections.Generic;
-using UnityEngine;
-using UnityEditor;
+﻿using ChuTools;
+using Interfaces;
 using System;
+using System.Collections.Generic;
+using System.Reflection;
+using UnityEditor;
+using UnityEngine;
 
 namespace JeremyTools
 {
     public class EditorBaseWindow : EditorWindow
     {
-        // fields
-        public List<JNode> nodes;
-        public List<Connection> connections;
-        bool isDrag = false;
-        private Rect startRect, endRect;
-        private JNode startNode, endNode;
-        private ChuTools.IEventSystem EventSystem = new ChuTools.NodeWindowEventSystem();
-
         // methods
-        void OnEnable()
+        private void OnEnable()
         {
             startRect = new Rect(Vector2.zero, Vector2.zero);
             endRect = new Rect(Vector2.zero, Vector2.zero);
             wantsMouseMove = true;
             nodes = new List<JNode>();
             connections = new List<Connection>();
-            EventSystem = new ChuTools.NodeWindowEventSystem();
+            EventSystem = new NodeWindowEventSystem();
             EventSystem.OnMouseDown += OnMouseDown;
             EventSystem.OnMouseUp += OnMouseUp;
             EventSystem.OnMouseDrag += OnMouseDrag;
             EventSystem.OnContextClick += onContextClick;
         }
 
-        void Draw()
+        private void Draw()
         {
             nodes.ForEach(n => n.Draw());
             connections.ForEach(c => c.Draw());
@@ -41,22 +35,16 @@ namespace JeremyTools
             EditorGUILayout.RectField("start", startRect);
             EditorGUILayout.RectField("end", endRect);
             if (GUILayout.Button("Reopen Window"))
-            {
                 ClearWindow();
-            }
             if (GUILayout.Button("Clear Console"))
-            {
                 ClearConsole();
-            }
 
             if (isDrag)
-            {
                 DrawLine();
-            }
             GUI.changed = true;
         }
 
-        void OnGUI()
+        private void OnGUI()
         {
             EventSystem.PollEvents(Event.current);
             Draw();
@@ -64,7 +52,7 @@ namespace JeremyTools
                 Repaint();
         }
 
-        void OnMouseDown(Event e)
+        private void OnMouseDown(Event e)
         {
             if (e.button == 0)
             {
@@ -93,35 +81,29 @@ namespace JeremyTools
             }
         }
 
-        void OnMouseUp(Event e)
+        private void OnMouseUp(Event e)
         {
             if (e.button == 0)
             {
-                foreach (JNode n in nodes)
+                foreach (var n in nodes)
                 {
                     if (isDrag)
-                    {
                         if (n.inPoint.rect.Contains(e.mousePosition))
                         {
                             endNode = n;
                             connections.Add(new Connection(endNode, startNode));
                         }
-                    }
                     if (n.outPoint.rect.Contains(e.mousePosition))
-                    {
                         endRect.position = e.mousePosition;
-                    }
                     if (n.rect.Contains(e.mousePosition))
-                    {
                         n.isSelected = false;
-                    }
                 }
                 isDrag = false;
                 GUI.changed = true;
             }
         }
 
-        void OnMouseDrag(Event e)
+        private void OnMouseDrag(Event e)
         {
             endRect.position = e.mousePosition;
             Handles.DrawLine(startRect.position, endRect.position);
@@ -135,45 +117,56 @@ namespace JeremyTools
             GUI.changed = true;
         }
 
-        void CreateNode(Event e)
+        private void CreateNode(Event e)
         {
             var rect = new Rect(e.mousePosition, new Vector2(100, 100));
-            var content = new GUIContent(Resources.Load("white-square") as Texture2D, ("Node" + nodes.Count));
+            var content = new GUIContent(Resources.Load("white-square") as Texture2D, "Node" + nodes.Count);
             nodes.Add(new JNode(rect, content, new GUIStyle(), EventSystem, RemoveNode));
         }
 
-        void RemoveNode(JNode node)
+        private void RemoveNode(JNode node)
         {
             if (!nodes.Contains(node))
                 return;
             nodes.Remove(node);
         }
 
-        [MenuItem(itemName: "Tools/JeremyTools/NodeWindow")]
-        static void OpenWindow()
+        [MenuItem("Tools/JeremyTools/NodeWindow")]
+        private static void OpenWindow()
         {
             var w = CreateInstance<EditorBaseWindow>();
             w.Show();
         }
 
-        static void ClearConsole()
+        private static void ClearConsole()
         {
-            var logEntries = System.Type.GetType("UnityEditor.LogEntries, UnityEditor.dll");
-            var clearMethod = logEntries.GetMethod("Clear", System.Reflection.BindingFlags.Static | System.Reflection.BindingFlags.Public);
+            var logEntries = Type.GetType("UnityEditor.LogEntries, UnityEditor.dll");
+            var clearMethod = logEntries.GetMethod("Clear", BindingFlags.Static | BindingFlags.Public);
             clearMethod.Invoke(null, null);
             GUI.changed = true;
             Debug.Log("Console Cleared.");
         }
 
-        void ClearWindow()
+        private void ClearWindow()
         {
             OpenWindow();
             Close();
         }
 
-        void DrawLine()
+        private void DrawLine()
         {
             Handles.DrawLine(startRect.position, endRect.position);
         }
+
+        public List<Connection> connections;
+        private IEventSystem EventSystem = new NodeWindowEventSystem();
+
+        private bool isDrag;
+
+        // fields
+        public List<JNode> nodes;
+
+        private JNode startNode, endNode;
+        private Rect startRect, endRect;
     }
 }

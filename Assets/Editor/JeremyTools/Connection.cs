@@ -1,6 +1,4 @@
 ﻿using Interfaces;
-using UnityEditor;
-using UnityEngine;
 
 namespace JeremyTools
 {
