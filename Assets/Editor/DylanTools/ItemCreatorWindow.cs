@@ -2,6 +2,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
+using BackpacViewerWindow;
 using ScriptableObjects;
 using UnityEditor;
 using UnityEngine;
@@ -12,17 +13,16 @@ namespace ItemWindow
 {
     public class ItemCreatorWindow : EditorWindow
     {
-        #region Resource View
-        private Rect ResourcesView;
+        #region Resource View        
         private float ResourcesWidth = 100;
         private Rect ResouceViewScalar;
         private bool ResourceIsDragging;
-        private Dictionary<ItemScriptable, Rect> ResourceRects;
-        private Vector2 ScrollPosition;
+        private Dictionary<ItemScriptable, Rect> ResourceRects;        
         #endregion
 
-        private EditorEvents _editorEvents = new EditorEvents();
-        public ItemCreatorView ItemView = new ItemCreatorView();
+        private readonly EditorEvents _editorEvents = new EditorEvents();
+        private ItemCreatorView ItemView = new ItemCreatorView();
+        
         private Vector2 WindowSize;        
 
         [UnityEditor.MenuItem("Tools/Item Creator")]
@@ -33,7 +33,7 @@ namespace ItemWindow
 
         }
 
-        void OnEnable()
+        public void OnEnable()
         {
             _editorEvents.MouseDownEvent += DisplayCreateMenu;
             _editorEvents.MouseDownEvent += EnableResourceDrag;
@@ -45,19 +45,21 @@ namespace ItemWindow
             _editorEvents.MouseUpEvent += ItemView.DisableDragging;
         }
 
-        void OnGUI()
+        public void OnGUI()
         {
             WindowSize = new Vector2();
             if (EditorWindow.focusedWindow != null)
+            {
                 WindowSize = EditorWindow.focusedWindow.position.size;
+            }
 
             ResourceRects = new Dictionary<ItemScriptable, Rect>();
-            ResourcesView = new Rect(0, 0, ResourcesWidth, WindowSize.y);
+            Rect ResourcesView = new Rect(0, 0, ResourcesWidth, WindowSize.y);
             GUI.Box(ResourcesView, "");
             ResouceViewScalar = new Rect(ResourcesView.width, ResourcesView.y, 5, ResourcesView.height);
             GUI.backgroundColor = Color.black;
             GUI.Box(ResouceViewScalar, "");
-            var itemScriptables = Resources.FindObjectsOfTypeAll(typeof(ItemScriptable)).ToList();
+            var itemScriptables = BackpacViewerWindow.BackpackWindow.itemScriptables;
             foreach (var item in itemScriptables)
             {
                 var position = Vector2.zero;
@@ -69,10 +71,14 @@ namespace ItemWindow
 
                 var newRect = new Rect(position, new Vector2(ResourcesView.size.x, 25));
                 ResourceRects.Add(item as ItemScriptable, newRect);
-                if (item == ItemView.ContianedItem)
+                if (item == ItemView._ContainedItem)
+                {
                     GUI.backgroundColor = Color.blue;
+                }
                 else
+                {
                     GUI.backgroundColor = Color.gray;
+                }
                 GUI.Box(newRect, item.name);
             }
             
@@ -92,7 +98,7 @@ namespace ItemWindow
             {
                 if (rects.Value.Contains(Event.current.mousePosition))
                 {
-                    ItemView.ContianedItem = rects.Key;
+                    ItemView._ContainedItem = rects.Key;
                     Event.current.Use();
                     break;
                 }
@@ -127,9 +133,14 @@ namespace ItemWindow
             if (ResourceIsDragging)
             {
                 if (Event.current.delta.x < 0 && ResourcesWidth > 50)
+                {
                     ResourcesWidth += Event.current.delta.x;
+                }
+
                 if (Event.current.delta.x > 0 && ResourcesWidth < WindowSize.x - 25)
+                {
                     ResourcesWidth += Event.current.delta.x;
+                }
                 Event.current.Use();
             }
         }

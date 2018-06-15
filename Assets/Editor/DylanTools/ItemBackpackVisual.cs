@@ -28,16 +28,26 @@ namespace BackpacViewerWindow
             set { CurrentPosition = value; }
         }
 
-        public ItemScriptable Data;
+        private ItemScriptable _Data;
+
+        public ItemScriptable Data
+        {
+            get { return _Data; }
+            set { _Data = value; }
+        }
 
         public void Draw()
         {
-            if(Data == null)
+            if (Data == null)
+            {
                 return;
+            }
             Rect = new Rect(CurrentPosition, new Vector2(22,22));
             GUI.Box(Rect, "");
-            if(Data.UIImage != null)
+            if (Data.UIImage != null)
+            {
                 GUI.DrawTexture(Rect, Data.UIImage);
+            }
         }
 
         public void EnableDragging()
@@ -45,7 +55,9 @@ namespace BackpacViewerWindow
             if (Event.current.button == 0)
             {
                 if (Rect.Contains(Event.current.mousePosition))
+                {
                     isDraggable = true;
+                }
                 Event.current.Use();
             }
         }
@@ -54,17 +66,30 @@ namespace BackpacViewerWindow
         {
             var WindowSize = new Vector2();
             if (EditorWindow.focusedWindow != null)
+            {
                 WindowSize = EditorWindow.focusedWindow.position.size;
+            }
             if (isDraggable)
             {
                 if (Event.current.delta.x < 0 && Rect.position.x > 0)
+                {
                     CurrentPosition.x += Event.current.delta.x;
+                }
+
                 if (Event.current.delta.x > 0 && Rect.position.x + Rect.width < WindowSize.x)
+                {
                     CurrentPosition.x += Event.current.delta.x;
+                }
+
                 if (Event.current.delta.y < 0 && Rect.position.y > 0)
+                {
                     CurrentPosition.y += Event.current.delta.y;
+                }
+
                 if (Event.current.delta.y > 0 && Rect.position.y + Rect.height < WindowSize.y)
+                {
                     CurrentPosition.y += Event.current.delta.y;
+                }
                 Event.current.Use();
             }
         }

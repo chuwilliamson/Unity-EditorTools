@@ -11,10 +11,10 @@ namespace BackpacViewerWindow
 {
     public class BackpackWindow : EditorWindow
     {         
-        private BackpackViewer Backpack = new BackpackViewer();        
-        private EditorEvents _Events = new EditorEvents();
-        private List<ItemBackpackVisual> Items = new List<ItemBackpackVisual>();
-        Random r = new Random();
+        private readonly BackpackViewer Backpack = new BackpackViewer();        
+        private readonly EditorEvents _Events = new EditorEvents();
+        private readonly List<ItemBackpackVisual> Items = new List<ItemBackpackVisual>();
+        private Random random; 
 
         [UnityEditor.MenuItem("Tools/Backpack Viewer")]
         public static void Init()
@@ -23,16 +23,18 @@ namespace BackpacViewerWindow
             window.Show();
         }
 
-        void OnEnable()
+        public void OnEnable()
         {
+            random = new Random();
             _Events.MouseDownEvent = Backpack.EnableResize;
             _Events.MouseUpEvent = Backpack.DisableResize;
             _Events.MouseDragEvent = Backpack.Resize;
         }
 
-        public void OnGUI()
+        public static List<ItemScriptable> itemScriptables;
+        public void OnFocus()
         {
-            var itemScriptables = Resources.FindObjectsOfTypeAll(typeof(ItemScriptable)).ToList();
+           // itemScriptables = Resources.LoadAll<ItemScriptable>("").ToList();
             bool exists = false;
             foreach (var item in itemScriptables)
             {
@@ -44,45 +46,53 @@ namespace BackpacViewerWindow
                         break;
                     }
                 }
-                if(exists)
+
+                if (exists)
+                {
                     break;
+                }
                 var newItemVisual = new ItemBackpackVisual();
                 newItemVisual.Data = item as ItemScriptable;
-                float randX = r.Next(0, 250);
-                float randY = r.Next(0, 250);
+                float randX = random.Next(0, 250);
+                float randY = random.Next(0, 250);
                 newItemVisual.Positon = new Vector2(randX, randY);
                 Items.Add(newItemVisual);
                 _Events.MouseDownEvent += newItemVisual.EnableDragging;
                 _Events.MouseUpEvent += newItemVisual.DisableDragging;
                 _Events.MouseDragEvent += newItemVisual.Drag;
             }
-            Backpack.Data = EditorGUILayout.ObjectField(Backpack.Data, typeof(BackpackScriptable), false) as BackpackScriptable;
+        }
+
+        public void OnGUI()
+        {
+            
+            Backpack._Data = EditorGUILayout.ObjectField(Backpack._Data, typeof(BackpackScriptable), false) as BackpackScriptable;
             Backpack.Draw();
             foreach (var visual in Items)
             {
-                foreach (var vis in Items)
-                {
-                    if (visual._Rect.Contains(vis._Rect.position) && vis != visual && !vis.IsDraggable && !visual.IsDraggable)
-                    {
-                        vis.Positon += vis._Rect.size;
-                    }
-                }
-                foreach (var slot in Backpack.Slots)
-                {
-                    if (!visual.IsDraggable)
-                    {
-                        if (slot.Contains(visual._Rect.position))
-                        {
-                            visual.Positon = slot.position;
-                            visual.Data.TryAddItem(Backpack.Data);
-                            break;
-                        }                        
-                    }
-                    else
-                    {
-                        Backpack.Data.UnpackItem(visual.Data);
-                    }
-                }
+                //foreach (var vis in Items)
+                //{
+                //    if (visual._Rect.Contains(vis._Rect.position) && vis != visual && !vis.IsDraggable && !visual.IsDraggable)
+                //    {
+                //        vis.Positon += vis._Rect.size;
+                //    }
+                //}
+                //foreach (var slot in Backpack._Slots)
+                //{
+                //    if (!visual.IsDraggable)
+                //    {
+                //        if (slot.Contains(visual._Rect.position))
+                //        {
+                //            visual.Positon = slot.position;
+                //            visual.Data.TryAddItem(Backpack._Data);
+                //            break;
+                //        }                        
+                //    }
+                //    else
+                //    {
+                //        Backpack._Data.UnpackItem(visual.Data);
+                //    }
+                //}
                 visual.Draw();
             }            
 
