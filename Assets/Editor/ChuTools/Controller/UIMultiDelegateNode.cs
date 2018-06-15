@@ -1,5 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Linq;
+using System.Reflection;
 using ChuTools.Controller;
 using ChuTools.Model;
 using Interfaces;
@@ -7,12 +9,16 @@ using Newtonsoft.Json;
 using UnityEditor;
 using UnityEditorInternal;
 using UnityEngine;
+using Object = System.Object;
 
 namespace JeremyTools
 {
     [Serializable]
     public class UIMultiDelegateNode : UIElement
     {
+        public List<object> results = new List<object>();
+        private FieldInfo info;
+
         [JsonConstructor]
         public UIMultiDelegateNode()
         {
@@ -74,10 +80,34 @@ namespace JeremyTools
             EditorGUILayout.EndVertical();
 
             if (GUILayout.Button("DynamicInvoke"))
-                MethodObjects.ForEach(mo => mo.DynamicInvoke());
+                MethodObjects.ForEach(mo =>
+                {
+                    mo.DynamicInvoke();
 
+                });
+
+            if (MethodObjects.Count > 0)
+            {
+                var props = MethodObjects[0]?.Target?.GetType().GetProperties();
+                var resultProperty = MethodObjects[0]?.Target?.GetType().GetProperty("ResultTuple");
+                var resultValue = resultProperty?.GetValue(MethodObjects[0].Target);
+                var resultTuple = resultValue as Tuple<string, object>;
+                resultObject = resultTuple?.Item2;
+
+                EditorGUILayout.LabelField(resultObject?.ToString());
+                EditorCallbackBehaviour.DrawArray(props);
+                EditorGUILayout.Space();
+            }
+
+            resultObject = EditorGUILayout.ObjectField(resultObject as GameObject, typeof(GameObject), true);
             GUILayout.EndArea();
         }
+
+
+        public object resultObject;
+
+
+ 
 
         public bool Connect(IConnectionOut outConnection, UIInConnectionPoint inConnectionPoint)
         {

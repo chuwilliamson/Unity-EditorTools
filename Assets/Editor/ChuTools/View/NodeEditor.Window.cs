@@ -189,7 +189,6 @@ namespace ChuTools.View
 
         private void OnScroll(Event e)
         {
-            Debug.Log(e.delta);
             Nodes?.ForEach(c => (c as UIElement).rect.size += Vector2.one * e.delta.y);
             GUI.changed = true;
         }

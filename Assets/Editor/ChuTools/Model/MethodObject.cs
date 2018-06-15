@@ -8,9 +8,10 @@ namespace JeremyTools
         public void DynamicInvoke()
         {
             var method = Type.GetMethod(MethodName);
-            method?.Invoke(Target, new object[] { });
+            Result = method?.Invoke(Target, new object[] { });
         }
 
+        public object Result;
         public object Target { get; set; }
         public string MethodName { get; set; }
         public Type Type { get; set; }
