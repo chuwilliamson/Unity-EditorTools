@@ -5,7 +5,7 @@ using ScriptableObjects;
 using UnityEditor;
 using UnityEngine;
 
-namespace BackpacViewerWindow
+namespace BackpackViewerWindow
 {
     public class BackpackViewer : IDrawable, IResizable
     {

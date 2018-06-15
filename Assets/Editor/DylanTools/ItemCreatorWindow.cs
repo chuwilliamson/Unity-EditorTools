@@ -59,7 +59,7 @@ namespace ItemWindow
             ResouceViewScalar = new Rect(ResourcesView.width, ResourcesView.y, 5, ResourcesView.height);
             GUI.backgroundColor = Color.black;
             GUI.Box(ResouceViewScalar, "");
-            var itemScriptables = BackpacViewerWindow.BackpackWindow.itemScriptables;
+            var itemScriptables = BackpackViewerWindow.BackpackWindow.itemScriptables;
             foreach (var item in itemScriptables)
             {
                 var position = Vector2.zero;

@@ -2,12 +2,13 @@
 using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
+using BackpacViewerWindow;
 using ScriptableObjects;
 using UnityEditor;
 using UnityEngine;
 using Random = System.Random;
 
-namespace BackpacViewerWindow
+namespace BackpackViewerWindow
 {
     public class BackpackWindow : EditorWindow
     {
