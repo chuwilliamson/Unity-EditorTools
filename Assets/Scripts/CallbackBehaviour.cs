@@ -21,4 +21,6 @@ public class CallbackBehaviour : MonoBehaviour
             return;
         Debug.Log("start");
     }
+
+    public string Data { get; set; }
 }

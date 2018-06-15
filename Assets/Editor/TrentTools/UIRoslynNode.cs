@@ -85,7 +85,22 @@ namespace TrentTools
 
         public static T Compile<T>(string code)
         {
-            return RoslynWrapper.Evaluate<T>(code, new System.Collections.Generic.List<Type>() { typeof(GameObject), typeof(Transform) }, new System.Collections.Generic.List<string>() { }).Result;
+            Globals globals = new Globals
+            {
+                _GameObjectRef = GameObjectRef as GameObject
+            };
+
+            return RoslynWrapper.Evaluate<T>(code, globals, new System.Collections.Generic.List<Type>() { typeof(GameObject), typeof(Transform), typeof(CallbackBehaviour) }, new System.Collections.Generic.List<string>() { }).Result;
+        }
+
+        public static void Execute(string code)
+        {
+            Globals globals = new Globals
+            {
+                _GameObjectRef = GameObjectRef as GameObject
+            };
+
+            RoslynWrapper.Execute(code, globals, new System.Collections.Generic.List<Type>() { typeof(GameObject), typeof(Transform) }, new System.Collections.Generic.List<string>() { });
         }
 
         public override void Draw()
@@ -108,7 +123,7 @@ namespace TrentTools
             GUILayout.EndArea();
         }
 
-        public UnityEngine.Object GameObjectRef;
+        public static UnityEngine.Object GameObjectRef;
         public UIOutConnectionPoint Out { get; set; }
         public INode Node { get; set; }
 
