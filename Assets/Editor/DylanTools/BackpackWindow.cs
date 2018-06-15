@@ -10,11 +10,11 @@ using Random = System.Random;
 namespace BackpacViewerWindow
 {
     public class BackpackWindow : EditorWindow
-    {         
-        private readonly BackpackViewer Backpack = new BackpackViewer();        
+    {
+        private readonly BackpackViewer Backpack = new BackpackViewer();
         private readonly EditorEvents _Events = new EditorEvents();
         private readonly List<ItemBackpackVisual> Items = new List<ItemBackpackVisual>();
-        private Random random; 
+        private Random random;
 
         [UnityEditor.MenuItem("Tools/Backpack Viewer")]
         public static void Init()
@@ -31,10 +31,9 @@ namespace BackpacViewerWindow
             _Events.MouseDragEvent = Backpack.Resize;
         }
 
-        public static List<ItemScriptable> itemScriptables;
+        public static List<ItemScriptable> itemScriptables => Resources.LoadAll<ItemScriptable>("").ToList();
         public void OnFocus()
         {
-           // itemScriptables = Resources.LoadAll<ItemScriptable>("").ToList();
             bool exists = false;
             foreach (var item in itemScriptables)
             {
@@ -65,36 +64,36 @@ namespace BackpacViewerWindow
 
         public void OnGUI()
         {
-            
+
             Backpack._Data = EditorGUILayout.ObjectField(Backpack._Data, typeof(BackpackScriptable), false) as BackpackScriptable;
             Backpack.Draw();
             foreach (var visual in Items)
             {
-                //foreach (var vis in Items)
-                //{
-                //    if (visual._Rect.Contains(vis._Rect.position) && vis != visual && !vis.IsDraggable && !visual.IsDraggable)
-                //    {
-                //        vis.Positon += vis._Rect.size;
-                //    }
-                //}
-                //foreach (var slot in Backpack._Slots)
-                //{
-                //    if (!visual.IsDraggable)
-                //    {
-                //        if (slot.Contains(visual._Rect.position))
-                //        {
-                //            visual.Positon = slot.position;
-                //            visual.Data.TryAddItem(Backpack._Data);
-                //            break;
-                //        }                        
-                //    }
-                //    else
-                //    {
-                //        Backpack._Data.UnpackItem(visual.Data);
-                //    }
-                //}
+                foreach (var vis in Items)
+                {
+                    if (visual._Rect.Contains(vis._Rect.position) && vis != visual && !vis.IsDraggable && !visual.IsDraggable)
+                    {
+                        vis.Positon += vis._Rect.size;
+                    }
+                }
+                foreach (var slot in Backpack._Slots)
+                {
+                    if (!visual.IsDraggable)
+                    {
+                        if (slot.Contains(visual._Rect.position))
+                        {
+                            visual.Positon = slot.position;
+                            visual.Data.TryAddItem(Backpack._Data);
+                            break;
+                        }
+                    }
+                    else
+                    {
+                        Backpack._Data.UnpackItem(visual.Data);
+                    }
+                }
                 visual.Draw();
-            }            
+            }
 
             _Events.Update();
         }
