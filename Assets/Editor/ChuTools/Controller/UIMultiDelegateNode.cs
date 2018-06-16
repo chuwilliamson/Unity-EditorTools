@@ -1,5 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Linq;
+using System.Reflection;
 using ChuTools.Controller;
 using ChuTools.Model;
 using Interfaces;
@@ -7,12 +9,16 @@ using Newtonsoft.Json;
 using UnityEditor;
 using UnityEditorInternal;
 using UnityEngine;
+using Object = System.Object;
 
 namespace JeremyTools
 {
     [Serializable]
     public class UIMultiDelegateNode : UIElement
     {
+        public List<object> results = new List<object>();
+        private FieldInfo info;
+
         [JsonConstructor]
         public UIMultiDelegateNode()
         {
@@ -61,7 +67,7 @@ namespace JeremyTools
             }
 
             GUILayout.BeginArea(rect);
-            if(_roMethodObjects == null)
+            if (_roMethodObjects == null)
             {
                 GUILayout.EndArea();
                 return;
@@ -72,34 +78,62 @@ namespace JeremyTools
             _roMethodObjects?.DoLayoutList();
 
             EditorGUILayout.EndVertical();
+            EditorGUILayout.LabelField(typeof(CallbackBehaviour).FullName);
 
-            if(GUILayout.Button("DynamicInvoke"))
-                MethodObjects.ForEach(mo => mo.DynamicInvoke());
+            if (GUILayout.Button("DynamicInvoke"))
+            {
 
+                MethodObjects.ForEach(mo =>
+                {
+                    mo.DynamicInvoke();
+
+                });
+            }
+                
+
+            if (MethodObjects.Count > 0)
+            {
+                var props = MethodObjects[0]?.Target?.GetType().GetProperties();
+                var resultProperty = MethodObjects[0]?.Target?.GetType().GetProperty("ResultTuple");
+                var resultValue = resultProperty?.GetValue(MethodObjects[0].Target);
+                var resultTuple = resultValue as Tuple<string, object>;
+                resultObject = resultTuple?.Item2;
+
+                EditorGUILayout.LabelField(resultObject?.ToString());
+                EditorCallbackBehaviour.DrawArray(props);
+                EditorGUILayout.Space();
+            }
+
+            resultObject = EditorGUILayout.ObjectField(resultObject as GameObject, typeof(GameObject), true);
             GUILayout.EndArea();
         }
 
+        [NonSerialized]
+        public object resultObject;
+
+
+ 
+
         public bool Connect(IConnectionOut outConnection, UIInConnectionPoint inConnectionPoint)
         {
-            if(outConnection == null)
+            if (outConnection == null)
                 return false;
             var node = new DelegateNode(new InConnection(outConnection));
-            _dictionary.Add(node, node.Value as MethodObject);
-            MethodObjects.Add(_dictionary[node]);
+            MethodObjects.Add(node.Value as MethodObject);
             return true;
         }
 
         public bool DisconnectHandler(UIInConnectionPoint inConnectionPoint)
         {
-            if(!InConnectionPoints.Contains(inConnectionPoint))
+            if (!InConnectionPoints.Contains(inConnectionPoint))
                 return false;
             var index = InConnectionPoints.IndexOf(inConnectionPoint);
-            Nodes[index] = null;
+            Nodes.RemoveAt(index);
+            MethodObjects.RemoveAt(index);
             return true;
         }
 
-        private readonly Dictionary<DelegateNode, MethodObject> _dictionary =
-            new Dictionary<DelegateNode, MethodObject>();
+
 
         [NonSerialized] private readonly ReorderableList _roMethodObjects;
 

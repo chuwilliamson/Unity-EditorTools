@@ -4,89 +4,68 @@ namespace ChuTools.View
 {
     public partial class NodeEditorWindow
     {
-        public static void SetSelected(object obj)
-        {
-            NodeEvents.SetSelected(obj);
-        }
-
-        public static void Release(object obj)
-        {
-            NodeEvents.Release(obj);
-        }
-
+ 
         public static void PollEvents(Event e)
         {
-            NodeEvents.PollEvents(e);
+            NodeEventSystem.PollEvents(e);
         }
 
         public static Event Current
         {
-            get { return NodeEvents.Current; }
-            set { NodeEvents.Selected = value; }
+            get { return NodeEventSystem.Current; }
+            set { NodeEventSystem.Current = value; }
         }
-
-        public static object Selected
-        {
-            get { return NodeEvents.Selected; }
-            set { NodeEvents.Selected = value; }
-        }
-
-        public static object WillSelect
-        {
-            get { return NodeEvents.WillSelect; }
-            set { NodeEvents.WillSelect = value; }
-        }
-
+ 
         public static EditorEvent OnMouseDown
         {
-            get { return NodeEvents.OnMouseDown; }
-            set { NodeEvents.OnMouseDown = value; }
+            get { return NodeEventSystem.OnMouseDown; }
+            set { NodeEventSystem.OnMouseDown = value; }
         }
 
         public static EditorEvent OnMouseUp
         {
-            get { return NodeEvents.OnMouseUp; }
-            set { NodeEvents.OnMouseUp = value; }
+            get { return NodeEventSystem.OnMouseUp; }
+            set { NodeEventSystem.OnMouseUp = value; }
         }
 
         public static EditorEvent OnRepaint
         {
-            get { return NodeEvents.OnRepaint; }
-            set { NodeEvents.OnRepaint = value; }
+            get { return NodeEventSystem.OnRepaint; }
+            set { NodeEventSystem.OnRepaint = value; }
         }
 
         public static EditorEvent OnMouseDrag
         {
-            get { return NodeEvents.OnMouseDrag; }
-            set { NodeEvents.OnMouseDrag = value; }
+            get { return NodeEventSystem.OnMouseDrag; }
+            set { NodeEventSystem.OnMouseDrag = value; }
         }
 
         public static EditorEvent OnDragExited
         {
-            get { return NodeEvents.OnDragExited; }
-            set { NodeEvents.OnDragExited = value; }
+            get { return NodeEventSystem.OnDragExited; }
+            set { NodeEventSystem.OnDragExited = value; }
         }
         public static EditorEvent OnContextClick
         {
-            get { return NodeEvents.OnContextClick; }
-            set { NodeEvents.OnContextClick = value; }
+            get { return NodeEventSystem.OnContextClick; }
+            set { NodeEventSystem.OnContextClick = value; }
         }
 
         public static EditorEvent OnMouseMove
         {
-            get { return NodeEvents.OnMouseMove; }
-            set { NodeEvents.OnMouseMove = value; }
+            get { return NodeEventSystem.OnMouseMove; }
+            set { NodeEventSystem.OnMouseMove = value; }
         }
 
         public static EditorEvent OnScrollWheel
         {
-            get { return NodeEvents.OnScrollWheel; }
-            set { NodeEvents.OnScrollWheel = value; }
+            get { return NodeEventSystem.OnScrollWheel; }
+            set { NodeEventSystem.OnScrollWheel = value; }
         }
         public static EditorEvent OnUsed
         {
-            get { return NodeEvents.OnUsed; }
-            set { NodeEvents.OnUsed = value; }
+            get { return NodeEventSystem.OnUsed; }
+            set { NodeEventSystem.OnUsed = value; }
         }
     }
 }

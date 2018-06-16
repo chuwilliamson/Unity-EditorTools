@@ -1,6 +1,7 @@
 ﻿using System;
 using ChuTools.View;
 using Interfaces;
+using JeremyTools;
 using Newtonsoft.Json;
 using UnityEditor;
 using UnityEngine;
@@ -34,7 +35,11 @@ namespace ChuTools.Controller
         public bool ValidateConnection(IConnectionOut @out)
         {
 
-            if (ConnectionState) return false;
+            if (ConnectionState)
+            {
+                return false;
+            }
+
             ConnectionState = _connectionResponse.Invoke(@out, this);
 
             return ConnectionState;
@@ -57,6 +62,7 @@ namespace ChuTools.Controller
             {
                 Debug.Log("successful disconnect!");
                 NodeEditorWindow.OnConnectionCancelRequest(this);
+                ConnectionState = false;
             }
             else
             {
@@ -82,7 +88,7 @@ namespace ChuTools.Controller
 
         [NonSerialized] private readonly ConnectionResponse _connectionResponse;
 
-        private readonly DisconnectResponse _disconnectResponse;
+        [NonSerialized] private readonly DisconnectResponse _disconnectResponse;
 
         public bool ConnectionState { get; set; }
     }

@@ -1,13 +1,12 @@
-﻿using ChuTools.Controller;
-using Interfaces;
-using JeremyTools;
-using Newtonsoft.Json;
-using System;
+﻿using System;
 using System.Collections.Generic;
 using System.Diagnostics.CodeAnalysis;
 using System.IO;
 using System.Reflection;
-using System.Threading.Tasks;
+using ChuTools.Controller;
+using Interfaces;
+using JeremyTools;
+using Newtonsoft.Json;
 using TrentTools;
 using UnityEditor;
 using UnityEngine;
@@ -17,10 +16,39 @@ namespace ChuTools.View
     [SuppressMessage("ReSharper", "SwitchStatementMissingSomeCases")]
     public partial class NodeEditorWindow : EditorWindow
     {
+        public static Action<UIInConnectionPoint> OnConnectionCancelRequest;
+
+        public static Vector2 Drag;
+        public static Action<UIOutConnectionPoint, UIInConnectionPoint> ConnectionCreatedEvent;
+
+        private readonly JsonSerializerSettings _settings = new JsonSerializerSettings
+        {
+            TypeNameHandling = TypeNameHandling.All,
+            ObjectCreationHandling = ObjectCreationHandling.Reuse,
+            PreserveReferencesHandling = PreserveReferencesHandling.All,
+            ConstructorHandling = ConstructorHandling.AllowNonPublicDefaultConstructor,
+            Formatting = Formatting.Indented,
+            DefaultValueHandling = DefaultValueHandling.Populate,
+            ReferenceLoopHandling = ReferenceLoopHandling.Serialize
+        };
+
+        private Vector2 _offset;
+
+        public List<IDrawable> Connections = new List<IDrawable>();
+        public List<IDrawable> Nodes = new List<IDrawable>();
+        public static UIOutConnectionPoint CurrentSendingDrag { get; set; }
+        public static UIInConnectionPoint CurrentAcceptingDrag { get; set; }
+        public int NodeHeight { get; set; }
+        public int NodeWidth { get; set; }
+        public static IEventSystem NodeEventSystem { get; private set; }
+        public Vector2 CenterWindow => new Vector2(Screen.width / 2.0f, Screen.height / 2.0f);
+        private string _path => Application.dataPath + "/Editor/ChuTools/nodes.json";
+
         [MenuItem("Tools/ChuTools/NodeWindow %g")]
         private static void Init()
         {
             var window = GetWindow<NodeEditorWindow>();
+            window.InitializeComponents();
             window.ShowTab();
         }
 
@@ -28,14 +56,11 @@ namespace ChuTools.View
         {
             IDrawable flagForRemove = null;
             foreach (var connection in Connections)
-            {
                 flagForRemove = (connection as UIBezierConnection).@in == uiIn ? connection : null;
-            }
 
             Connections.Remove(flagForRemove);
         }
 
-        public static Action<UIInConnectionPoint> OnConnectionCancelRequest;
         public static void RequestConnection(UIOutConnectionPoint uiOut, IConnectionOut @out)
         {
             if (CurrentAcceptingDrag.ValidateConnection(@out))
@@ -50,34 +75,49 @@ namespace ChuTools.View
             }
         }
 
-        private void OnEnable()
-        {
-            InitializeComponents();
-        }
-
         private void OnDisable()
         {
-            Save();
+            try
+            {
+                Save();
+            }
+            catch (Exception e)
+            {
+                Console.WriteLine(e);
+                throw;
+            }
         }
 
         private void OnGUI()
         {
+            if (NodeEventSystem == null)
+            {
+                GUILayout.Label(new GUIContent("NO EVENT SYSTEM PLEASE RELOAD"), EditorStyles.largeLabel);
+                if (GUILayout.Button("Reload"))
+                    InitializeComponents();
+                return;
+            }
+
             DrawGrid(20, 0.2f, Color.gray);
             DrawGrid(100, 0.4f, Color.gray);
 
             DrawMenu();
-            DrawConnection();
+            if (new UITypesDropdown().Button(GUILayoutUtility.GetLastRect()))
+            {
 
+            }
+            DrawConnection();
+            var f = Time.deltaTime;
             Nodes.ForEach(n => n.Draw());
             Connections.ForEach(c => c.Draw());
 
-            NodeEvents.PollEvents(Event.current);
+            NodeEventSystem?.PollEvents(Event.current);
 
             if (GUI.changed)
                 Repaint();
         }
 
-        private void DrawConnection()
+        private static void DrawConnection()
         {
             if (CurrentSendingDrag == null) return;
 
@@ -127,9 +167,9 @@ namespace ChuTools.View
 
         private void CreateNode<T>(object userdata) where T : IDrawable
         {
-            var pos = ((Event)userdata).mousePosition;
+            var pos = ((Event) userdata).mousePosition;
             var rect = new Rect(pos, new Vector2(NodeWidth, NodeHeight));
-            Nodes.Add((T)Activator.CreateInstance(typeof(T), rect));
+            Nodes.Add((T) Activator.CreateInstance(typeof(T), rect));
         }
 
         /// <summary>
@@ -143,7 +183,6 @@ namespace ChuTools.View
             {
                 Debug.Log("connection created");
                 Connections.Add(new UIBezierConnection(@in, @out));
-
             }
 
             CurrentSendingDrag = null;
@@ -162,27 +201,26 @@ namespace ChuTools.View
             wantsMouseMove = true;
             CurrentAcceptingDrag = null;
             CurrentSendingDrag = null;
-
+            Drag = Vector2.zero;
             Nodes = new List<IDrawable>();
             Connections = new List<IDrawable>();
-            NodeEvents = new NodeWindowEventSystem();
+            NodeEventSystem = new NodeWindowEventSystem();
 
-            NodeEvents.OnContextClick += CreateContextMenu;
+            NodeEventSystem.OnContextClick += CreateContextMenu;
             ConnectionCreatedEvent = null;
             ConnectionCreatedEvent = OnConnectionCreated;
             OnConnectionCancelRequest = null;
             OnConnectionCancelRequest = RequestCancelConnection;
-            NodeEvents.OnMouseUp += ClearDrag;
-            NodeEvents.OnMouseDrag += OnDrag;
+            NodeEventSystem.OnMouseUp += ClearDrag;
+            NodeEventSystem.OnMouseDrag += OnDrag;
             typeof(EditorBaseWindow).GetMethod("ClearConsole", BindingFlags.Static | BindingFlags.NonPublic)
-                .Invoke(null, null);
+                ?.Invoke(null, null);
 
-            NodeEvents.OnScrollWheel += OnScroll;
+            NodeEventSystem.OnScrollWheel += OnScroll;
         }
 
         private void OnScroll(Event e)
         {
-            Debug.Log(e.delta);
             Nodes?.ForEach(c => (c as UIElement).rect.size += Vector2.one * e.delta.y);
             GUI.changed = true;
         }
@@ -205,7 +243,7 @@ namespace ChuTools.View
 
         private void Save()
         {
-            var n = new NodeEditorWindowSaveLoad { Nodes = Nodes, Connections = Connections };
+            var n = new NodeEditorWindowSaveLoad {Nodes = Nodes, Connections = Connections};
 
             var json = JsonConvert.SerializeObject(n, _settings);
             File.WriteAllText(_path, json);
@@ -219,36 +257,10 @@ namespace ChuTools.View
             Nodes = n.Nodes;
             Connections = n.Connections;
         }
-
-        private readonly JsonSerializerSettings _settings = new JsonSerializerSettings
-        {
-            TypeNameHandling = TypeNameHandling.All,
-            ObjectCreationHandling = ObjectCreationHandling.Reuse,
-            PreserveReferencesHandling = PreserveReferencesHandling.All,
-            ConstructorHandling = ConstructorHandling.AllowNonPublicDefaultConstructor,
-            Formatting = Formatting.Indented,
-            DefaultValueHandling = DefaultValueHandling.Populate,
-            ReferenceLoopHandling = ReferenceLoopHandling.Serialize
-        };
-
-        private Vector2 _offset;
-
-        public List<IDrawable> Connections = new List<IDrawable>();
-        public List<IDrawable> Nodes = new List<IDrawable>();
-        public static UIOutConnectionPoint CurrentSendingDrag { get; set; }
-        public static UIInConnectionPoint CurrentAcceptingDrag { get; set; }
-        public int NodeHeight { get; set; }
-        public int NodeWidth { get; set; }
-        public static IEventSystem NodeEvents { get; private set; }
-        public Vector2 CenterWindow => new Vector2(Screen.width / 2.0f, Screen.height / 2.0f);
-        private string _path => Application.dataPath + "/Editor/ChuTools/nodes.json";
-
-        public static Vector2 Drag;
-        public static Action<UIOutConnectionPoint, UIInConnectionPoint> ConnectionCreatedEvent;
     }
 
     [Serializable]
-    public class NodeEditorWindowSaveLoad//just for saving
+    public class NodeEditorWindowSaveLoad //just for saving
     {
         public List<IDrawable> Nodes { get; set; }
         public List<IDrawable> Connections { get; set; }
