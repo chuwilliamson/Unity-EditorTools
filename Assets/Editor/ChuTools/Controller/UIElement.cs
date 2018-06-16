@@ -13,8 +13,8 @@ namespace ChuTools.Controller
             string selectedStyleName = "flow node 0 on", bool resize = false)
         {
             Name = name;
-            this.rect = new Rect(rect);
-            ControlId = GUIUtility.GetControlID(FocusType.Passive, this.rect);
+            Rect = new Rect(rect);
+            ControlId = GUIUtility.GetControlID(FocusType.Passive, Rect);
             Content = new GUIContent(Name + ": " + ControlId);
             NormalStyle = new GUIStyle(normalStyleName) {alignment = TextAnchor.LowerLeft, fontSize = 10};
             SelectedStyle = new GUIStyle(selectedStyleName) {alignment = TextAnchor.LowerLeft, fontSize = 10};
@@ -22,9 +22,13 @@ namespace ChuTools.Controller
             NodeEditorWindow.NodeEventSystem.OnMouseDown += OnMouseDown;
             NodeEditorWindow.NodeEventSystem.OnMouseUp += OnMouseUp;
             NodeEditorWindow.NodeEventSystem.OnMouseDrag += OnMouseDrag;
-            NodeEditorWindow.NodeEventSystem.OnDragExited += OnDragExited;
-            NodeEditorWindow.NodeEventSystem.OnContextClick += OnContextClick;
             NodeEditorWindow.NodeEventSystem.OnMouseMove += OnMouseMove;
+            NodeEditorWindow.NodeEventSystem.OnDragExited += OnDragExited;
+            NodeEditorWindow.NodeEventSystem.OnDragPerform += OnDragPerform;
+            NodeEditorWindow.NodeEventSystem.OnDragUpdated += OnDragUpdated;
+            NodeEditorWindow.NodeEventSystem.OnContextClick += OnContextClick;
+
+
             Resize = resize;
         }
 
@@ -40,6 +44,14 @@ namespace ChuTools.Controller
         {
         }
 
+        protected virtual void OnDragPerform(Event e)
+        {
+        }
+
+        protected virtual void OnDragUpdated(Event e)
+        {
+        }
+
         /// <summary>
         ///     Draw the default box for this ui element
         /// </summary>
@@ -47,26 +59,26 @@ namespace ChuTools.Controller
         {
             Content = new GUIContent(Name + ": " + ControlId);
 
-            GUI.Box(rect, Content, Style);
+            GUI.Box(Rect, Content, Style);
             if(Resize)
             {
                 GUI.Box(DragRect, GUIContent.none);
-                DragID = GUIUtility.GetControlID(FocusType.Passive, DragRect);
+                DragId = GUIUtility.GetControlID(FocusType.Passive, DragRect);
             }
         }
 
-        Rect IDrawable.Rect => rect;
+        Rect IDrawable.Rect => Rect;
 
         public virtual void OnMouseDown(Event e)
         {
             if(DragRect.Contains(e.mousePosition) && Resize)
             {
-                GUIUtility.hotControl = DragID;
+                GUIUtility.hotControl = DragId;
                 GUI.changed = true;
-                resizing = true;
+                _resizing = true;
             }
 
-            if(rect.Contains(e.mousePosition) && !resizing)
+            if(Rect.Contains(e.mousePosition) && !_resizing)
             {
                 GUIUtility.hotControl = ControlId;
                 Style = SelectedStyle;
@@ -76,16 +88,16 @@ namespace ChuTools.Controller
 
         public virtual void OnMouseDrag(Event e)
         {
-            if(GUIUtility.hotControl == DragID && Resize)
+            if(GUIUtility.hotControl == DragId && Resize)
             {
-                rect = new Rect(rect.position, rect.size + e.delta);
+                Rect = new Rect(Rect.position, Rect.size + e.delta);
                 GUI.changed = true;
                 e.Use();
             }
 
             if(GUIUtility.hotControl == ControlId)
             {
-                rect = new Rect(rect.position + e.delta, rect.size);
+                Rect = new Rect(Rect.position + e.delta, Rect.size);
                 GUI.changed = true;
                 e.Use();
             }
@@ -100,24 +112,24 @@ namespace ChuTools.Controller
                 GUI.changed = true;
             }
 
-            if(GUIUtility.hotControl == DragID && Resize)
+            if(GUIUtility.hotControl == DragId && Resize)
             {
                 GUIUtility.hotControl = 0;
                 Style = NormalStyle;
                 GUI.changed = true;
-                resizing = false;
+                _resizing = false;
             }
         }
 
-        public int DragID;
+        public int DragId;
 
-        public Rect rect;
+        public Rect Rect;
 
-        private bool resizing;
+        private bool _resizing;
 
         public bool Resize { get; set; }
 
-        private Rect DragRect => new Rect(new Vector2(rect.xMax - 15, rect.yMax - 15), new Vector2(15, 15));
+        private Rect DragRect => new Rect(new Vector2(Rect.xMax - 15, Rect.yMax - 15), new Vector2(15, 15));
 
         public string Name { get; set; }
 

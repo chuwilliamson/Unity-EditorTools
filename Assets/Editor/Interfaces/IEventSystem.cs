@@ -25,8 +25,8 @@ namespace Interfaces
 
     public interface IEventSystem
     {
-
         void PollEvents(Event e);
+
         EditorEvent OnDragExited { get; set; }
         EditorEvent OnMouseDown { get; set; }
         EditorEvent OnMouseUp { get; set; }
@@ -36,6 +36,8 @@ namespace Interfaces
         EditorEvent OnMouseMove { get; set; }
         EditorEvent OnUsed { get; set; }
         EditorEvent OnScrollWheel { get; set; }
+        EditorEvent OnDragUpdated { get; set; }
+        EditorEvent OnDragPerform { get; set; }
         Event Current { get; set; }
     }
 }

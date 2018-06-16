@@ -5,14 +5,6 @@ using UnityEngine;
 [CustomEditor(typeof(GameEventTrigger))]
 public class GameEventTriggerEditor : Editor
 {
-    private GUIContent _mAddButtonContent;
-    private SerializedProperty _mEntriesProperty;
-    private GUIContent _mEventIdName;
-    private GUIContent[] _mEventTypes;
-    private GameEventArgs[] _mGameEventArgs;
-    private GUIContent _mIconToolbarMinus;
-    private string[] _names;
-
     protected virtual void OnEnable()
     {
         _mEntriesProperty = serializedObject.FindProperty("Entries");
@@ -20,10 +12,8 @@ public class GameEventTriggerEditor : Editor
         _mEventIdName = new GUIContent("");
         _mIconToolbarMinus =
             new GUIContent(EditorGUIUtility.IconContent("Toolbar Minus")) {tooltip = "Remove all events in this list."};
-        var vars = AssetDatabase.FindAssets("t:GameEventArgs")
-            .Select(AssetDatabase.GUIDToAssetPath)
-            .Select(AssetDatabase.LoadAssetAtPath<GameEventArgs>)
-            .Where(b => b).OrderBy(v => v.name).ToArray();
+        var vars = AssetDatabase.FindAssets("t:GameEventArgs").Select(AssetDatabase.GUIDToAssetPath)
+            .Select(AssetDatabase.LoadAssetAtPath<GameEventArgs>).Where(b => b).OrderBy(v => v.name).ToArray();
 
         _names = vars.Select(t => t.name).ToArray();
 
@@ -51,7 +41,7 @@ public class GameEventTriggerEditor : Editor
         for (var index = 0; index < _mEntriesProperty.arraySize; ++index)
         {
             var arrayElementAtIndex = _mEntriesProperty.GetArrayElementAtIndex(index);
-            var propertyRelative1 = arrayElementAtIndex.FindPropertyRelative("Event");
+            arrayElementAtIndex.FindPropertyRelative("Event");
             var propertyRelative2 = arrayElementAtIndex.FindPropertyRelative("Callback");
             var propertyRelative3 = arrayElementAtIndex.FindPropertyRelative("Name");
             //set the name of the event box to the propertyname based on it's enumindex
@@ -62,7 +52,7 @@ public class GameEventTriggerEditor : Editor
 
             var lastRect = GUILayoutUtility.GetLastRect();
 
-            if (GUI.Button(
+            if(GUI.Button(
                 new Rect((float) (lastRect.xMax - (double) vector2.x - 8.0), lastRect.y + 1f, vector2.x, vector2.y),
                 _mIconToolbarMinus, GUIStyle.none))
                 toBeRemovedEntry = index;
@@ -70,7 +60,7 @@ public class GameEventTriggerEditor : Editor
             EditorGUILayout.Space();
         }
 
-        if (toBeRemovedEntry > -1)
+        if(toBeRemovedEntry > -1)
             RemoveEntry(toBeRemovedEntry);
 
         var rect = GUILayoutUtility.GetRect(_mAddButtonContent, GUI.skin.button);
@@ -78,7 +68,7 @@ public class GameEventTriggerEditor : Editor
         rect.x = rect.x + (float) ((rect.width - 200.0) / 2.0);
 
         rect.width = 200f;
-        if (GUI.Button(rect, _mAddButtonContent))
+        if(GUI.Button(rect, _mAddButtonContent))
             ShowAddTriggermenu();
 
         serializedObject.ApplyModifiedProperties();
@@ -96,11 +86,11 @@ public class GameEventTriggerEditor : Editor
         {
             var flag = true;
             for (var index2 = 0; index2 < _mEntriesProperty.arraySize; ++index2)
-                if (_mEntriesProperty.GetArrayElementAtIndex(index2).FindPropertyRelative("EnumIndex").intValue ==
-                    index1)
+                if(_mEntriesProperty.GetArrayElementAtIndex(index2).FindPropertyRelative("EnumIndex").intValue ==
+                   index1)
                     flag = false;
 
-            if (flag)
+            if(flag)
                 genericMenu.AddItem(_mEventTypes[index1], false, OnAddNewSelected, index1);
             else
                 genericMenu.AddDisabledItem(_mEventTypes[index1]);
@@ -123,4 +113,12 @@ public class GameEventTriggerEditor : Editor
             .objectReferenceValue = _mGameEventArgs[num];
         serializedObject.ApplyModifiedProperties();
     }
+
+    private GUIContent _mAddButtonContent;
+    private SerializedProperty _mEntriesProperty;
+    private GUIContent _mEventIdName;
+    private GUIContent[] _mEventTypes;
+    private GameEventArgs[] _mGameEventArgs;
+    private GUIContent _mIconToolbarMinus;
+    private string[] _names;
 }

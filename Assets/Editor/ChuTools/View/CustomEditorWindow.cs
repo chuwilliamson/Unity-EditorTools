@@ -6,11 +6,32 @@ namespace ChuTools
 {
     public abstract class CustomEditorWindow : EditorWindow, IEventSystem
     {
-        public EditorEvent OnScrollWheel { get; set; }
-        public Event Current { get; set; }
+        public EditorEvent OnScrollWheel
+        {
+            get { return EventSystem.OnScrollWheel; }
+            set { EventSystem.OnScrollWheel = value; }
+        }
+
+        public EditorEvent OnDragUpdated
+        {
+            get { return EventSystem.OnDragUpdated; }
+            set { EventSystem.OnDragUpdated = value; }
+        }
+
+        public EditorEvent OnDragPerform
+        {
+            get { return EventSystem.OnDragPerform; }
+            set { EventSystem.OnDragPerform = value; }
+        }
+
+        public Event Current
+        {
+            get { return EventSystem.Current; }
+            set { EventSystem.Current = value; }
+        }
 
         public EditorEvent OnDragExited { get; set; }
- 
+
         public EditorEvent OnMouseDown
         {
             get { return EventSystem.OnMouseDown; }
@@ -58,6 +79,6 @@ namespace ChuTools
             EventSystem.PollEvents(e);
         }
 
-        public abstract IEventSystem EventSystem { get; set; }
+        public virtual IEventSystem EventSystem { get; set; }
     }
 }

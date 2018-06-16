@@ -13,9 +13,9 @@ namespace ChuTools.Controller
         [JsonConstructor]
         public UIMethodNode()
         {
-            Out = new UIOutConnectionPoint(new Rect(rect.position, new Vector2(50, 50)), new OutConnection(Node))
+            Out = new UIOutConnectionPoint(new Rect(Rect.position, new Vector2(50, 50)), new OutConnection(Node))
             {
-                rect = new Rect(rect.position.x + rect.width, rect.position.y, 50, 50)
+                Rect = new Rect(Rect.position.x + Rect.width, Rect.position.y, 50, 50)
             };
 
 
@@ -26,7 +26,7 @@ namespace ChuTools.Controller
                 MethodName = "TestMethod"
             });
 
-            Base(rect, "Method Node", resize: true);
+            Base(Rect, "Method Node", resize: true);
         }
 
         public UIMethodNode(Rect rect)
@@ -38,9 +38,9 @@ namespace ChuTools.Controller
                 MethodName = "TestMethod"
             });
 
-            Out = new UIOutConnectionPoint(new Rect(this.rect.position, new Vector2(50, 50)), new OutConnection(Node))
+            Out = new UIOutConnectionPoint(new Rect(Rect.position, new Vector2(50, 50)), new OutConnection(Node))
             {
-                rect = new Rect(rect.position.x + rect.width, rect.position.y, 50, 50)
+                Rect = new Rect(rect.position.x + rect.width, rect.position.y, 50, 50)
             };
 
             Base(rect, "Method Node", resize: true);
@@ -55,9 +55,9 @@ namespace ChuTools.Controller
         {
             base.Draw();
 
-            Out.rect = new Rect(rect.position.x + rect.width, rect.position.y, 50, 50);
+            Out.Rect = new Rect(Rect.position.x + Rect.width, Rect.position.y, 50, 50);
             Out?.Draw();
-            GUILayout.BeginArea(rect);
+            GUILayout.BeginArea(Rect);
             if(GUILayout.Button("DynamicInvoke"))
             {
                 var obj = Node.Value as MethodObject;

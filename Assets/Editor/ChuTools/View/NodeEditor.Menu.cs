@@ -1,5 +1,6 @@
 ﻿using System.Collections.Generic;
 using System.Diagnostics;
+using System.IO;
 using System.Linq;
 using UnityEditor;
 using UnityEngine;
@@ -9,17 +10,47 @@ namespace ChuTools.View
 {
     public partial class NodeEditorWindow
     {
-        public System.Collections.Generic.List<Process> WorkerProcesses = new List<Process>();
+        public void DrawCommandMenu()
+        {
+            var files = Directory.GetFiles(Application.streamingAssetsPath).ToList();
+
+            if(GUILayout.Button("Open Command Prompt"))
+                WorkerProcesses.Add(Process.Start("cmd.exe"));
+            GUILayout.Label("StreamingAssets", EditorStyles.boldLabel);
+            foreach (var f in files)
+            {
+                var nf = f.Remove(0, Application.streamingAssetsPath.Length + 1);
+                if(nf.Contains(".meta"))
+                    continue;
+
+                if(GUILayout.Button(nf))
+                    WorkerProcesses.Add(Process.Start(f));
+            }
+
+            WorkerProcesses.ForEach(p =>
+            {
+                EditorGUILayout.BeginHorizontal();
+
+                if(GUILayout.Button(new GUIContent("Kill? " + p.ProcessName), EditorStyles.foldout))
+                {
+                    p.Kill();
+                    WorkerProcesses.Remove(p);
+                }
+                EditorGUILayout.EndHorizontal();
+            });
+            EditorGUILayout.EndVertical();
+        }
+
         public void DrawMenu()
         {
             GUILayout.BeginHorizontal();
             var value1 = CurrentSendingDrag?.ToString() ?? "null";
             var value2 = CurrentAcceptingDrag?.ToString() ?? "null";
-            if (value2 != "null")
+            if(value2 != "null")
                 Debug.Break();
-            if (GUILayout.Button(new GUIContent("Save"), EditorStyles.toolbarButton, GUILayout.Width(35))) Save();
+            if(GUILayout.Button(new GUIContent("Save"), EditorStyles.toolbarButton, GUILayout.Width(35))) Save();
             GUILayout.Space(5);
-            if (GUILayout.Button(new GUIContent("Load"), EditorStyles.toolbarButton, GUILayout.Width(35))) Load();
+            if(GUILayout.Button(new GUIContent("Load"), EditorStyles.toolbarButton, GUILayout.Width(35))) Load();
             GUILayout.EndHorizontal();
 
             var lastrect = GUILayoutUtility.GetLastRect();
@@ -41,39 +72,11 @@ namespace ChuTools.View
             EditorGUILayout.LabelField("Current Requesting Drag  ", value2);
             EditorGUILayout.LabelField("Node Count: " + Nodes.Count);
             EditorGUILayout.LabelField("Connections Count: " + Connections.Count);
-            var files = System.IO.Directory.GetFiles(Application.streamingAssetsPath).ToList();
 
-
-            if (GUILayout.Button("Open Command Prompt"))
-                WorkerProcesses.Add(Process.Start("cmd.exe"));
-            GUILayout.Label("StreamingAssets", EditorStyles.boldLabel);
-            foreach (var f in files)
-            {
-                var nf = f.Remove(0, Application.streamingAssetsPath.Length + 1);
-                if (nf.Contains(".meta"))
-                    continue;
-
-                if (GUILayout.Button(nf))
-                {
-                    WorkerProcesses.Add(Process.Start(f));
-                }
-            }
-
-            WorkerProcesses.ForEach(p =>
-                {
-                    EditorGUILayout.BeginHorizontal();
-
-                    if (GUILayout.Button(new GUIContent("Kill? " + p.ProcessName), EditorStyles.foldout))
-                    {
-                        p.Kill();
-                        WorkerProcesses.Remove(p);
-                    }
-                    EditorGUILayout.EndHorizontal();
-                }
-            );
-            EditorGUILayout.EndVertical();
             GUI.EndGroup();
             GUILayout.EndArea();
         }
+
+        public List<Process> WorkerProcesses = new List<Process>();
     }
 }

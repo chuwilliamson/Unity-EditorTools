@@ -1,6 +1,6 @@
-﻿using Interfaces;
+﻿using System;
+using Interfaces;
 using Newtonsoft.Json;
-using System;
 using UnityEngine;
 
 namespace ChuTools.Model

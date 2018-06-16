@@ -1,41 +1,31 @@
-﻿using ChuTools;
-using Interfaces;
+﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using ChuTools;
+using Interfaces;
 using UnityEditor;
 using UnityEngine;
 
 public class GridEditorWindow : CustomEditorWindow
 {
-    private void OnEnable()
-    {
-        EventSystem = new GridWindowEventSystem();
-    }
-
-    [MenuItem(itemName: "Tools/ChuTools/GridEditor")]
-    public static void Init()
-    {
-        var w = CreateInstance<GridEditorWindow>();
-        w.Show();
-    }
-
-    [System.Serializable]
+    [Serializable]
     public class Cell
     {
         public int Index;
         public Vector3 Position;
     }
 
-    [SerializeField]
-    private Vector2Int _dimensions;
-    private List<Cell> _cells;
-    public Rect MenuRect => new Rect(5, 5, 300, 300);
-    public Rect SideRect => new Rect(305, 5, 300, 300);
-    public Rect BottomRect => new Rect(5, 315, 600, Screen.height - 345);
+    private void OnEnable()
+    {
+        EventSystem = new GridWindowEventSystem();
+    }
 
-    private int _selected;
-
-    public GUIStyle NormalStyle => new GUIStyle("CN Box") { fontSize = 15, alignment = TextAnchor.UpperCenter, padding = new RectOffset(15, 15, 15, 15) };
+    [MenuItem("Tools/ChuTools/GridEditor")]
+    public static void Init()
+    {
+        var w = CreateInstance<GridEditorWindow>();
+        w.Show();
+    }
 
     private void OnGUI()
     {
@@ -44,7 +34,7 @@ public class GridEditorWindow : CustomEditorWindow
         DrawSideMenu();
         DrawBottomMenu();
 
-        if (GUI.changed)
+        if(GUI.changed)
             Repaint();
     }
 
@@ -74,13 +64,13 @@ public class GridEditorWindow : CustomEditorWindow
         _dimensions.y = EditorGUILayout.IntSlider(new GUIContent("Height"), _dimensions.y, 1, 10);
         EditorGUI.indentLevel--;
 
-        if (EditorGUI.EndChangeCheck())
+        if(EditorGUI.EndChangeCheck())
         {
             _selected = -1;
             _cells = CreateGrid(_dimensions);
         }
 
-        if (_cells?.Count > 0)
+        if(_cells?.Count > 0)
         {
             var names = _cells.Select(cell => cell.Index.ToString()).ToArray();
             _selected = GUILayout.SelectionGrid(_selected, names, _dimensions.x);
@@ -107,16 +97,30 @@ public class GridEditorWindow : CustomEditorWindow
         var result = new List<Cell>();
         var count = 0;
         for (var i = 0; i < dims.x; i++)
+        for (var j = 0; j < dims.y; j++)
         {
-            for (var j = 0; j < dims.y; j++)
-            {
-                result.Add(new Cell { Index = count, Position = new Vector3(i, 0, j) });
-                count++;
-            }
+            result.Add(new Cell {Index = count, Position = new Vector3(i, 0, j)});
+            count++;
         }
 
         return result;
     }
+
+    private List<Cell> _cells;
+
+    [SerializeField] private Vector2Int _dimensions;
+
+    private int _selected;
+    public Rect MenuRect => new Rect(5, 5, 300, 300);
+    public Rect SideRect => new Rect(305, 5, 300, 300);
+    public Rect BottomRect => new Rect(5, 315, 600, Screen.height - 345);
+
+    public GUIStyle NormalStyle => new GUIStyle("CN Box")
+    {
+        fontSize = 15,
+        alignment = TextAnchor.UpperCenter,
+        padding = new RectOffset(15, 15, 15, 15)
+    };
 
     public override IEventSystem EventSystem { get; set; }
 }

@@ -1,25 +1,26 @@
-﻿using Interfaces;
-using System;
+﻿using System;
+using Interfaces;
 using UnityEngine;
 
 public class GridMenu : IDrawable
 {
-    public GridMenu(Rect rect, IEventSystem eventSystem, System.Action drawCallback)
+    public GridMenu(Rect rect, IEventSystem eventSystem, Action drawCallback)
     {
         _rect = rect;
+        eventSystem.OnMouseDown += e => { Debug.Log("mouse down"); };
         DrawCallback = drawCallback;
     }
-
     public void Draw()
     {
-        GUILayout.BeginArea(_rect, new GUIContent(GUIUtility.GetControlID(FocusType.Passive, _rect).ToString()), NormalStyle);
+        GUILayout.BeginArea(_rect, new GUIContent(GUIUtility.GetControlID(FocusType.Passive, _rect).ToString()),
+            NormalStyle);
         DrawCallback();
         GUILayout.EndArea();
     }
 
     Rect IDrawable.Rect => _rect;
 
-    private Rect _rect;
+    private readonly Rect _rect;
 
     public Action DrawCallback;
 

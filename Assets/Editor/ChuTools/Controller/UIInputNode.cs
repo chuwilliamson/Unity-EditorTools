@@ -13,11 +13,11 @@ namespace ChuTools.Controller
         [JsonConstructor]
         public UIInputNode(Rect rect)
         {
-            Out = new UIOutConnectionPoint(new Rect(this.rect.position, new Vector2(50, 50)), new OutConnection(Node))
+            Out = new UIOutConnectionPoint(new Rect(Rect.position, new Vector2(50, 50)), new OutConnection(Node))
             {
-                rect = new Rect(rect.position.x + rect.width, rect.position.y, 50, 50)
+                Rect = new Rect(rect.position.x + rect.width, rect.position.y, 50, 50)
             };
-            ControlId = GUIUtility.GetControlID(FocusType.Passive, this.rect);
+            ControlId = GUIUtility.GetControlID(FocusType.Passive, Rect);
             Base(name: "Input Node", normalStyleName: "flow node 2", selectedStyleName: "flow node 2 on", rect: rect,
                 resize: true);
         }
@@ -25,10 +25,10 @@ namespace ChuTools.Controller
         public override void Draw()
         {
             base.Draw();
-            Out.rect = new Rect(rect.position.x + rect.width, rect.position.y, 50, 50);
+            Out.Rect = new Rect(Rect.position.x + Rect.width, Rect.position.y, 50, 50);
             Out.Draw();
 
-            GUILayout.BeginArea(rect);
+            GUILayout.BeginArea(Rect);
 
             Node.Value = EditorGUILayout.IntSlider("Value: ", Convert.ToInt32(Node.Value), 0, 10);
 

@@ -2,7 +2,6 @@
 using System.Collections.Generic;
 using ChuTools.Controller;
 using ChuTools.Model;
-using ChuTools.View;
 using Interfaces;
 using Newtonsoft.Json;
 using UnityEditor;
@@ -17,29 +16,32 @@ namespace JeremyTools
         [JsonConstructor]
         public UIDelegateNode()
         {
-            MethodObjects = new MethodObjects { MethodObjectsList = new List<MethodObject>() };
-            _roMethodObjects = new ReorderableList(MethodObjects.MethodObjectsList, typeof(MethodObject), true, true, true, true);
-            Base(name: "UIDelegate Node", normalStyleName: "flow node 2", selectedStyleName: "flow node 2 on", rect: rect, resize: true);
-          
+            MethodObjects = new MethodObjects {MethodObjectsList = new List<MethodObject>()};
+            _roMethodObjects = new ReorderableList(MethodObjects.MethodObjectsList, typeof(MethodObject), true, true,
+                true, true);
+            Base(name: "UIDelegate Node", normalStyleName: "flow node 2", selectedStyleName: "flow node 2 on",
+                rect: Rect, resize: true);
+
         }
 
         public UIDelegateNode(Rect rect)
         {
             Node = new DelegateNode(new InConnection(null));
-            In = new UIInConnectionPoint(string.Empty, "U2D.pivotDot", "U2D.pivotDotActive",
-                new Rect(rect.position, new Vector2(15, 15)), Connect, DisconnectHandler);
-            Base(name: "UIDelegate Node", normalStyleName: "flow node 2", selectedStyleName: "flow node 2 on", rect: rect, resize: true);
-            ControlId = GUIUtility.GetControlID(FocusType.Passive, this.rect);
+            In = new UIInConnectionPoint(new Rect(rect.position, new Vector2(15, 15)), Connect, DisconnectHandler);
+            Base(name: "UIDelegate Node", normalStyleName: "flow node 2", selectedStyleName: "flow node 2 on",
+                rect: rect, resize: true);
+            ControlId = GUIUtility.GetControlID(FocusType.Passive, this.Rect);
         }
 
         private bool DisconnectHandler(UIInConnectionPoint point)
         {
-            if (point != In)
+            if(point != In)
                 return false;
             Node = null;
-            MethodObjects = new MethodObjects { MethodObjectsList = new List<MethodObject>() };
-            _roMethodObjects = new ReorderableList(MethodObjects.MethodObjectsList, typeof(MethodObject), true, true, true, true);
-            
+            MethodObjects = new MethodObjects {MethodObjectsList = new List<MethodObject>()};
+            _roMethodObjects = new ReorderableList(MethodObjects.MethodObjectsList, typeof(MethodObject), true, true,
+                true, true);
+
             return true;
         }
 
@@ -47,11 +49,11 @@ namespace JeremyTools
         {
             base.Draw();
 
-            In.rect.Set(rect.x - 25, rect.y + 25 , 25, 25);
+            In.Rect.Set(Rect.x - 25, Rect.y + 25, 25, 25);
             In.Draw();
 
-            GUILayout.BeginArea(rect);
-            if (_roMethodObjects == null)
+            GUILayout.BeginArea(Rect);
+            if(_roMethodObjects == null)
             {
                 GUILayout.EndArea();
                 return;
@@ -63,7 +65,7 @@ namespace JeremyTools
 
             EditorGUILayout.EndVertical();
 
-            if (GUILayout.Button("DynamicInvoke"))
+            if(GUILayout.Button("DynamicInvoke"))
                 MethodObjects.MethodObjectsList?.ForEach(mo => mo.DynamicInvoke());
 
             GUILayout.EndArea();
@@ -71,7 +73,7 @@ namespace JeremyTools
 
         public bool Connect(IConnectionOut outConnection, UIInConnectionPoint connectionPoint)
         {
-            if (outConnection == null)
+            if(outConnection == null)
                 return false;
             Node = new DelegateNode(new InConnection(outConnection));
             MethodObjects.MethodObjectsList.Add(Node.Value as MethodObject);

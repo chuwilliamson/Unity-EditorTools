@@ -13,21 +13,21 @@ namespace ChuTools.Controller
         public UIDisplayNode()
         {
             Node = new DisplayNode(null);
-            In = new UIInConnectionPoint(new Rect(rect.position, new Vector2(50, 50)), Connect, Disconnect)
+            In = new UIInConnectionPoint(new Rect(Rect.position, new Vector2(50, 50)), Connect, Disconnect)
             {
-                rect = new Rect(rect.position.x - 55, rect.position.y, 50, 50)
+                Rect = new Rect(Rect.position.x - 55, Rect.position.y, 50, 50)
             };
             Base(name: "Display Node: ", normalStyleName: "flow node 1", selectedStyleName: "flow node 1 on",
-                rect: rect, resize: true);
+                rect: Rect, resize: true);
         }
 
 
         public UIDisplayNode(Rect rect)
         {
             Node = new DisplayNode(null);
-            In = new UIInConnectionPoint(new Rect(this.rect.position, new Vector2(50, 50)), Connect, Disconnect)
+            In = new UIInConnectionPoint(new Rect(this.Rect.position, new Vector2(50, 50)), Connect, Disconnect)
             {
-                rect = new Rect(rect.position.x - 55, rect.position.y, 50, 50)
+                Rect = new Rect(rect.position.x - 55, rect.position.y, 50, 50)
             };
             Base(name: "Display Node: ", normalStyleName: "flow node 1", selectedStyleName: "flow node 1 on",
                 rect: rect, resize: true);
@@ -59,9 +59,9 @@ namespace ChuTools.Controller
         public override void Draw()
         {
             base.Draw();
-            In.rect = new Rect(rect.position.x - 55, rect.position.y, 50, 50);
+            In.Rect = new Rect(Rect.position.x - 55, Rect.position.y, 50, 50);
             In?.Draw();
-            GUILayout.BeginArea(rect);
+            GUILayout.BeginArea(Rect);
             var value = Node?.Value;
             GUILayout.Label("Value  ::  " + value);
             GUILayout.EndArea();

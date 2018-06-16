@@ -1,9 +1,8 @@
 using System;
 using System.Collections.Generic;
-using UnityEditor;
 using System.Linq;
 using System.Reflection;
-using ChuTools.Controller;
+using UnityEditor;
 using UnityEngine;
 using Object = UnityEngine.Object;
 
@@ -11,20 +10,14 @@ namespace ChuTools
 {
     public class UITypesDropdown
     {
-
-        public List<string> Names => FindAllDerivedTypes<Object>().Select(t => t.Name).ToList();
-        public List<GUIContent> Contents => new List<GUIContent>(Names.Select(n => new GUIContent(n)));
-
         public bool Button(Rect rect)
         {
             rect.MoveDown(rect.y + EditorGUIUtility.singleLineHeight);
-            if (GUI.Button(rect, "Types"))
+            if(GUI.Button(rect, "Types"))
             {
                 var gm = new GenericMenu();
                 for (var i = 0; i < Names.Count; i++)
-                {
                     gm.AddItem(Contents[i], false, RemoveItem, i);
-                }
 
                 gm.ShowAsContext();
                 Event.current.Use();
@@ -35,7 +28,6 @@ namespace ChuTools
 
         public void RemoveItem(object index)
         {
-            var eindex = (int)index;//unbox
         }
 
         public static List<Type> TypeDropdownList<T>(Rect rect)
@@ -45,9 +37,7 @@ namespace ChuTools
             var guiContents = new GUIContent[names.Count];
 
             for (var i = 0; i < names.Count; i++)
-            {
                 guiContents[i] = new GUIContent(types[i].Name);
-            }
 
             return types;
         }
@@ -60,18 +50,16 @@ namespace ChuTools
         public static List<Type> FindAllDerivedTypes<T>(Assembly assembly)
         {
             var derivedType = typeof(T);
-            return assembly
-                .GetTypes()
-                .Where(t => t != derivedType && derivedType.IsAssignableFrom(t))
-                .ToList();
+            return assembly.GetTypes().Where(t => t != derivedType && derivedType.IsAssignableFrom(t)).ToList();
 
         }
 
+        public List<string> Names => FindAllDerivedTypes<Object>().Select(t => t.Name).ToList();
+        public List<GUIContent> Contents => new List<GUIContent>(Names.Select(n => new GUIContent(n)));
     }
+
     public static class Extensions
     {
-
-
         public static Rect MoveDown(this Rect rect, float amount)
         {
             var arect = rect;

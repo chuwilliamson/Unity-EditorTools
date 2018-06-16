@@ -4,7 +4,6 @@ namespace ChuTools.View
 {
     public partial class NodeEditorWindow
     {
- 
         public static void PollEvents(Event e)
         {
             NodeEventSystem.PollEvents(e);
@@ -15,7 +14,7 @@ namespace ChuTools.View
             get { return NodeEventSystem.Current; }
             set { NodeEventSystem.Current = value; }
         }
- 
+
         public static EditorEvent OnMouseDown
         {
             get { return NodeEventSystem.OnMouseDown; }
@@ -45,6 +44,7 @@ namespace ChuTools.View
             get { return NodeEventSystem.OnDragExited; }
             set { NodeEventSystem.OnDragExited = value; }
         }
+
         public static EditorEvent OnContextClick
         {
             get { return NodeEventSystem.OnContextClick; }
@@ -62,6 +62,7 @@ namespace ChuTools.View
             get { return NodeEventSystem.OnScrollWheel; }
             set { NodeEventSystem.OnScrollWheel = value; }
         }
+
         public static EditorEvent OnUsed
         {
             get { return NodeEventSystem.OnUsed; }

@@ -1,7 +1,6 @@
 ﻿using System;
 using ChuTools.View;
 using Interfaces;
-using JeremyTools;
 using Newtonsoft.Json;
 using UnityEditor;
 using UnityEngine;
@@ -11,6 +10,17 @@ namespace ChuTools.Controller
     [Serializable]
     public class UIInConnectionPoint : UIElement
     {
+        public UIInConnectionPoint()
+        {
+
+        }
+
+        public UIInConnectionPoint(Rect rect)
+        {
+            Base(name: "In", normalStyleName: "U2D.pivotDot", selectedStyleName: "U2D.pivotDotActive", rect: rect);
+            NormalStyle.imagePosition = ImagePosition.ImageOnly;
+            SelectedStyle.imagePosition = ImagePosition.ImageOnly;
+        }
 
         [JsonConstructor]
         public UIInConnectionPoint(Rect rect, ConnectionResponse cb, DisconnectResponse disconnectResponse)
@@ -18,27 +28,17 @@ namespace ChuTools.Controller
             ConnectionState = false;
             _connectionResponse = cb;
             _disconnectResponse = disconnectResponse;
-            Base(name: "In", normalStyleName: "CN Box", selectedStyleName: "CN Box", rect: rect);
-        }
-
-        public UIInConnectionPoint(string name, string normalStyle, string selectedStyle, Rect rect,
-            ConnectionResponse cb, DisconnectResponse disconnectResponse)
-        {
-            ConnectionState = false;
-            _connectionResponse = cb;
-            _disconnectResponse = disconnectResponse;
-            Base(rect, name, normalStyle, selectedStyle);
+            Base(name: "In", normalStyleName: "U2D.pivotDot", selectedStyleName: "U2D.pivotDotActive", rect: rect);
             NormalStyle.imagePosition = ImagePosition.ImageOnly;
             SelectedStyle.imagePosition = ImagePosition.ImageOnly;
         }
 
+
         public bool ValidateConnection(IConnectionOut @out)
         {
 
-            if (ConnectionState)
-            {
+            if(ConnectionState)
                 return false;
-            }
 
             ConnectionState = _connectionResponse.Invoke(@out, this);
 
@@ -48,7 +48,7 @@ namespace ChuTools.Controller
 
         protected override void OnContextClick(Event e)
         {
-            if (!rect.Contains(e.mousePosition))
+            if(!Rect.Contains(e.mousePosition))
                 return;
             var gm = new GenericMenu();
             gm.AddItem(new GUIContent("Disconnect"), false, Disconnect);
@@ -58,7 +58,7 @@ namespace ChuTools.Controller
 
         public void Disconnect()
         {
-            if (_disconnectResponse.Invoke(this))
+            if(_disconnectResponse.Invoke(this))
             {
                 Debug.Log("successful disconnect!");
                 NodeEditorWindow.OnConnectionCancelRequest(this);
@@ -72,17 +72,13 @@ namespace ChuTools.Controller
 
         public override void OnMouseDrag(Event e)
         {
-            if (!rect.Contains(e.mousePosition))//this fixes the dragging
-                                                //this is bad because we dont want the nodes affecting the
-                                                //window state
-            {
-                if (NodeEditorWindow.CurrentAcceptingDrag == this)
-                    NodeEditorWindow.CurrentAcceptingDrag = null;
+            if(!Rect.Contains(e.mousePosition))//this fixes the dragging
+                //this is bad because we dont want the nodes affecting the
+                //window state
                 return;
-            }
 
-            if (NodeEditorWindow.CurrentSendingDrag == null) return;
-            NodeEditorWindow.CurrentAcceptingDrag = this;
+            //if (NodeEditorWindow.CurrentSendingDrag == null) return;
+            //NodeEditorWindow.CurrentAcceptingDrag = this;
             GUI.changed = true;
         }
 
