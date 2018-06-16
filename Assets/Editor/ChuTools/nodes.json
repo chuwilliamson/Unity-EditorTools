@@ -4,101 +4,410 @@
   "Nodes": {
     "$id": "2",
     "$type": "System.Collections.Generic.List`1[[Interfaces.IDrawable, Assembly-CSharp-Editor]], mscorlib",
-    "$values": []
+    "$values": [
+      {
+        "$id": "3",
+        "$type": "JeremyTools.UIMultiDelegateNode, Assembly-CSharp-Editor",
+        "DragId": 814,
+        "Rect": {
+          "$id": "4",
+          "$type": "UnityEngine.Rect, UnityEngine.CoreModule",
+          "x": 1120.0,
+          "y": 126.0,
+          "position": {
+            "x": 1120.0,
+            "y": 126.0
+          },
+          "center": {
+            "x": 1270.0,
+            "y": 201.0
+          },
+          "min": {
+            "x": 1120.0,
+            "y": 126.0
+          },
+          "max": {
+            "x": 1420.0,
+            "y": 276.0
+          },
+          "width": 300.0,
+          "height": 150.0,
+          "size": {
+            "x": 300.0,
+            "y": 150.0
+          },
+          "xMin": 1120.0,
+          "yMin": 126.0,
+          "xMax": 1420.0,
+          "yMax": 276.0,
+          "left": 1120.0,
+          "right": 1420.0,
+          "top": 126.0,
+          "bottom": 276.0
+        },
+        "ResultObject": null,
+        "MethodObjects": {
+          "$id": "5",
+          "$type": "System.Collections.Generic.List`1[[JeremyTools.MethodObject, Assembly-CSharp-Editor]], mscorlib",
+          "$values": []
+        },
+        "Nodes": {
+          "$id": "6",
+          "$type": "System.Collections.Generic.List`1[[Interfaces.INode, Assembly-CSharp-Editor]], mscorlib",
+          "$values": [
+            {
+              "$id": "7",
+              "$type": "JeremyTools.DelegateNode, Assembly-CSharp-Editor",
+              "Value": 0,
+              "InConnection": {
+                "$id": "8",
+                "$type": "ChuTools.Model.InConnection, Assembly-CSharp-Editor",
+                "Out": null,
+                "Value": null
+              }
+            },
+            {
+              "$id": "9",
+              "$type": "JeremyTools.DelegateNode, Assembly-CSharp-Editor",
+              "Value": 0,
+              "InConnection": {
+                "$id": "10",
+                "$type": "ChuTools.Model.InConnection, Assembly-CSharp-Editor",
+                "Out": null,
+                "Value": null
+              }
+            },
+            {
+              "$id": "11",
+              "$type": "JeremyTools.DelegateNode, Assembly-CSharp-Editor",
+              "Value": 0,
+              "InConnection": {
+                "$id": "12",
+                "$type": "ChuTools.Model.InConnection, Assembly-CSharp-Editor",
+                "Out": null,
+                "Value": null
+              }
+            }
+          ]
+        },
+        "InConnectionPoints": {
+          "$id": "13",
+          "$type": "System.Collections.Generic.List`1[[ChuTools.Controller.UIInConnectionPoint, Assembly-CSharp-Editor]], mscorlib",
+          "$values": [
+            {
+              "$id": "14",
+              "$type": "ChuTools.Controller.UIInConnectionPoint, Assembly-CSharp-Editor",
+              "DragId": 0,
+              "Rect": {
+                "$id": "15",
+                "$type": "UnityEngine.Rect, UnityEngine.CoreModule",
+                "x": 1095.0,
+                "y": 126.0,
+                "position": {
+                  "x": 1095.0,
+                  "y": 126.0
+                },
+                "center": {
+                  "x": 1102.5,
+                  "y": 133.5
+                },
+                "min": {
+                  "x": 1095.0,
+                  "y": 126.0
+                },
+                "max": {
+                  "x": 1110.0,
+                  "y": 141.0
+                },
+                "width": 15.0,
+                "height": 15.0,
+                "size": {
+                  "x": 15.0,
+                  "y": 15.0
+                },
+                "xMin": 1095.0,
+                "yMin": 126.0,
+                "xMax": 1110.0,
+                "yMax": 141.0,
+                "left": 1095.0,
+                "right": 1110.0,
+                "top": 126.0,
+                "bottom": 141.0
+              },
+              "ConnectionState": false,
+              "Resize": false,
+              "Name": "In",
+              "ControlId": 901
+            },
+            {
+              "$id": "16",
+              "$type": "ChuTools.Controller.UIInConnectionPoint, Assembly-CSharp-Editor",
+              "DragId": 0,
+              "Rect": {
+                "$id": "17",
+                "$type": "UnityEngine.Rect, UnityEngine.CoreModule",
+                "x": 1095.0,
+                "y": 151.0,
+                "position": {
+                  "x": 1095.0,
+                  "y": 151.0
+                },
+                "center": {
+                  "x": 1102.5,
+                  "y": 158.5
+                },
+                "min": {
+                  "x": 1095.0,
+                  "y": 151.0
+                },
+                "max": {
+                  "x": 1110.0,
+                  "y": 166.0
+                },
+                "width": 15.0,
+                "height": 15.0,
+                "size": {
+                  "x": 15.0,
+                  "y": 15.0
+                },
+                "xMin": 1095.0,
+                "yMin": 151.0,
+                "xMax": 1110.0,
+                "yMax": 166.0,
+                "left": 1095.0,
+                "right": 1110.0,
+                "top": 151.0,
+                "bottom": 166.0
+              },
+              "ConnectionState": false,
+              "Resize": false,
+              "Name": "In",
+              "ControlId": 902
+            },
+            {
+              "$id": "18",
+              "$type": "ChuTools.Controller.UIInConnectionPoint, Assembly-CSharp-Editor",
+              "DragId": 0,
+              "Rect": {
+                "$id": "19",
+                "$type": "UnityEngine.Rect, UnityEngine.CoreModule",
+                "x": 1095.0,
+                "y": 176.0,
+                "position": {
+                  "x": 1095.0,
+                  "y": 176.0
+                },
+                "center": {
+                  "x": 1102.5,
+                  "y": 183.5
+                },
+                "min": {
+                  "x": 1095.0,
+                  "y": 176.0
+                },
+                "max": {
+                  "x": 1110.0,
+                  "y": 191.0
+                },
+                "width": 15.0,
+                "height": 15.0,
+                "size": {
+                  "x": 15.0,
+                  "y": 15.0
+                },
+                "xMin": 1095.0,
+                "yMin": 176.0,
+                "xMax": 1110.0,
+                "yMax": 191.0,
+                "left": 1095.0,
+                "right": 1110.0,
+                "top": 176.0,
+                "bottom": 191.0
+              },
+              "ConnectionState": false,
+              "Resize": false,
+              "Name": "In",
+              "ControlId": 903
+            }
+          ]
+        },
+        "Resize": true,
+        "Name": "UIDelegate Node",
+        "ControlId": 906
+      },
+      {
+        "$id": "20",
+        "$type": "TrentTools.UIRoslynNode, Assembly-CSharp-Editor",
+        "GameObjectRef": null,
+        "DragId": 909,
+        "Rect": {
+          "$id": "21",
+          "$type": "UnityEngine.Rect, UnityEngine.CoreModule",
+          "x": 735.0,
+          "y": 135.0,
+          "position": {
+            "x": 735.0,
+            "y": 135.0
+          },
+          "center": {
+            "x": 885.0,
+            "y": 210.0
+          },
+          "min": {
+            "x": 735.0,
+            "y": 135.0
+          },
+          "max": {
+            "x": 1035.0,
+            "y": 285.0
+          },
+          "width": 300.0,
+          "height": 150.0,
+          "size": {
+            "x": 300.0,
+            "y": 150.0
+          },
+          "xMin": 735.0,
+          "yMin": 135.0,
+          "xMax": 1035.0,
+          "yMax": 285.0,
+          "left": 735.0,
+          "right": 1035.0,
+          "top": 135.0,
+          "bottom": 285.0
+        },
+        "Out": {
+          "$id": "22",
+          "$type": "ChuTools.Controller.UIOutConnectionPoint, Assembly-CSharp-Editor",
+          "DragId": 0,
+          "Rect": {
+            "$id": "23",
+            "$type": "UnityEngine.Rect, UnityEngine.CoreModule",
+            "x": 1035.0,
+            "y": 135.0,
+            "position": {
+              "x": 1035.0,
+              "y": 135.0
+            },
+            "center": {
+              "x": 1043.0,
+              "y": 143.0
+            },
+            "min": {
+              "x": 1035.0,
+              "y": 135.0
+            },
+            "max": {
+              "x": 1051.0,
+              "y": 151.0
+            },
+            "width": 16.0,
+            "height": 16.0,
+            "size": {
+              "x": 16.0,
+              "y": 16.0
+            },
+            "xMin": 1035.0,
+            "yMin": 135.0,
+            "xMax": 1051.0,
+            "yMax": 151.0,
+            "left": 1035.0,
+            "right": 1051.0,
+            "top": 135.0,
+            "bottom": 151.0
+          },
+          "Out": {
+            "$id": "24",
+            "$type": "ChuTools.Model.OutConnection, Assembly-CSharp-Editor",
+            "Value": {
+              "$type": "JeremyTools.MethodObject, Assembly-CSharp-Editor",
+              "Result": null,
+              "Target": {
+                "$ref": "20"
+              },
+              "MethodName": "DoCompile",
+              "Type": "TrentTools.UIRoslynNode, Assembly-CSharp-Editor, Version=0.0.0.0, Culture=neutral, PublicKeyToken=null"
+            },
+            "Node": {
+              "$id": "25",
+              "$type": "JeremyTools.MethodNode, Assembly-CSharp-Editor",
+              "Value": {
+                "$id": "26",
+                "$type": "JeremyTools.MethodObject, Assembly-CSharp-Editor",
+                "Result": null,
+                "Target": {
+                  "$ref": "20"
+                },
+                "MethodName": "DoCompile",
+                "Type": "TrentTools.UIRoslynNode, Assembly-CSharp-Editor, Version=0.0.0.0, Culture=neutral, PublicKeyToken=null"
+              }
+            }
+          },
+          "Resize": false,
+          "Name": "Out",
+          "ControlId": 907
+        },
+        "Node": {
+          "$ref": "25"
+        },
+        "CodeInput": "return new UnityEngine.GameObject().AddComponent<CallbackBehaviour>()",
+        "Result": "",
+        "ResultTuple": null,
+        "SelectedOutput": 4,
+        "Resize": true,
+        "Name": "Script Node",
+        "ControlId": 908
+      }
+    ]
   },
   "Connections": {
-    "$id": "3",
+    "$id": "27",
     "$type": "System.Collections.Generic.List`1[[Interfaces.IDrawable, Assembly-CSharp-Editor]], mscorlib",
     "$values": [
       {
-        "$id": "4",
-        "$type": "ChuTools.Controller.UIInConnectionPoint, Assembly-CSharp-Editor",
-        "DragID": 0,
-        "rect": {
-          "$id": "5",
+        "$id": "28",
+        "$type": "ChuTools.Controller.UIBezierConnection, Assembly-CSharp-Editor",
+        "Rect": {
           "$type": "UnityEngine.Rect, UnityEngine.CoreModule",
-          "x": 819.0,
-          "y": 173.0,
+          "x": 1095.0,
+          "y": 126.0,
           "position": {
-            "x": 819.0,
-            "y": 173.0
+            "x": 1095.0,
+            "y": 126.0
           },
           "center": {
-            "x": 844.0,
-            "y": 198.0
+            "x": 1102.5,
+            "y": 133.5
           },
           "min": {
-            "x": 819.0,
-            "y": 173.0
+            "x": 1095.0,
+            "y": 126.0
           },
           "max": {
-            "x": 869.0,
-            "y": 223.0
+            "x": 1110.0,
+            "y": 141.0
           },
-          "width": 50.0,
-          "height": 50.0,
+          "width": 15.0,
+          "height": 15.0,
           "size": {
-            "x": 50.0,
-            "y": 50.0
+            "x": 15.0,
+            "y": 15.0
           },
-          "xMin": 819.0,
-          "yMin": 173.0,
-          "xMax": 869.0,
-          "yMax": 223.0,
-          "left": 819.0,
-          "right": 869.0,
-          "top": 173.0,
-          "bottom": 223.0
+          "xMin": 1095.0,
+          "yMin": 126.0,
+          "xMax": 1110.0,
+          "yMax": 141.0,
+          "left": 1095.0,
+          "right": 1110.0,
+          "top": 126.0,
+          "bottom": 141.0
         },
-        "ConnectionState": false,
-        "Resize": false,
-        "Name": "In",
-        "ControlId": 461
-      },
-      {
-        "$id": "6",
-        "$type": "ChuTools.Controller.UIOutConnectionPoint, Assembly-CSharp-Editor",
-        "DragID": 0,
-        "rect": {
-          "$id": "7",
-          "$type": "UnityEngine.Rect, UnityEngine.CoreModule",
-          "x": 1073.0,
-          "y": 184.0,
-          "position": {
-            "x": 1073.0,
-            "y": 184.0
-          },
-          "center": {
-            "x": 1098.0,
-            "y": 209.0
-          },
-          "min": {
-            "x": 1073.0,
-            "y": 184.0
-          },
-          "max": {
-            "x": 1123.0,
-            "y": 234.0
-          },
-          "width": 50.0,
-          "height": 50.0,
-          "size": {
-            "x": 50.0,
-            "y": 50.0
-          },
-          "xMin": 1073.0,
-          "yMin": 184.0,
-          "xMax": 1123.0,
-          "yMax": 234.0,
-          "left": 1073.0,
-          "right": 1123.0,
-          "top": 184.0,
-          "bottom": 234.0
+        "In": {
+          "$ref": "22"
         },
-        "Out": null,
-        "Resize": false,
-        "Name": "Out",
-        "ControlId": 462
+        "Out": {
+          "$ref": "14"
+        }
       }
     ]
   }

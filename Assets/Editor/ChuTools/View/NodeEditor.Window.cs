@@ -2,7 +2,6 @@
 using System.Collections.Generic;
 using System.Diagnostics.CodeAnalysis;
 using System.IO;
-using System.Reflection;
 using ChuTools.Controller;
 using Interfaces;
 using JeremyTools;
@@ -22,29 +21,6 @@ namespace ChuTools.View
             var window = GetWindow<NodeEditorWindow>();
             window.InitializeComponents();
             window.ShowTab();
-        }
-
-        private void RequestCancelConnection(UIInConnectionPoint uiIn)
-        {
-            IDrawable flagForRemove = null;
-            foreach (var connection in Connections)
-                flagForRemove = (connection as UIBezierConnection).In == uiIn ? connection : null;
-
-            Connections.Remove(flagForRemove);
-        }
-
-        public static void RequestConnection(UIOutConnectionPoint uiOut, IConnectionOut @out)
-        {
-            //if (CurrentAcceptingDrag.ValidateConnection(@out))
-            //{
-            //    ConnectionCreatedEvent(CurrentSendingDrag, CurrentAcceptingDrag);
-            //}
-            //else
-            //{
-            //    Debug.Log("cancel connection request");
-            //    //CurrentAcceptingDrag = null;
-            //    //CurrentSendingDrag = null;
-            //}
         }
 
         private void OnDisable()
@@ -142,8 +118,8 @@ namespace ChuTools.View
         private void CreateUIConnection<T>(object userdata) where T : IDrawable
         {
             var pos = ((Event)userdata).mousePosition;
-            var rect = new Rect(pos, new Vector2(50, 50));
-            Connections.Add((T)Activator.CreateInstance(typeof(T), rect));
+            var rect = new Rect(pos, new Vector2(15, 15));
+            Nodes.Add((T)Activator.CreateInstance(typeof(T), rect));
         }
 
 
@@ -159,18 +135,23 @@ namespace ChuTools.View
         /// </summary>
         /// <param name="out">the ui element associated with the out connection</param>
         /// <param name="in">the ui element associated with the in connection</param>
-        private void OnConnectionCreated(UIOutConnectionPoint @out, UIInConnectionPoint @in)
+        private void OnConnectionCreated(Event e)
         {
-            if (@out == null || @in == null)
+            var outdrop = DragAndDrop.GetGenericData("UIOutConnectionPoint") as UIOutConnectionPoint;
+            var indrop = DragAndDrop.GetGenericData("UIInConnectionPoint") as UIInConnectionPoint;
+            if (indrop == null || outdrop == null)
+            { 
+                DragAndDrop.PrepareStartDrag();
                 return;
-            Connections.Add(new UIBezierConnection(@in, @out));
-            //CurrentSendingDrag = null;
-            //CurrentAcceptingDrag = null;
+            }
+        
+            Connections.Add(new UIBezierConnection(outdrop, indrop));
+            DragAndDrop.PrepareStartDrag();
         }
 
         private void OnConnectionRemove(UIInConnectionPoint @in)
         {
-            if(Connections.Contains(@in))
+            if (Connections.Contains(@in))
                 Connections.Remove(@in);
         }
 
@@ -184,21 +165,14 @@ namespace ChuTools.View
             NodeWidth = 300;
             NodeHeight = 150;
             wantsMouseMove = true;
-
+            DragAndDrop.PrepareStartDrag();
             Drag = Vector2.zero;
             Nodes = new List<IDrawable>();
             Connections = new List<IDrawable>();
             NodeEventSystem = new NodeWindowEventSystem();
             NodeEventSystem.OnContextClick += CreateContextMenu;
-            ConnectionCreatedEvent = null;
-            ConnectionCreatedEvent = OnConnectionCreated;
-            OnConnectionCancelRequest = null;
-            OnConnectionCancelRequest = RequestCancelConnection;
-            NodeEventSystem.OnMouseUp += ClearDrag;
             NodeEventSystem.OnMouseDrag += OnDrag;
-            typeof(EditorBaseWindow).GetMethod("ClearConsole", BindingFlags.Static | BindingFlags.NonPublic)
-                ?.Invoke(null, null);
-
+            NodeEventSystem.OnDragExited += OnConnectionCreated;
             NodeEventSystem.OnScrollWheel += OnScroll;
         }
 
@@ -218,15 +192,9 @@ namespace ChuTools.View
         }
 
         /// <summary>
-        /// Clear the drag by setting the drag hashtable values to null
+        ///     Clear the drag by setting the drag hashtable values to null
         /// </summary>
         /// <param name="e"></param>
-        private void ClearDrag(Event e)
-        {
-            DragAndDrop.SetGenericData("UIOutConnectionPoint", null);
-            DragAndDrop.SetGenericData("UIInConnectionPoint", null);
-        }
-
         private void Save()
         {
             var n = new NodeEditorWindowSaveLoad { Nodes = Nodes, Connections = Connections };
@@ -271,10 +239,9 @@ namespace ChuTools.View
         public static IEventSystem NodeEventSystem { get; private set; }
         public Vector2 CenterWindow => new Vector2(Screen.width / 2.0f, Screen.height / 2.0f);
         private string _path => Application.dataPath + "/Editor/ChuTools/nodes.json";
-        public static Action<UIInConnectionPoint> OnConnectionCancelRequest;
+
 
         public static Vector2 Drag;
-        public static Action<UIOutConnectionPoint, UIInConnectionPoint> ConnectionCreatedEvent;
     }
 
     [Serializable]

@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using ChuTools.Controller;
 using ChuTools.Model;
+using ChuTools.View;
 using Interfaces;
 using Newtonsoft.Json;
 using UnityEditor;
@@ -20,6 +21,14 @@ namespace JeremyTools
             RoMethodObjects = new ReorderableList(MethodObjects, typeof(MethodObject), true, true, false, false);
             Base(name: "UIDelegate Node", normalStyleName: "flow node 2", selectedStyleName: "flow node 2 on",
                 rect: Rect, resize: true);
+            NodeEditorWindow.NodeEventSystem.OnDragPerform += OnDragPerform;
+        }
+
+        protected override void OnDragPerform(Event @event)
+        {
+            var data = DragAndDrop.GetGenericData("OutData");
+            var ui = DragAndDrop.GetGenericData("UIInConnectionPoint");
+            Connect(data as IConnectionOut, ui as UIInConnectionPoint);
         }
 
         public UIMultiDelegateNode(Rect rect)
@@ -53,12 +62,13 @@ namespace JeremyTools
 
             for (var i = 0; i < InConnectionPoints.Count; i++)
             {
-                InConnectionPoints[i].Rect.Set(Rect.x - 25, Rect.y + 25 * i, 25, 25);
+                var re = InConnectionPoints[i].Rect;
+                InConnectionPoints[i].Rect.Set(Rect.x - 25, Rect.y + 25 * i, re.width, re.height);
                 InConnectionPoints[i].Draw();
             }
 
             GUILayout.BeginArea(Rect);
-            if(RoMethodObjects == null)
+            if (RoMethodObjects == null)
             {
                 GUILayout.EndArea();
                 return;
@@ -71,11 +81,11 @@ namespace JeremyTools
             EditorGUILayout.EndVertical();
             EditorGUILayout.LabelField(typeof(CallbackBehaviour).FullName);
 
-            if(GUILayout.Button("DynamicInvoke"))
+            if (GUILayout.Button("DynamicInvoke"))
                 MethodObjects.ForEach(mo => { mo.DynamicInvoke(); });
 
 
-            if(MethodObjects.Count > 0)
+            if (MethodObjects.Count > 0)
             {
                 var props = MethodObjects[0]?.Target?.GetType().GetProperties();
                 var resultProperty = MethodObjects[0]?.Target?.GetType().GetProperty("ResultTuple");
@@ -95,7 +105,7 @@ namespace JeremyTools
 
         public bool Connect(IConnectionOut outConnection, UIInConnectionPoint inConnectionPoint)
         {
-            if(outConnection == null)
+            if (outConnection == null)
                 return false;
             var node = new DelegateNode(new InConnection(outConnection));
             MethodObjects.Add(node.Value as MethodObject);
@@ -104,7 +114,7 @@ namespace JeremyTools
 
         public bool DisconnectHandler(UIInConnectionPoint inConnectionPoint)
         {
-            if(!InConnectionPoints.Contains(inConnectionPoint))
+            if (!InConnectionPoints.Contains(inConnectionPoint))
                 return false;
             var index = InConnectionPoints.IndexOf(inConnectionPoint);
             Nodes.RemoveAt(index);

@@ -10,11 +10,6 @@ namespace ChuTools.Controller
     [Serializable]
     public class UIInConnectionPoint : UIElement
     {
-        public UIInConnectionPoint()
-        {
-
-        }
-
         public UIInConnectionPoint(Rect rect)
         {
             Base(name: "In", normalStyleName: "U2D.pivotDot", selectedStyleName: "U2D.pivotDotActive", rect: rect);
@@ -33,52 +28,52 @@ namespace ChuTools.Controller
             SelectedStyle.imagePosition = ImagePosition.ImageOnly;
         }
 
-
-        public bool ValidateConnection(IConnectionOut @out)
-        {
-
-            if(ConnectionState)
-                return false;
-
-            ConnectionState = _connectionResponse.Invoke(@out, this);
-
-            return ConnectionState;
-        }
-
-
         protected override void OnContextClick(Event e)
         {
-            if(!Rect.Contains(e.mousePosition))
+            if (!Rect.Contains(e.mousePosition))
                 return;
             var gm = new GenericMenu();
-            gm.AddItem(new GUIContent("Disconnect"), false, Disconnect);
+            gm.AddItem(new GUIContent("Disconnect"), false, () => { Debug.Log("nope"); });
             gm.ShowAsContext();
             e.Use();
         }
 
-        public void Disconnect()
+        protected override void OnDragUpdated(Event e)
         {
-            if(_disconnectResponse.Invoke(this))
+
+            if (Rect.Contains(e.mousePosition))
             {
-                Debug.Log("successful disconnect!");
-                NodeEditorWindow.OnConnectionCancelRequest(this);
-                ConnectionState = false;
+                DragAndDrop.visualMode = DragAndDropVisualMode.Link;
             }
-            else
-            {
-                Debug.Log("can not disconnect from this node");
-            }
+        }
+
+        protected override void OnDragPerform(Event e)
+        {
+            if (!Rect.Contains(e.mousePosition)) return;
+            Debug.Log("on drag perform " + Name + " " + ControlId);
+            DragAndDrop.SetGenericData("UIInConnectionPoint", this);
+            DragAndDrop.AcceptDrag();
+
+        } 
+        public override void Draw()
+        {
+            GUI.Box(Rect, GUIContent.none, EditorStyles.miniButton);
+            base.Draw();
+            
+
+        }
+        public override void OnMouseUp(Event e)
+        {
+            if (!Rect.Contains(e.mousePosition)) return;
+            Debug.Log("on mouse up " + Name + " " + ControlId);
+
         }
 
         public override void OnMouseDrag(Event e)
         {
-            if(!Rect.Contains(e.mousePosition))//this fixes the dragging
-                //this is bad because we dont want the nodes affecting the
-                //window state
+            if (!Rect.Contains(e.mousePosition))
                 return;
 
-            //if (NodeEditorWindow.CurrentSendingDrag == null) return;
-            //NodeEditorWindow.CurrentAcceptingDrag = this;
             GUI.changed = true;
         }
 
