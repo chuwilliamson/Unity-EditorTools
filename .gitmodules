@@ -1,0 +1,6 @@
+[submodule "Assets/EditorChuTools"]
+	path = Assets/EditorChuTools
+	url = https://github.com/chuwilliamson/congenial-guide.git
+[submodule "Assets/Editor/congenial-guide"]
+	path = Assets/Editor/congenial-guide
+	url = https://github.com/chuwilliamson/congenial-guide.git
