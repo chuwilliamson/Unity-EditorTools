@@ -26,8 +26,8 @@ namespace TrentTools
                 MethodName = "DoCompile"
             });
 
-            Out = new UIOutConnectionPoint(new Rect(this.rect.position, new Vector2(50, 50)), new OutConnection(Node));
-            Base(rect, "Script Node", resize: true);
+            Out = new UIOutConnectionPoint(new Rect(this.Rect.position, new Vector2(50, 50)), new OutConnection(Node));
+            Base(Rect, "Script Node", resize: true);
         }
 
         public UIRoslynNode(Rect rect)
@@ -39,7 +39,7 @@ namespace TrentTools
                 MethodName = "DoCompile"
             });
 
-            Out = new UIOutConnectionPoint(new Rect(this.rect.position, new Vector2(50, 50)), new OutConnection(Node));
+            Out = new UIOutConnectionPoint(new Rect(this.Rect.position, new Vector2(50, 50)), new OutConnection(Node));
             Base(rect, "Script Node", resize: true);
 
         }
@@ -106,9 +106,9 @@ namespace TrentTools
         public override void Draw()
         {
             base.Draw();
-            Out.rect = new Rect(rect.position.x + rect.width, rect.position.y, 50, 50);
+            Out.Rect = new Rect(Rect.position.x + Rect.width, Rect.position.y, 50, 50);
             Out.Draw();
-            GUILayout.BeginArea(rect);
+            GUILayout.BeginArea(Rect);
 
             GameObjectRef = EditorGUILayout.ObjectField((GameObject)GameObjectRef, typeof(GameObject), true);
 
