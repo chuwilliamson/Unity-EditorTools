@@ -1,11 +1,10 @@
-﻿using System.Collections;
-using System.Collections.Generic;
-using UnityEngine;
+﻿using UnityEngine;
 namespace Assessments.CrossPlatformDevelopment
 {
     [CreateAssetMenu]
     public class PlayerData : ScriptableObject
     {
+        [SerializeField]
         public float Value;
         private string _name;
         public int Id;
