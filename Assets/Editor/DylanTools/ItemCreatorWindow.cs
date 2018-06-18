@@ -25,7 +25,7 @@ namespace ItemWindow
         
         private Vector2 WindowSize;        
 
-        [UnityEditor.MenuItem("Tools/Item Creator")]
+        [UnityEditor.MenuItem("Tools/DylanTools/Item Creator")]
         public static void Init()
         {
             var window = ScriptableObject.CreateInstance<ItemCreatorWindow>();

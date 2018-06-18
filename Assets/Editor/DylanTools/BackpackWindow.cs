@@ -17,7 +17,7 @@ namespace BackpackViewerWindow
         private readonly List<ItemBackpackVisual> Items = new List<ItemBackpackVisual>();
         private Random random;
 
-        [UnityEditor.MenuItem("Tools/Backpack Viewer")]
+        [UnityEditor.MenuItem("Tools/DylanTools/Backpack Viewer")]
         public static void Init()
         {
             var window = ScriptableObject.CreateInstance<BackpackWindow>();

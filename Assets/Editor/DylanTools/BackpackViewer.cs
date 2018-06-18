@@ -1,4 +1,5 @@
-﻿using System.Collections;
+﻿using System;
+using System.Collections;
 using System.Collections.Generic;
 using EditorInterfaces;
 using ScriptableObjects;
@@ -82,7 +83,7 @@ namespace BackpackViewerWindow
         }   
 
         public void EnableResize()
-        {
+        {            
             if (Event.current.button == 0)
             {
                 if (ResizeRect.Contains(Event.current.mousePosition))

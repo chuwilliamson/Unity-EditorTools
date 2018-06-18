@@ -11,6 +11,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: bb9cceba6213b2348adcb6f51d9191dc, type: 3}
   m_Name: New Backpack Scriptable
   m_EditorClassIdentifier: 
-  Capacity: 0
-  Packables: []
+  Capacity: 12
+  Packables:
+  - {fileID: 11400000, guid: 8f2df285d1637fc44a1571afdb4b2cbd, type: 2}
   _Name: 
