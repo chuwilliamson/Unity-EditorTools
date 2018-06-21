@@ -1,6 +1,9 @@
 ﻿using UnityEngine;
 
-public class Globals
+namespace TrentTools
 {
-    public GameObject _GameObjectRef;
+    public class Globals
+    {
+        public GameObject _GameObjectRef;
+    } 
 }
