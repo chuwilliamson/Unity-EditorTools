@@ -18,24 +18,30 @@ public class EditorCallbackBehaviour : Editor
         _fields = GetType().GetFields();
     }
 
-    public static void DrawArray(ICollection array)
+    public static void DrawArray(Rect rect, ICollection array)
     {
-        EditorGUILayout.Space();
-        
+ 
         if (array == null || array.Count < 1)
         {
-            EditorGUILayout.LabelField(new GUIContent("no members"), EditorStyles.helpBox);
+            EditorGUI.LabelField(rect, new GUIContent("no members"), EditorStyles.helpBox);
             return;
         }
 
         foreach (var a in array)
         {
+          
             EditorGUI.indentLevel++;
-            EditorGUILayout.LabelField(a.ToString(), EditorStyles.miniLabel);
+            EditorGUI.LabelField(rect, a.ToString(), EditorStyles.miniLabel);
             EditorGUI.indentLevel--;
+            rect.y += 15;
+            rect.height += 15;
         }
+    }
 
-        EditorGUILayout.Space();
+    public static void DrawArray(ICollection array)
+    {
+        var lastrect = GUILayoutUtility.GetLastRect();
+        DrawArray(lastrect, array);
     }
 
     public void DrawLine()
@@ -43,7 +49,7 @@ public class EditorCallbackBehaviour : Editor
         EditorGUILayout.Space();
         var lr = GUILayoutUtility.GetLastRect();
         lr.position = new Vector2(lr.position.x, lr.position.y + lr.height);
-        
+
         Handles.DrawLine(lr.position, new Vector3(lr.position.x + Screen.width, lr.position.y, 0));
         EditorGUILayout.Space();
     }
