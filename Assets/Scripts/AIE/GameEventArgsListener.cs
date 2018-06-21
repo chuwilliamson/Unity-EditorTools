@@ -6,15 +6,15 @@ public class GameEventArgsListener : MonoBehaviour, IListener
     public ISubscribeable GameEvent;
     public List<GameEventArgsResponse> Responses;
 
-    //public virtual void OnEnable()
-    //{
-    //    Subscribe();
-    //}
+    public virtual void OnEnable()
+    {
+        Subscribe();
+    }
 
-    //public virtual void OnDisable()
-    //{
-    //    Unsubscribe();
-    //}
+    public virtual void OnDisable()
+    {
+        Unsubscribe();
+    }
 
     public void OnEventRaised(object[] args)
     {
